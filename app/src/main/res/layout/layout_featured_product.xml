@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <FrameLayout
+        android:id="@+id/containerBanner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp150"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/ivSliderImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/bannerimage" />
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent_black"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBlue"
+                android:fontFamily="@font/poppinssemibold"
+                android:padding="5dp"
+                android:text="@string/featured"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/dp16"
+                android:singleLine="true"
+                android:text="Rent a Brand New Maserati"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp14"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp16"
+                android:text="Only on"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp14"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp16"
+                android:fontFamily="@font/poppinssemibold"
+                android:text="Renting App"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/sp15" />
+
+            <TextView
+                android:id="@+id/btnInquireNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorRed"
+                android:paddingStart="@dimen/dp4"
+                android:paddingTop="@dimen/dp3"
+                android:paddingEnd="@dimen/dp4"
+                android:paddingBottom="@dimen/dp3"
+                android:text="@string/inquireNow"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>

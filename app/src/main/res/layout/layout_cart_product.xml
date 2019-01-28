@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp8">
+
+        <LinearLayout
+            android:id="@+id/llProductImage"
+            android:layout_width="@dimen/dp80"
+            android:layout_height="@dimen/dp100"
+            android:layout_margin="@dimen/dp8"
+            android:background="@drawable/border_item_rounded"
+            android:padding="@dimen/dp8">
+
+            <ImageView
+                android:id="@+id/ivProductImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_toEndOf="@id/llProductImage"
+            android:layout_toStartOf="@+id/ibRemove"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/dp8"
+            android:paddingStart="@dimen/dp8">
+
+            <TextView
+                android:id="@+id/tvProductCatogory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp4"
+                android:text="@string/next"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:paddingTop="@dimen/dp4"
+                android:text="@string/my_preciopus_gopro_hero_5_is_up_for_grabs_this_weekend_take_your_weekend_trips_to_the_next_level"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp13" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp4"
+                android:layout_marginBottom="@dimen/dp4"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPriceTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/sp12"
+                    android:text="@string/aed_50" />
+
+                <TextView
+                    android:id="@+id/tvPriceType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp8"
+                    android:textSize="@dimen/sp12"
+                    android:text="@string/per_day" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvProductLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/dp16"
+                android:drawableStart="@drawable/location"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:text="@string/mcDonalds_address"
+                android:textSize="@dimen/sp12" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/ibRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@null"
+            android:padding="@dimen/dp8"
+            android:src="@drawable/cross" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/llProductImage"
+            android:layout_marginTop="@dimen/dp8"
+            android:background="@color/lightGray" />
+
+    </RelativeLayout>
+
+</layout>

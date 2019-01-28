@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragment.SignupTwoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp10">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/dp10"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dp20"
+            android:text="@string/great_let_s_create_ypur_takeout_account_now"
+            android:textColor="@color/colorBlackShade"
+            android:textSize="@dimen/sp18" />
+
+        <structure.com.foodportal.helper.CustomTextInputLayout
+            android:id="@+id/ctEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etEmail"
+                style="@style/edittextstyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email_address"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress" />
+        </structure.com.foodportal.helper.CustomTextInputLayout>
+
+        <structure.com.foodportal.helper.CustomTextInputLayout
+            android:id="@+id/ctPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etPassword"
+                style="@style/edittextstyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp18"
+                android:hint="@string/password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:digits="@string/simple_digits"/>
+        </structure.com.foodportal.helper.CustomTextInputLayout>
+
+        <structure.com.foodportal.helper.CustomTextInputLayout
+            android:id="@+id/ctConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etConfirmPassword"
+                style="@style/edittextstyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp18"
+                android:hint="@string/confim_password"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:digits="@string/simple_digits"/>
+        </structure.com.foodportal.helper.CustomTextInputLayout>
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp24"
+            android:layout_marginTop="@dimen/dp24"
+            android:background="@drawable/roundcorner_button"
+            android:text="@string/next"
+            android:textAllCaps="true"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/signing_up" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/tvTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp4"
+                android:textColor="@color/colorBlue"
+                android:textStyle="bold"
+                android:text="@string/terms_of_use" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlackText"
+                android:text="@string/and" />
+
+            <TextView
+                android:id="@+id/tvPolicy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp4"
+                android:textColor="@color/colorBlue"
+                android:textStyle="bold"
+                android:text="@string/privacy_policy" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp15"
+            android:layout_marginEnd="@dimen/dp15"
+            android:orientation="vertical"
+            android:padding="@dimen/dp15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/dp10"
+                android:lineSpacingExtra="@dimen/dp5"
+                android:paddingBottom="@dimen/dp20"
+                android:text="@string/we_sent_you_a_code_to_verify_your_number"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlackButton"
+                android:textSize="@dimen/sp18" />
+
+            <structure.com.foodportal.fragment.PinEntryEditText
+                android:id="@+id/pinView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp20"
+                android:layout_marginBottom="@dimen/dp20"
+                android:background="@null"
+                android:cursorVisible="false"
+                android:digits="@string/number_digits"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="4"
+                android:paddingTop="@dimen/dp50"
+                android:paddingBottom="@dimen/dp10"
+                android:text=""
+                android:textColor="@color/colorTextGray"
+                android:textIsSelectable="false"
+                android:textSize="20sp"
+                android:visibility="visible"
+                app:pinBackgroundDrawable="@drawable/invite_border"
+                app:pinLineColors="@color/transparent"
+                app:pinTextBottomPadding="@dimen/dp20" />
+
+
+            <TextView
+                android:alpha="0.5"
+                android:id="@+id/tvResend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/dp10"
+                android:lineSpacingExtra="@dimen/dp5"
+                android:text="@string/did_nt_get_it_send_code_now"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlue"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp16" />
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tvTimer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/dp10"
+                android:lineSpacingExtra="@dimen/dp5"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/colorBlue"
+                android:textSize="@dimen/sp16" />
+
+
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp30"
+                android:layout_marginStart="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp10"
+                android:background="@drawable/roundcorner_button"
+                android:text="@string/verify"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

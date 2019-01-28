@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/itemBrand"
+    android:background="@color/home_color">
+
+    <android.support.design.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:strokeColor="@color/lightGray"
+        app:cardUseCompatPadding="true"
+        app:strokeWidth="0.5dp">
+
+        <ImageView
+            android:id="@+id/imgBrands"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/toyotalogo" />
+    </android.support.design.card.MaterialCardView>
+</RelativeLayout>

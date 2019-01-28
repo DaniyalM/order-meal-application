@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemCategory"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/home_color">
+
+    <android.support.design.card.MaterialCardView
+        android:id="@+id/contanierImage"
+        android:layout_width="@dimen/dp88"
+        android:layout_height="@dimen/dp88"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:strokeColor="@color/lightGray"
+        app:strokeWidth="0.5dp">
+
+        <ImageView
+            android:id="@+id/imgBrands"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp8"
+            android:scaleType="fitXY"
+            android:src="@drawable/placeholder" />
+    </android.support.design.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/txtProductCatogory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/contanierImage"
+        android:layout_alignStart="@+id/contanierImage"
+        android:layout_below="@+id/contanierImage"
+        android:layout_marginBottom="@dimen/dp4"
+        android:layout_marginTop="@dimen/dp4"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Apple"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/sp10"
+        android:textStyle="bold"/>
+</RelativeLayout>

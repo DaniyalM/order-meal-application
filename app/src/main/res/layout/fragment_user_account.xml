@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:colorBackground">
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_item_pic"
+                    android:layout_width="@dimen/dp80"
+                    android:layout_height="@dimen/dp80"
+                    android:layout_gravity="center_vertical|top"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/placeholder" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp">
+
+                    <TextView
+                        android:id="@+id/txtName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:fontFamily="@font/semiboldfont"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBlackShade"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toStartOf="@+id/btnEdit"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Emily Rose" />
+
+                    <ImageView
+                        android:id="@+id/btnEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/edit"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/txtName" />
+
+                    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                        android:id="@+id/mrOwnerRating"
+                        style="@style/Widget.MaterialRatingBar.RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:minHeight="15dp"
+                        android:isIndicator="true"
+                        app:layout_constraintTop_toBottomOf="@+id/btnEdit"
+                        app:mrb_progressTint="@color/colorBlue"
+                        app:mrb_secondaryProgressTint="@color/colorTextGray" />
+
+                    <TextView
+                        android:id="@+id/txtEmail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlackText"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mrOwnerRating"
+                        tools:text="emilyrose@gmail.com" />
+
+                    <TextView
+                        android:id="@+id/txtMobileNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="+123456789"
+                        android:textColor="@color/colorBlackText"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+
+                    <TextView
+                        android:id="@+id/txtAddress"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlackText"
+                        android:textSize="12sp"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtMobileNumber" />
+
+
+                    <TextView
+                        android:id="@+id/txtCountry"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlackText"
+                        android:textSize="12sp"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtAddress" />
+
+                </android.support.constraint.ConstraintLayout>
+
+            </LinearLayout>
+
+            <Button
+
+                android:id="@+id/btnAddproduct"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/roundcorner_button"
+                android:text="@string/addproduct"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+
+            <RelativeLayout
+                android:id="@+id/containerNoData"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/imgCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/emptycart" />
+
+                <TextView
+
+                    android:id="@+id/txtNoItems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/imgCart"
+                    android:layout_alignStart="@+id/imgCart"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:text="@string/noitemsfound"
+                    android:textColor="@color/colorBlackText"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <structure.com.foodportal.customViews.CustomRecyclerView
+                android:id="@+id/rvMyProducts"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_weight="1"
+                android:background="@color/bg_gray" />
+
+        </android.support.v7.widget.LinearLayoutCompat>
+    </RelativeLayout>
+</layout>

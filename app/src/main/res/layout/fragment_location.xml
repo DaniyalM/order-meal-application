@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:fillViewport="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:paddingTop="@dimen/dp15"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:layout_marginBottom="@dimen/dp10"
+                android:lineSpacingExtra="@dimen/dp5"
+                android:paddingBottom="@dimen/dp20"
+                android:text="@string/we_would_know_experience"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlackButton"
+                android:textSize="@dimen/sp18" />
+
+            <Button
+                android:layout_marginTop="@dimen/dp10"
+                android:id="@+id/btnPickLocation"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginEnd="@dimen/dp15"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_item_rounded_blue"
+                android:textStyle="bold"
+                android:text="@string/add_location"
+                android:textAllCaps="true"
+                android:textColor="@color/colorBlue" />
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/dp40"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp12"
+                android:paddingBottom="@dimen/dp12"
+                android:background="@color/colorLighterGrey">
+
+                <TextView
+                    android:text="SELECTED LOCATION"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/dp15"
+                    android:textColor="@color/colorDeepBrown"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_marginTop="@dimen/dp15"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="@dimen/dp15"
+                android:textSize="@dimen/dp18"
+                android:hint="Example :Barsha Flats  Dubai"
+                android:drawableStart="@drawable/location_signup"
+                android:drawableTint="@color/colorBlackButton"
+                android:maxLines="2"
+                android:ellipsize="marquee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_marginTop="@dimen/dp15"
+                android:background="@color/lightGray"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/dp10"
+            android:lineSpacingExtra="@dimen/dp5"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginStart="@dimen/dp48"
+            android:layout_marginEnd="@dimen/dp48"
+            android:textStyle="bold"
+            android:text="Review your pickup location and Press Next to continue"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlue"
+            android:textSize="@dimen/sp16" />
+
+
+        <Button
+            android:layout_marginStart="@dimen/dp15"
+            android:layout_marginEnd="@dimen/dp15"
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp30"
+            android:background="@drawable/roundcorner_button"
+            android:text="@string/next"
+            android:textAllCaps="true"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>
+    </ScrollView>
+</layout>

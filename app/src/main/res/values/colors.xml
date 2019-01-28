@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorTextGray">#767676</color>
+    <color name="colorBlue">#263b7a</color>
+    <color name="colorEmail">#0077a2</color>
+    <color name="colorDarkBlue">#04437e</color>
+    <color name="starColor">#0A5298</color>
+    <color name="colorRed">#CD2D36</color>
+    <color name="colorRedLight">#F5D6D6</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlackButton">#222222</color>
+    <color name="colorBlackShade">#353535</color>
+    <color name="colorBlackText">#7A7A7A</color>
+    <color name="colorBlackTextHint">#FFB9B9B9</color>
+    <color name="lightGray">#D9D9D9</color>
+    <color name="home_color">#F5F5F5</color>
+    <color name="home_color_bordered">#EAEAEE</color>
+    <color name="home_top_bg">#F5F5F5</color>
+    <color name="colorLightGreen">#60BB4E</color>
+    <color name="transparent">#00000000</color>
+    <color name="fbColor">#3E5690</color>
+    <color name="googleColor">#ea4335</color>
+    <color name="colorLighterGrey">#F5F5F5</color>
+    <color name="colorDeepBrown">#797979</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorStatusSuccess">#86AA18</color>
+    <color name="colorStatusWarning">#E87A39</color>
+    <color name="colorNewBlue">#0B569A</color>
+    <color name="colorNav">#013d55</color>
+</resources>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp15"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp18"
+                android:fontFamily="@font/semiboldfont"
+                android:text="@string/choose_delivery_address"
+                android:textAllCaps="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp20"
+                android:layout_marginBottom="@dimen/dp20"
+                android:background="@drawable/border_item_rounded"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_address"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lightGray" />
+
+                <TextView
+                    android:id="@+id/tvAddAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/location"
+                    android:drawableEnd="@drawable/rightarrow"
+                    android:drawablePadding="@dimen/dp10"
+                    android:drawableTint="@color/colorBlack"
+                    android:fontFamily="@font/semiboldfont"
+                    android:paddingStart="@dimen/dp10"
+                    android:paddingTop="@dimen/dp10"
+                    android:paddingEnd="@dimen/dp10"
+                    android:paddingBottom="@dimen/dp10"
+                    android:text="@string/add_new_address"
+                    android:textColor="@color/colorTextGray"
+                    android:textSize="@dimen/dp15" />
+
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp20"
+                android:background="@drawable/roundcorner_button"
+                android:text="@string/next"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+    <FrameLayout
+        android:padding="@dimen/dp8"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue">
+
+
+        <TextView
+            android:fontFamily="@font/regularfont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/grand_total"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:padding="@dimen/dp8"
+            android:textSize="@dimen/dp15" />
+
+        <TextView
+            android:id="@+id/tvGrandTotal"
+            android:fontFamily="@font/regularfont"
+            android:background="@color/colorDarkBlue"
+            android:gravity="end"
+            android:layout_gravity="end"
+            android:padding="@dimen/dp8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AED 200.00"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dp15" />
+
+
+
+
+    </FrameLayout>
+
+</LinearLayout>

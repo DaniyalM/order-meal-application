@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/dp10"
+        android:background="@color/colorBlue"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/a_l_l_d_o_n_e"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp20" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivPhoto"
+            android:layout_width="@dimen/dp100"
+            android:layout_height="@dimen/dp100"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginBottom="@dimen/dp30"
+            android:scaleType="centerCrop"
+            android:background="@drawable/profile_blue_circle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/w_e_l_o_c_o_m_e"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp20" />
+
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="JAMES CAMERON"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:layout_marginTop="@dimen/dp10"
+            android:textSize="@dimen/sp25" />
+
+
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp40"
+            android:background="@drawable/roundcorner_button_white"
+            android:text="@string/start"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlue"
+            android:textSize="@dimen/sp16" />
+
+    </LinearLayout>
+
+</layout>

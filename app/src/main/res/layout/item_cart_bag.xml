@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.design.card.MaterialCardView
+        android:layout_width="match_parent"
+        app:cardUseCompatPadding="true"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp10">
+
+        <android.support.design.card.MaterialCardView
+            android:layout_width="@dimen/dp120"
+            android:layout_height="@dimen/dp120"
+            app:cardUseCompatPadding="true"
+            android:background="@drawable/border_item_rounded"
+            android:padding="@dimen/dp8">
+
+            <ImageView
+                android:id="@+id/ivProductImage"
+                android:layout_width="match_parent"
+                android:padding="@dimen/dp2"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder" />
+
+        </android.support.design.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp5"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvproducttitle"
+                    android:layout_width="0dp"
+                    android:textAllCaps="true"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/gopro" />
+
+                <ImageView
+                    android:id="@+id/ivRemoveItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/dp5"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:padding="@dimen/dp5"
+                    android:src="@drawable/cross" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvproductdescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hero_5_waterproof_action_caemra_64gb"
+                android:textColor="@color/colorBlackButton"
+                android:textSize="@dimen/dp14" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dp5"
+                android:paddingTop="@dimen/dp5">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/tvproductprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aed_25"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/dp12" />
+
+                <TextView
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:id="@+id/tvproductper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:text="@string/per_day" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tvSelectDays"
+                    android:layout_gravity="center"
+                    android:paddingStart="@dimen/dp10"
+                    android:layout_marginStart="@dimen/dp10"
+                    android:paddingEnd="@dimen/dp10"
+                    android:drawablePadding="@dimen/dp15"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:drawableEnd="@drawable/downarrow"
+                    android:background="@drawable/border_item_rounded"
+                    android:layout_width="match_parent"
+                    android:text="1 Day"
+                    android:layout_height="25dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvproductlocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/dp5"
+                android:textSize="@dimen/dp10"
+                android:drawableStart="@drawable/location"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:text="@string/app_name" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    </android.support.design.card.MaterialCardView>
+</LinearLayout>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/rGbagAndStore"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rdBag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp15"
+            android:paddingBottom="@dimen/dp15"
+            android:text="@string/my_bag"
+            android:textColor="@drawable/radio_text_selecor"
+            android:textStyle="bold" />
+
+
+        <RadioButton
+            android:id="@+id/rdStore"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp15"
+            android:paddingBottom="@dimen/dp15"
+            android:text="@string/my_store"
+            android:textColor="@drawable/radio_text_selecor"
+            android:textStyle="bold" />
+
+    </RadioGroup>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightGray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+
+        <LinearLayout
+            android:background="@color/bg_gray"
+            android:id="@+id/llStore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/swapOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/llradioOrders"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/dp15">
+
+                            <RadioGroup
+                                android:background="@color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/rdpending"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:button="@null"
+                                    android:checked="true"
+                                    android:gravity="center"
+                                    android:paddingTop="@dimen/dp15"
+                                    android:paddingBottom="@dimen/dp15"
+                                    android:text="@string/pending_orders"
+                                    android:background="@drawable/orderhistory_selector"
+                                    android:textStyle="bold" />
+
+
+                                <RadioButton
+                                    android:id="@+id/rdcompleted"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:button="@null"
+                                    android:gravity="center"
+                                    android:paddingTop="@dimen/dp15"
+                                    android:paddingBottom="@dimen/dp15"
+                                    android:text="@string/completed_order"
+                                    android:background="@drawable/orderhistory_selector"
+                                    android:textStyle="bold" />
+
+                            </RadioGroup>
+
+
+                        </LinearLayout>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rvOrderHistory"
+                            android:visibility="visible"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:visibility="gone"
+                            android:id="@+id/llcartEmpty"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+                            <TextView
+                                android:id="@+id/tvEmpty"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textColor="@color/colorBlue"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/nothing_to_show"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </android.support.v4.widget.SwipeRefreshLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

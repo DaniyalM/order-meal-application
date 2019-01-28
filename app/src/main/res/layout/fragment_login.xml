@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragment.LoginFragment">
+
+    <ScrollView
+        android:background="@drawable/img_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="@dimen/dp20"
+            android:layout_marginStart="@dimen/dp20"
+            android:paddingTop="@dimen/dp42">
+
+            <TextView
+                android:layout_gravity="center"
+                android:background="@drawable/img_logo"
+                android:layout_width="@dimen/dp250"
+                android:layout_height="@dimen/dp92" />
+
+
+            <TextView
+                android:id="@+id/txtAppname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/semiboldfont"
+                android:text="@string/app_name"
+                android:textColor="@color/colorBlue"
+                android:textSize="@dimen/sp36"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <structure.com.foodportal.helper.CustomTextInputLayout
+                android:id="@+id/ctEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    style="@style/edittextstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:drawablePadding="@dimen/dp10"
+                    android:drawableStart="@drawable/email"
+                    android:backgroundTint="@color/white"
+                    android:hint="@string/email_address"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:text="" />
+            </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            <structure.com.foodportal.helper.CustomTextInputLayout
+                android:id="@+id/ctPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    style="@style/edittextstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp18"
+                    android:drawablePadding="@dimen/dp10"
+                    android:drawableStart="@drawable/pass"
+                    android:backgroundTint="@color/white"
+
+                    android:hint="@string/password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:text="" />
+            </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            <Button
+                android:id="@+id/btnSignin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp40"
+                android:background="@drawable/roundcorner_button"
+                android:text="@string/sign_in"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dp32"
+                android:text="@string/forgot_password"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnSignup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_item_rounded"
+                android:text="@string/signup"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnSignupFb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp40"
+                android:background="@drawable/roundcornerblue_button"
+                android:text="@string/sign_up_with_facebook"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnSignupGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp40"
+                android:background="@drawable/roundcornerred_button"
+                android:text="@string/signup_with_google"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvGuestSignin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dp20"
+                android:text="@string/guest_user_sign_in"
+                android:textColor="@color/colorBlackButton"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

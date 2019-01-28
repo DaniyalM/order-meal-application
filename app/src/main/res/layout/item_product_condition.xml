@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/product_classification"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/item_drawable"
+        android:drawablePadding="@dimen/dp8"
+        android:drawableTop="@drawable/conditionperfect"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dp16"
+        android:maxLines="2"
+        android:paddingTop="@dimen/dp24"
+        android:text="@string/conditon_perfect"
+        android:textColor="@color/colorBlackButton"
+        android:textSize="@dimen/sp13"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+
+        />
+
+</RelativeLayout>

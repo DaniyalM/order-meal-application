@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="@dimen/dp15"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+    <Spinner
+        android:id="@+id/spCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.9"
+        android:text="@string/select_category"
+        android:background="@null"
+        app:ms_hide_arrow="true" />
+    <Spinner
+        android:id="@+id/spCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.9"
+        android:text="@string/select_category"
+        android:background="@null"
+        app:ms_hide_arrow="true" />
+
+    <Button
+        android:id="@+id/btnApply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp40"
+        android:background="@drawable/roundcorner_button"
+        android:text="@string/apply"
+        android:textAllCaps="true"
+        android:textColor="@color/white" />
+
+</LinearLayout>

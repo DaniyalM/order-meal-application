@@ -1,0 +1,546 @@
+<resources>
+    <string name="app_name">Food Portal</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password">Password</string>
+    <string name="email_address">Email Address</string>
+    <string name="sign_in">Sign In</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="forgot_passwords">Forgot Password</string>
+    <string name="err_passwords_match">Password doesn\'t match.</string>
+    <string name="err_email">Invalid Email</string>
+    <string name="err_password">Invalid Password</string>
+    <string name="signup">Signup</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="dont_have_an_account">Don\'t have an account</string>
+    <string name="guest">Guest</string>
+    <string name="hi_what_is_your_name">Hi. What is your name?</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="next">Next</string>
+    <string name="confim_password">Confirm Password</string>
+    <string name="i_agree_to">I agree to</string>
+    <string name="terms_condition"><![CDATA[Terms & Conditions]]></string>
+    <string name="terms_condition_more">of posting an ad with Renting</string>
+    <string name="and">and</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="add_a_profile_picture">Add a profile picture</string>
+    <string name="make_it_classy">Make it Classy!</string>
+    <string name="select_photo">Select Photo</string>
+    <string name="retake">Retake</string>
+    <string name="looking_good">Looking good!</string>
+    <string name="confirm">Confirm</string>
+    <string name="start">start</string>
+    <string name="a_verification_code_has_been_sent_to_your_mobile_number">A verification code has been sent \n to your mobile number</string>
+    <string name="submit">Submit</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="enter_new_password">Enter New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="to_identify_you_we_need_your_phone_number_number">To identify you,\nWe need your phone number</string>
+    <string name="to_reset_your_password_please_enter_your_phone_number">To reset your password, please enter \n your phone number</string>
+    <string name="great_let_s_create_ypur_takeout_account_now">Great, let\'s create your  \n account now</string>
+    <string name="agree_term"><![CDATA[Agree term & condition and privcy policy]]></string>
+    <string name="image_required">Image required</string>
+    <string name="w_e_l_o_c_o_m_e">W E L C O M E</string>
+    <string name="a_l_l_d_o_n_e">A L L \u0020 \u0020D O N E !</string>
+    <string name="e_g_burgers_pizza">e.g. Burgers,Pizza...</string>
+    <string name="view_all">View More</string>
+    <string name="nearby_resturants">Nearby Resturants</string>
+    <string name="fast_food_fries_icecream">Fast Food \u2022 Fries \u2022Icecream</string>
+    <string name="home">Home</string>
+    <string name="cart">Cart</string>
+    <string name="my_orders">My Orders</string>
+    <string name="my_account">My Account</string>
+    <string name="nearby_rest">Nearby Resturants</string>
+    <string name="simple_digits">ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890,.;:[]{}?)(*^%$#@! abcdefghijklmnopqrstuvwxyz</string>
+    <string name="number_digits">1234567890</string>
+    <string name="no_products_found">no products found</string>
+    <string name="example_mileage">Example: 10000</string>
+    <string name="example_megapixels">Example: 12</string>
+    <string name="example_area">Example: 240</string>
+    <string name="example_os">Example: Android</string>
+    <string name="example_processor">Example: Snapdragon 660</string>
+    <string name="total_area">Total Area (Sq. Feet)</string>
+    <string name="minimum_age_error">Minimum required age is 1 Year</string>
+    <string name="enter_birthdate">Enter Birthdate</string>
+    <string name="age">Age</string>
+    <string name="year">Year</string>
+    <string name="years">Years</string>
+    <string name="expandable_memory">Expandable Memory</string>
+    <string name="smart_features">Smart Features</string>
+    <string name="pets_allowed">Pets Allowed</string>
+    <string name="select_type">Select Type</string>
+
+    <!-- Menu Details -->
+    <string name="mcDonalds">McDonald\'s</string>
+    <string name="mcDonalds_num">+1 123 12345</string>
+    <string name="mcDonalds_address">C10, 29th Floor, I Rise tower, Barsha</string>
+    <string name="bestsellers">Bestsellers</string>
+    <string name="lorem">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here</string>
+    <string name="guest_user_sign_in">Guest User Sign In</string>
+    <string name="signup_with_google">Signup with google</string>
+    <string name="sign_up_with_facebook">Sign up with facebook</string>
+    <string name="take_away">Take Away</string>
+    <string name="aed">AED</string>
+    <string name="sub_total">Sub Total</string>
+    <string name="promo_code">Promo Code</string>
+    <string name="discount">Discount</string>
+    <string name="total">Total</string>
+    <string name="delivery_to_car">Delivery to car</string>
+    <string name="self_collection">Self collection</string>
+    <string name="contact_info">Contact Info</string>
+    <string name="prepration_time">Prepration Time</string>
+    <string name="add_to_cart">ADD TO CART</string>
+    <string name="place_order">Place Order</string>
+    <string name="my_cart">My Cart</string>
+    <string name="total_inv">Total (inc. VAT)</string>
+    <string name="choose_your_payment_option">CHOOSE YOUR PAYMENT OPTION</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="cash_on_delivery">Cash On Delivery</string>
+    <string name="apple_pay">Apple Pay</string>
+    <string name="payment">Payment</string>
+    <string name="are_you_sure_exit">Are you sure you want to exit the App?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="back_to_resturants">Back To Restaurants</string>
+    <string name="you_haven_t_added_anything_n_to_your_cart">You haven\'t added anything \n to your cart</string>
+    <string name="your_cart">Your Cart</string>
+    <string name="implementdialog">To be Implemented</string>
+    <string name="your_order_has_been_placed">Your Order Has Been Placed</string>
+    <string name="order_id">Order ID</string>
+    <string name="pickup_time">Pickup Time</string>
+    <string name="order_type">Order Type</string>
+    <string name="delivery_to_car_u"><u>Delivery To Car</u></string>
+    <string name="lets_quickly_setup">Lets\'s quickly setup your\nRenting account</string>
+    <string name="getstarted">Get Started</string>
+    <string name="have_an_account">Have an Account?</string>
+    <string name="or">OR</string>
+    <string name="proceedwithguest">Proceed as Guest</string>
+    <string name="gopro">GoPro</string>
+    <string name="hero_5_waterproof_action_caemra_64gb">Hero 5 waterproof action caemra 64gb</string>
+
+    <string name="orderHistory">Order History</string>
+    <string name="orderDetail">Order Detail</string>
+    <string name="changePassword">Change Password</string>
+    <string name="aboutUs">About Us</string>
+    <string name="rateApp">Rate the App</string>
+    <string name="termCondition"><![CDATA[Terms & Conditions]]></string>
+    <string name="privacyPolicy">Privacy Policy</string>
+    <string name="logout">Log out</string>
+    <string name="searchHere">Search Here…</string>
+    <string name="justForYou">JUST FOR YOU</string>
+    <string name="thisJustIN">THIS JUST IN</string>
+    <string name="topViewed">TOP VIEWED</string>
+    <string name="topCategories">BROWSE OUR TOP CATEGORIES</string>
+    <string name="exploreTopBrands">EXPLORE TOP BRANDS</string>
+    <string name="itemForRent">Items For Rent</string>
+    <string name="itemForSale">Items For Sale</string>
+    <string name="featured">Featured</string>
+    <string name="inquireNow">Inquire Now</string>
+    <string name="newText">New</string>
+
+    <string name="product_description">Product Description</string>
+    <string name="my_preciopus_gopro_hero_5_is_up_for_grabs_this_weekend_take_your_weekend_trips_to_the_next_level">My Preciopus GoPro Hero 5 is up for grabs this weekend. Take your weekend trips to the next level</string>
+    <string name="conditon_perfect">Conditon Perfect</string>
+    <string name="terms_of_use">Terms of Use</string>
+    <string name="location">Location</string>
+    <string name="location_data">Location Data</string>
+    <string name="payment_options">Payment Options</string>
+    <string name="payonline">Pay Online</string>
+    <string name="payonline_not">Pay Online is not available</string>
+    <string name="not_return">Pay on return is not available on this item</string>
+    <string name="yes_return">Pay on return available on this item</string>
+    <string name="cash_on_collection">Cash on collection of item</string>
+    <string name="cash_on_collection_not">Cash on collection of item is not available</string>
+    <string name="email">Email</string>
+    <string name="sms">SMS</string>
+    <string name="call">Call</string>
+    <string name="rentnow">Rent Now</string>
+    <string name="detail">Detail</string>
+    <string name="aed_25">AED 25</string>
+    <string name="greetings_how_do_you_plan_to_make_money_today">Greetings! How do you plan to make money today?</string>
+    <string name="i_am_here_to">I am here to</string>
+    <string name="rent_only">Rent Only</string>
+    <string name="sale_only">Sale Only</string>
+    <string name="enter_title">Enter the title here (Example : Comaro 2018 V8)</string>
+    <string name="select_category">Select Category</string>
+    <string name="select_sub_category">Select Sub Category</string>
+    <string name="choose_brand">Select Brand</string>
+    <string name="choose_model">Select Model</string>
+    <string name="addproduct">Add Product</string>
+    <string name="editproduct">Edit Product</string>
+    <string name="compressing_image_please_wait">Wait for compressing image...</string>
+    <string name="fiveimages">Five Images</string>
+    <string name="delete">Delete</string>
+    <string name="are_you_sure_you_want_to_delete_the_pic">Are you sure you want to delete this picture?</string>
+    <string name="no">No</string>
+    <string name="how_much_do_you_plan_to_charge_for_your_item">How much do you plan to charge for your item?</string>
+    <string name="enter_your_per_day_amount">Enter your per day amount</string>
+    <string name="enter_your_selling_amount">Enter your selling amount</string>
+    <string name="i_want_to_charge">I Want to Charge</string>
+    <string name="i_plan_to_accept_payments">I Plan to Accept Payments</string>
+    <string name="cash_collection">Cash On Collection</string>
+    <string name="cash_on_return">Cash on Return</string>
+    <string name="select_available_days">Select Available Days</string>
+    <string name="product_plan">Product Plan</string>
+    <string name="fri_sat_sun_repeated_every_week">Fri, Sat, Sun (Repeated Every Week)</string>
+    <string name="select_location_map">Select location on map</string>
+    <string name="item_can_be_collected_from">Item can be collected from</string>
+
+    <string name="posted">Posted</string>
+    <string name="by">by</string>
+    <string name="homeTitle">Rent 4 Less</string>
+
+
+    <string name="tell_us_a_bit_more_about_your_product">Tell us a bit more about your product!</string>
+    <string name="enter_product_model_number">Enter Product Model Number</string>
+    <string name="select_product_year">Select Product Year</string>
+    <string name="enter_kilometers">Enter Kilometers</string>
+    <string name="enter_megapixels">Enter Megapixels</string>
+    <string name="select_number_of_doors">Select number of doors</string>
+    <string name="select_colors">Select color</string>
+    <string name="select_fuel_type">Select fuel type</string>
+    <string name="processor">Processor</string>
+    <string name="operating_system">Operating System</string>
+    <string name="select_bedrooms">Select numbers of bedrooms</string>
+    <string name="select_bathrooms">Select numbers of bathrooms</string>
+    <string name="select_product_condition">Select Product Condition</string>
+    <string name="select_seller_type">Select Seller Type</string>
+    <string name="select_cellular_type">Select Cellular Type</string>
+    <string name="select_warranty">Select Warranty</string>
+    <string name="select_screensize">Select screen size</string>
+    <string name="total_cheques">Total Cheques</string>
+    <string name="select_cheques">Select cheques</string>
+    <string name="balconies_number">Balconies Number</string>
+    <string name="select_balconies">Select number of balconies</string>
+    <string name="does_it_have_accessories">Does it have accessories?</string>
+    <string name="how_is_it_looking">How is it Looking?</string>
+    <string name="how_old_is_the_product">How old is the product?</string>
+    <string name="original">Original</string>
+    <string name="replacement">Replacement</string>
+    <string name="none">None</string>
+    <string name="add_product_detail">Add Product Detail</string>
+    <string name="type_your_message_here">Type your message here</string>
+    <string name="add_guidelines_and_terms_of_use">Add Guidelines and Terms of Use</string>
+    <string name="dummy_text">Your product photos leave an impression on potential customers, reflect your brand and represent your product’s quality. So, first thing’s first: Ensure you use high-quality images.It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here</string>
+    <string name="dummy_textsecond">POW reserves the right to update and change the Terms of Service by posting updates and changes to the POW website. You are advised to check the Terms of Service from time to time for any updates or changes that may impact you. By placing your order with POW, you acknowledge that you have read, agree with and accept all of the terms and conditions contained in this Terms of Service agreement, including POW’s General Shooting Direction Policy.It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here</string>
+    <string name="i_understand_and_accept_the">I understand and accept the</string>
+    <string name="example_nu7100">Example : NU7100</string>
+    <string name="about_product">About Product</string>
+    <string name="enter_location_here_example_barsha_south">Enter Location here Example : Barsha South</string>
+    <string name="write_address">Write Address Here …</string>
+    <string name="finish">Finish</string>
+    <string name="google_maps_key">AIzaSyBGBoyI_WZeG1T_vngzH62codf8yE4SBPc</string>
+
+    <string name="product_added">Product Added Successfully</string>
+    <string name="product_updated">Product Updated</string>
+    <string name="no_connection">No Internet Connection</string>
+    <string name="categories">Categories</string>
+    <string name="products">Products</string>
+    <string name="categoryError">Please Select a Category</string>
+    <string name="subCategoryError">Please Select a Sub Category</string>
+    <string name="brandError">Please select a Brand</string>
+    <string name="modelError">Please select a Model</string>
+    <string name="titleError">Please Enter a Product Title</string>
+    <string name="imagesError">Please Add atleast 1 image of the Product</string>
+
+    <string name="no_data_available">No Data Available</string>
+    <string name="model">Model </string>
+    <string name="condition">Condition </string>
+    <string name="yearUsed">Year Used </string>
+    <string name="accessories">Accessories </string>
+
+    <string name="amountError">Enter Amount</string>
+    <string name="rentError">Select Charge Type</string>
+    <string name="daysError">Select Days</string>
+    <string name="paymentError">Select Payment Type</string>
+    <string name="locationError">Pick up a location</string>
+    <string name="modelnumError">Enter Product model number</string>
+    <string name="yearError">Select Year</string>
+    <string name="conditionError">Select Product Condition</string>
+    <string name="accessoryError">Select Accessory</string>
+    <string name="productDetailyError">Please Enter product detail</string>
+    <string name="guidelinesError">Please Enter Product Use and Guidelines</string>
+    <string name="termsError">Select Terms and Conditon</string>
+    <string name="did_nt_get_it_send_code_now">Didn\'t get it? Send New Code</string>
+    <string name="we_sent_you_a_code_to_verify_your_number">We sent you a code to\nverify your number</string>
+    <string name="verify">Verify</string>
+    <string name="add_location">ADD LOCATION</string>
+    <string name="enter_pin">Enter Pin</string>
+    <string name="login">Login</string>
+
+    <string name="noitemsfound">No Items Found</string>
+    <string name="to_reset_your_password_enter_the_email_address_that_you_used_to_register">To reset your password enter the Email Address that you used to register</string>
+
+    <string name="message_logout">Are you sure you want to logout?</string>
+    <string name="fname_error">First name is required</string>
+    <string name="lname_error">Last name is required</string>
+    <string name="samepass_error">Passwords do not match</string>
+    <string name="confirmpass_error">Confirm Password is required</string>
+    <string name="pass_error">Password is required</string>
+    <string name="logout_success">Logged out Successfully</string>
+    <string name="login_success">Logged in successfully</string>
+    <string name="please_login_notification">Please login to continue</string>
+    <string name="please_login_addprodcuts">Please login to add products</string>
+    <string name="please_login_viewcart">Please login to view cart</string>
+    <string name="select_available_days_dots">Select Available Days…</string>
+    <string name="nothing_selected">Nothing is selected</string>
+    <string name="max_images_selected_error">Maximum 5 images can be uploaded</string>
+
+    <!-- Edit Profile -->
+    <string name="name_digits">ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 abcdefghijklmnopqrstuvwxyz()-,</string>
+    <string name="alphabets_digits">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz</string>
+    <string name="edit_account">Edit Account</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="address">Address</string>
+    <string name="city">City</string>
+    <string name="country">Country</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="update">Update</string>
+    <string name="name_error">Enter Name</string>
+    <string name="no_change_profile">There is no Change in Profile.</string>
+
+    <string name="phone_number_error">Enter Phone Number</string>
+    <string name="address_error">Add Address</string>
+    <string name="zipcode_error">Enter Zip Code</string>
+    <string name="image_finding_error">Error Finding Image</string>
+    <string name="upload_profile_picture">Upload Profile Picture</string>
+    <string name="select_country">Select Country</string>
+    <string name="select_city">Select City</string>
+    <string name="no_country_found">No Country Found</string>
+    <string name="no_city_found">No City Found</string>
+
+    <string name="product_delete_message">Are you sure you want to delete this product ?</string>
+    <string name="currentpassword">Current Password</string>
+    <string name="new_password">New Password</string>
+
+    <string-array name="days">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
+    <string name="all_days">All Days</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+
+    <!-- Signup -->
+    <string name="already_have_account">I Already have an account?</string>
+    <string name="sign_in_now">Sign In Now</string>
+    <string name="signing_up">By signing up, you accept our</string>
+    <string name="we_would_know_experience">We would like to know your location for personalized experience</string>
+    <string name="never_signup_with_phone_number">Remember - Never sign up with\nanother person\'s phone number</string>
+    <string name="change_location">Change Location</string>
+    <string name="without_picture">Continue without picture ?</string>
+    <string name="confirmation_profile_picture">Are you sure you want to use app without adding profile picture ?\nYou can later add profile picture from Edit Account.</string>
+    <string name="skip">Skip</string>
+    <string name="code_has_been_resend">Code has been resent to your mobile number</string>
+
+    <!-- Product Detail -->
+    <string name="call_phone">Call Phone</string>
+    <string name="call_phone_surety">Do you want to make phone call</string>
+    <string name="sms_surety">Do you want to send SMS</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="credit_card_num">Credit Card Number</string>
+    <string name="cvv">CVV</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="name_on_card">Name on Card</string>
+    <string name="john_doe">John Doe</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="vat_chargers_5">VAT Chargers (5%)</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="checkout">Checkout</string>
+    <string name="choose_a_brand">Choose a brand</string>
+    <string name="select">Select</string>
+    <string name="send_sms">Send SMS</string>
+    <string name="send_email">Send Email</string>
+    <string name="email_surety">Do you want to send Email</string>
+
+    <!-- Cart -->
+    <string name="aed_50">AED 50</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="invoice">Invoice</string>
+    <string name="renting_app">Renting app</string>
+    <string name="thank_you_for_shopping_with">Thank you for Shopping with</string>
+    <string name="continue_shopping">Continue Shopping</string>
+    <string name="mybag">My Bag</string>
+    <string name="mystore">My Store</string>
+    <string name="verification">verification</string>
+    <string name="confirmation_witoutpin">Are you sure you dont want to verify your account?</string>
+    <string name="lenght_pass_error">Password should be greater than 6 character</string>
+    <string name="error_phone_number">Phone Number Length must be greater than 8</string>
+    <string name="phone_number_reqired">Phone Number required</string>
+    <string name="for_sale">For Sale</string>
+    <string name="select_rent_type">Select Rent Type</string>
+    <string name="no_rent_type_found">No Rent Type Found</string>
+    <string name="per_hour">Per Hour</string>
+    <string name="per_day">Per Day</string>
+    <string name="per_week">Per Week</string>
+    <string name="per_month">Per Month</string>
+
+    <!-- Credit Card -->
+    <string name="enter_card_number">Enter Card Number</string>
+    <string name="digits_numbers_only">1234567890</string>
+    <string name="digits_numbers_only_separator">1234567890/</string>
+    <string name="mm_yy">MM/YY</string>
+    <string name="delivery_charges">Delivery Charges</string>
+    <string name="total_before_vat">Total Before VAT</string>
+    <string name="repuired_email">Email is Required</string>
+    <string name="new_pass_error">New Password required</string>
+    <string name="invalid_pass_lengh">Length must be greater than 4 digits</string>
+    <string name="invalid_conf_pass_lengh">Length must be greater than 4 digits</string>
+
+    <!-- Login, Signup, Change & Reset Passwords Screen -->
+    <string name="current_password_required">Current Password is Required</string>
+    <string name="password_required">Password is Required</string>
+    <string name="confirm_password_required">Confirm Password is Required</string>
+    <string name="password_characters">Password must be at least 6 characters long</string>
+    <string name="password_changed">Password has been changed successfully</string>
+    <string name="password_reset">Password has been reset successfully</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="cannot_mark_own_product_favorite">You can not mark your own product as favourite</string>
+    <string name="cannot_add_own_product_to_cart">You can not add your own product in cart</string>
+    <string name="seller_details_unavailable">Seller details is unavailable</string>
+    <string name="seller_email_unavailable">Seller email address is unavailable</string>
+
+    <string name="guest_favorite_unavailable">Guest cannot mark favourite</string>
+    <string name="permission_denied">If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]</string>
+    <string name="share_image_via">Share Image Via…</string>
+    <string name="no_email_client">No email client installed</string>
+
+    <string name="completed_order">Completed Order</string>
+    <string name="pending_orders">Pending Orders</string>
+    <string name="my_bag">My Bag</string>
+    <string name="my_store">My Store</string>
+
+    <string name="choose_your_payment_method">CHOOSE YOUR PAYMENT METHOD</string>
+    <string name="cash_on_pickup">Cash on Pickup</string>
+
+    <!-- Order Rating -->
+    <string name="rate_product">Rate Product</string>
+    <string name="rate_seller">Rate Seller</string>
+    <string name="rate_review">Review</string>
+
+    <string name="product_seller_rated">Product and Seller have been rated.</string>
+
+    <string name="customername">Customer Name</string>
+    <string name="order_date">Order Date</string>
+    <string name="status">Status</string>
+
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+
+    <!-- Order History -->
+    <string name="order_pickup_date_time">Order Pickup Date / Time</string>
+    <string name="dummy_pickup_date_time">December 1, 2018 at 11:25 PM</string>
+    <string name="duration">Duration</string>
+    <string name="days_2">2 Days</string>
+    <string name="seller">Seller</string>
+    <string name="order_status">Order Status</string>
+    <string name="rate_now">Rate Now</string>
+    <string name="ready_to_be_picked">Your order is ready to be picked</string>
+    <string name="ready_to_be_approved">Your order is pending to be approved</string>
+    <string name="ready_to_be_completed">Your order is completed</string>
+    <string name="order_rejected">Your order has been rejected</string>
+    <string name="order_received">Order Received</string>
+    <string name="day_singular">day</string>
+    <string name="days_plural">days</string>
+    <string name="hour_singular">hour</string>
+    <string name="hour_plural">hours</string>
+    <string name="week_singular">week</string>
+    <string name="week_plural">weeks</string>
+    <string name="month_singular">month</string>
+    <string name="months_plural">months</string>
+    <string name="do_you_want_to">Do you want to ?</string>
+    <string name="call_seller">Call Seller</string>
+    <string name="message_seller">Message Seller</string>
+    <string name="no_orders_to_show">No orders to show</string>
+    <string name="receive_confirmation">Receive Confirmation</string>
+    <string name="receive_confirmation_message">Are you sure, you have received your order ?</string>
+    <string name="not_available">Not available</string>
+    <string name="order_details_not_found">Order details not found</string>
+
+    <!-- Notifications Fragment -->
+    <string name="notifications">Notifications</string>
+    <string name="no_notifications_to_show">No notifications to show</string>
+
+    <string name="pickup_date_time">Pickup Date/Time</string>
+    <string name="pick_date_time">Pick Date and Time</string>
+    <string name="for_rent">For Rent</string>
+    <string name="please_login_rentitem">Please login to rent item</string>
+    <string name="please_login_viewnotifications">Please login to view notifications</string>
+    <string name="accepted">Accepted</string>
+    <string name="canceled">Canceled</string>
+    <string name="pending">Pending</string>
+    <string name="completed">Completed</string>
+    <string name="nothing_to_show">Nothing to show</string>
+    <string name="office">Office</string>
+    <string name="ingic_solution_llc_i_rise_tower_c_10">INGIC Solution LLC ,i-Rise Tower, C-10</string>
+    <string name="barsha_heights_tecom_dubai">Barsha Heights,Tecom,Dubai</string>
+    <string name="_97184263478">97184263478</string>
+    <string name="choose_delivery_address">Choose Delivery Address</string>
+    <string name="add_new_address">Add New Address</string>
+    <string name="delivery_address">DELIVERY ADDRESS</string>
+    <string name="apply">Apply</string>
+    <string name="alert">Alert</string>
+    <string name="remove_from_cart_message">Are you sure you want to remove this item from cart?</string>
+    <string name="rent_now_message">Are you sure you want to rent this item?</string>
+    <string name="add_to_cart_message">Are you sure you want to add this item to cart?</string>
+    <string name="bio">Bio (optional)</string>
+    <string name="compatibility">Compatibility</string>
+    <string name="example_compatibility">Write compatibility</string>
+    <string name="yearkilometer">Kilometer required</string>
+    <string name="areaerror">Enter Total Area</string>
+    <string name="classified">Classified</string>
+    <string name="property">Property</string>
+    <string name="autopart">Auto Part</string>
+    <string name="kilometers">Kilometers</string>
+    <string name="megapixel">Mega Pixel</string>
+    <string name="screensize">Screen Size</string>
+    <string name="color">Color</string>
+    <string name="fueltype">Fuel Type</string>
+    <string name="type">Type</string>
+    <string name="bedroom">Bed Rooms</string>
+    <string name="bathroom">Bath Rooms</string>
+    <string name="warranty">Warranty</string>
+    <string name="balconies">Balconies</string>
+    <string name="sellertype">Seller type</string>
+    <string name="cellulartype">Cellular type</string>
+    <string name="doors">Doors</string>
+    <string name="title">Title</string>
+    <string name="make">Make</string>
+    <string name="brand">Brand</string>
+    <string name="titlerequired">Title required</string>
+    <string name="agerequired">Select Age</string>
+    <string name="entertitle">Enter title</string>
+    <string name="operating_system_required">Enter Operating System</string>
+    <string name="processor_required">Enter Processor</string>
+    <string name="recipes">Recipes</string>
+    <string name="tutorials">Tutorials</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="login_with_email">Login with Email</string>
+    <string name="your_recipe_are_waiting">Your recipes are waiting</string>
+    <string name="unlock_cooking_food_recipes_and_your_personal_recipe_box_with_a_free_trial">Unlock Cooking Food recipes and your personal recipe box with a free trial</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="cooking_food">Cooking Food</string>
+    <string name="cleaning">Cleaning</string>
+    <string name="cooking_guides">Cooking Guides</string>
+    <string name="recently_viewed">Recently viewed</string>
+    <string name="submit_your_recipe">Submit your recipe</string>
+    <string name="my_reviews">My Reviews</string>
+    <string name="my_saved_recipes">My Saved Recipes</string>
+    <string name="serving">Serving for</string>
+</resources>

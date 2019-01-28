@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "689912152399",
+    "firebase_url": "https://rentingapp-220512.firebaseio.com",
+    "project_id": "rentingapp-220512",
+    "storage_bucket": "rentingapp-220512.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689912152399:android:466c34f41b7d1e4a",
+        "android_client_info": {
+          "package_name": "structure.com.foodportal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689912152399-cvf7af9iu1hf0m420juliq07f5v8e1fq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE5HHiN8X1RxEat6PcUxPvT9NDEYBulEc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

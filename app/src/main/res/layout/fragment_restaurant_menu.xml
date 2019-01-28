@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/lightGray"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp200"
+                        android:scaleType="centerCrop"
+                        android:background="@color/colorRed" />
+
+                    <ImageView
+                        android:id="@+id/ivBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:padding="@dimen/dp16"
+                        android:src="@drawable/backbtn_white" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp16"
+                        android:layout_weight="0.23"
+                        android:src="@drawable/profile_blue_circle" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.77"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="@dimen/dp16">
+
+                        <TextView
+                            android:id="@+id/tvRestaurantName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="@string/mcDonalds"
+                            android:textColor="@color/colorBlackText"
+                            android:textSize="@dimen/sp18"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvRestaurantPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp4"
+                            android:layout_marginTop="@dimen/dp4"
+                            android:maxLines="1"
+                            android:text="@string/mcDonalds_num" />
+
+                        <TextView
+                            android:id="@+id/tvRestaurantAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="@string/mcDonalds_address" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp16"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp16"
+                        android:maxLines="1"
+                        android:text="@string/bestsellers"
+                        android:textColor="@color/colorBlackText"
+                        android:textSize="@dimen/sp16" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp16"
+                        android:nestedScrollingEnabled="false" />
+
+                    <structure.com.foodportal.helper.ExpandableListViewCustom
+                        android:id="@+id/expanded_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:divider="@null"
+                        android:groupIndicator="@null"
+                        android:nestedScrollingEnabled="false" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorRed"
+            android:orientation="horizontal"
+            android:padding="@dimen/dp5">
+
+            <TextView
+                android:id="@+id/tvCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_marginStart="@dimen/dp5"
+                android:layout_weight="1"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/tvCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_item_rounded"
+                android:paddingBottom="@dimen/dp5"
+                android:paddingEnd="@dimen/dp8"
+                android:paddingStart="@dimen/dp8"
+                android:paddingTop="@dimen/dp5"
+                android:text="@string/add_to_cart"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/tvFPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AED 0"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/dp5"
+                android:gravity="end"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

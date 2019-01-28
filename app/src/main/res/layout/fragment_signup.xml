@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:ci_drawable="@drawable/indicatordrawable"
+            app:ci_drawable_unselected="@drawable/unselectedindicator"
+            app:ci_height="@dimen/dp2"
+            app:ci_margin="@dimen/dp10"
+            app:ci_width="@dimen/dp30" />
+
+        <structure.com.foodportal.helper.CustomViewPager
+            android:id="@+id/vpSignup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,1332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp25"
+            android:layout_marginEnd="@dimen/dp20"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp30"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/dp5"
+                android:text="@string/tell_us_a_bit_more_about_your_product"
+                android:textColor="@color/colorBlackButton"
+                android:textSize="@dimen/sp20" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="@string/item_can_be_collected_from"
+                android:textColor="@color/colorBlackButton"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+            <structure.com.foodportal.helper.CustomTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/tvproductLocation"
+                    style="@style/edittextstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:drawablePadding="@dimen/dp10"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/write_address"
+                    android:digits="@string/name_digits"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+            </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="@string/country"
+                android:textColor="@color/colorBlackButton"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+            <structure.com.foodportal.helper.CustomTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvCountry"
+                    style="@style/edittextstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:drawablePadding="@dimen/dp10"
+                    android:drawableEnd="@drawable/downarrow_input"
+                    android:hint="@string/select_country"
+                    android:maxLines="1" />
+
+            </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="@string/city"
+                android:textColor="@color/colorBlackButton"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+            <structure.com.foodportal.helper.CustomTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvCity"
+                    style="@style/edittextstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:drawablePadding="@dimen/dp10"
+                    android:drawableEnd="@drawable/downarrow_input"
+                    android:hint="@string/select_city"
+                    android:maxLines="1" />
+
+            </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/llProductNumber"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="@string/enter_product_model_number"
+                android:textColor="@color/colorBlackButton"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+            <structure.com.foodportal.helper.CustomTextInputLayout
+                android:id="@+id/ctlayoutProductModelNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etProductModelNumber"
+                    style="@style/edittextstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:digits="@string/name_digits"
+                    android:drawablePadding="@dimen/dp10"
+                    android:hint="@string/example_nu7100"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLength="16"
+                    android:singleLine="true" />
+
+            </structure.com.foodportal.helper.CustomTextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llTitle"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="@string/entertitle"
+                android:textColor="@color/colorBlackButton"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+            <structure.com.foodportal.helper.CustomTextInputLayout
+                android:id="@+id/ctlayoutTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etTitle"
+                    style="@style/edittextstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:digits="@string/name_digits"
+                    android:drawablePadding="@dimen/dp10"
+                    android:hint="@string/title"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLength="16"
+                    android:singleLine="true" />
+
+            </structure.com.foodportal.helper.CustomTextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llProductYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/select_product_year"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/dp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spProductYaer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+
+                        android:text="@string/how_old_is_the_product"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/select_type"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/dp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/select_type"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llKilometers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/enter_kilometers"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctlayoutKilometers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/etKilometers"
+                        style="@style/edittextstyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:digits="@string/number_digits"
+                        android:drawablePadding="@dimen/dp10"
+                        android:hint="@string/example_mileage"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="16"
+                        android:singleLine="true" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llDoors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/select_number_of_doors"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctDoors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinnerDoors"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/select_number_of_doors"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/select_colors"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinnerColors"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/select_colors"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llFuel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/select_fuel_type"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctFuel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinnerFuel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/select_fuel_type"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llWarranty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/select_warranty"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctWarranty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinnerWarranty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/select_warranty"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llMegaPixels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/enter_megapixels"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctlayoutMegaPixels"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/etMegaPixels"
+                        style="@style/edittextstyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:digits="@string/number_digits"
+                        android:drawablePadding="@dimen/dp10"
+                        android:hint="@string/example_megapixels"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:singleLine="true" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/llCompatibility"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/compatibility"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctlayoutCompatibility"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/etCompatibility"
+                        style="@style/edittextstyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:digits="@string/number_digits"
+                        android:drawablePadding="@dimen/dp10"
+                        android:hint="@string/example_compatibility"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLength="30"
+                        android:singleLine="true" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/llScreensize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/select_screensize"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctScreensize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinnerScreensize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/select_screensize"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llExpandableMemory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/expandable_memory"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupExpandableMemory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rdExpandableMemoryYes"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:button="@drawable/selector_button"
+                        android:buttonTint="@color/colorRed"
+                        android:paddingStart="@dimen/dp10"
+                        android:text="@string/yes"
+                        android:textColor="@color/colorTextGray" />
+
+                    <RadioButton
+                        android:id="@+id/rdExpandableMemoryNo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:button="@drawable/selector_button"
+                        android:buttonTint="@color/colorRed"
+                        android:checked="true"
+                        android:paddingStart="@dimen/dp10"
+                        android:text="@string/no"
+                        android:textColor="@color/colorTextGray" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llConditionType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/select_product_condition"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/dp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spProductCondition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/how_is_it_looking"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llAccessories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/does_it_have_accessories"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rdOrignal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5"
+                            android:button="@drawable/selector_button"
+                            android:buttonTint="@color/colorRed"
+                            android:paddingStart="@dimen/dp10"
+                            android:text="@string/original"
+                            android:textColor="@color/colorTextGray" />
+
+
+                        <RadioButton
+                            android:id="@+id/rdReplace"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5"
+                            android:button="@drawable/selector_button"
+                            android:buttonTint="@color/colorRed"
+                            android:paddingStart="@dimen/dp10"
+                            android:text="@string/replacement"
+                            android:textColor="@color/colorTextGray" />
+                    </LinearLayout>
+
+                    <RadioButton
+                        android:id="@+id/rdNone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:button="@drawable/selector_button"
+                        android:buttonTint="@color/colorRed"
+                        android:paddingStart="@dimen/dp10"
+                        android:text="@string/none"
+                        android:checked="true"
+                        android:textColor="@color/colorTextGray" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llOperatingSystems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/operating_system"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctOperatingSystems"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/etOperatingSystems"
+                        style="@style/edittextstyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:digits="@string/alphabets_digits"
+                        android:drawablePadding="@dimen/dp10"
+                        android:hint="@string/example_os"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLength="16"
+                        android:singleLine="true" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llProcessor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/processor"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctProcessor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/etProcessor"
+                        style="@style/edittextstyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:digits="@string/name_digits"
+                        android:drawablePadding="@dimen/dp10"
+                        android:hint="@string/example_processor"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLength="16"
+                        android:singleLine="true" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llCellularType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/select_cellular_type"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctCellularType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinnerCellularType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/select_cellular_type"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llSmartFeatures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/smart_features"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupSmartFeatures"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rdSmartFeaturesYes"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:button="@drawable/selector_button"
+                        android:buttonTint="@color/colorRed"
+                        android:paddingStart="@dimen/dp10"
+                        android:text="@string/yes"
+                        android:textColor="@color/colorTextGray" />
+
+                    <RadioButton
+                        android:id="@+id/rdSmartFeaturesNo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:button="@drawable/selector_button"
+                        android:buttonTint="@color/colorRed"
+                        android:checked="true"
+                        android:paddingStart="@dimen/dp10"
+                        android:text="@string/no"
+                        android:textColor="@color/colorTextGray" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llPetsAllowed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/pets_allowed"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupPetsAllowed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rdPetsAllowedYes"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:button="@drawable/selector_button"
+                        android:buttonTint="@color/colorRed"
+                        android:paddingStart="@dimen/dp10"
+                        android:text="@string/yes"
+                        android:textColor="@color/colorTextGray" />
+
+                    <RadioButton
+                        android:id="@+id/rdPetsAllowedNo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:button="@drawable/selector_button"
+                        android:buttonTint="@color/colorRed"
+                        android:checked="true"
+                        android:paddingStart="@dimen/dp10"
+                        android:text="@string/no"
+                        android:textColor="@color/colorTextGray" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llTotalArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/total_area"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctTotalArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/etTotalArea"
+                        style="@style/edittextstyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:digits="@string/number_digits"
+                        android:drawablePadding="@dimen/dp10"
+                        android:hint="@string/example_area"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="16"
+                        android:singleLine="true" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llBedrooms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/select_bedrooms"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctBedroom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinnerBedrooms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/select_bedrooms"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llBathrooms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/select_bathrooms"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctBathrooms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinnerBathrooms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/select_bathrooms"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llCheques"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/total_cheques"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctCheques"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinnerCheques"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/select_cheques"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llBalconies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/balconies_number"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctBalconies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinnerBalconies"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/select_balconies"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llSellerType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/select_seller_type"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctSellerType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp3"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/border_item_rounded"
+                    android:padding="@dimen/dp3">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinnerSellerType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/downarrow"
+                        android:text="@string/select_seller_type"
+                        app:ms_dropdown_height="@dimen/dp100"
+                        app:ms_dropdown_max_height="@dimen/dp250"
+                        app:ms_hide_arrow="true"
+                        app:ms_text_color="@color/colorTextGray" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:text="@string/age"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:id="@+id/ctlayoutAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvAgeChanger"
+                        style="@style/edittextstyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:drawablePadding="@dimen/dp10"
+                        android:hint="@string/enter_birthdate"
+                        android:maxLength="16"
+                        android:singleLine="true" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="@string/add_product_detail"
+                android:textColor="@color/colorBlackButton"
+                android:textSize="@dimen/dp15"
+                android:textStyle="bold" />
+
+            <structure.com.foodportal.helper.CustomTextInputLayout
+                android:id="@+id/input_layout_productDetail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp150"
+                android:layout_marginTop="@dimen/dp15"
+                android:background="@null">
+
+                <EditText
+                    android:id="@+id/input_productDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_item_rounded"
+                    android:digits="@string/simple_digits"
+                    android:gravity="top"
+                    android:hint="@string/type_your_message_here"
+                    android:inputType="textMultiLine"
+                    android:maxLength="250"
+                    android:padding="@dimen/dp10"
+                    android:textColor="@color/colorTextGray"
+                    android:textColorHint="@color/colorTextGray"
+                    android:textSize="14sp" />
+
+            </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp15"
+                android:text="@string/add_guidelines_and_terms_of_use"
+                android:textColor="@color/colorBlackButton"
+                android:textSize="@dimen/dp15"
+                android:textStyle="bold" />
+
+            <structure.com.foodportal.helper.CustomTextInputLayout
+                android:id="@+id/input_layout_guidelines"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp150"
+                android:layout_marginTop="@dimen/dp15"
+                android:background="@null">
+
+                <EditText
+                    android:id="@+id/input_guidelines"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_item_rounded"
+                    android:digits="@string/simple_digits"
+                    android:gravity="top"
+                    android:hint="@string/type_your_message_here"
+                    android:inputType="textMultiLine"
+                    android:maxLength="250"
+                    android:padding="@dimen/dp10"
+
+                    android:textColor="@color/colorTextGray"
+                    android:textColorHint="@color/colorTextGray"
+                    android:textSize="14sp" />
+
+            </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp25"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/selectAgree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:button="@drawable/checkbox_agree"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/dp5"
+                    android:text="@string/i_understand_and_accept_the"
+                    android:textColor="@color/colorTextGray"
+                    android:textSize="@dimen/sp12" />
+
+
+                <TextView
+                    android:id="@+id/tv_terms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:fontFamily="@font/boldfont"
+                    android:text="@string/terms_condition"
+                    android:textColor="@color/colorBlackButton"
+                    android:textSize="@dimen/sp12" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dp5"
+                android:text="@string/terms_condition_more"
+                android:textColor="@color/colorTextGray"
+                android:textSize="@dimen/sp12" />
+
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:layout_marginBottom="@dimen/dp25"
+                android:layout_marginTop="@dimen/dp25"
+                android:background="@drawable/roundcorner_button"
+                android:text="@string/finish"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

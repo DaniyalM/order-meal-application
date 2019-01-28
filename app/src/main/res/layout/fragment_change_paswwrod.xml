@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/dp15"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+        <structure.com.foodportal.helper.CustomTextInputLayout
+            android:id="@+id/ctCurerPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etCurrPassword"
+                style="@style/edittextstyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:drawablePadding="@dimen/dp10"
+                android:drawableStart="@drawable/pass"
+                android:text=""
+                android:maxLines="1"
+                android:hint="@string/currentpassword"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword" />
+        </structure.com.foodportal.helper.CustomTextInputLayout>
+
+        <structure.com.foodportal.helper.CustomTextInputLayout
+            android:id="@+id/ctPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etPassword"
+                style="@style/edittextstyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="@dimen/dp10"
+                android:drawableStart="@drawable/pass"
+                android:text=""
+                android:maxLines="1"
+                android:hint="@string/new_password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword" />
+        </structure.com.foodportal.helper.CustomTextInputLayout>
+
+
+        <structure.com.foodportal.helper.CustomTextInputLayout
+            android:id="@+id/ctConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:maxLines="1"
+                android:id="@+id/etConfirmPassword"
+                style="@style/edittextstyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="@dimen/dp10"
+                android:drawableStart="@drawable/pass"
+                android:text=""
+                android:hint="@string/confirm_new_password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword" />
+        </structure.com.foodportal.helper.CustomTextInputLayout>
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp40"
+            android:background="@drawable/roundcorner_button"
+            android:text="@string/submit"
+            android:textAllCaps="true"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+</LinearLayout>

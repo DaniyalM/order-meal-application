@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp16"
+            android:paddingEnd="@dimen/dp16"
+            android:paddingStart="@dimen/dp16"
+            android:paddingTop="@dimen/dp32">
+
+            <structure.com.foodportal.helper.CustomTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bordered_item_rounded_dark">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:digits="@string/digits_numbers_only"
+                    android:drawableEnd="@drawable/card"
+                    android:hint="@string/enter_card_number"
+                    android:inputType="numberDecimal"
+                    android:maxLength="16"
+                    android:padding="@dimen/dp16"
+                    android:textSize="@dimen/sp14" />
+
+            </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp24"
+                android:orientation="horizontal">
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp8"
+                    android:layout_weight="0.35"
+                    android:background="@drawable/bordered_item_rounded_dark">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:digits="@string/digits_numbers_only_separator"
+                        android:hint="@string/mm_yy"
+                        android:inputType="numberDecimal"
+                        android:maxLength="5"
+                        android:padding="@dimen/dp16"
+                        android:textSize="@dimen/sp14" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+                <structure.com.foodportal.helper.CustomTextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp8"
+                    android:layout_weight="0.35"
+                    android:background="@drawable/bordered_item_rounded_dark">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:digits="@string/digits_numbers_only"
+                        android:hint="@string/cvv"
+                        android:inputType="numberDecimal"
+                        android:maxLength="4"
+                        android:padding="@dimen/dp16"
+                        android:textSize="@dimen/sp14" />
+
+                </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            </LinearLayout>
+
+            <structure.com.foodportal.helper.CustomTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp24"
+                android:background="@drawable/bordered_item_rounded_dark">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:digits="@string/name_digits"
+                    android:hint="@string/name_on_card"
+                    android:inputType="numberDecimal"
+                    android:maxLength="32"
+                    android:padding="@dimen/dp16"
+                    android:textSize="@dimen/sp14" />
+
+            </structure.com.foodportal.helper.CustomTextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp32"
+                android:background="@drawable/bordered_item_rounded_dark"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:padding="@dimen/dp12"
+                        android:text="@string/subtotal"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp14" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"
+                        android:padding="@dimen/dp12"
+                        android:text="@string/aed_50"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp14" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/colorBlackTextHint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:padding="@dimen/dp12"
+                        android:text="@string/delivery_charges"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp14" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"
+                        android:padding="@dimen/dp12"
+                        android:text="@string/aed_50"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp14" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/colorBlackTextHint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:padding="@dimen/dp12"
+                        android:text="@string/total_before_vat"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp14" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"
+                        android:padding="@dimen/dp12"
+                        android:text="@string/aed_50"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp14" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/colorBlackTextHint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:padding="@dimen/dp12"
+                        android:text="@string/vat_chargers_5"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp14" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"
+                        android:padding="@dimen/dp12"
+                        android:text="@string/aed_50"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp14" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/colorBlackTextHint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:padding="@dimen/dp12"
+                        android:text="@string/grand_total"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp14"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="end"
+                        android:padding="@dimen/dp12"
+                        android:text="@string/aed_50"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp14"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnPlaceOrder"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:layout_marginBottom="@dimen/dp25"
+                android:layout_marginTop="@dimen/dp25"
+                android:background="@drawable/roundcorner_button"
+                android:text="@string/place_order"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

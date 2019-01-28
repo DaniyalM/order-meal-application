@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:shadowColor="@color/colorBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/MainContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.flaviofaria.kenburnsview.KenBurnsView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_menu"/>
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+         <!--   <ImageView
+                android:id="@+id/img_user_blur"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitStart"
+                android:src="@drawable/img_menu" />-->
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_background"
+                android:layout_width="@dimen/dp56"
+                android:layout_height="@dimen/dp56"
+                android:src="@drawable/img_menu_user"
+                android:layout_marginStart="@dimen/dp50"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:fontFamily="@font/poppinsregular"
+                android:layout_weight="1"
+                android:id="@+id/txt_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="textStart"
+                android:gravity="center_horizontal"
+                android:text="Ali Zahid"
+                android:layout_marginStart="@dimen/dp20"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:drawableStart="@drawable/icon_menu_settings"
+                android:id="@+id/txt_useraddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="@dimen/dp20"
+                android:layout_marginStart="@dimen/dp20"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+        <structure.com.foodportal.customViews.CustomRecyclerView
+            android:id="@+id/sideoptions"
+            android:layout_width="match_parent"
+            android:background="@color/colorNav"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp" />
+
+
+    </LinearLayout>
+</LinearLayout>
+</layout>
