@@ -16,7 +16,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import structure.com.foodportal.R;
+import structure.com.foodportal.adapter.foodPortalAdapters.ExpandableListAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodIngredientsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPreparationAdapter;
 import structure.com.foodportal.databinding.FragmentProductDetailFoodportalBinding;
@@ -32,6 +35,7 @@ import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.Ingredient;
 import structure.com.foodportal.models.foodModels.Step;
+import structure.com.foodportal.singleton.CarelessSingleton;
 
 public class FoodDetailFragment extends BaseFragment implements
         View.OnClickListener, FoodDetailListner,UniversalVideoView.VideoViewCallback {
@@ -46,14 +50,21 @@ public class FoodDetailFragment extends BaseFragment implements
 
     ArrayList<Step> steps;
     ArrayList<Ingredient> ingredients;
+    HashMap<String, ArrayList<Ingredient>> subingrdeints;
 
-    String story_slug ="hara-masala-cholay";
 
     View mBottomLayout;
     View mVideoLayout;
     UniversalVideoView mVideoView;
     UniversalMediaController mMediaController;
     FoodDetailModelWrapper foodDetailModel;
+
+
+    public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel){
+
+        this.foodDetailModel=foodDetailModel;
+
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,7 +81,13 @@ public class FoodDetailFragment extends BaseFragment implements
         mainActivity.hideBottombar();
         initAdapters();
         binding.btnStepByStep.setOnClickListener(this);
-        getDetails();
+
+        if (foodDetailModel != null) {
+
+            setData(foodDetailModel.getData());
+
+        }
+      //  getDetails();
     }
 
     private void initAdapters() {
@@ -92,8 +109,9 @@ public class FoodDetailFragment extends BaseFragment implements
 
         steps = new ArrayList<>();
         ingredients = new ArrayList<>();
+         subingrdeints = new HashMap<>();
 
-        foodIngredientsAdapter = new FoodIngredientsAdapter(ingredients, mainActivity);
+        foodIngredientsAdapter = new FoodIngredientsAdapter( ingredients,mainActivity);
         foodPreparationAdapter = new FoodPreparationAdapter(steps, mainActivity, this);
 
         binding.rvIngredients.setAdapter(foodIngredientsAdapter);
@@ -114,13 +132,13 @@ public class FoodDetailFragment extends BaseFragment implements
     @Override
     protected void setTitle(Titlebar titlebar) {
         titlebar.showTitlebar();
-        titlebar.setTitle("Detail");
-        titlebar.showMenuButton(mainActivity);
+        titlebar.setTitle(foodDetailModel.getData().getTitle_en());
+        titlebar.showBackButton(mainActivity);
     }
 
     public void getDetails() {
 
-        serviceHelper.enqueueCall(webService.getfooddetail(story_slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+       // serviceHelper.enqueueCall(webService.getfooddetail(story_slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
     }
 
     @Override
@@ -128,7 +146,7 @@ public class FoodDetailFragment extends BaseFragment implements
         switch (Tag) {
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS:
 
-                 foodDetailModel = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
+                foodDetailModel = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
 
                 if (foodDetailModel != null) {
 
@@ -180,6 +198,10 @@ public class FoodDetailFragment extends BaseFragment implements
         binding.tvServingTime.setText("Cooking Time "+foodDetailModel.getCook_time()+ "Min(s)");
         binding.tvPreparationTime.setText("Preparation Time "+foodDetailModel.getPreparation_time()+ "Min(s)");
         binding.tvfoodDiscount.setText("" + foodDetailModel.getGallery().getDescription_en());
+
+
+
+
         steps.addAll(foodDetailModel.getSteps());
         ingredients.addAll(foodDetailModel.getIngredient());
         foodPreparationAdapter.notifyDataSetChanged();
@@ -189,10 +211,12 @@ public class FoodDetailFragment extends BaseFragment implements
 
     @Override
     public void onStepClick(Step step,int position) {
-
+        binding.videoView.stopPlayback();
+        binding.videoView.closePlayer();
+        CarelessSingleton.instance.setState(foodDetailModel.getData(),position);
         StepFragment  stepFragment =new StepFragment();
-        stepFragment.setdata(foodDetailModel.getData(),position);
-        mainActivity.replaceFragment(stepFragment,true,true,true);
+        stepFragment.setVideoData(position,foodDetailModel.getData());
+        mainActivity.addFragment(stepFragment,true,true);
       //  Toast.makeText(mainActivity, "Will be implement later", Toast.LENGTH_SHORT).show();
 
 
@@ -224,5 +248,13 @@ public class FoodDetailFragment extends BaseFragment implements
     public void onBufferingEnd(MediaPlayer mediaPlayer) {
      //   mediaPlayer.start();
        // mainActivity.hideLoader();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mainActivity.getTitleBar().showTitlebar();
+        mainActivity.getTitleBar().showMenuButton(mainActivity);
+        mainActivity.getTitleBar().setTitle("Cooking Food");
     }
 }

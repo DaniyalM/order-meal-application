@@ -1,5 +1,7 @@
 package structure.com.foodportal.models.foodModels;
 
+import java.util.ArrayList;
+
 public class Ingredient {
     private String quantity;
 
@@ -140,5 +142,17 @@ public class Ingredient {
 //    }
 //
 //    private String[] sub_ingredients;
+
+    public ArrayList<Ingredient> getSub_ingredients() {
+        return sub_ingredients;
+    }
+
+    public void setSub_ingredients(ArrayList<Ingredient> sub_ingredients) {
+        this.sub_ingredients = sub_ingredients;
+    }
+
+    ArrayList<Ingredient> sub_ingredients;
+
+
 
 }

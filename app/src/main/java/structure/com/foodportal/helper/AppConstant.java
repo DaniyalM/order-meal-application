@@ -211,5 +211,7 @@ public class AppConstant {
     public class FOODPORTAL_FOOD_DETAILS {
 
         public static final String FOOD_DETAILS = "story";
+        public static final String FOOD_HOME = "home";
+
     }
 }

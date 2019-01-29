@@ -155,7 +155,7 @@ public class BaseActivity extends AppCompatActivity {
             if(cardFlipAnimationBool){
                 transaction.setCustomAnimations(R.anim.animation_item,0,0,0);
             }else {
-                transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_up, R.anim.slide_in_up, R.anim.slide_in_up);
+                transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, 0,0);
             }
 
         }
@@ -173,7 +173,24 @@ public class BaseActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (animate) {
+
             transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+        transaction.add(mainFrame, frag, frag.getClass().getSimpleName());
+
+        if (isAddToBackStack) {
+            transaction.addToBackStack(null).commit();
+        } else {
+            transaction.commit();
+        }
+    }
+   public void addFragment(BaseFragment frag, boolean isAddToBackStack, boolean animate,boolean state) {
+        baseFragment = frag;
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if (animate) {
+            transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, 0,0);
+            //transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
         }
         transaction.add(mainFrame, frag, frag.getClass().getSimpleName());
 

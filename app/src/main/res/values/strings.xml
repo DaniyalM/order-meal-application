@@ -543,4 +543,9 @@
     <string name="my_reviews">My Reviews</string>
     <string name="my_saved_recipes">My Saved Recipes</string>
     <string name="serving">Serving for</string>
+    <string name="popular_recipe">Popular Recipe</string>
+    <string name="featured_recipe">Featured Recipe</string>
+    <string name="tip_day">Tip day</string>
+    <string name="better_for_bites">Better for Bites</string>
+    <string name="techniques">Techniques</string>
 </resources>

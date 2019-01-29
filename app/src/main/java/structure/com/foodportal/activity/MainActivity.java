@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
                 drawerLayout.openDrawer(Gravity.RIGHT);
             }
         });
-        addFragment(new FoodDetailFragment(),true,true);
+        addFragment(new FoodHomeFragment(),true,true);
 
     }
 

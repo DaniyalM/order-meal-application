@@ -31,7 +31,27 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
     @Override
     public void onBindViewHolder(FoodIngredientsAdapter.PlanetViewHolder holder, int position) {
       //  holder.image.setImageResource(R.drawable.planetimage);
-        holder.text.setText((position+1) +" "+ingredientList.get(position).getIngredient_en());
+
+
+            if(ingredientList.get(position).getSub_ingredients().size()>0){
+                //  holder.text.setText(ingredientList.get(position).getTag_en());
+                for(int i =0; i<ingredientList.get(position).getSub_ingredients().size();i++){
+
+                    holder.text.setText("   "+(i+1) +" "+ingredientList.get(position).getSub_ingredients().get(i).getIngredient_en()
+                            +" "+ingredientList.get(position).getSub_ingredients().get(i).getQuantity()+" "+ingredientList.get(position).getSub_ingredients().get(i).getQuantity_type()
+                    );
+
+
+
+        }
+
+
+
+
+
+        }
+
+
     }
 
     @Override

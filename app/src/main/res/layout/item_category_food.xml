@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/dp6"
+    android:orientation="vertical">
+
+    <android.support.design.circularreveal.cardview.CircularRevealCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="@dimen/dp6"
+        app:cardCornerRadius="@dimen/dp30"
+        app:cardElevation="@dimen/dp20"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="60dp"
+            android:id="@+id/cvDishView"
+            android:layout_gravity="center"
+            android:layout_height="60dp"
+            android:src="@drawable/image_placeholder" />
+    </android.support.design.circularreveal.cardview.CircularRevealCardView>
+
+    <TextView
+        android:fontFamily="@font/poppinsmedium"
+        android:layout_marginTop="@dimen/dp6"
+        android:textAllCaps="true"
+        android:id="@+id/tvDishName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:gravity="bottom|center"
+        android:text="Mutton Allu gosht"
+        android:textColor="@color/colorBlack" />
+</LinearLayout>
