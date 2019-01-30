@@ -20,20 +20,22 @@ import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.models.Category;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.Ingredient;
+import structure.com.foodportal.models.foodModels.Section;
+import structure.com.foodportal.models.foodModels.Sections;
 
-public class FoodCategoryAdapter extends RecyclerView.Adapter<FoodCategoryAdapter.PlanetViewHolder> {
+public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRecipeAdapter.PlanetViewHolder> {
 
-    ArrayList<CategorySlider> ingredientList;
+    ArrayList<Sections> sections;
     Context context;
     private int lastPosition = -1;
-    public FoodCategoryAdapter(ArrayList<CategorySlider> ingredientList, Context context) {
-        this.ingredientList = ingredientList;
+    public FoodPopularRecipeAdapter(ArrayList<Sections> sections, Context context) {
+        this.sections = sections;
         this.context = context;
     }
 
     @Override
-    public FoodCategoryAdapter.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category_food, parent, false);
+    public FoodPopularRecipeAdapter.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_popular_recipe, parent, false);
         PlanetViewHolder viewHolder = new PlanetViewHolder(v);
         return viewHolder;
     }
@@ -42,10 +44,10 @@ public class FoodCategoryAdapter extends RecyclerView.Adapter<FoodCategoryAdapte
 
 
     @Override
-    public void onBindViewHolder(FoodCategoryAdapter.PlanetViewHolder holder, int position) {
+    public void onBindViewHolder(FoodPopularRecipeAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
-        holder.text.setText(""+ingredientList.get(position).getCategory_title_en());
-        UIHelper.setImageWithGlide(context,holder.circleImageView,ingredientList.get(position).getGallery().getPhotos().get(0).getImage_path());
+        holder.text.setText(""+sections.get(position).getTitle());
+        UIHelper.setImageWithGlide(context,holder.circleImageView,sections.get(position).getGallery().getPhotos().get(0).getImage_path());
         setAnimation(holder.itemView, position);
     }
     private void setAnimation(View viewToAnimate, int position)
@@ -53,7 +55,7 @@ public class FoodCategoryAdapter extends RecyclerView.Adapter<FoodCategoryAdapte
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > 0)
         {
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
@@ -62,19 +64,19 @@ public class FoodCategoryAdapter extends RecyclerView.Adapter<FoodCategoryAdapte
 
     @Override
     public int getItemCount() {
-        return ingredientList.size();
+        return sections.size();
     }
 
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView text;
-        CircleImageView circleImageView;
+     ImageView circleImageView;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
 
-            text = (TextView) itemView.findViewById(R.id.tvDishName);
-            circleImageView = (CircleImageView) itemView.findViewById(R.id.cvDishView);
+            text = (TextView) itemView.findViewById(R.id.tvPopularRecipe);
+            circleImageView = (ImageView) itemView.findViewById(R.id.ivPopularRecipe);
         }
     }
 }

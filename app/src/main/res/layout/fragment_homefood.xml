@@ -2,200 +2,280 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v4.widget.NestedScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true">
+        android:animateLayoutChanges="true"
+        android:background="@color/uvv_light_gray">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:id="@+id/cvRecipe"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top">
-
-
-                <com.flaviofaria.kenburnsview.KenBurnsView
-                    android:id="@+id/ivBanner"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:layout_gravity="top"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/img_menu" />
-
-                <believe.cht.fadeintextview.TextView
-                   android:id="@+id/tvRecipename"
-                    android:fontFamily="@font/poppinsbold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
-                    android:gravity="end|bottom"
-                    android:layout_margin="@dimen/dp5"
-                    app:letterDuration="400"
-                    android:text="Hara Masala Cholay"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp25" />
-            </android.support.v7.widget.CardView>
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvCategoryslider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/uvv_light_gray"
-                android:paddingBottom="@dimen/dp6"
-                android:paddingTop="@dimen/dp6" />
-
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
+                <FrameLayout
+                    android:visibility="gone"
+                    android:id="@+id/cvRecipe"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
+                    android:layout_height="400dp"
+                    android:background="@color/uvv_light_gray">
+
+
+                    <com.flaviofaria.kenburnsview.KenBurnsView
+                        android:id="@+id/ivBanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:scaleType="fitXY" />
+
+                    <believe.cht.fadeintextview.TextView
+                        android:id="@+id/tvRecipename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|bottom"
+                        android:layout_margin="@dimen/dp5"
+                        android:fontFamily="@font/poppinsbold"
+                        android:gravity="end|bottom"
+                        android:text="Hara Masala Cholay"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp25"
+                        app:letterDuration="400" />
+                </FrameLayout>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/viewShimmerbanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp">
+                    <LinearLayout
+                        android:padding="@dimen/dp5"
+                        android:layout_margin="@dimen/dp5"
+                        android:fontFamily="@font/poppinsbold"
+                        android:gravity="end|bottom"
+                        android:layout_gravity="bottom|end"
+                        android:background="@color/lightGray"
+                        android:layout_width="200dp"
+                        android:layout_height="30dp" />
+                    </FrameLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/viewShimmerCategorySlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/tvPopularRecipe"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:gravity="start"
-                            android:padding="@dimen/dp5"
-                            android:text="@string/popular_recipe"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent" />
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
 
+                            android:layout_marginEnd="@dimen/dp10"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:padding="@dimen/dp2"
+                            android:src="@color/lightGray" />
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rvPopularRecipe"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginEnd="@dimen/dp10"
 
-                        </android.support.v7.widget.RecyclerView>
+                            android:layout_marginStart="@dimen/dp10"
+                            android:padding="@dimen/dp2"
+                            android:src="@color/lightGray" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+
+                            android:layout_marginEnd="@dimen/dp10"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:padding="@dimen/dp2"
+                            android:src="@color/lightGray" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginEnd="@dimen/dp10"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:padding="@dimen/dp2"
+                            android:src="@color/lightGray" />
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
 
-                <android.support.v7.widget.CardView
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvCategoryslider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
+                    android:nestedScrollingEnabled="true"
+                    android:paddingBottom="@dimen/dp3"
+                    android:paddingTop="@dimen/dp3"
+                    android:visibility="gone" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tvFeaturedRecipes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/dp5"
-                            android:text="@string/featured_recipe"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rvFeaturedRecipes"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        app:cardUseCompatPadding="true">
 
-                        <TextView
-                            android:id="@+id/tvtipDay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/dp5"
-                            android:text="@string/tip_day"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rvtipDay"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
+                            <TextView
+                                android:id="@+id/tvPopularRecipe"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:fontFamily="@font/poppinssemibold"
+                                android:gravity="start"
+                                android:padding="@dimen/dp5"
+                                android:text="@string/popular_recipe"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccent" />
 
-                    <LinearLayout
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rvPopularRecipe"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:nestedScrollingEnabled="true">
+
+                            </android.support.v7.widget.RecyclerView>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        app:cardUseCompatPadding="true">
 
-                        <TextView
-                            android:id="@+id/tvBetterforBites"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/dp5"
-                            android:text="@string/better_for_bites"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rvBetterforBites"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
+                            <TextView
+                                android:id="@+id/tvFeaturedRecipes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinssemibold"
+                                android:padding="@dimen/dp5"
+                                android:text="@string/featured_recipe"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccent" />
 
-                    <LinearLayout
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rvFeaturedRecipes"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        app:cardUseCompatPadding="true">
 
-                        <TextView
-                            android:id="@+id/tvtechniques"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/dp5"
-                            android:text="@string/techniques"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rvtechniques"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvtipDay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinssemibold"
+                                android:padding="@dimen/dp5"
+                                android:text="@string/tip_day"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccent" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rvtipDay"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvBetterforBites"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinssemibold"
+                                android:padding="@dimen/dp5"
+                                android:text="@string/better_for_bites"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccent" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rvBetterforBites"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvtechniques"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinssemibold"
+                                android:padding="@dimen/dp5"
+                                android:text="@string/techniques"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccent" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rvtechniques"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
 
-    </android.support.v4.widget.NestedScrollView>
-
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
 </layout>

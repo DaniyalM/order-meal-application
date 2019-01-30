@@ -2,13 +2,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/dp6"
+    android:padding="@dimen/dp2"
+    android:layout_marginStart="@dimen/dp10"
+    android:layout_marginEnd="@dimen/dp10"
     android:orientation="vertical">
 
     <android.support.design.circularreveal.cardview.CircularRevealCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_margin="@dimen/dp6"
         app:cardCornerRadius="@dimen/dp30"
-        app:cardElevation="@dimen/dp20"
+        app:cardElevation="@dimen/dp10"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -22,14 +24,15 @@
     </android.support.design.circularreveal.cardview.CircularRevealCardView>
 
     <TextView
-        android:fontFamily="@font/poppinsmedium"
+        android:fontFamily="@font/poppinssemibold"
         android:layout_marginTop="@dimen/dp6"
+        android:textSize="@dimen/sp11"
         android:textAllCaps="true"
         android:id="@+id/tvDishName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:gravity="bottom|center"
-        android:text="Mutton Allu gosht"
+        android:layout_gravity="top|center"
+        android:gravity="top|center"
+        android:text="Mutton Allu"
         android:textColor="@color/colorBlack" />
 </LinearLayout>
