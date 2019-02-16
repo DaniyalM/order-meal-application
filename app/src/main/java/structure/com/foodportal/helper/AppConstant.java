@@ -208,10 +208,18 @@ public class AppConstant {
     }
     public static final String BASE_URL = "http://recipesofpakistan.com/api/";
     public static final String VIDEO_URL = "https://c.recipesofpakistan.com/";
+
     public class FOODPORTAL_FOOD_DETAILS {
 
         public static final String FOOD_DETAILS = "story";
         public static final String FOOD_HOME = "home";
+        public static final String FOOD_HEADER = "header/menu";
 
+
+
+    }
+    public class DrawerItemType{
+        public static final String  ITEM = "item";
+        public static final String  GROUP = "group";
     }
 }

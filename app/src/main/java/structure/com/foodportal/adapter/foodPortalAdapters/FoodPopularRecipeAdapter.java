@@ -48,7 +48,7 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
         //  holder.image.setImageResource(R.drawable.planetimage);
         holder.text.setText(""+sections.get(position).getTitle());
         UIHelper.setImageWithGlide(context,holder.circleImageView,sections.get(position).getGallery().getPhotos().get(0).getImage_path());
-        setAnimation(holder.itemView, position);
+    //    setAnimation(holder.itemView, position);
     }
     private void setAnimation(View viewToAnimate, int position)
     {

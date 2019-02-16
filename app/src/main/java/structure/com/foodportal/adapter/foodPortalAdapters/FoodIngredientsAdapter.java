@@ -2,6 +2,7 @@ package structure.com.foodportal.adapter.foodPortalAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,45 +12,47 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import structure.com.foodportal.R;
+import structure.com.foodportal.models.foodModels.CustomIngredient;
 import structure.com.foodportal.models.foodModels.Ingredient;
+import structure.com.foodportal.models.foodModels.Step;
 
 public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredientsAdapter.PlanetViewHolder> {
 
-    ArrayList<Ingredient> ingredientList;
+    ArrayList<CustomIngredient> ingredientList;
+    ArrayList<String> title;
+    String mytitle;
 
-    public FoodIngredientsAdapter(ArrayList<Ingredient> ingredientList, Context context) {
+    public FoodIngredientsAdapter(ArrayList<CustomIngredient> ingredientList, ArrayList<String> title, Context context) {
         this.ingredientList = ingredientList;
+        this.title = title;
     }
 
     @Override
     public FoodIngredientsAdapter.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ingredients,parent,false);
-        PlanetViewHolder viewHolder=new PlanetViewHolder(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ingredients, parent, false);
+        PlanetViewHolder viewHolder = new PlanetViewHolder(v);
         return viewHolder;
     }
-
+    int k=0;
     @Override
     public void onBindViewHolder(FoodIngredientsAdapter.PlanetViewHolder holder, int position) {
-      //  holder.image.setImageResource(R.drawable.planetimage);
-
-
-            if(ingredientList.get(position).getSub_ingredients().size()>0){
-                //  holder.text.setText(ingredientList.get(position).getTag_en());
-                for(int i =0; i<ingredientList.get(position).getSub_ingredients().size();i++){
-
-                    holder.text.setText("   "+(i+1) +" "+ingredientList.get(position).getSub_ingredients().get(i).getIngredient_en()
-                            +" "+ingredientList.get(position).getSub_ingredients().get(i).getQuantity()+" "+ingredientList.get(position).getSub_ingredients().get(i).getQuantity_type()
-                    );
+        //  holder.image.setImageResource(R.drawable.planetimage);
 
 
 
+        if(ingredientList.get(position).getIsHeader()==1){
+            k=0;
+            String sourceString = "<b>" + ingredientList.get(position).getName() + "</b> ";
+            holder.text.setText(Html.fromHtml(sourceString));
+
+            holder.tvQuantity.setText(ingredientList.get(position).getMainquantity());
+
+        }else{
+            k++;
+            holder.text.setText(" "+k +"     "+ingredientList.get(position).getName());
+            holder.tvQuantity.setText(ingredientList.get(position).getSubquantity());
         }
 
-
-
-
-
-        }
 
 
     }
@@ -59,14 +62,15 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
         return ingredientList.size();
     }
 
-    public static class PlanetViewHolder extends RecyclerView.ViewHolder{
+    public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
-        protected TextView text;
+        protected TextView text,tvQuantity;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
 
-            text= (TextView) itemView.findViewById(R.id.tvingredients);
+            text = (TextView) itemView.findViewById(R.id.tvingredients);
+            tvQuantity = (TextView) itemView.findViewById(R.id.tvQuantity);
         }
     }
 }

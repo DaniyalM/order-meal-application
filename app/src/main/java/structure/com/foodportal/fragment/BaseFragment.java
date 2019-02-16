@@ -132,4 +132,6 @@ abstract public class BaseFragment extends Fragment implements webServiceRespons
     public void ResponseFailure(String tag) {
 
     }
+
+
 }

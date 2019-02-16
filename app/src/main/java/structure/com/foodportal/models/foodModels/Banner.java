@@ -1,7 +1,20 @@
 package structure.com.foodportal.models.foodModels;
 
+import java.util.ArrayList;
+
 public class Banner
 {
+    public ArrayList<CountFavorite> getCount_favorites() {
+        return count_favorites;
+    }
+
+    public void setCount_favorites(ArrayList<CountFavorite> count_favorites) {
+        this.count_favorites = count_favorites;
+    }
+
+    ArrayList<CountFavorite> count_favorites;
+
+
     private String serving_for;
 
     private String video_path;
@@ -19,7 +32,7 @@ public class Banner
 
     private String video_url;
 
-    private String[] count_favorites;
+
 
     private String feature_type_id;
 
@@ -124,15 +137,7 @@ public class Banner
         this.video_url = video_url;
     }
 
-    public String[] getCount_favorites ()
-    {
-        return count_favorites;
-    }
 
-    public void setCount_favorites (String[] count_favorites)
-    {
-        this.count_favorites = count_favorites;
-    }
 
     public String getFeature_type_id ()
     {

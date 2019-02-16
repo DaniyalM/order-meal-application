@@ -12,6 +12,19 @@ public class Api_Array_Response<T> {
     private String Message;
     private int Response;
 
+    public int getCode() {
+        return Code;
+    }
+
+    public void setCode(int code) {
+        Code = code;
+    }
+
+    private int Code;
+
+
+
+
     public Boolean getSuccess() {
         return success;
     }

@@ -1,10 +1,11 @@
-package com.ingic.boutiqueapp.customViews.NavigationDrawerDataViews.data;
+package structure.com.foodportal.customViews.data;
 
-import com.ingic.boutiqueapp.constant.AppConstant;
-import com.ingic.boutiqueapp.models.DrawerItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.models.foodModels.DrawerItem;
 
 /**
  * Created by awidiyadew on 15/09/16.
@@ -31,10 +32,10 @@ public class CustomDataProvider {
         * */
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getType().equals(AppConstant.DrawerItemType.GROUP)) {
-                rootMenu.add(new GroupItem(items.get(i).getItem().getName()));
+                rootMenu.add(new GroupItem(items.get(i).getItem().getName(),items.get(i).getItem().getImage()));
                 childItems = items.get(i).getChildItem();
             } else {
-                rootMenu.add(new Item(items.get(i).getItem().getName()));
+                rootMenu.add(new Item(items.get(i).getItem().getName(),items.get(i).getItem().getImage()));
             }
         }
 
@@ -122,12 +123,12 @@ public class CustomDataProvider {
 
         for (int i = 0; i < childItems.size(); i++) {
             if (childItems.get(i).getType().equals(AppConstant.DrawerItemType.GROUP)) {
-                GroupItem groupItem=new GroupItem(childItems.get(i).getItem().getName());
+                GroupItem groupItem=new GroupItem(childItems.get(i).getItem().getName(),childItems.get(i).getImage());
                 groupItem.setLevel(groupItem.getLevel() + 1);
                 list.add(groupItem);
 
             } else {
-                list.add(new Item(childItems.get(i).getItem().getName()));
+                list.add(new Item(childItems.get(i).getItem().getName(),childItems.get(i).getImage()));
             }
         }
 
@@ -139,7 +140,7 @@ public class CustomDataProvider {
         List<BaseItem> list = new ArrayList<>();
         if(subChildItems!=null)
             for (int i = 0; i <subChildItems.size() ; i++) {
-            list.add(new Item(subChildItems.get(i).getItem().getName()));
+            list.add(new Item(subChildItems.get(i).getItem().getName(),subChildItems.get(i).getImage()));
         }
 
 

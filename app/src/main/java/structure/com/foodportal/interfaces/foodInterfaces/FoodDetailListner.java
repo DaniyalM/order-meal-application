@@ -6,4 +6,5 @@ import structure.com.foodportal.models.foodModels.Step;
 public interface FoodDetailListner {
 
     void onStepClick(Step step,int position);
+    void onPageChanged(Step step,int position);
 }

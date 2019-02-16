@@ -7,6 +7,16 @@ public class Sections {
     String slug;
     String video_path;
 
+    public String getContent_en() {
+        return content_en;
+    }
+
+    public void setContent_en(String content_en) {
+        this.content_en = content_en;
+    }
+
+    String content_en;
+
 
     public int getId() {
         return id;

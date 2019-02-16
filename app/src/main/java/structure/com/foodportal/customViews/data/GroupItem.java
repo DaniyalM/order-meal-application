@@ -1,4 +1,4 @@
-package com.ingic.boutiqueapp.customViews.NavigationDrawerDataViews.data;
+package structure.com.foodportal.customViews.data;
 
 /**
  * Created by awidiyadew on 12/09/16.
@@ -6,8 +6,8 @@ package com.ingic.boutiqueapp.customViews.NavigationDrawerDataViews.data;
 public class GroupItem extends BaseItem {
     private int mLevel;
 
-    public GroupItem(String name) {
-        super(name);
+    public GroupItem(String name,String image) {
+        super(name,image);
         mLevel = 0;
     }
 

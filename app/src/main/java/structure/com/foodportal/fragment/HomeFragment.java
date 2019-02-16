@@ -318,7 +318,7 @@ public class HomeFragment extends BaseFragment implements ResturantClickInterfac
     }
 
     private void init() {
-        mainActivity.showBottombar();
+      //  mainActivity.showBottombar();
         new Handler().postDelayed(() -> setTitle(mainActivity.getTitleBar()), 1000);
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.itemForRent), true);
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.itemForSale), false);

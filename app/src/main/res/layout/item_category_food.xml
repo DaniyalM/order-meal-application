@@ -1,38 +1,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/dp2"
-    android:layout_marginStart="@dimen/dp10"
     android:layout_marginEnd="@dimen/dp10"
-    android:orientation="vertical">
+    android:layout_marginStart="@dimen/dp10"
+    android:orientation="vertical"
+    android:padding="@dimen/dp2">
 
     <android.support.design.circularreveal.cardview.CircularRevealCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="@dimen/dp6"
-        app:cardCornerRadius="@dimen/dp30"
-        app:cardElevation="@dimen/dp10"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp3"
+        app:cardCornerRadius="@dimen/dp30"
+        app:cardElevation="@dimen/dp5">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="60dp"
             android:id="@+id/cvDishView"
+            android:layout_width="65dp"
+            android:padding="@dimen/dp2"
+            android:layout_height="65dp"
             android:layout_gravity="center"
-            android:layout_height="60dp"
             android:src="@drawable/image_placeholder" />
     </android.support.design.circularreveal.cardview.CircularRevealCardView>
 
     <TextView
-        android:fontFamily="@font/poppinssemibold"
-        android:layout_marginTop="@dimen/dp6"
-        android:textSize="@dimen/sp11"
-        android:textAllCaps="true"
         android:id="@+id/tvDishName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center"
+        android:layout_marginTop="@dimen/dp3"
+        android:fontFamily="@font/poppinslight"
         android:gravity="top|center"
         android:text="Mutton Allu"
-        android:textColor="@color/colorBlack" />
+        android:textAllCaps="true"
+        android:textColor="@color/colorBlack"
+        android:textSize="9sp" />
 </LinearLayout>

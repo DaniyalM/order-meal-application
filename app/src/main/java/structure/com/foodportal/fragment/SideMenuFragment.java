@@ -16,14 +16,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+import pl.openrnd.multilevellistview.MultiLevelListView;
 import structure.com.foodportal.R;
 import structure.com.foodportal.customViews.CustomRecyclerView;
+import structure.com.foodportal.customViews.MultiLeftSideMenu;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.DialogFactory;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.RecyclerItemClickListener;
+import structure.com.foodportal.models.foodModels.HeaderWrapper;
 import structure.com.foodportal.viewbinders.SideMenuBinder;
 
 public class SideMenuFragment extends BaseFragment {
@@ -34,7 +37,7 @@ public class SideMenuFragment extends BaseFragment {
     @BindView(R.id.txt_useraddress)
     TextView txtUseraddress;
     @BindView(R.id.sideoptions)
-    CustomRecyclerView rvSideMenuOptions;
+    MultiLevelListView rvSideMenuOptions;
     Unbinder unbinder;
     private ArrayList<String> sideMenuOptions;
     private ArrayList<Integer> sideMenuOptionsDrawable;
@@ -42,15 +45,15 @@ public class SideMenuFragment extends BaseFragment {
     private RecyclerItemClickListener menuItemClickListener = ((ent, position, id) -> {
         if ((ent).equals(getString(R.string.home))) {
             // closeDrawer();
-          //  popBackStackTillEntry(0);
-          //  replaceFragment(new HomeFragment(), true, true);
+            //  popBackStackTillEntry(0);
+            //  replaceFragment(new HomeFragment(), true, true);
             UIHelper.showToast(getActivity(), getActivity().getResources().getString(R.string.please_login_notification));
 
         } else if ((ent).equals(getString(R.string.orderHistory))) {
-            if(!preferenceHelper.getLoginStatus()){
+            if (!preferenceHelper.getLoginStatus()) {
                 UIHelper.showToast(getActivity(), getActivity().getResources().getString(R.string.please_login_notification));
-            }else{
-                if(preferenceHelper.getUser() != null){
+            } else {
+                if (preferenceHelper.getUser() != null) {
                     replaceFragment(new OrdersHistoryFragment(), true, false);
                 }
             }
@@ -117,9 +120,9 @@ public class SideMenuFragment extends BaseFragment {
     }
 
 
-    public static SideMenuFragment newInstance() {
+    public static SideMenuFragment newInstance(HeaderWrapper headerWrapper) {
         Bundle args = new Bundle();
-
+        //this.headerWrapper = headerWrapper;
         SideMenuFragment fragment = new SideMenuFragment();
         fragment.setArguments(args);
         return fragment;
@@ -155,7 +158,7 @@ public class SideMenuFragment extends BaseFragment {
         sideMenuOptions = new ArrayList<>();
         sideMenuOptionsDrawable = new ArrayList<>();
 
-            sideMenuOptions.add(getString(R.string.home));
+        sideMenuOptions.add(getString(R.string.home));
         sideMenuOptions.add(getString(R.string.recipes));
         sideMenuOptions.add(getString(R.string.tutorials));
         sideMenuOptions.add(getString(R.string.cleaning));
@@ -165,7 +168,6 @@ public class SideMenuFragment extends BaseFragment {
         sideMenuOptions.add(getString(R.string.my_reviews));
         sideMenuOptions.add(getString(R.string.my_saved_recipes));
         sideMenuOptions.add(getString(R.string.logout));
-
 
 
         sideMenuOptionsDrawable.add(R.drawable.icon_menu_home);
@@ -189,7 +191,7 @@ public class SideMenuFragment extends BaseFragment {
 
         }
 
-        rvSideMenuOptions.bindRecyclerView(new SideMenuBinder(menuItemClickListener), sideMenuOptions, new LinearLayoutManager(getActivity()), new DefaultItemAnimator());
+        //rvSideMenuOptions.bindRecyclerView(new SideMenuBinder(menuItemClickListener), sideMenuOptions, new LinearLayoutManager(getActivity()), new DefaultItemAnimator());
 
 
     }

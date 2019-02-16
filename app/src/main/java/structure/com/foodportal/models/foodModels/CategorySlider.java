@@ -1,5 +1,7 @@
 package structure.com.foodportal.models.foodModels;
 
+import java.util.ArrayList;
+
 public class CategorySlider
 {
     private String layout_id;
@@ -301,4 +303,14 @@ public class CategorySlider
 
     Gallery gallery;
 
+
+    public ArrayList<CategorySlider> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(ArrayList<CategorySlider> categories) {
+        this.categories = categories;
+    }
+
+    ArrayList<CategorySlider> categories;
 }

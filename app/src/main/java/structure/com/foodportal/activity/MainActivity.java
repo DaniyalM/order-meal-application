@@ -13,7 +13,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
@@ -42,6 +44,7 @@ import droidninja.filepicker.FilePickerConst;
 import droidninja.filepicker.utils.Orientation;
 import id.zelory.compressor.Compressor;
 import structure.com.foodportal.R;
+import structure.com.foodportal.customViews.MultiLeftSideMenu;
 import structure.com.foodportal.fragment.CartFragment;
 import structure.com.foodportal.fragment.FragmentCategory;
 import structure.com.foodportal.fragment.HomeFragment;
@@ -55,19 +58,29 @@ import structure.com.foodportal.global.SideMenuChooser;
 import structure.com.foodportal.global.SideMenuDirection;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.GooglePlaceHelper;
+import structure.com.foodportal.helper.JsonHelpers;
+import structure.com.foodportal.helper.ServiceHelper;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.DataLoadedListener;
 import structure.com.foodportal.interfaces.MediaTypePicker;
 import structure.com.foodportal.interfaces.OnActivityResultInterface;
+import structure.com.foodportal.interfaces.webServiceResponseLisener;
 import structure.com.foodportal.models.Category;
 import structure.com.foodportal.models.FCMPayload;
+import structure.com.foodportal.models.ProductModelAPI;
+import structure.com.foodportal.models.foodModels.FoodHomeModelWrapper;
+import structure.com.foodportal.models.foodModels.HeaderWrapper;
+import structure.com.foodportal.models.foodModels.MainHeaderWrapper;
+import structure.com.foodportal.webservice.WebServiceFactory;
+import structure.com.foodportal.webservice.webservice;
 
 
-public class MainActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener, DataLoadedListener {
+public class MainActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener, DataLoadedListener, webServiceResponseLisener {
     public RadioButton rbHome, rbSearch, rbNotification, rbAccount;
     public boolean isNavigationGravityRight = false;
-    public FrameLayout sideMneuFragmentContainer;
+    MultiLeftSideMenu sideMneuFragmentContainer;
+    FrameLayout framelayout;
     //  ImageView imgLoader;
     FrameLayout imgLoader;
     Titlebar titlebar;
@@ -90,7 +103,8 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
     private Category categories;
     ViewPager stepPager;
     int minWindowWidth, minWindowHeight, aspectRatioX, aspectRatioY;
-
+    protected ServiceHelper serviceHelper;
+    protected webservice webService;
     Bundle bundle;
 
     @Override
@@ -98,6 +112,8 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        webService = WebServiceFactory.getInstance(AppConstant.BASE_URL);
+        serviceHelper = new ServiceHelper(this, this);
         if (getIntent().getExtras() != null) {
             bundle = new Bundle();
             bundle = getIntent().getExtras();
@@ -107,7 +123,10 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 
         sideMenuType = SideMenuChooser.DRAWER.getValue();
         sideMenuDirection = SideMenuDirection.LEFT.getValue();
-        settingSideMenu(sideMenuType, sideMenuDirection);
+
+
+        serviceHelper.enqueueArrayCall(webService.getHeader(), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HEADER);
+
         titlebar.setMenuOnclickListener(view -> {
             if (sideMenuDirection.equals(SideMenuDirection.LEFT.getValue())) {
                 drawerLayout.openDrawer(Gravity.LEFT);
@@ -115,9 +134,14 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
                 drawerLayout.openDrawer(Gravity.RIGHT);
             }
         });
-        addFragment(new FoodHomeFragment(),true,true);
+
 
     }
+
+    public MultiLeftSideMenu getLeftSideMenuFragment() {
+        return sideMneuFragmentContainer;
+    }
+
 
     public void showLoader() {
         //   imgLoader.show();
@@ -160,8 +184,9 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 
         rgTabStart = findViewById(R.id.rgTabsStart);
         rgTabEnd = findViewById(R.id.rgTabsEnd);
-
-        sideMneuFragmentContainer = findViewById(R.id.sideMneuFragmentContainer);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        framelayout = (FrameLayout) findViewById(R.id.sideMneuFragmentContainer);
+        // sideMneuFragmentContainer = findViewById(R.id.sideMneuFragmentContainer);
         contentView = findViewById(R.id.contentView);
 //        btnAddProduct.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -216,8 +241,8 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         }
     }
 
-    private void settingSideMenu(String type, String direction) {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+    private void settingSideMenu(String type, String direction, ArrayList<HeaderWrapper> headerWrapper) {
+
         if (type.equals(SideMenuChooser.DRAWER.getValue())) {
 
             DisplayMetrics matrics = new DisplayMetrics();
@@ -227,15 +252,14 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
             DrawerLayout.LayoutParams params = new DrawerLayout.LayoutParams(drawerwidth, (int) DrawerLayout.LayoutParams.MATCH_PARENT);
 
 
-            if (direction.equals(SideMenuDirection.LEFT.getValue())) {
-                params.gravity = Gravity.LEFT;
-                sideMneuFragmentContainer.setLayoutParams(params);
-            } else {
-                params.gravity = Gravity.RIGHT;
-                sideMneuFragmentContainer.setLayoutParams(params);
-            }
-
-            sideMenuFragment = SideMenuFragment.newInstance();
+//            if (direction.equals(SideMenuDirection.LEFT.getValue())) {
+////                params.gravity = Gravity.LEFT;
+////                drawerLayout.setLayoutParams(params);
+////            } else {
+////                params.gravity = Gravity.RIGHT;
+////                drawerLayout.setLayoutParams(params);
+////            }
+            // sideMneuFragmentContainer = MultiLeftSideMenu.newInstance();
 
 //            HomeFragment homeFragment = new HomeFragment();
 //            homeFragment.setDataLoadedListener(this);
@@ -250,11 +274,17 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
                 replaceFragment(new HomeFragment(), true, false);
             }
 */
+//            sideMneuFragmentContainer = new MultiLeftSideMenu(headerWrapper);
+//            sideMneuFragmentContainer.MultiLeftSideMenu(headerWrapper);
+
             FragmentTransaction transaction = getSupportFragmentManager()
                     .beginTransaction();
-            transaction.replace(R.id.sideMneuFragmentContainer, sideMenuFragment).commit();
+            transaction.replace(framelayout.getId(), new MultiLeftSideMenu(headerWrapper)).commit();
             setDrawerListeners();
-            drawerLayout.closeDrawers();
+            // drawerLayout.closeDrawers();
+
+
+            addFragment(new FoodHomeFragment(), true, true);
         }
     }
 
@@ -378,10 +408,6 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         return drawerLayout;
     }
 
-    public void closeDrawer() {
-        drawerLayout.closeDrawers();
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
@@ -654,5 +680,42 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
     public void setSignupPager(ViewPager stepPager) {
         this.stepPager = stepPager;
     }
+
+    @Override
+    public void ResponseSuccess(Object result, String Tag) {
+
+        ArrayList<HeaderWrapper> headerWrappers = new ArrayList<>();
+        headerWrappers.addAll((ArrayList<HeaderWrapper>) result);
+        if (headerWrappers != null) {
+
+            settingSideMenu(sideMenuType, sideMenuDirection, headerWrappers);
+            unlockDrawers();
+
+        }
+    }
+
+    @Override
+    public void ResponseFailure(String tag) {
+
+    }
+
+
+    public void lockDrawers() {
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    public void unlockDrawers() {
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }
+
+    public void openDrawer() {
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    public void closeDrawer() {
+        drawerLayout.closeDrawers();
+
+    }
+
 
 }

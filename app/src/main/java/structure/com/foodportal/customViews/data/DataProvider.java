@@ -1,4 +1,4 @@
-package com.ingic.boutiqueapp.customViews.NavigationDrawerDataViews.data;
+package structure.com.foodportal.customViews.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class DataProvider {
     private static final int MAX_LEVELS = 3;
 
     public static List<BaseItem> getInitialItems() {
-        return getSubItems(new GroupItem("root"));
+        return getSubItems(new GroupItem("root",null) );
     }
 
     public static List<BaseItem> getSubItems(BaseItem baseItem) {
@@ -54,10 +54,10 @@ public class DataProvider {
         for (int i = 0; i < ITEMS_PER_LEVEL; ++i) {
             BaseItem item;
             if (i % 2 == 0 && nextLevel != MAX_LEVELS) {
-                item = new GroupItem("Group " + Integer.toString(++groupNr));
+                item = new GroupItem("Group " + Integer.toString(++groupNr),null);
                 ((GroupItem) item).setLevel(nextLevel);
             } else {
-                item = new Item("Item " + Integer.toString(++itemNr));
+                item = new Item("Item " + Integer.toString(++itemNr),null);
             }
             result.add(item);
         }

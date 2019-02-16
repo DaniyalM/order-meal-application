@@ -1,8 +1,14 @@
 package structure.com.foodportal.models.foodModels;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 
-public class FoodHomeModelWrapper {
+//@Entity(tableName = "foodhome")
+public   class FoodHomeModelWrapper {
+
 
     ArrayList<Banner> banner;
 

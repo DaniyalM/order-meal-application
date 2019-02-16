@@ -20,6 +20,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/img_menu"/>
         <LinearLayout
+            android:animateLayoutChanges="true"
             android:layout_centerInParent="true"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -75,13 +76,26 @@
 
         </RelativeLayout>
 
-        <structure.com.foodportal.customViews.CustomRecyclerView
+     <!--   <structure.com.foodportal.customViews.CustomRecyclerView
             android:id="@+id/sideoptions"
             android:layout_width="match_parent"
             android:background="@color/colorNav"
             android:layout_height="match_parent"
             android:divider="@null"
             android:dividerHeight="0dp" />
+        -->
+        <pl.openrnd.multilevellistview.MultiLevelListView
+            android:id="@+id/sideoptions"
+            android:animateLayoutChanges="true"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:background="@color/colorAccent"
+            app:alwaysExtended="false"
+            app:nestType="single" />
+
+
 
 
     </LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.flaviofaria.kenburnsview.KenBurnsView
+        android:id="@+id/ivBanner"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="340dp"
+        android:scaleType="fitXY" />
+
+    <believe.cht.fadeintextview.TextView
+        android:id="@+id/tvRecipename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp30"
+        android:layout_marginStart="@dimen/dp10"
+        android:fontFamily="@font/poppinsbold"
+        android:textStyle="bold"
+        android:gravity="end|bottom"
+        android:text="Hara Masala Cholay"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp20"
+        app:letterDuration="200" />
+</FrameLayout>

@@ -1,7 +1,10 @@
 package structure.com.foodportal.webservice;
 
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,6 +33,8 @@ import structure.com.foodportal.models.ProductModelAPI;
 import structure.com.foodportal.models.UserModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
+import structure.com.foodportal.models.foodModels.HeaderWrapper;
+import structure.com.foodportal.models.foodModels.MainHeaderWrapper;
 
 /**
  * Created by khanubaid on 12/28/2017.
@@ -184,6 +189,9 @@ public interface webservice {
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME)
     Call<Api_Response<JsonObject>> gethome();
+
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HEADER)
+    Call<Api_Array_Response<HeaderWrapper>> getHeader();
 }
 
 

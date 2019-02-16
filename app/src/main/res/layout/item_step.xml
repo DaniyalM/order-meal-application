@@ -1,0 +1,69 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:fontFamily="@font/poppinsbold"
+        android:textColor="@color/colorBlack"
+        android:id="@+id/tvSteps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="@dimen/dp6"
+        android:text="Step 1"
+        android:textSize="@dimen/dp20" />
+
+
+    <FrameLayout
+        android:id="@+id/video_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/dp280"
+        android:background="@android:color/black">
+
+        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+            android:id="@+id/videoView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            app:resize_mode="fill"
+            app:use_controller="false"
+            app:show_buffering="true"
+            />
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/imageforrecplace"
+            android:src="@drawable/image_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
+
+
+        <structure.com.foodportal.helper.UniversalMediaController
+
+            android:visibility="gone"
+            android:id="@+id/media_controller"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:uvv_scalable="false" />
+
+    </FrameLayout>
+
+
+    <believe.cht.fadeintextview.TextView
+        app:letterDuration="100"
+        android:padding="@dimen/dp10"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_marginBottom="@dimen/dp20"
+        android:id="@+id/tvStepDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="@dimen/dp20" />
+
+</LinearLayout>

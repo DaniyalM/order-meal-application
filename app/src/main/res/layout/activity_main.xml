@@ -42,20 +42,20 @@
 
         <FrameLayout
             android:id="@+id/mainFrame"
-            android:layout_below="@id/title"
-            android:layout_above="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            android:layout_above="@+id/bottomBar"
+            android:layout_below="@id/title" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/bottomBar"
-            android:animateLayoutChanges="true"
-            android:background="@color/transparent"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp64"
-            android:orientation="horizontal">
+            android:layout_alignParentBottom="true"
+            android:animateLayoutChanges="true"
+            android:background="@color/transparent"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -175,9 +175,9 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
+                android:padding="@dimen/dp10"
                 android:src="@drawable/loader"
                 android:tint="@color/colorAccent"
-                android:padding="@dimen/dp10"
                 app:indicatorColor="@color/colorWhite"
                 app:indicatorName="BallClipRotateMultipleIndicator" />
 
@@ -185,13 +185,24 @@
 
     </RelativeLayout>
 
-    <FrameLayout
-        android:id="@+id/sideMneuFragmentContainer"
-        android:layout_width="300dp"
+    <!--  <FrameLayout
+          android:id="@+id/sideMneuFragmentContainer"
+          android:layout_width="300dp"
+          android:layout_height="match_parent"
+          android:layout_gravity="left"
+          android:choiceMode="singleChoice"
+          android:clickable="true"
+          android:dividerHeight="1dp" />-->
+    <android.support.design.widget.NavigationView
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:choiceMode="singleChoice"
-        android:clickable="true"
-        android:dividerHeight="1dp" />
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true">
+
+        <FrameLayout
+            android:id="@+id/sideMneuFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

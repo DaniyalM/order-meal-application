@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="@dimen/dp50"
+    android:background="@color/colorAccent"
+    android:layout_width="match_parent">
+    <!--<com.ingic.boutiqueapp.customViews.NavigationDrawerDataViews.views.LevelBeamView-->
+        <!--android:id="@+id/dataItemLevelBeam"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="@dimen/data_item_row_height"-->
+        <!--android:visibility="gone"/>-->
+    <View
+        android:id="@+id/selector"
+        android:backgroundTint="@color/white"
+        android:layout_width="@dimen/dp5"
+        android:layout_height="50dp"
+        android:background="@drawable/shape"
+        android:layout_centerVertical="true"
+        android:visibility="visible"/>
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="start|center"
+        android:layout_marginStart="@dimen/dp20"
+       >
+
+
+        <View
+            android:id="@+id/verticalLine"
+            android:layout_width="@dimen/dp1"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:visibility="gone"/>
+        <View
+            android:id="@+id/horizontalLine"
+            android:layout_width="@dimen/dp20"
+            android:layout_height="@dimen/dp1"
+            android:background="@color/colorWhite"
+            android:visibility="gone"/>
+        <ImageView
+            android:visibility="gone"
+            android:scaleType="fitXY"
+            android:id="@+id/logoImage"
+            android:layout_gravity="center"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+          />
+
+        <TextView
+            android:paddingTop="@dimen/dp10"
+            android:paddingBottom="@dimen/dp10"
+            android:layout_gravity="center"
+            android:id="@+id/dataItemName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="fggfgfgfgfg"
+            android:paddingStart="@dimen/dp5"
+            android:gravity="start|center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16"
+           />
+
+    </LinearLayout>
+
+    <ImageView
+        android:tint="@color/white"
+        android:id="@+id/dataItemArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/downarrow"
+        android:paddingEnd="@dimen/dp20"
+        style="@style/Widget.AppCompat.DrawerArrowToggle" />
+
+</RelativeLayout>
