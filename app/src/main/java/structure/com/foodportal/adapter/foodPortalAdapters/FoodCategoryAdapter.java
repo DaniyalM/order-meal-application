@@ -45,7 +45,7 @@ public class FoodCategoryAdapter extends RecyclerView.Adapter<FoodCategoryAdapte
     public void onBindViewHolder(FoodCategoryAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
         holder.text.setText(""+ingredientList.get(position).getCategory_title_en());
-        UIHelper.setImageWithGlide(context,holder.circleImageView,ingredientList.get(position).getGallery().getPhotos().get(0).getImage_path());
+        UIHelper.setImageWithGlide(context,holder.circleImageView,""+ingredientList.get(position).getSlider_path());
         setAnimation(holder.itemView, position);
     }
     private void setAnimation(View viewToAnimate, int position)

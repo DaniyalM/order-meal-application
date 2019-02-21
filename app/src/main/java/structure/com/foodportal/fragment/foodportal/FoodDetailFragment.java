@@ -253,17 +253,17 @@ public class FoodDetailFragment extends BaseFragment implements
         binding.videoView.stopPlayback();
         binding.videoView.closePlayer();
         CarelessSingleton.instance.setState(foodDetailModel.getData(), position);
-//        StepFragment stepFragment = new StepFragment();
-//        stepFragment.setVideoData(position, foodDetailModel.getData());
-//        mainActivity.addFragment(stepFragment, true, true);
-//        //  Toast.makeText(mainActivity, "Will be implement later", Toast.LENGTH_SHORT).show();
+        StepFragment stepFragment = new StepFragment();
+        stepFragment.setVideoData(position, foodDetailModel.getData());
+        mainActivity.addFragment(stepFragment, true, true);
+        //  Toast.makeText(mainActivity, "Will be implement later", Toast.LENGTH_SHORT).show();
 
 
 
-
-        StepByStepFragment stepByStepFragment =new StepByStepFragment();
-        stepByStepFragment.setVideoData(foodDetailModel.getData(),position);
-        mainActivity.addFragment(stepByStepFragment,true,true);
+//
+//        StepByStepFragment stepByStepFragment =new StepByStepFragment();
+//        stepByStepFragment.setVideoData(foodDetailModel.getData(),position);
+//        mainActivity.addFragment(stepByStepFragment,true,true);
 
 
     }
@@ -304,8 +304,16 @@ public class FoodDetailFragment extends BaseFragment implements
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mainActivity.getTitleBar().showTitlebar();
-        mainActivity.getTitleBar().showMenuButton(mainActivity);
+
+        if(mainActivity.getSupportFragmentManager().getFragments().size()>3){
+            mainActivity.getTitleBar().showTitlebar();
+            mainActivity.getTitleBar().showBackButton(mainActivity);
+
+        }else{
+
+            mainActivity.getTitleBar().showTitlebar();
+            mainActivity.getTitleBar().showMenuButton(mainActivity);
+        }
       //  mainActivity.getTitleBar().setTitle("Cooking Food");
     }
 }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import structure.com.foodportal.R;
 import structure.com.foodportal.helper.UIHelper;
+import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.foodModels.Sections;
 
 public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterForBitesAdapter.PlanetViewHolder> {
@@ -21,9 +22,11 @@ public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterF
     ArrayList<Sections> sections;
     Context context;
     private int lastPosition = -1;
-    public FoodBetterForBitesAdapter(ArrayList<Sections> sections, Context context) {
+    FoodHomeListner foodHomeListner;
+    public FoodBetterForBitesAdapter(ArrayList<Sections> sections, Context context,FoodHomeListner foodHomeListner) {
         this.sections = sections;
         this.context = context;
+        this.foodHomeListner = foodHomeListner;
     }
 
     @Override
@@ -41,7 +44,18 @@ public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterF
         //  holder.image.setImageResource(R.drawable.planetimage);
         holder.text.setText(""+sections.get(position).getTitle());
         UIHelper.setImageWithGlide(context,holder.circleImageView,sections.get(position).getGallery().getPhotos().get(0).getImage_path());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                foodHomeListner.betterforurbites(position);
+            }
+        });
+
         setAnimation(holder.itemView, position);
+
+
     }
     private void setAnimation(View viewToAnimate, int position)
     {

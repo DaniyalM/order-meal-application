@@ -7,39 +7,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import butterknife.internal.Utils;
-import de.hdodenhof.circleimageview.CircleImageView;
 import structure.com.foodportal.R;
 import structure.com.foodportal.helper.UIHelper;
-import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
-import structure.com.foodportal.models.Category;
+import structure.com.foodportal.interfaces.foodInterfaces.SubCategoryListner;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.Ingredient;
-import structure.com.foodportal.models.foodModels.Section;
 import structure.com.foodportal.models.foodModels.Sections;
 
-public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapter.PlanetViewHolder> {
+public class FoodSubCategory  extends RecyclerView.Adapter<FoodSubCategory.PlanetViewHolder> {
 
-    ArrayList<Sections> sections;
+    ArrayList<CategorySlider> sections;
     Context context;
+    SubCategoryListner subCategoryListner;
     private int lastPosition = -1;
-    FoodHomeListner foodHomeListner;
-    public FoodFeaturedAdapter(ArrayList<Sections> sections, Context context,FoodHomeListner foodHomeListner) {
+    public FoodSubCategory(ArrayList<CategorySlider> sections, Context context, SubCategoryListner subCategoryListner) {
         this.sections = sections;
         this.context = context;
-        this.foodHomeListner = foodHomeListner;
+        this.subCategoryListner = subCategoryListner;
     }
 
     @Override
-    public FoodFeaturedAdapter.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_popular_recipe, parent, false);
-        PlanetViewHolder viewHolder = new PlanetViewHolder(v);
+    public FoodSubCategory.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sub_category, parent, false);
+        FoodSubCategory.PlanetViewHolder viewHolder = new FoodSubCategory.PlanetViewHolder(v);
         return viewHolder;
     }
 
@@ -47,21 +42,24 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
 
 
     @Override
-    public void onBindViewHolder(FoodFeaturedAdapter.PlanetViewHolder holder, int position) {
+    public void onBindViewHolder(FoodSubCategory.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
-        holder.text.setText(""+sections.get(position).getTitle());
+
+
+        holder.text.setText(sections.get(position).getCategory_title_en()== null ? sections.get(position).getTitle_en():sections.get(position).getCategory_title_en());
         UIHelper.setImageWithGlide(context,holder.circleImageView,sections.size()>0 ? sections.get(position).getGallery().getPhotos().get(0).getImage_path() : null);
-   //     setAnimation(holder.itemView, position);
+            // setAnimation(holder.itemView, position);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+             holder.itemView.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+
+                subCategoryListner.onSubCategoryClick(position);
+
+                 }
+             });
 
 
-                 foodHomeListner.featuredrecipe(position);
-
-            }
-        });
     }
     private void setAnimation(View viewToAnimate, int position)
     {
@@ -80,16 +78,22 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
         return sections.size();
     }
 
+    public void addAll(ArrayList<CategorySlider> categorySliderWrapper) {
+        this.sections =categorySliderWrapper;
+        notifyDataSetChanged();
+
+    }
+
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
-        protected TextView text;
+         TextView text;
         ImageView circleImageView;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
 
-            text = (TextView) itemView.findViewById(R.id.tvPopularRecipe);
-            circleImageView = (ImageView) itemView.findViewById(R.id.ivPopularRecipe);
+            text = (TextView) itemView.findViewById(R.id.tv_subcategory);
+            circleImageView = (ImageView) itemView.findViewById(R.id.iv_subcategory);
         }
     }
 }

@@ -31,10 +31,13 @@ import structure.com.foodportal.models.Notification;
 import structure.com.foodportal.models.Order;
 import structure.com.foodportal.models.ProductModelAPI;
 import structure.com.foodportal.models.UserModel;
+import structure.com.foodportal.models.foodModels.CategorySlider;
+import structure.com.foodportal.models.foodModels.CategorySliderWrapper;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.HeaderWrapper;
 import structure.com.foodportal.models.foodModels.MainHeaderWrapper;
+import structure.com.foodportal.models.foodModels.RecipeWrapper;
 
 /**
  * Created by khanubaid on 12/28/2017.
@@ -192,6 +195,13 @@ public interface webservice {
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HEADER)
     Call<Api_Array_Response<HeaderWrapper>> getHeader();
+
+
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY)
+    Call<Api_Response<CategorySliderWrapper>> getSubCategory(@Query("category_slug") String category_slug);
+
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY_RECIPE)
+    Call<Api_Response<RecipeWrapper>> getRecipeCategory(@Query("category_slug") String category_slug);
 }
 
 

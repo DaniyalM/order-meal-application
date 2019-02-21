@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
@@ -12,8 +11,7 @@
         android:layout_height="match_parent">
 
         <com.cooltechworks.views.shimmer.ShimmerRecyclerView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/rvSubCategory"
+            android:id="@+id/rvSubCategoryRecipe"
             android:layout_width="match_parent"
             app:shimmer_demo_child_count="8"
             android:visibility="visible"
@@ -25,7 +23,9 @@
             android:layout_height="match_parent">
         </com.cooltechworks.views.shimmer.ShimmerRecyclerView>
 
+
         <TextView
+            app:letterDuration="1000"
             android:drawableTop="@drawable/icon_hunger"
             android:text="Nothing to Show"
             android:textSize="@dimen/dp20"
@@ -37,9 +37,6 @@
             android:id="@+id/nodatafound"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-
-
 
     </LinearLayout>
 </layout>

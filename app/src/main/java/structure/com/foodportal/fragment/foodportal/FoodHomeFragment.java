@@ -58,6 +58,7 @@ import structure.com.foodportal.helper.NetworkUtils;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodBannerListner;
+import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.foodModels.Banner;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
@@ -66,7 +67,7 @@ import structure.com.foodportal.models.foodModels.FoodHomeModelWrapper;
 import structure.com.foodportal.models.foodModels.Photos;
 import structure.com.foodportal.models.foodModels.Sections;
 
-public class FoodHomeFragment extends BaseFragment implements View.OnClickListener, FoodBannerListner {
+public class FoodHomeFragment extends BaseFragment implements View.OnClickListener, FoodBannerListner,FoodHomeListner {
 
 
     FragmentHomefoodBinding binding;
@@ -109,9 +110,9 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
         foodCategoryAdapter = new FoodCategoryAdapter(categorySliders, mainActivity);
         foodBannerAdapter = new FoodBannerAdapter(banners, mainActivity, this);
-        foodPopularRecipeAdapter = new FoodPopularRecipeAdapter(sectionsPopular, mainActivity);
-        foodFeaturedAdapter = new FoodFeaturedAdapter(sectionsFeatured, mainActivity);
-        foodBetterForBitesAdapter = new FoodBetterForBitesAdapter(sectionsBetterForBites, mainActivity);
+        foodPopularRecipeAdapter = new FoodPopularRecipeAdapter(sectionsPopular, mainActivity,this);
+        foodFeaturedAdapter = new FoodFeaturedAdapter(sectionsFeatured, mainActivity,this);
+        foodBetterForBitesAdapter = new FoodBetterForBitesAdapter(sectionsBetterForBites, mainActivity,this);
 
 
         binding.rvCategoryslider.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
@@ -248,8 +249,37 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     public void onBannerClick(int positon) {
 
 
+        next(banners.get(positon).getSlug());
+
+
+
+    }
+
+    @Override
+    public void popularrecipe(int pos) {
+
+        next(sectionsPopular.get(pos).getSlug());
+
+
+    }
+
+    @Override
+    public void featuredrecipe(int pos) {
+        next(sectionsFeatured.get(pos).getSlug());
+    }
+
+    @Override
+    public void betterforurbites(int pos) {
+        next(sectionsBetterForBites.get(pos).getSlug());
+
+
+    }
+
+
+    public void next(String slug){
+
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getfooddetail(banners.get(positon).getSlug()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+            serviceHelper.enqueueCall(webService.getfooddetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
         else if (LocalDataHelper.readFromFile(mainActivity,"Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity,"Detail").equalsIgnoreCase("")) {
 
             Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
@@ -263,8 +293,6 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
             mainActivity.addFragment(detailFragment, true, true);
 
         }
-
-
 
 
     }

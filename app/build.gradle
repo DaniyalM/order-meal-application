@@ -68,14 +68,14 @@ dependencies {
     implementation 'com.droidninja:filepicker:2.1.5'
 
     //glide
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
     //Image Cropper
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.3.+'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'com.github.bumptech.glide:glide:4.2.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
     annotationProcessor 'com.github.bumptech.glide:annotations:4.2.0'
-
+    implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
     //Rating star
     implementation 'me.zhanghai.android.materialratingbar:library:1.3.1'
 

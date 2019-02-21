@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.ColorFilter;
+import android.graphics.ColorSpace;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.widget.CircularProgressDrawable;
@@ -74,6 +76,8 @@ public  class UIHelper {
         CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(context);
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.setColorSchemeColors(context.getResources().getColor(R.color.colorAccentPink));
+        circularProgressDrawable.setColorFilter(context.getResources().getColor(R.color.colorAccentPink),android.graphics.PorterDuff.Mode.MULTIPLY);
         circularProgressDrawable.start();
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.dontAnimate().placeholder(circularProgressDrawable);

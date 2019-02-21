@@ -4,6 +4,26 @@ import java.util.ArrayList;
 
 public class CategorySlider
 {
+    public String getTitle_en() {
+        return title_en;
+    }
+
+    public void setTitle_en(String title_en) {
+        this.title_en = title_en;
+    }
+
+    String title_en;
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    String slug;
+
     private String layout_id;
 
     private String is_active;

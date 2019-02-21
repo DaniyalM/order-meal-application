@@ -214,6 +214,8 @@ public class AppConstant {
         public static final String FOOD_DETAILS = "story";
         public static final String FOOD_HOME = "home";
         public static final String FOOD_HEADER = "header/menu";
+        public static final String SUB_CATEGORY = "category/all-category";
+        public static final String SUB_CATEGORY_RECIPE = "category/detail";
 
 
 

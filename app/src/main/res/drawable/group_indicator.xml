@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/uparrow" android:state_empty="true">  </item>
+    <item android:drawable="@drawable/downarrow"
+        android:drawableTint="@color/white"
+        android:state_expanded="true"></item>
+    <item android:drawable="@drawable/uparrow"></item>
+</selector>
+
