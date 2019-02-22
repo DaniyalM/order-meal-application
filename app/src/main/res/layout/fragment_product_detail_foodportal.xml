@@ -8,6 +8,7 @@
         android:orientation="vertical">
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -60,19 +61,49 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-
                         <LinearLayout
+                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_gravity="top"
-                                android:background="@drawable/icon_menu_recently_view"
-                                android:backgroundTint="@color/colorAccent" />
+                                android:padding="@dimen/dp5"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/icon_time"
+                                />
+
+                            <TextView
+                                android:id="@+id/tvPreparationTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center|start"
+                                android:paddingStart="@dimen/dp5"
+                                android:text="38 Minutes"
+                                android:textColor="@color/colorNav"
+                                android:textSize="@dimen/sp10"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:padding="@dimen/dp5"
+                                android:layout_width="23dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/icon_view"
+                              />
 
                             <TextView
                                 android:id="@+id/tvServingTime"
@@ -81,24 +112,26 @@
                                 android:layout_gravity="center"
                                 android:gravity="center|start"
                                 android:paddingStart="@dimen/dp5"
-                                android:text="@string/ingredients"
+                                android:text="38 views"
                                 android:textColor="@color/colorBlackButton"
-                                android:textSize="@dimen/dp10"
+                                android:textSize="@dimen/sp10"
                                 android:textStyle="bold" />
                         </LinearLayout>
-
                         <LinearLayout
+                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:padding="@dimen/dp5"
                                 android:layout_gravity="top"
-                                android:background="@drawable/icon_menu_submit_your_recipe"
-                                android:backgroundTint="@color/colorAccent" />
+                                android:background="@drawable/heart_on"
+                                android:backgroundTint="@color/colorRed" />
 
                             <TextView
                                 android:id="@+id/tvServingDetails"
@@ -107,43 +140,34 @@
                                 android:layout_gravity="center"
                                 android:gravity="center|start"
                                 android:paddingStart="@dimen/dp5"
-                                android:text="@string/serving"
-                                android:textColor="@color/colorBlackButton"
-                                android:textSize="@dimen/dp10"
+                                android:text="38 likes"
+                                android:textColor="@color/colorNav"
+                                android:textSize="@dimen/sp10"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:gravity="end"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
 
-
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_marginTop="@dimen/dp6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_gravity="top"
-                            android:background="@drawable/icon_menu_recently_view"
-                            android:backgroundTint="@color/colorAccent" />
-
-                        <TextView
-                            android:id="@+id/tvPreparationTime"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:gravity="center|start"
-                            android:paddingStart="@dimen/dp5"
-                            android:text="@string/prepration_time"
-                            android:textColor="@color/colorBlackButton"
-                            android:textSize="@dimen/dp10"
-                            android:textStyle="bold" />
+                            android:padding="@dimen/dp5"
+                            android:tint="@color/colorNav"
+                            android:src="@drawable/share"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp" />
+
+
+                        </LinearLayout>
+
                     </LinearLayout>
+
 
                     <TextView
                         android:id="@+id/tvfoodDiscount"
@@ -234,6 +258,62 @@
                             />
 
 
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:layout_marginBottom="@dimen/dp10"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:background="@drawable/roundedshape"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:paddingEnd="@dimen/dp5"
+                            android:paddingStart="@dimen/dp5"
+                            android:drawablePadding="@dimen/dp10"
+                            android:drawableTint="@color/colorAccent"
+                            android:drawableStart="@drawable/nav"
+                            android:paddingTop="@dimen/dp10"
+                            android:paddingBottom="@dimen/dp10"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textColor="@color/colorAccent"
+                            android:text="Add to shopping list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+
+
+
+                            </LinearLayout>
+
+                     <LinearLayout
+                         android:layout_marginTop="@dimen/dp10"
+                         android:id="@+id/llRelated"
+                         android:orientation="vertical"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+                        <TextView
+                            android:fontFamily="@font/poppinsbold"
+                            android:text="Related Recipes"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/dp20"
+                            android:textColor="@color/colorAccent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rvRelatedRecipes"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="@dimen/dp5"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:layout_weight="1"
+                            android:nestedScrollingEnabled="true" />
+                     </LinearLayout>
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>

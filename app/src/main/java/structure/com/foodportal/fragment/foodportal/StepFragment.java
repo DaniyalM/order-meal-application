@@ -39,9 +39,13 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -64,17 +68,20 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
 
     FoodDetailModel foodDetailModel;
     int positon;
-    ArrayList<Integer> startTime = new ArrayList<>();
-    ArrayList<Integer> endTime = new ArrayList<>();
+    ArrayList<Integer> startTime;
+    ArrayList<Integer> endTime ;
     int value = 0;
 
     public StepFragment() {
     }
 
-    public void setVideoData(int positon, FoodDetailModel foodDetailModel) {
+    public void setVideoData(int positon, FoodDetailModel foodDetailModel,  ArrayList<Integer> startTime, ArrayList<Integer> endTime) {
         this.positon = positon;
         value = positon;
         this.foodDetailModel = foodDetailModel;
+        this.startTime =startTime;
+        this.endTime =endTime;
+
 
 
     }
@@ -99,11 +106,11 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
                         {
                            // SeekParameters seekParameters =new SeekParameters(startTime.get(positon),endTime.get(positon));
                             player.seekTo(startTime.get(positon));
-//                            player.stop();
-//                            timer.cancel();
-//                            timer.purge();
-//                            task.cancel();
-                          //  playvideo(positon);
+                            player.stop();
+                            timer.cancel();
+                            timer.purge();
+                            task.cancel();
+                            playvideo(positon);
                         }
 
                     }
@@ -152,18 +159,24 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
         value = CarelessSingleton.instance.getStateposition();
         mMediaController = (UniversalMediaController) binding.getRoot().findViewById(R.id.media_controller);
 
+
+
         binding.videoView.requestFocus();
         binding.videoView.hideController();
         player = ExoPlayerFactory.newSimpleInstance(
                 new DefaultRenderersFactory(mainActivity),
                 new DefaultTrackSelector(), new DefaultLoadControl());
 
+
+
+
+
         binding.videoView.setPlayer(player);
         player.setPlayWhenReady(true);
         player.seekTo(startTime.get(value), endTime.get(value));
         player.addListener(this);
         player.setRepeatMode(SimpleExoPlayer.DISCONTINUITY_REASON_SEEK);
-        Uri uri = Uri.parse(AppConstant.VIDEO_URL + foodDetailModel.getVideo_url());
+        Uri uri = Uri.parse(AppConstant.VIDEO_URL + foodDetailModel.getVideo_url().replace("1080.mp4","320.mp4"));
 
          mediaSource = buildMediaSource(uri);
         player.prepare(mediaSource, true, true);
@@ -183,16 +196,17 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
         binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
         binding.tvSteps.setText("Step " + (value + 1));
 
-        binding.videoView.setOnTouchListener(new OnSwipeTouchListner(mainActivity) {
+        binding.videoLayout.setOnTouchListener(new OnSwipeTouchListner(mainActivity) {
             public void onSwipeTop() {
 
              //   Toast.makeText(mainActivity, "top", Toast.LENGTH_SHORT).show();
             }
 
             public void onSwipeRight() {
-
+                value--;
               if(value>0)
-              {   value = value-1;
+              {
+                  //value = value-1;
                 playvideo(value);
                 binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
                 binding.tvSteps.setText("Step "+(value+1));
@@ -201,8 +215,9 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
             }
 
             public void onSwipeLeft() {
+                value++;
                 if(value>0){
-                value = value+1;
+              //  value = value+1;
                 playvideo(value);
                 binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
                 binding.tvSteps.setText("Step "+(value+1));
@@ -242,7 +257,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
 
 
         player.seekTo((startTime.get(value)) * 1000);
-       // timerCounter(value);
+        timerCounter(value);
 
 
 //        binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

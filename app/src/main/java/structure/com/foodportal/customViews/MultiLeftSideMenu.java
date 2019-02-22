@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,22 +121,30 @@ public class MultiLeftSideMenu extends BaseFragment {
 
     ExpandableListView expandableListView;
     TextView logout, home;
+
     ExpandableListAdapter listAdapter;
     List<String> listDataHeader;
     HashMap<String, List<CategorySlider>> listDataChild;
 
     ArrayList<CategorySlider> recipes;
     ArrayList<CategorySlider> tutorials;
+    ArrayList<CategorySlider> cleaning;
+    ArrayList<CategorySlider> blog;
 
     public void setMenu() {
 
         recipes = new ArrayList<>();
         tutorials = new ArrayList<>();
+        cleaning = new ArrayList<>();
+        blog = new ArrayList<>();
         listDataChild = new HashMap<>();
         listDataHeader = new ArrayList<>();
         expandableListView = (ExpandableListView) binder.getRoot().findViewById(R.id.sideoptions);
+
         home = (TextView) binder.getRoot().findViewById(R.id.home);
         logout = (TextView) binder.getRoot().findViewById(R.id.logout);
+
+
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,6 +164,9 @@ public class MultiLeftSideMenu extends BaseFragment {
 
             }
         });
+
+        //  expandableListView.addHeaderView(home);
+        // expandableListView.addFooterView(logout);
 
         // Listview Group click listener
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -206,11 +218,11 @@ public class MultiLeftSideMenu extends BaseFragment {
                 mainActivity.closeDrawer();
 
                 mainActivity.clearBackStack();
-                SubCategoryFragment subCategoryFragment =new SubCategoryFragment();
+                SubCategoryFragment subCategoryFragment = new SubCategoryFragment();
                 subCategoryFragment.setModel(listDataChild.get(
                         listDataHeader.get(groupPosition)).get(
                         childPosition));
-                mainActivity.addFragment(subCategoryFragment,true,false);
+                mainActivity.addFragment(subCategoryFragment, true, false);
 
 
 //
@@ -292,6 +304,26 @@ public class MultiLeftSideMenu extends BaseFragment {
                 sourceString = headerWrapper.get(1).getTitle_en();
                 listDataHeader.add(sourceString);
                 listDataChild.put(sourceString, tutorials);
+
+            }
+
+
+            if (headerWrapper.get(2).getCategories().size() > 0) {
+
+                cleaning.addAll(headerWrapper.get(2).getCategories());
+
+                sourceString = headerWrapper.get(2).getTitle_en();
+                listDataHeader.add(sourceString);
+                listDataChild.put(sourceString, cleaning);
+
+            }
+            if (headerWrapper.get(3).getCategories().size() > 0) {
+
+                blog.addAll(headerWrapper.get(3).getCategories());
+
+                sourceString = headerWrapper.get(3).getTitle_en();
+                listDataHeader.add(sourceString);
+                listDataChild.put(sourceString, blog);
 
             }
 

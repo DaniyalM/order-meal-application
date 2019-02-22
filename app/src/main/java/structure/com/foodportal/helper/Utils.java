@@ -56,18 +56,22 @@ public class Utils {
 
         return (string.trim().length() <= 0);
     }
+
     public interface Utilinterface {
         public void dialogPositive_Click(DialogInterface dialog);
     }
+
     public static void showToast(Context ctx, String text) {
         Toast.makeText(ctx, text + "", Toast.LENGTH_SHORT).show();
     }
+
     public static void hideSoftKeyboards(Activity activity) {
         if (activity.getCurrentFocus() != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
         }
     }
+
     public static String formatwithUTCDate(String date, String formatstring) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         format.setTimeZone(TimeZone.getDefault());
@@ -84,6 +88,17 @@ public class Utils {
         return format.format(newDate);
     }
 
+
+    public static int getTimeSeconds(String time) {
+
+        String[] units = time.split(":"); //will break the string up into an array
+        int hours = Integer.parseInt(units[0]); //first element
+        int minutes = Integer.parseInt(units[1]); //first element
+        int seconds = Integer.parseInt(units[2]); //second element
+        int duration = 60 * minutes + seconds; //add up our values
+
+        return duration;
+    }
 
 
     public static void hideKeyboard(View view, Context context) {
@@ -127,12 +142,6 @@ public class Utils {
 
         return output;
     }
-
-
-
-
-
-
 
 
 }
