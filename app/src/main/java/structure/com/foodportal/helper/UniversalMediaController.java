@@ -49,7 +49,7 @@ public class UniversalMediaController extends FrameLayout {
 
     private TextView mEndTime, mCurrentTime;
 
-    private TextView mTitle;
+ //   private TextView mTitle;
 
     private boolean mShowing = true;
 
@@ -87,13 +87,13 @@ public class UniversalMediaController extends FrameLayout {
 
     private ImageButton mScaleButton;
 
-    private View mBackButton;// 返回按钮
+  //  private View mBackButton;// 返回按钮
 
     private ViewGroup loadingLayout;
 
     private ViewGroup errorLayout;
 
-    private View mTitleLayout;
+   /// private View mTitleLayout;
     private View mControlLayout;
 
     private View mCenterPlayButton;
@@ -115,21 +115,21 @@ public class UniversalMediaController extends FrameLayout {
     private void init(Context context) {
         mContext = context;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View viewRoot = inflater.inflate(com.universalvideoview.R.layout.uvv_player_controller, this);
+        View viewRoot = inflater.inflate(R.layout.universalvideoview, this);
         viewRoot.setOnTouchListener(mTouchListener);
         initControllerView(viewRoot);
     }
 
 
     private void initControllerView(View v) {
-        mTitleLayout = v.findViewById(com.universalvideoview.R.id.title_part);
+    //    mTitleLayout = v.findViewById(com.universalvideoview.R.id.title_part);
         mControlLayout = v.findViewById(com.universalvideoview.R.id.control_layout);
         loadingLayout = (ViewGroup) v.findViewById(com.universalvideoview.R.id.loading_layout);
         errorLayout = (ViewGroup) v.findViewById(com.universalvideoview.R.id.error_layout);
         mTurnButton = (ImageButton) v.findViewById(com.universalvideoview.R.id.turn_button);
         mScaleButton = (ImageButton) v.findViewById(com.universalvideoview.R.id.scale_button);
         mCenterPlayButton = v.findViewById(com.universalvideoview.R.id.center_play_btn);
-        mBackButton = v.findViewById(com.universalvideoview.R.id.back_btn);
+      //  mBackButton = v.findViewById(com.universalvideoview.R.id.back_btn);
 
         if (mTurnButton != null) {
             mTurnButton.requestFocus();
@@ -151,9 +151,9 @@ public class UniversalMediaController extends FrameLayout {
             mCenterPlayButton.setOnClickListener(mCenterPlayListener);
         }
 
-        if (mBackButton != null) {//返回按钮仅在全屏状态下可见
-            mBackButton.setOnClickListener(mBackListener);
-        }
+//        if (mBackButton != null) {//返回按钮仅在全屏状态下可见
+//            mBackButton.setOnClickListener(mBackListener);
+//        }
 
         View bar = v.findViewById(com.universalvideoview.R.id.seekbar);
         mProgress = (ProgressBar) bar;
@@ -167,7 +167,7 @@ public class UniversalMediaController extends FrameLayout {
 
         mEndTime = (TextView) v.findViewById(com.universalvideoview.R.id.duration);
         mCurrentTime = (TextView) v.findViewById(com.universalvideoview.R.id.has_played);
-        mTitle = (TextView) v.findViewById(com.universalvideoview.R.id.title);
+        //mTitle = (TextView) v.findViewById(com.universalvideoview.R.id.title);
         mFormatBuilder = new StringBuilder();
         mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
     }
@@ -220,14 +220,14 @@ public class UniversalMediaController extends FrameLayout {
             mShowing = true;
         }
         updatePausePlay();
-        updateBackButton();
+        //updateBackButton();
 
         if (getVisibility() != VISIBLE) {
             setVisibility(VISIBLE);
         }
-        if (mTitleLayout.getVisibility() != VISIBLE) {
-            mTitleLayout.setVisibility(VISIBLE);
-        }
+//        if (mTitleLayout.getVisibility() != VISIBLE) {
+//            mTitleLayout.setVisibility(VISIBLE);
+//        }
         if (mControlLayout.getVisibility() != VISIBLE) {
             mControlLayout.setVisibility(VISIBLE);
         }
@@ -252,7 +252,7 @@ public class UniversalMediaController extends FrameLayout {
     public void hide() {//只负责上下两条bar的隐藏,不负责中央loading,error,playBtn的隐藏
         if (mShowing) {
          //   mHandler.removeMessages(SHOW_PROGRESS);
-            mTitleLayout.setVisibility(GONE);
+          //  mTitleLayout.setVisibility(GONE);
             mControlLayout.setVisibility(GONE);
             mShowing = false;
         }
@@ -496,7 +496,7 @@ public class UniversalMediaController extends FrameLayout {
         public void onClick(View v) {
             mIsFullScreen = !mIsFullScreen;
             updateScaleButton();
-            updateBackButton();
+           // updateBackButton();
             mPlayer.setFullscreen(mIsFullScreen);
         }
     };
@@ -507,7 +507,7 @@ public class UniversalMediaController extends FrameLayout {
             if (mIsFullScreen) {
                 mIsFullScreen = false;
                 updateScaleButton();
-                updateBackButton();
+                ///updateBackButton();
                 mPlayer.setFullscreen(false);
             }
 
@@ -542,12 +542,12 @@ public class UniversalMediaController extends FrameLayout {
     void toggleButtons(boolean isFullScreen) {
         mIsFullScreen = isFullScreen;
         updateScaleButton();
-        updateBackButton();
+     //   updateBackButton();
     }
-
-    void updateBackButton() {
-        mBackButton.setVisibility(mIsFullScreen ? View.VISIBLE : View.INVISIBLE);
-    }
+//
+//    void updateBackButton() {
+//        mBackButton.setVisibility(mIsFullScreen ? View.VISIBLE : View.INVISIBLE);
+//    }
 
     boolean isFullScreen() {
         return mIsFullScreen;
@@ -626,7 +626,7 @@ public class UniversalMediaController extends FrameLayout {
         if (mScalable) {
             mScaleButton.setEnabled(enabled);
         }
-        mBackButton.setEnabled(true);// 全屏状态下右上角的返回键总是可用.
+        //mBackButton.setEnabled(true);// 全屏状态下右上角的返回键总是可用.
     }
 
     public void showLoading() {
@@ -653,9 +653,9 @@ public class UniversalMediaController extends FrameLayout {
         mHandler.sendEmptyMessage(HIDE_COMPLETE);
     }
 
-    public void setTitle(String titile) {
-        mTitle.setText(titile);
-    }
+//    public void setTitle(String titile) {
+//        mTitle.setText(titile);
+//    }
 
 //    public void setFullscreenEnabled(boolean enabled) {
 //        mFullscreenEnabled = enabled;

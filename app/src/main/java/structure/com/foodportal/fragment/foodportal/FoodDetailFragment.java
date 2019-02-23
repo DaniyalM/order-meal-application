@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,17 +14,33 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 
+import android.transition.ChangeBounds;
+import android.transition.ChangeImageTransform;
+import android.transition.ChangeTransform;
+import android.transition.Fade;
+import android.transition.TransitionSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.danikula.videocache.CacheListener;
+import com.danikula.videocache.HttpProxyCacheServer;
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import structure.com.foodportal.MyApplication;
 import structure.com.foodportal.R;
 import structure.com.foodportal.adapter.foodPortalAdapters.ExpandableListAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodIngredientsAdapter;
@@ -33,6 +50,7 @@ import structure.com.foodportal.adapter.foodPortalAdapters.StepbyStepAdapter;
 import structure.com.foodportal.databinding.FragmentProductDetailFoodportalBinding;
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.helper.DataSyncEvent;
 import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.LocalDataHelper;
 import structure.com.foodportal.helper.NetworkUtils;
@@ -51,8 +69,10 @@ import structure.com.foodportal.models.foodModels.Sections;
 import structure.com.foodportal.models.foodModels.Step;
 import structure.com.foodportal.singleton.CarelessSingleton;
 
+import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
+
 public class FoodDetailFragment extends BaseFragment implements
-        View.OnClickListener, FoodDetailListner, UniversalVideoView.VideoViewCallback,FoodHomeListner {
+        View.OnClickListener, FoodDetailListner, UniversalVideoView.VideoViewCallback,FoodHomeListner,CacheListener {
 
     FoodIngredientsAdapter foodIngredientsAdapter;
     FoodPreparationAdapter foodPreparationAdapter;
@@ -89,11 +109,8 @@ public class FoodDetailFragment extends BaseFragment implements
 
         for(int i =0 ;i<foodDetailModel.getData().getSteps().size();i++){
 
-
-
             startTime.add(Utils.getTimeSeconds(foodDetailModel.getData().getSteps().get(i).getStart_time()));
             endTime.add(Utils.getTimeSeconds(foodDetailModel.getData().getSteps().get(i).getEnd_time()));
-
 
         }
 
@@ -106,6 +123,8 @@ public class FoodDetailFragment extends BaseFragment implements
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product_detail_foodportal, container, false);
         mVideoView = (UniversalVideoView) binding.getRoot().findViewById(R.id.videoView);
         mMediaController = (UniversalMediaController) binding.getRoot().findViewById(R.id.media_controller);
+
+
 
 
         setListners();
@@ -174,18 +193,101 @@ public class FoodDetailFragment extends BaseFragment implements
 
 
     }
+    public class DetailsTransition extends TransitionSet {
+        public DetailsTransition() {
+            setOrdering(ORDERING_TOGETHER);
+            addTransition(new ChangeBounds()).
+                    addTransition(new ChangeTransform()).
+                    addTransition(new ChangeImageTransform());
+        }
+    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnStepByStep:
-
-
+                EventBus.getDefault().register(this);
                 binding.videoView.stopPlayback();
-                binding.videoView.closePlayer();
-                CarelessSingleton.instance.setState(foodDetailModel.getData(), 0);
                 StepFragment stepFragment = new StepFragment();
-                stepFragment.setVideoData(0, foodDetailModel.getData(),startTime,endTime);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    stepFragment.setSharedElementEnterTransition(new DetailsTransition());
+                    stepFragment.setEnterTransition(new Fade());
+                    setExitTransition(new Fade());
+                    stepFragment.setSharedElementReturnTransition(new DetailsTransition());
+                }
+
+
+
+               // binding.videoView.stopPlayback();
+             //   binding.videoView.closePlayer();
+            mMediaController.setMediaPlayer(new UniversalMediaController.MediaPlayerControl() {
+                @Override
+                public void start() {
+
+                }
+
+                @Override
+                public void pause() {
+
+                }
+
+                @Override
+                public int getDuration() {
+                    return 0;
+                }
+
+                @Override
+                public int getCurrentPosition() {
+                    return 0;
+                }
+
+                @Override
+                public void seekTo(int pos) {
+
+                }
+
+                @Override
+                public boolean isPlaying() {
+                    return false;
+                }
+
+                @Override
+                public int getBufferPercentage() {
+                    return 0;
+                }
+
+                @Override
+                public boolean canPause() {
+                    return false;
+                }
+
+                @Override
+                public boolean canSeekBackward() {
+                    return false;
+                }
+
+                @Override
+                public boolean canSeekForward() {
+                    return false;
+                }
+
+                @Override
+                public void closePlayer() {
+
+                }
+
+                @Override
+                public void setFullscreen(boolean fullscreen) {
+
+                }
+
+                @Override
+                public void setFullscreen(boolean fullscreen, int screenOrientation) {
+
+                }
+            });
+                CarelessSingleton.instance.setState(foodDetailModel.getData(), 0);
+                stepFragment.setVideoData(0, foodDetailModel.getData(),startTime,endTime,mVideoView.getCurrentPosition());
                 mainActivity.addFragment(stepFragment, true, true);
 
                 break;
@@ -258,7 +360,7 @@ public class FoodDetailFragment extends BaseFragment implements
         Bitmap bmp = null;
         int videoHeight, videoWidth;
         try {
-            retriever.setDataSource(AppConstant.VIDEO_URL + foodDetailModel.getVideo_url());
+            retriever.setDataSource(VIDEO_URL + foodDetailModel.getVideo_url());
             bmp = retriever.getFrameAtTime();
             videoHeight = bmp.getHeight();
             videoWidth = bmp.getWidth();
@@ -269,9 +371,10 @@ public class FoodDetailFragment extends BaseFragment implements
 
 
         if (foodDetailModel.getVideo_url() != null) {
-            //   binding.vvProductmainVideo.setMediaController(new MediaController(mainActivity));
-            binding.videoView.setVideoPath(
-                    AppConstant.VIDEO_URL + foodDetailModel.getVideo_url().replace("1080.mp4","320.mp4"));
+
+            HttpProxyCacheServer proxy = MyApplication.getProxy(mainActivity);
+            String proxyUrl = proxy.getProxyUrl( VIDEO_URL + foodDetailModel.getVideo_url().replace("1080.mp4","320.mp4"));
+            binding.videoView.setVideoPath(proxyUrl);
             binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
@@ -342,28 +445,87 @@ public class FoodDetailFragment extends BaseFragment implements
     }
 
 
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        EventBus.getDefault().register(this);
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        EventBus.getDefault().unregister(this);
+//        super.onStop();
+//    }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN,priority = 1)
+//    public void onHelloWorldEvent(HelloWorldEvent event){
+//
+//        binding.videoView.seekTo(event.getSeek());
+//        binding.videoView.start(); //Or use resume() if it doesn't work. I'm not sure
+//
+//
+//    }
+
+
+    @Subscribe
+    public void onEvent(DataSyncEvent syncStatusMessage)
+    {
+        binding.nestedScroll.fullScroll(ScrollView.FOCUS_UP);
+        binding.nestedScroll.smoothScrollTo(0,0);
+        binding.tvfoodName.requestFocus();
+
+        EventBus.getDefault().unregister(this);
+        HttpProxyCacheServer proxy = MyApplication.getProxy(mainActivity);
+        String proxyUrl = proxy.getProxyUrl( VIDEO_URL + foodDetailModel.getData().getVideo_url().replace("1080.mp4","320.mp4"));
+        binding.videoView.setVideoPath(proxyUrl);
+        binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                //mediaPlayer.seekTo(syncStatusMessage.getSyncStatusMessage());
+                mediaPlayer.setLooping(true);
+                mVideoView.seekTo(syncStatusMessage.getSyncStatusMessage());
+
+            }
+        });
+        binding.videoView.start();
+    }
+
+    int stopPosition;
     @Override
     public void onStepClick(Step step, int position) {
+
+
+        //  stopPosition = binding.videoView.getCurrentPosition();
+        EventBus.getDefault().register(this);
         binding.videoView.stopPlayback();
-        binding.videoView.closePlayer();
+        //binding.videoView.closePlayer();
         CarelessSingleton.instance.setState(foodDetailModel.getData(), position);
         StepFragment stepFragment = new StepFragment();
-        stepFragment.setVideoData(position, foodDetailModel.getData(),startTime,endTime);
-        mainActivity.addFragment(stepFragment, true, true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            stepFragment.setSharedElementEnterTransition(new DetailsTransition());
+            stepFragment.setEnterTransition(new Fade());
+            setExitTransition(new Fade());
+            stepFragment.setSharedElementReturnTransition(new DetailsTransition());
+        }
+
+        stepFragment.setVideoData(position, foodDetailModel.getData(),startTime,endTime,mVideoView.getCurrentPosition());
+        mainActivity.addFragment(stepFragment, true, false);
         //  Toast.makeText(mainActivity, "Will be implement later", Toast.LENGTH_SHORT).show();
 
 
-
 //
+//        CarelessSingleton.instance.setState(foodDetailModel.getData(), position);
 //        StepByStepFragment stepByStepFragment =new StepByStepFragment();
-//        stepByStepFragment.setVideoData(foodDetailModel.getData(),position);
+//        stepByStepFragment.setVideoData(foodDetailModel.getData(),position,startTime,endTime);
 //        mainActivity.addFragment(stepByStepFragment,true,true);
 
 
     }
 
     @Override
-    public void onPageChanged(Step step, int position) {
+    public void onPageChanged(Step step,StepbyStepAdapter.FoodPreparationViewHolder holder, int position) {
+
+
 
     }
 
@@ -447,5 +609,49 @@ public class FoodDetailFragment extends BaseFragment implements
 
 
     }
+
+    @Override
+    public void onCacheAvailable(File cacheFile, String url, int percentsAvailable) {
+
+        if(url.equalsIgnoreCase(VIDEO_URL + foodDetailModel.getData().getVideo_url().replace("1080.mp4","320.mp4"))){
+
+            binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+
+                    mediaPlayer.setLooping(true);
+                    try {
+
+                        mediaPlayer.setDataSource(cacheFile.getAbsolutePath());
+                        Log.d("Video  played", "playing: ");
+                    } catch (IOException e) {
+
+                        Log.d("Video Not played", "onPrepared: ");
+                    }
+
+                }
+            });
+            binding.videoView.start();
+
+
+
+        }
+
+    }
+//    int stopPosition;
+//    @Override
+//    public void onPause() {
+//       // Log.d(TAG, "onPause called");
+//        super.onPause();
+//         stopPosition = binding.videoView.getCurrentPosition(); //stopPosition is an int
+//        binding.videoView.pause();
+//    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//       // Log.d(TAG, "onResume called");
+//        binding.videoView.seekTo(stopPosition);
+//        binding.videoView.start(); //Or use resume() if it doesn't work. I'm not sure
+//    }
 
 }

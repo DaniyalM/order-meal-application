@@ -8,6 +8,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.ChangeBounds;
+import android.transition.ChangeImageTransform;
+import android.transition.ChangeTransform;
+import android.transition.TransitionSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -168,6 +173,30 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void addFragmentwithsharedelement(BaseFragment frag, boolean isAddToBackStack, boolean animate, View id, String transitioname) {
+        baseFragment = frag;
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.addSharedElement(id,transitioname);
+        if (animate) {
+
+            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+        transaction.add(mainFrame, frag, frag.getClass().getSimpleName());
+
+        if (isAddToBackStack) {
+            transaction.addToBackStack(null).commit();
+        } else {
+            transaction.commit();
+        }
+    }
+    public class DetailsTransition extends TransitionSet {
+        public DetailsTransition() {
+            setOrdering(ORDERING_TOGETHER);
+            addTransition(new ChangeBounds()).
+                    addTransition(new ChangeTransform()).
+                    addTransition(new ChangeImageTransform());
+        }
+    }
     public void addFragment(BaseFragment frag, boolean isAddToBackStack, boolean animate) {
         baseFragment = frag;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

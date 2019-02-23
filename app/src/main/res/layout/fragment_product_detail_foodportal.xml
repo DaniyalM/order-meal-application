@@ -361,10 +361,12 @@
         </android.support.v4.widget.NestedScrollView>
 
         <Button
+
+            android:background="@drawable/ripple_effect"
             android:id="@+id/btnStepByStep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccentPink"
+            android:fontFamily="@font/poppinsmedium"
             android:gravity="center"
             android:text="Step-By-Step Mode"
             android:textColor="@color/white"

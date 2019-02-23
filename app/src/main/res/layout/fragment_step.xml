@@ -1,7 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ScrollView
-
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,9 +26,18 @@
                 android:padding="@dimen/dp6"
                 android:text="Step 1"
                 android:textSize="@dimen/dp20" />
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:id="@+id/progressView"
+                android:max="100"
+                android:progressTint="@color/colorAccentPink"
+                android:indeterminate="false"
+                android:layout_width="match_parent"
+                android:layout_height="5dp" />
 
 
             <FrameLayout
+                android:transitionName="stepbystep"
                 android:id="@+id/video_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
@@ -42,6 +50,7 @@
                     android:layout_height="fill_parent"
                     android:layout_gravity="center"
                     app:resize_mode="fill"
+                    app:auto_show="true"
                     app:use_controller="false"
                     app:show_buffering="true"
                    />
@@ -76,8 +85,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="@dimen/dp20" />
+                android:textSize="@dimen/dp12" />
 
         </LinearLayout>
-    </ScrollView>
+    </ScrollView
+>
 </layout>
