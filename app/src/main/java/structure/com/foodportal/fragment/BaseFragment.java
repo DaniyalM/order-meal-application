@@ -12,6 +12,7 @@ import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.ServiceHelper;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
+import structure.com.foodportal.interfaces.foodInterfaces.NetworkListner;
 import structure.com.foodportal.interfaces.webServiceResponseLisener;
 import structure.com.foodportal.models.Category;
 import structure.com.foodportal.webservice.WebServiceFactory;
@@ -29,6 +30,8 @@ abstract public class BaseFragment extends Fragment implements webServiceRespons
     }
 
     protected abstract void setTitle(Titlebar titlebar);
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

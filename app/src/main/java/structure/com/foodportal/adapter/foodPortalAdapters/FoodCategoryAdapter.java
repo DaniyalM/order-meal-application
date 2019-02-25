@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import butterknife.internal.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 import structure.com.foodportal.R;
+import structure.com.foodportal.fragment.foodportal.RecipeFragment;
 import structure.com.foodportal.helper.UIHelper;
+import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.Category;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.Ingredient;
@@ -26,10 +28,15 @@ public class FoodCategoryAdapter extends RecyclerView.Adapter<FoodCategoryAdapte
     ArrayList<CategorySlider> ingredientList;
     Context context;
     private int lastPosition = -1;
-    public FoodCategoryAdapter(ArrayList<CategorySlider> ingredientList, Context context) {
+    FoodHomeListner foodHomeListner;
+    public FoodCategoryAdapter(ArrayList<CategorySlider> ingredientList, Context context, FoodHomeListner foodHomeListner) {
         this.ingredientList = ingredientList;
         this.context = context;
+        this.foodHomeListner = foodHomeListner;
     }
+
+
+
 
     @Override
     public FoodCategoryAdapter.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,6 +53,14 @@ public class FoodCategoryAdapter extends RecyclerView.Adapter<FoodCategoryAdapte
         //  holder.image.setImageResource(R.drawable.planetimage);
         holder.text.setText(""+ingredientList.get(position).getCategory_title_en());
         UIHelper.setImageWithGlide(context,holder.circleImageView,""+ingredientList.get(position).getSlider_path());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                foodHomeListner.categorySliderClick(position);
+
+            }
+        });
         setAnimation(holder.itemView, position);
     }
     private void setAnimation(View viewToAnimate, int position)

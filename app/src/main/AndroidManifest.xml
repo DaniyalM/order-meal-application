@@ -4,6 +4,7 @@
     package="structure.com.foodportal">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.STORAGE" />
@@ -59,6 +60,8 @@
             android:value="737e3c303e65c4f916fb62eb55603ad006512f59" />
 
         <activity android:name=".activity.MapActivity"></activity>
+
+
     </application>
 
 </manifest>

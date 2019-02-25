@@ -1,11 +1,19 @@
 package structure.com.foodportal.fragment.foodportal;
 
+import android.content.BroadcastReceiver;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telecom.ConnectionService;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +24,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import structure.com.foodportal.MyApplication;
 import structure.com.foodportal.R;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodCategoryAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodSubCategory;
@@ -25,21 +34,23 @@ import structure.com.foodportal.fragment.FragmentSubcategory;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.LocalDataHelper;
+
 import structure.com.foodportal.helper.NetworkUtils;
 import structure.com.foodportal.helper.Titlebar;
+import structure.com.foodportal.helper.Utils;
+import structure.com.foodportal.interfaces.foodInterfaces.NetworkListner;
 import structure.com.foodportal.interfaces.foodInterfaces.SubCategoryListner;
 import structure.com.foodportal.models.Category;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.CategorySliderWrapper;
 import structure.com.foodportal.models.foodModels.FoodHomeModelWrapper;
 
-public class SubCategoryFragment extends BaseFragment implements View.OnClickListener, SubCategoryListner {
+public class SubCategoryFragment extends BaseFragment implements View.OnClickListener, SubCategoryListner{
     FoodSubCategory foodCategoryAdapter;
     FragmentSubcategoryBinding binding;
     CategorySlider categorySlider;
-
     ArrayList<CategorySlider> categorySliders;
-
+    ConnectionService service;
 
     @Nullable
     @Override
@@ -61,6 +72,8 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void setListners() {
+
+
         categorySliders = new ArrayList<>();
         foodCategoryAdapter = new FoodSubCategory(categorySliders, mainActivity, this);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(mainActivity, 2);
@@ -70,6 +83,7 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
 
 
     }
+
 
     public void setModel(CategorySlider categorySlider) {
 
@@ -113,7 +127,7 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
 
     }
 
-    public void setData(ArrayList<CategorySlider> categorySliderWrapper)  {
+    public void setData(ArrayList<CategorySlider> categorySliderWrapper) {
 
         // categorySliders.addAll(categorySliderWrapper);
 
@@ -125,7 +139,6 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
                 binding.rvSubCategory.hideShimmerAdapter();
             }
         });
-
 
 
         binding.rvSubCategory.getViewTreeObserver().addOnPreDrawListener(
@@ -165,7 +178,7 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
                             setData(categorySliders);
                         }
                     });
-                }else{
+                } else {
                     binding.rvSubCategory.setVisibility(View.GONE);
                     binding.nodatafound.setVisibility(View.VISIBLE);
                     binding.rvSubCategory.hideShimmerAdapter();
@@ -180,12 +193,31 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onSubCategoryClick(int position) {
 
-        RecipeFragment recipeFragment =new RecipeFragment();
+        RecipeFragment recipeFragment = new RecipeFragment();
         recipeFragment.setModel(categorySliders.get(position));
-        mainActivity.addFragment(recipeFragment,true,true);
+        mainActivity.addFragment(recipeFragment, true, true);
 
         //mainActivity.addFragment(new );
 
 
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+
 }

@@ -34,6 +34,7 @@ import structure.com.foodportal.customViews.data.BaseItem;
 import structure.com.foodportal.customViews.data.CustomDataProvider;
 import structure.com.foodportal.databinding.FragmentSidemenuBinding;
 import structure.com.foodportal.fragment.BaseFragment;
+import structure.com.foodportal.fragment.HomeFragment;
 import structure.com.foodportal.fragment.foodportal.FoodHomeFragment;
 import structure.com.foodportal.fragment.foodportal.SubCategoryFragment;
 import structure.com.foodportal.helper.AppConstant;
@@ -141,29 +142,29 @@ public class MultiLeftSideMenu extends BaseFragment {
         listDataHeader = new ArrayList<>();
         expandableListView = (ExpandableListView) binder.getRoot().findViewById(R.id.sideoptions);
 
-        home = (TextView) binder.getRoot().findViewById(R.id.home);
-        logout = (TextView) binder.getRoot().findViewById(R.id.logout);
-
-
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                mainActivity.clearBackStack();
-                mainActivity.addFragment(new FoodHomeFragment(), true, false);
-
-            }
-        });
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mainActivity.finish();
-                mainActivity.showRegistrationActivity();
-
-
-            }
-        });
+//        home = (TextView) binder.getRoot().findViewById(R.id.home);
+//        logout = (TextView) binder.getRoot().findViewById(R.id.logout);
+//
+//
+//        home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                mainActivity.clearBackStack();
+//                mainActivity.addFragment(new FoodHomeFragment(), true, false);
+//
+//            }
+//        });
+//
+//        logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mainActivity.finish();
+//                mainActivity.showRegistrationActivity();
+//
+//
+//            }
+//        });
 
         //  expandableListView.addHeaderView(home);
         // expandableListView.addFooterView(logout);
@@ -174,12 +175,61 @@ public class MultiLeftSideMenu extends BaseFragment {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
                                         int groupPosition, long id) {
-
-
                 // Toast.makeText(getApplicationContext(),
                 // "Group Clicked " + listDataHeader.get(groupPosition),
                 // Toast.LENGTH_SHORT).show();
-                return false;
+
+
+                expandableListView.scrollTo(parent.getPositionForView(v),parent.getPositionForView(v));
+                v.requestFocus();
+                parent.requestFocus();
+                switch (groupPosition){
+
+                    case 0:
+                        mainActivity.clearBackStack();
+                mainActivity.addFragment(new FoodHomeFragment(), true, false);
+                        break;
+                    case 1:
+                        mainActivity.closeDrawer();
+                        mainActivity.clearBackStack();
+                        mainActivity.addFragment(new FoodHomeFragment(),true,false);
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        mainActivity.addFragment(new FoodHomeFragment(1),true,false);
+
+                        break;
+                    case 2:
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        mainActivity.addFragment(new FoodHomeFragment(2),true,false);
+                        break; case 3:
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        mainActivity.addFragment(new FoodHomeFragment(2),true,false);
+                        break; case 4:
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        mainActivity.addFragment(new FoodHomeFragment(2),true,false);
+                        break; case 5:
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        mainActivity.addFragment(new FoodHomeFragment(2),true,false);
+                        break; case 6:
+
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        mainActivity.addFragment(new FoodHomeFragment(2),true,false);
+                        break;
+
+
+
+
+
+
+                }
+
+
+                return true;
             }
         });
 
@@ -188,6 +238,15 @@ public class MultiLeftSideMenu extends BaseFragment {
 
             @Override
             public void onGroupExpand(int groupPosition) {
+
+
+                if (lastPosition != -1
+                        && groupPosition != lastPosition) {
+                    expandableListView.collapseGroup(lastPosition);
+                }
+                lastPosition = groupPosition;
+
+
 //                Toast.makeText(mainActivity,
 //                        listDataHeader.get(groupPosition) + " Expanded",
 //                        Toast.LENGTH_SHORT).show();
@@ -239,10 +298,49 @@ public class MultiLeftSideMenu extends BaseFragment {
         });
 
 
+
         // preparing list data
+        addHeaderFooterView();
+
+    }
+    private void addHeaderFooterView() {
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        //Header View
+        View headerView = inflater.inflate(R.layout.home, null, false);
+        TextView headerTitle = (TextView) headerView.findViewById(R.id.home);
+        headerTitle.setText(getActivity().getResources().getString(R.string.home));//set the text to Header View
+        expandableListView.addHeaderView(headerView);//Add view to list view as header view
+
+        //Footer View
+        View footerView = inflater.inflate(R.layout.logout, null, false);
+        TextView footerTitle = (TextView) footerView.findViewById(R.id.logout);
+        footerTitle.setText(getActivity().getResources().getString(R.string.logout));//set the text to Footer View
+        expandableListView.addFooterView(footerView);//Add view to list view as footer view
+
+        headerTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity.clearBackStack();
+                mainActivity.addFragment(new FoodHomeFragment(), true, false);
+
+
+            }
+        });
+        footerTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mainActivity.finish();
+                mainActivity.showRegistrationActivity();
+
+            }
+        });
 
 
     }
+
+    private int lastPosition = -1;
 
     private void confMenu() {
 
@@ -336,7 +434,7 @@ public class MultiLeftSideMenu extends BaseFragment {
             //drawerAdapter.setSelectedItem(mainActivity.getResources().getString(R.string.home));
         }
 
-        listAdapter = new ExpandableListAdapter(mainActivity, listDataHeader, listDataChild);
+        listAdapter = new ExpandableListAdapter(mainActivity, listDataHeader, listDataChild,expandableListView);
 
         // setting list adapter
         expandableListView.setAdapter(listAdapter);

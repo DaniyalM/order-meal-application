@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import structure.com.foodportal.R;
@@ -20,10 +22,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, List<CategorySlider>> _listDataChild;
-
+    ExpandableListView expandableListView;
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
-                                 HashMap<String, List<CategorySlider>> listChildData) {
+                                 HashMap<String, List<CategorySlider>> listChildData, ExpandableListView expandableListView) {
         this._context = context;
+        this.expandableListView = expandableListView;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
     }
@@ -95,8 +98,27 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.lblListHeader);
+        ImageView etvexpand = (ImageView) convertView
+                .findViewById(R.id.etvexpand);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
+
+
+        etvexpand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!isExpanded)
+                {
+                     expandableListView.expandGroup(groupPosition);
+                }
+                else
+                {
+                     expandableListView.collapseGroup(groupPosition);
+                }
+
+            }
+        });
 
         return convertView;
     }

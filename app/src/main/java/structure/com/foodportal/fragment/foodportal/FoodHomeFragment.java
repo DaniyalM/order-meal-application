@@ -67,7 +67,7 @@ import structure.com.foodportal.models.foodModels.FoodHomeModelWrapper;
 import structure.com.foodportal.models.foodModels.Photos;
 import structure.com.foodportal.models.foodModels.Sections;
 
-public class FoodHomeFragment extends BaseFragment implements View.OnClickListener, FoodBannerListner,FoodHomeListner {
+public class FoodHomeFragment extends BaseFragment implements View.OnClickListener, FoodBannerListner, FoodHomeListner {
 
 
     FragmentHomefoodBinding binding;
@@ -84,6 +84,19 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     ArrayList<Sections> sectionsBetterForBites;
     String story_slug = "";
 
+
+    int navSection = 0;
+
+    public FoodHomeFragment() {
+
+
+    }
+
+    public FoodHomeFragment(int i) {
+
+        this.navSection = i;
+
+    }
 
     @Nullable
     @Override
@@ -108,11 +121,11 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         sectionsBetterForBites = new ArrayList<>();
         banners = new ArrayList<>();
 
-        foodCategoryAdapter = new FoodCategoryAdapter(categorySliders, mainActivity);
+        foodCategoryAdapter = new FoodCategoryAdapter(categorySliders, mainActivity, this);
         foodBannerAdapter = new FoodBannerAdapter(banners, mainActivity, this);
-        foodPopularRecipeAdapter = new FoodPopularRecipeAdapter(sectionsPopular, mainActivity,this);
-        foodFeaturedAdapter = new FoodFeaturedAdapter(sectionsFeatured, mainActivity,this);
-        foodBetterForBitesAdapter = new FoodBetterForBitesAdapter(sectionsBetterForBites, mainActivity,this);
+        foodPopularRecipeAdapter = new FoodPopularRecipeAdapter(sectionsPopular, mainActivity, this);
+        foodFeaturedAdapter = new FoodFeaturedAdapter(sectionsFeatured, mainActivity, this);
+        foodBetterForBitesAdapter = new FoodBetterForBitesAdapter(sectionsBetterForBites, mainActivity, this);
 
 
         binding.rvCategoryslider.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
@@ -155,18 +168,24 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     }
 
     public void gethomeDetails() {
-
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.gethome(), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME);
-        else if (LocalDataHelper.readFromFile(mainActivity,"Home").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity,"Home").equalsIgnoreCase("")) {
+
+            if (navSection == 0)
+                serviceHelper.enqueueCall(webService.gethome(), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME);
+//            else if (navSection == 1)
+//                serviceHelper.enqueueCall(webService.gettutorial("tutorial"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME);
+//            else if (navSection == 2)
+//                serviceHelper.enqueueCall(webService.gettutorial("cleaning"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME);
+
+        else if (LocalDataHelper.readFromFile(mainActivity, "Home").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Home").equalsIgnoreCase("")) {
 
             Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
 
 
         } else {
             Gson g = new Gson();
-            FoodHomeModelWrapper p = g.fromJson(LocalDataHelper.readFromFile(mainActivity,"Home"), FoodHomeModelWrapper.class);
-             setData(p);
+            FoodHomeModelWrapper p = g.fromJson(LocalDataHelper.readFromFile(mainActivity, "Home"), FoodHomeModelWrapper.class);
+            setData(p);
 
         }
 
@@ -176,6 +195,8 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     public void ResponseSuccess(Object result, String Tag) {
         switch (Tag) {
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME:
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME:
+
                 FoodHomeModelWrapper foodhomeModel = (FoodHomeModelWrapper) JsonHelpers.convertToModelClass(result, FoodHomeModelWrapper.class);
                 if (foodhomeModel != null) {
 
@@ -184,7 +205,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                         public void run() {
 
 
-                            LocalDataHelper.writeToFile(result.toString(), mainActivity,"Home");
+                            LocalDataHelper.writeToFile(result.toString(), mainActivity, "Home");
                             setData(foodhomeModel);
 
                         }
@@ -198,7 +219,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 FoodDetailModelWrapper foodDetailModel = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
                 if (foodDetailModel != null) {
 
-                    LocalDataHelper.writeToFile(result.toString(), mainActivity,"Detail");
+                    LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
                     FoodDetailFragment detailFragment = new FoodDetailFragment();
                     detailFragment.setFoodDetailModel(foodDetailModel);
                     mainActivity.addFragment(detailFragment, true, true);
@@ -208,7 +229,6 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 break;
         }
     }
-
 
 
     public void setData(FoodHomeModelWrapper foodHomeModelWrapper) {
@@ -241,7 +261,25 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         binding.rvCategoryslider.setVisibility(View.VISIBLE);
         binding.cvRecipe.setVisibility(View.VISIBLE);
 
-        binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_en());
+        switch (navSection) {
+
+            case 0:
+                binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_en());
+                //  binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_en());
+                break;
+
+            case 1:
+
+                break;
+
+
+            case 2:
+
+                break;
+
+
+        }
+
 
     }
 
@@ -250,7 +288,6 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
 
         next(banners.get(positon).getSlug());
-
 
 
     }
@@ -275,19 +312,26 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
     }
 
+    @Override
+    public void categorySliderClick(int position) {
+        RecipeFragment recipeFragment = new RecipeFragment();
+        recipeFragment.setModel(categorySliders.get(position));
+        mainActivity.addFragment(recipeFragment, true, true);
+    }
 
-    public void next(String slug){
+
+    public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
             serviceHelper.enqueueCall(webService.getfooddetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
-        else if (LocalDataHelper.readFromFile(mainActivity,"Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity,"Detail").equalsIgnoreCase("")) {
+        else if (LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase("")) {
 
             Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
 
 
         } else {
             Gson g = new Gson();
-            FoodDetailModelWrapper foodDetailModel = g.fromJson(LocalDataHelper.readFromFile(mainActivity,"Detail"), FoodDetailModelWrapper.class);
+            FoodDetailModelWrapper foodDetailModel = g.fromJson(LocalDataHelper.readFromFile(mainActivity, "Detail"), FoodDetailModelWrapper.class);
             FoodDetailFragment detailFragment = new FoodDetailFragment();
             detailFragment.setFoodDetailModel(foodDetailModel);
             mainActivity.addFragment(detailFragment, true, true);

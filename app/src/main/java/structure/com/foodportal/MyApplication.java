@@ -28,6 +28,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         initImageLoader();
         TextUtility.overrideFont(getApplicationContext(), "SERIF", "font/poppinslight.ttf"); // font from assets: "assets/fonts/Roboto_Regular.ttf
         Fabric.with(this, new Crashlytics());
@@ -63,5 +64,8 @@ public class MyApplication extends Application {
                 .maxCacheFilesCount(20)// 1 Gb for cache
                 .build();
     }
+
+
+
 }
 

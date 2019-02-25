@@ -6,7 +6,7 @@
         android:clickable="true"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@color/colorFbWhiteBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
