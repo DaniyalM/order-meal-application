@@ -190,6 +190,9 @@ public interface webservice {
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS)
     Call<Api_Response<JsonObject>> getfooddetail(@Query("story_slug") String story_slug);
 
+  @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS)
+    Call<Api_Response<JsonObject>> getfoodtutorialdetail(@Query("story_slug") String story_slug);
+
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME)
     Call<Api_Response<JsonObject>> gethome();
 

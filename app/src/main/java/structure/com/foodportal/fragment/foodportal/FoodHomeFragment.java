@@ -1,5 +1,6 @@
 package structure.com.foodportal.fragment.foodportal;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.adapters.AbsListViewBindingAdapter;
@@ -67,6 +68,7 @@ import structure.com.foodportal.models.foodModels.FoodHomeModelWrapper;
 import structure.com.foodportal.models.foodModels.Photos;
 import structure.com.foodportal.models.foodModels.Sections;
 
+@SuppressLint("ValidFragment")
 public class FoodHomeFragment extends BaseFragment implements View.OnClickListener, FoodBannerListner, FoodHomeListner {
 
 
@@ -91,6 +93,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
 
     }
+
 
     public FoodHomeFragment(int i) {
 
@@ -170,24 +173,40 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     public void gethomeDetails() {
         if (NetworkUtils.isNetworkAvailable(mainActivity))
 
-            if (navSection == 0)
-                serviceHelper.enqueueCall(webService.gethome(), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME);
-//            else if (navSection == 1)
-//                serviceHelper.enqueueCall(webService.gettutorial("tutorial"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME);
-//            else if (navSection == 2)
-//                serviceHelper.enqueueCall(webService.gettutorial("cleaning"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME);
+            switch (navSection) {
 
-        else if (LocalDataHelper.readFromFile(mainActivity, "Home").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Home").equalsIgnoreCase("")) {
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
+                    binding.cvSectionThree.setVisibility(View.VISIBLE);
+                    serviceHelper.enqueueCall(webService.gethome(), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME);
+                    break;
 
-            Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
+                    serviceHelper.enqueueCall(webService.gettutorial("tutorial"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME);
+                    break;
+
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING:
+                    serviceHelper.enqueueCall(webService.gettutorial("cleaning"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME);
+                    break;
+
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
+                    serviceHelper.enqueueCall(webService.gettutorial("blog"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME);
+                    break;
 
 
-        } else {
-            Gson g = new Gson();
-            FoodHomeModelWrapper p = g.fromJson(LocalDataHelper.readFromFile(mainActivity, "Home"), FoodHomeModelWrapper.class);
-            setData(p);
+            }
 
-        }
+
+//        else if (LocalDataHelper.readFromFile(mainActivity, "Home").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Home").equalsIgnoreCase("")) {
+//
+//            Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
+//
+//
+//        } else {
+//            Gson g = new Gson();
+//            FoodHomeModelWrapper p = g.fromJson(LocalDataHelper.readFromFile(mainActivity, "Home"), FoodHomeModelWrapper.class);
+//            setData(p);
+//
+//        }
 
     }
 
@@ -197,6 +216,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME:
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME:
 
+
                 FoodHomeModelWrapper foodhomeModel = (FoodHomeModelWrapper) JsonHelpers.convertToModelClass(result, FoodHomeModelWrapper.class);
                 if (foodhomeModel != null) {
 
@@ -205,7 +225,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                         public void run() {
 
 
-                            LocalDataHelper.writeToFile(result.toString(), mainActivity, "Home");
+                            //  LocalDataHelper.writeToFile(result.toString(), mainActivity, "Home");
                             setData(foodhomeModel);
 
                         }
@@ -227,6 +247,20 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
                 }
                 break;
+
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS:
+                FoodDetailModelWrapper foodDetailModeltwo = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
+                if (foodDetailModeltwo != null) {
+
+               //     LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
+                    FoodTutorialDetailFragment detailFragment = new FoodTutorialDetailFragment();
+                    detailFragment.setFoodDetailModel(foodDetailModeltwo);
+                    mainActivity.addFragment(detailFragment, true, true);
+                    //    setData(foodDetailModel.getData());
+
+                }
+                break;
+
         }
     }
 
@@ -234,18 +268,6 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     public void setData(FoodHomeModelWrapper foodHomeModelWrapper) {
 
         story_slug = foodHomeModelWrapper.getBanner().get(0).getSlug();
-
-        sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
-        sectionsFeatured.addAll(foodHomeModelWrapper.getSection().get(1).getSection_list());
-        sectionsBetterForBites.addAll(foodHomeModelWrapper.getSection().get(3).getSection_list());
-        categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
-        banners.addAll(foodHomeModelWrapper.getBanner());
-
-        foodBannerAdapter.notifyDataSetChanged();
-        foodCategoryAdapter.notifyDataSetChanged();
-        foodPopularRecipeAdapter.notifyDataSetChanged();
-        foodFeaturedAdapter.notifyDataSetChanged();
-        foodBetterForBitesAdapter.notifyDataSetChanged();
 
 
         YoYo.with(Techniques.FadeOut).duration(1000).playOn(binding.viewShimmerCategorySlider);
@@ -263,22 +285,79 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
         switch (navSection) {
 
-            case 0:
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
+
+                binding.cvSectionFive.setVisibility(View.GONE);
+
+                binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
+                binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
+                binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_en().replaceAll("_", " "));
                 binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_en());
-                //  binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_en());
+                sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
+                sectionsFeatured.addAll(foodHomeModelWrapper.getSection().get(1).getSection_list());
+                sectionsBetterForBites.addAll(foodHomeModelWrapper.getSection().get(3).getSection_list());
+                categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
+                banners.addAll(foodHomeModelWrapper.getBanner());
+
+
                 break;
 
-            case 1:
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
+                binding.lltipoftheday.setVisibility(View.GONE);
+                binding.cvSectionFive.setVisibility(View.GONE);
+
+                binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
+                binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
+                binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(2).getSection_name_en().replaceAll("_", " "));
+
+                sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
+                sectionsFeatured.addAll(foodHomeModelWrapper.getSection().get(1).getSection_list());
+                sectionsBetterForBites.addAll(foodHomeModelWrapper.getSection().get(2).getSection_list());
+                categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
+                banners.addAll(foodHomeModelWrapper.getBanner());
 
                 break;
 
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING:
 
-            case 2:
+
+                binding.lltipoftheday.setVisibility(View.GONE);
+                binding.cvSectionTwo.setVisibility(View.GONE);
+                binding.cvSectionThree.setVisibility(View.GONE);
+                binding.cvSectionFour.setVisibility(View.GONE);
+                binding.cvSectionFive.setVisibility(View.GONE);
+
+
+                binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
+                sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
+                categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
+                banners.addAll(foodHomeModelWrapper.getBanner());
+
+
+                break;
+
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
+                binding.lltipoftheday.setVisibility(View.GONE);
+                binding.cvSectionTwo.setVisibility(View.GONE);
+                binding.cvSectionThree.setVisibility(View.GONE);
+                binding.cvSectionFour.setVisibility(View.GONE);
+                binding.cvSectionFive.setVisibility(View.GONE);
+                binding.rvCategoryslider.setVisibility(View.GONE);
+
+                binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
+                sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
+                banners.addAll(foodHomeModelWrapper.getBanner());
+
 
                 break;
 
 
         }
+        foodBannerAdapter.notifyDataSetChanged();
+        foodCategoryAdapter.notifyDataSetChanged();
+        foodPopularRecipeAdapter.notifyDataSetChanged();
+        foodFeaturedAdapter.notifyDataSetChanged();
+        foodBetterForBitesAdapter.notifyDataSetChanged();
 
 
     }
@@ -323,20 +402,42 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getfooddetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
-        else if (LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase("")) {
+            switch (navSection) {
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
 
-            Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
+                    serviceHelper.enqueueCall(webService.getfooddetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+                    break;
 
 
-        } else {
-            Gson g = new Gson();
-            FoodDetailModelWrapper foodDetailModel = g.fromJson(LocalDataHelper.readFromFile(mainActivity, "Detail"), FoodDetailModelWrapper.class);
-            FoodDetailFragment detailFragment = new FoodDetailFragment();
-            detailFragment.setFoodDetailModel(foodDetailModel);
-            mainActivity.addFragment(detailFragment, true, true);
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
+                    serviceHelper.enqueueCall(webService.getfoodtutorialdetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
+                    break;
 
-        }
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING:
+                    serviceHelper.enqueueCall(webService.getfoodtutorialdetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
+                    break;
+
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
+                    serviceHelper.enqueueCall(webService.getfoodtutorialdetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
+                    break;
+
+
+            }
+
+
+//        else if (LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase("")) {
+//
+//            Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
+//
+//
+//        } else {
+//            Gson g = new Gson();
+//            FoodDetailModelWrapper foodDetailModel = g.fromJson(LocalDataHelper.readFromFile(mainActivity, "Detail"), FoodDetailModelWrapper.class);
+//            FoodDetailFragment detailFragment = new FoodDetailFragment();
+//            detailFragment.setFoodDetailModel(foodDetailModel);
+//            mainActivity.addFragment(detailFragment, true, true);
+//
+//        }
 
 
     }

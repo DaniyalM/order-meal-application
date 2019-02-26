@@ -23,6 +23,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
+import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -142,6 +143,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
                 drawerLayout.openDrawer(Gravity.RIGHT);
             }
         });
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
 
     }

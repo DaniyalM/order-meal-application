@@ -51,7 +51,7 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
     CategorySlider categorySlider;
     ArrayList<CategorySlider> categorySliders;
     ConnectionService service;
-
+    int mode=0;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -85,8 +85,8 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
     }
 
 
-    public void setModel(CategorySlider categorySlider) {
-
+    public void setModel(CategorySlider categorySlider,int mode) {
+        this.mode=mode;
         this.categorySlider = categorySlider;
 
     }
@@ -111,18 +111,33 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
     public void getCategories(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getSubCategory(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY);
-        else if (LocalDataHelper.readFromFile(mainActivity, "SubCategory").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "SubCategory").equalsIgnoreCase("")) {
+            switch (mode){
 
-            Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
+                    serviceHelper.enqueueCall(webService.getSubCategory(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY);
+                    break;
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
+                    break;
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING:
+                    break;
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
+                    break;
+
+            }
 
 
-        } else {
-            Gson g = new Gson();
-            CategorySliderWrapper p = g.fromJson(LocalDataHelper.readFromFile(mainActivity, "SubCategory"), CategorySliderWrapper.class);
-            setData(p.getData());
 
-        }
+//        else if (LocalDataHelper.readFromFile(mainActivity, "SubCategory").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "SubCategory").equalsIgnoreCase("")) {
+//
+//            Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
+//
+//
+//        } else {
+//            Gson g = new Gson();
+//            CategorySliderWrapper p = g.fromJson(LocalDataHelper.readFromFile(mainActivity, "SubCategory"), CategorySliderWrapper.class);
+//            setData(p.getData());
+//
+//        }
 
 
     }

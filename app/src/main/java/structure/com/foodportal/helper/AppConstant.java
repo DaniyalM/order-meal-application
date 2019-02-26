@@ -212,6 +212,7 @@ public class AppConstant {
     public class FOODPORTAL_FOOD_DETAILS {
 
         public static final String FOOD_DETAILS = "story";
+        public static final String FOOD_TUTORIAL_DETAILS = "story/tutorial-detail";
         public static final String FOOD_HOME = "home";
         public static final String FOOD_TUTORIAL_HOME = "get-home-data-by-feature";
         public static final String FOOD_HEADER = "header/menu";
@@ -219,7 +220,11 @@ public class AppConstant {
         public static final String SUB_CATEGORY_RECIPE = "category/detail";
 
 
-
+        public static final int HOME = 0;
+        public static final int RECIPES = 0;
+        public static final int TUTORIALS = 1;
+        public static final int CLEANING = 2;
+        public static final int BLOG = 3;
     }
     public class DrawerItemType{
         public static final String  ITEM = "item";

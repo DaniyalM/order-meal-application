@@ -8,6 +8,16 @@ public class Section {
 
     String section_name_ur;
 
+    public String getSection_name_en() {
+        return section_name_en;
+    }
+
+    public void setSection_name_en(String section_name_en) {
+        this.section_name_en = section_name_en;
+    }
+
+    String section_name_en;
+
     public String getSection_name_ur() {
         return section_name_ur;
     }

@@ -142,32 +142,6 @@ public class MultiLeftSideMenu extends BaseFragment {
         listDataHeader = new ArrayList<>();
         expandableListView = (ExpandableListView) binder.getRoot().findViewById(R.id.sideoptions);
 
-//        home = (TextView) binder.getRoot().findViewById(R.id.home);
-//        logout = (TextView) binder.getRoot().findViewById(R.id.logout);
-//
-//
-//        home.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                mainActivity.clearBackStack();
-//                mainActivity.addFragment(new FoodHomeFragment(), true, false);
-//
-//            }
-//        });
-//
-//        logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mainActivity.finish();
-//                mainActivity.showRegistrationActivity();
-//
-//
-//            }
-//        });
-
-        //  expandableListView.addHeaderView(home);
-        // expandableListView.addFooterView(logout);
 
         // Listview Group click listener
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -175,57 +149,31 @@ public class MultiLeftSideMenu extends BaseFragment {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
                                         int groupPosition, long id) {
-                // Toast.makeText(getApplicationContext(),
-                // "Group Clicked " + listDataHeader.get(groupPosition),
-                // Toast.LENGTH_SHORT).show();
 
 
-                expandableListView.scrollTo(parent.getPositionForView(v),parent.getPositionForView(v));
+                expandableListView.scrollTo(parent.getPositionForView(v), parent.getPositionForView(v));
                 v.requestFocus();
                 parent.requestFocus();
-                switch (groupPosition){
-
-                    case 0:
+                switch (groupPosition) {
+                    case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
                         mainActivity.clearBackStack();
-                mainActivity.addFragment(new FoodHomeFragment(), true, false);
+                        mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES), true, false);
                         break;
-                    case 1:
+                    case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
                         mainActivity.closeDrawer();
                         mainActivity.clearBackStack();
-                        mainActivity.addFragment(new FoodHomeFragment(),true,false);
-//                        mainActivity.closeDrawer();
-//                        mainActivity.clearBackStack();
-//                        mainActivity.addFragment(new FoodHomeFragment(1),true,false);
-
+                        mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS), true, false);
                         break;
-                    case 2:
-//                        mainActivity.closeDrawer();
-//                        mainActivity.clearBackStack();
-//                        mainActivity.addFragment(new FoodHomeFragment(2),true,false);
-                        break; case 3:
-//                        mainActivity.closeDrawer();
-//                        mainActivity.clearBackStack();
-//                        mainActivity.addFragment(new FoodHomeFragment(2),true,false);
-                        break; case 4:
-//                        mainActivity.closeDrawer();
-//                        mainActivity.clearBackStack();
-//                        mainActivity.addFragment(new FoodHomeFragment(2),true,false);
-                        break; case 5:
-//                        mainActivity.closeDrawer();
-//                        mainActivity.clearBackStack();
-//                        mainActivity.addFragment(new FoodHomeFragment(2),true,false);
-                        break; case 6:
-
-//                        mainActivity.closeDrawer();
-//                        mainActivity.clearBackStack();
-//                        mainActivity.addFragment(new FoodHomeFragment(2),true,false);
+                    case AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING:
+                        mainActivity.closeDrawer();
+                        mainActivity.clearBackStack();
+                        mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING), true, false);
                         break;
-
-
-
-
-
-
+                    case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
+                        mainActivity.closeDrawer();
+                        mainActivity.clearBackStack();
+                        mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG), true, false);
+                        break;
                 }
 
 
@@ -246,10 +194,9 @@ public class MultiLeftSideMenu extends BaseFragment {
                 }
                 lastPosition = groupPosition;
 
+                expandableListView.smoothScrollToPosition(groupPosition);
 
-//                Toast.makeText(mainActivity,
-//                        listDataHeader.get(groupPosition) + " Expanded",
-//                        Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -258,9 +205,6 @@ public class MultiLeftSideMenu extends BaseFragment {
 
             @Override
             public void onGroupCollapse(int groupPosition) {
-//                Toast.makeText(mainActivity,
-//                        listDataHeader.get(groupPosition) + " Collapsed",
-//                        Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -273,36 +217,68 @@ public class MultiLeftSideMenu extends BaseFragment {
                                         int groupPosition, int childPosition, long id) {
                 // TODO Auto-generated method stub
 
+               // expandableListView.collapseGroup(groupPosition);
+                SubCategoryFragment subCategoryFragment;
+                switch (groupPosition) {
+                    case 0:
+                        mainActivity.closeDrawer();
+                        mainActivity.clearBackStack();
+                         subCategoryFragment = new SubCategoryFragment();
+                        subCategoryFragment.setModel(listDataChild.get(
+                                listDataHeader.get(groupPosition)).get(
+                                childPosition),AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES);
+                        mainActivity.addFragment(subCategoryFragment, true, false);
+                        break;
+                    case 1:
+                        mainActivity.closeDrawer();
+                        mainActivity.clearBackStack();
+                         subCategoryFragment = new SubCategoryFragment();
+                        subCategoryFragment.setModel(listDataChild.get(
+                                listDataHeader.get(groupPosition)).get(
+                                childPosition),AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS);
+                        mainActivity.addFragment(subCategoryFragment, true, false);
 
-                mainActivity.closeDrawer();
 
-                mainActivity.clearBackStack();
-                SubCategoryFragment subCategoryFragment = new SubCategoryFragment();
-                subCategoryFragment.setModel(listDataChild.get(
-                        listDataHeader.get(groupPosition)).get(
-                        childPosition));
-                mainActivity.addFragment(subCategoryFragment, true, false);
+                        break;
+                    case 2:
+                        mainActivity.closeDrawer();
+                        mainActivity.clearBackStack();
+                        subCategoryFragment = new SubCategoryFragment();
+                        subCategoryFragment.setModel(listDataChild.get(
+                                listDataHeader.get(groupPosition)).get(
+                                childPosition),AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING);
+                        mainActivity.addFragment(subCategoryFragment, true, false);
 
 
-//
-//                Toast.makeText(
-//                        mainActivity,
-//                        listDataHeader.get(groupPosition)
-//                                + " : "
-//                                + listDataChild.get(
-//                                listDataHeader.get(groupPosition)).get(
-//                                childPosition), Toast.LENGTH_SHORT)
-//                        .show();
+
+                        break;
+                    case 3:
+                        mainActivity.closeDrawer();
+                        mainActivity.clearBackStack();
+                        subCategoryFragment = new SubCategoryFragment();
+                        subCategoryFragment.setModel(listDataChild.get(
+                                listDataHeader.get(groupPosition)).get(
+                                childPosition),AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG);
+                        mainActivity.addFragment(subCategoryFragment, true, false);
+
+                        break;
+
+                }
+
+
+
+
+
                 return false;
             }
         });
-
 
 
         // preparing list data
         addHeaderFooterView();
 
     }
+
     private void addHeaderFooterView() {
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -318,23 +294,18 @@ public class MultiLeftSideMenu extends BaseFragment {
         footerTitle.setText(getActivity().getResources().getString(R.string.logout));//set the text to Footer View
         expandableListView.addFooterView(footerView);//Add view to list view as footer view
 
-        headerTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mainActivity.clearBackStack();
-                mainActivity.addFragment(new FoodHomeFragment(), true, false);
+        headerTitle.setOnClickListener(view -> {
+            mainActivity.clearBackStack();
+            mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES), true, false);
 
+            //updateLeftDrawer("home");
 
-            }
         });
-        footerTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        footerTitle.setOnClickListener(view -> {
+            mainActivity.finish();
+            mainActivity.showRegistrationActivity();
+            // updateLeftDrawer("logout");
 
-                mainActivity.finish();
-                mainActivity.showRegistrationActivity();
-
-            }
         });
 
 
@@ -345,47 +316,10 @@ public class MultiLeftSideMenu extends BaseFragment {
     private void confMenu() {
 
         setMenu();
-//        // custom ListAdapter
-//        drawerAdapter = new DrawerAdapter(mainActivity);
-//
-//        binder.sideoptions.setAdapter(drawerAdapter);
-//      //  binder.sideoptions.setOnItemClickListener(mOnItemClickListener);
-//        drawerItems = new ArrayList<>();
-//        ArrayList<DrawerItem> chilItems = new ArrayList<>();
-//        ArrayList<DrawerItem> beautyChildItems = new ArrayList<>();
-//        ArrayList<DrawerItem> womenApparelChildItems = new ArrayList<>();
-//        ArrayList<DrawerItem> healthAndLifeChildItems = new ArrayList<>();
-//        ArrayList<DrawerItem> saleChildItems = new ArrayList<>();
-//
+
         if (headerWrapper != null && headerWrapper.size() > 0) {
             String sourceString = "Home";
-//
-//           // drawerItems.add((new DrawerItem(new BaseItem(Html.fromHtml(sourceString).toString(),null),  AppConstant.DrawerItemType.ITEM, null,null)));
-//            listDataHeader.add(sourceString);
-//            listDataChild.put(sourceString,null);
 
-
-//             if(headerWrapper.get(0).getCategories().size()>0){
-//                 for(int k=0; k<headerWrapper.get(0).getCategories().size();k++){
-//                     listDataChild.add(new DrawerItem(new BaseItem(headerWrapper.get(0).getCategories().get(k).getCategory_title_en(),
-//                             headerWrapper.get(0).getCategories().get(k).getSlider_thumb_path()
-//                             ), AppConstant.DrawerItemType.ITEM, null,headerWrapper.get(0).getCategories().get(k).getSlider_thumb_path()));
-//                     }
-//                 sourceString = "<b>"+headerWrapper.get(0).getTitle_en() +"</b> ";
-//                 drawerItems.add((new DrawerItem(new BaseItem(Html.fromHtml(sourceString).toString(),null), headerWrapper.get(0).getCategories().size() > 0 ? AppConstant.DrawerItemType.GROUP : AppConstant.DrawerItemType.ITEM, chilItems,null)));
-//
-//            }
-//
-//            if(headerWrapper.get(1).getCategories().size()>0){
-//                for(int k=0; k<headerWrapper.get(1).getCategories().size();k++){
-//                    saleChildItems.add(new DrawerItem(new BaseItem(headerWrapper.get(1).getCategories().get(k).getCategory_title_en(),
-//                            headerWrapper.get(1).getCategories().get(k).getSlider_thumb_path()
-//                    ), AppConstant.DrawerItemType.ITEM, null,headerWrapper.get(1).getCategories().get(k).getSlider_thumb_path()));
-//                }
-//                sourceString = "<b>"+headerWrapper.get(1).getTitle_en() +"</b> ";
-//                drawerItems.add((new DrawerItem(new BaseItem(Html.fromHtml(sourceString).toString(),null), headerWrapper.get(1).getCategories().size() > 0 ? AppConstant.DrawerItemType.GROUP : AppConstant.DrawerItemType.ITEM, saleChildItems,null)));
-//
-//            }
 
             if (headerWrapper.get(0).getCategories().size() > 0) {
                 recipes.addAll(headerWrapper.get(0).getCategories());
@@ -426,164 +360,17 @@ public class MultiLeftSideMenu extends BaseFragment {
             }
 
 
-//             sourceString =  "Logout";
-//            listDataChild.put(sourceString,null);
-//            listDataHeader.add(sourceString);
-
-            //  drawerAdapter.setDataItems(CustomDataProvider.getInitialItems(drawerItems));
-            //drawerAdapter.setSelectedItem(mainActivity.getResources().getString(R.string.home));
         }
 
-        listAdapter = new ExpandableListAdapter(mainActivity, listDataHeader, listDataChild,expandableListView);
+        listAdapter = new ExpandableListAdapter(mainActivity, listDataHeader, listDataChild, expandableListView);
 
         // setting list adapter
         expandableListView.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
 
-//        beautyChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        beautyChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        beautyChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        beautyChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        beautyChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        beautyChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        womenApparelChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        womenApparelChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        womenApparelChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        womenApparelChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        womenApparelChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        womenApparelChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        healthAndLifeChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        healthAndLifeChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        saleChildItems.add((new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null)));
-//        chilItems.add(new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.GROUP, beautyChildItems));
-//        chilItems.add(new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.GROUP, womenApparelChildItems));
-//        chilItems.add(new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.GROUP, healthAndLifeChildItems));
-//        chilItems.add(new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.GROUP, saleChildItems));
-//        drawerItems.add(new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null));
-//        drawerItems.add(new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null));
-//        drawerItems.add(new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null));
-//        drawerItems.add(new DrawerItem(new BaseItem(getString(R.string.categories)), AppConstant.DrawerItemType.GROUP, chilItems));
-//        drawerItems.add(new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null));
-//        drawerItems.add(new DrawerItem(new BaseItem(getString(R.string.my_account)), AppConstant.DrawerItemType.ITEM, null));
-//        drawerItems.add(new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null));
-//        drawerItems.add(new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null));
-//        drawerItems.add(new DrawerItem(new BaseItem(getString(R.string.makeup)), AppConstant.DrawerItemType.ITEM, null));
 
     }
 
-//
-//    private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
-//
-//        private void showItemDescription(Object object, ItemInfo itemInfo) {
-//            StringBuilder builder = new StringBuilder("\"");
-//            builder.append(((BaseItem) object).getName());
-//            builder.append("\" clicked!\n");
-//            builder.append(getItemInfoDsc(itemInfo));
-//
-//            Toast.makeText(mainActivity, builder.toString(), Toast.LENGTH_SHORT).show();
-//
-//            switch (((BaseItem) object).getName()) {
-//
-//
-//            }
-//        }
-//
-//        @Override
-//        public void onItemClicked(MultiLevelListView parent, View view, Object item, ItemInfo itemInfo) {
-//            //showItemDescription(item, itemInfo);
-//            mainActivity.closeDrawer();
-//            if (itemInfo.getLevel() == 0) {
-//                drawerAdapter.setSelectedItem(((BaseItem) item).getName());
-//            }
-//
-//            switch (((BaseItem) item).getName()) {
-//
-////                case "Shop":activityContext
-////                    .emptyBackStack();
-////                    activityContext.initFragmentsWithData(new HomeFragment(), null);
-////                    break;
-////                case "Brands":
-////
-////                    activityContext.emptyBackStack();
-////                    activityContext.initFragmentsWithData(new BrandsFragment(), null);
-////                    break;
-////                case "Celebrities":
-////                    activityContext.emptyBackStack();
-////                    activityContext.initFragmentsWithData(new CelebritiesFragment(), null);
-////                    break;
-////                case "Wishlist":
-////                    activityContext.emptyBackStack();
-////                    activityContext.initFragmentsWithData(WishListFragment.newInstance(), null);
-////                    break;
-////                case "My Account":
-////                    activityContext.emptyBackStack();
-////                    activityContext.initFragmentsWithData(new MyAccountFragment(), null);
-////
-////                    break;
-////                case "Settings":
-////
-////                    activityContext.emptyBackStack();
-////                    activityContext.initFragmentsWithData(new SettingsFragment(), null);
-////                    break;
-////                case "Contact Us":
-////                    activityContext.emptyBackStack();
-////                    activityContext.initFragmentsWithData(new ContactUsFragment(), null);
-////                    break;
-////                case "FAQ's":
-////                    activityContext.emptyBackStack();
-////                    activityContext.initFragmentsWithData(new FaqsFragment(), null);
-////                    break;
-////                case "Fragranance":
-////
-////                    break;
-////                case "Bath and Body":
-////
-////                    break;
-////                case "Skincare":
-////
-////                    break;
-////                case "Haircare":
-////
-////                    break;
-////                case "Nailcare":
-////
-////                    break;
-//                default:
-//
-//                    //  activityContext.initFragmentsWithData(ProductsFragment.newInstance(((BaseItem) item).getName()), null);
-//                    break;
-//
-//
-//            }
-//
-//
-//        }
-//
-//        @Override
-//        public void onGroupItemClicked(MultiLevelListView parent, View view, Object item, ItemInfo itemInfo) {
-//            // showItemDescription(item, itemInfo);
-//            if (itemInfo.getLevel() == 0) {
-//                drawerAdapter.setSelectedItem(((BaseItem) item).getName());
-//
-//
-//            }
-//        }
-//    };
-//
-//
-//    private String getItemInfoDsc(ItemInfo itemInfo) {
-//        StringBuilder builder = new StringBuilder();
-//
-//        builder.append(String.format("level[%d], idx in level[%d/%d]",
-//                itemInfo.getLevel() + 1, /*Indexing starts from 0*/
-//                itemInfo.getIdxInLevel() + 1 /*Indexing starts from 0*/,
-//                itemInfo.getLevelSize()));
-//
-//        if (itemInfo.isExpandable()) {
-//            builder.append(String.format(", expanded[%b]", itemInfo.isExpanded()));
-//        }
-//        return builder.toString();
-//    }
 
     public void updateLeftDrawer(String name) {
 
