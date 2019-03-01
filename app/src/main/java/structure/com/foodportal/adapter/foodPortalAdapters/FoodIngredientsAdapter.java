@@ -42,15 +42,15 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
 
         if(ingredientList.get(position).getIsHeader()==1){
             k=0;
-            String sourceString = "<b>" + ingredientList.get(position).getName() + "</b> ";
+            String sourceString = "<b>" + ingredientList.get(position).getName()!=null ? ingredientList.get(position).getName():" " + "</b> ";
             holder.text.setText(Html.fromHtml(sourceString));
 
-            holder.tvQuantity.setText(ingredientList.get(position).getMainquantity());
+            holder.tvQuantity.setText(ingredientList.get(position).getMainquantity()!=null ?ingredientList.get(position).getMainquantity(): " ");
 
         }else{
             k++;
-            holder.text.setText(" "+k +"     "+ingredientList.get(position).getName());
-            holder.tvQuantity.setText(ingredientList.get(position).getSubquantity());
+            holder.text.setText(" "+k +"     "+ingredientList.get(position).getName() !=null ? ingredientList.get(position).getName() : " ");
+            holder.tvQuantity.setText(ingredientList.get(position).getSubquantity() !=null ?ingredientList.get(position).getSubquantity() :" ");
         }
 
 

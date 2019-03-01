@@ -329,7 +329,7 @@ public class MultiLeftSideMenu extends BaseFragment {
 
             }
 
-            if (headerWrapper.get(1).getCategories().size() > 0) {
+            if (headerWrapper.size()>=2 && headerWrapper.get(1).getCategories().size() > 0) {
 
                 tutorials.addAll(headerWrapper.get(1).getCategories());
 
@@ -340,7 +340,7 @@ public class MultiLeftSideMenu extends BaseFragment {
             }
 
 
-            if (headerWrapper.get(2).getCategories().size() > 0) {
+            if (headerWrapper.size()>=3 && headerWrapper.get(2).getCategories().size() > 0) {
 
                 cleaning.addAll(headerWrapper.get(2).getCategories());
 
@@ -349,7 +349,7 @@ public class MultiLeftSideMenu extends BaseFragment {
                 listDataChild.put(sourceString, cleaning);
 
             }
-            if (headerWrapper.get(3).getCategories().size() > 0) {
+            if (headerWrapper.size()>= 4 && headerWrapper.get(3).getCategories().size() > 0) {
 
                 blog.addAll(headerWrapper.get(3).getCategories());
 

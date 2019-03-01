@@ -29,27 +29,27 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:orientation="horizontal">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/ivDishImage"
-                            android:src="@drawable/image_placeholder"
                             android:layout_width="@dimen/dp60"
+                            android:layout_height="@dimen/dp60"
                             android:layout_gravity="center"
-                            android:layout_height="@dimen/dp60" />
+                            android:src="@drawable/image_placeholder" />
 
                         <TextView
-                            android:gravity="center|start"
-                            android:paddingStart="@dimen/dp6"
                             android:id="@+id/tvfoodName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinsbold"
+                            android:gravity="center|start"
                             android:lineSpacingExtra="-10dp"
+                            android:paddingStart="@dimen/dp6"
                             android:text="Berbere Spice Chicken Wings"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/sp25"
@@ -57,25 +57,25 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="@dimen/dp6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp6"
                         android:orientation="horizontal">
+
                         <LinearLayout
-                            android:layout_gravity="center"
-                            android:gravity="center"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_weight="1"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:padding="@dimen/dp5"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
                                 android:background="@drawable/icon_time"
-                                />
+                                android:padding="@dimen/dp5" />
 
                             <TextView
                                 android:id="@+id/tvPreparationTime"
@@ -89,21 +89,21 @@
                                 android:textSize="@dimen/sp10"
                                 android:textStyle="bold" />
                         </LinearLayout>
+
                         <LinearLayout
-                            android:layout_gravity="center"
-                            android:gravity="center"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_weight="1"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:padding="@dimen/dp5"
                                 android:layout_width="23dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
                                 android:background="@drawable/icon_view"
-                              />
+                                android:padding="@dimen/dp5" />
 
                             <TextView
                                 android:id="@+id/tvServingTime"
@@ -117,21 +117,22 @@
                                 android:textSize="@dimen/sp10"
                                 android:textStyle="bold" />
                         </LinearLayout>
+
                         <LinearLayout
-                            android:layout_gravity="center"
-                            android:gravity="center"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_weight="1"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:padding="@dimen/dp5"
                                 android:layout_gravity="top"
                                 android:background="@drawable/heart_on"
-                                android:backgroundTint="@color/colorRed" />
+                                android:backgroundTint="@color/colorRed"
+                                android:padding="@dimen/dp5" />
 
                             <TextView
                                 android:id="@+id/tvServingDetails"
@@ -147,21 +148,20 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_gravity="center"
-                            android:gravity="end"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content">
-
-
-
-                        <ImageView
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:padding="@dimen/dp5"
-                            android:tint="@color/colorNav"
-                            android:src="@drawable/share"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp" />
+                            android:layout_weight="1"
+                            android:gravity="end">
+
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/dp5"
+                                android:src="@drawable/share"
+                                android:tint="@color/colorNav" />
 
 
                         </LinearLayout>
@@ -244,76 +244,75 @@
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/sp18"
                             android:textStyle="bold" />
+
                         <android.support.v7.widget.RecyclerView
-                            android:scrollbars="none"
+                            android:id="@+id/rvIngredients"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
                             android:layout_marginBottom="@dimen/dp5"
                             android:layout_marginTop="@dimen/dp10"
                             android:layout_weight="1"
-                            android:id="@+id/rvIngredients"
-                            android:layout_width="match_parent"
-                            android:transitionGroup="true"
-                            android:layout_height="0dp"
                             android:nestedScrollingEnabled="true"
+                            android:scrollbars="none"
+                            android:transitionGroup="true"
 
                             />
 
 
                         <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_marginTop="@dimen/dp10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginBottom="@dimen/dp10"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:background="@drawable/roundedshape"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" >
-
-                        <TextView
-                            android:paddingEnd="@dimen/dp5"
-                            android:paddingStart="@dimen/dp5"
-                            android:drawablePadding="@dimen/dp10"
-                            android:drawableTint="@color/colorAccent"
-                            android:drawableStart="@drawable/nav"
-                            android:paddingTop="@dimen/dp10"
-                            android:paddingBottom="@dimen/dp10"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:textColor="@color/colorAccent"
-                            android:text="Add to shopping list"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-
-
-
-
-                            </LinearLayout>
-
-                     <LinearLayout
-                         android:layout_marginTop="@dimen/dp10"
-                         android:id="@+id/llRelated"
-                         android:orientation="vertical"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content">
-                        <TextView
-                            android:fontFamily="@font/poppinsbold"
-                            android:text="Related Recipes"
-                            android:textAllCaps="true"
-                            android:textSize="@dimen/dp20"
-                            android:textColor="@color/colorAccent"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-
-
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rvRelatedRecipes"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginBottom="@dimen/dp5"
                             android:layout_marginTop="@dimen/dp10"
-                            android:layout_weight="1"
-                            android:nestedScrollingEnabled="true" />
-                     </LinearLayout>
+                            android:background="@drawable/roundedshape"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:drawablePadding="@dimen/dp10"
+                                android:drawableStart="@drawable/nav"
+                                android:drawableTint="@color/colorAccent"
+                                android:gravity="center"
+                                android:paddingBottom="@dimen/dp10"
+                                android:paddingEnd="@dimen/dp5"
+                                android:paddingStart="@dimen/dp5"
+                                android:paddingTop="@dimen/dp10"
+                                android:text="Add to shopping list"
+                                android:textColor="@color/colorAccent" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llRelated"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/poppinsbold"
+                                android:text="Related Recipes"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="@dimen/dp20" />
+
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rvRelatedRecipes"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_marginBottom="@dimen/dp5"
+                                android:layout_marginTop="@dimen/dp10"
+                                android:layout_weight="1"
+                                android:nestedScrollingEnabled="true" />
+                        </LinearLayout>
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -357,19 +356,105 @@
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
+                <android.support.v7.widget.CardView
+                    app:cardElevation="@dimen/dp10"
+                    app:cardUseCompatPadding="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:paddingEnd="@dimen/dp10"
+                        android:paddingStart="@dimen/dp10">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppinsbold"
+                            android:text="how'd it turn out"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorNav"
+                            android:textSize="@dimen/dp18" />
+
+                        <TextView
+                            android:id="@+id/tvShowall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:gravity="end"
+                            android:text="show all"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorRed"
+                            android:textSize="@dimen/dp15" />
+
+                    </LinearLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp10"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/roundedshape">
+
+                        <EditText
+                            android:id="@+id/etComments"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp10"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:fontFamily="@font/poppinslight"
+                            android:gravity="top"
+                            android:hint="Write comments..."
+                            android:maxLines="1000"
+                            android:minLines="3"
+                            android:padding="@dimen/dp5"
+                            android:textSize="@dimen/dp14"
+                            android:visibility="visible" />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center"
+                        android:numStars="5"
+                        android:progressTint="@color/colorYellow"
+                        android:rating="1.0"
+                        android:stepSize="1.0" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvCommentsSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:layout_marginEnd="@dimen/dp10"/>
+
+                </LinearLayout>
+                </android.support.v7.widget.CardView>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
         <Button
 
-            android:background="@drawable/ripple_effect"
             android:id="@+id/btnStepByStep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/ripple_effect"
             android:fontFamily="@font/poppinsmedium"
             android:gravity="center"
             android:text="Step-By-Step Mode"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="visible" />
     </LinearLayout>
 </layout>

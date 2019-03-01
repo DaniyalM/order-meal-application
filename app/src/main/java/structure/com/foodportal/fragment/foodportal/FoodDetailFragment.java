@@ -43,6 +43,7 @@ import java.util.HashMap;
 import structure.com.foodportal.MyApplication;
 import structure.com.foodportal.R;
 import structure.com.foodportal.adapter.foodPortalAdapters.ExpandableListAdapter;
+import structure.com.foodportal.adapter.foodPortalAdapters.FoodCommentsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodIngredientsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPopularRecipeAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPreparationAdapter;
@@ -77,6 +78,7 @@ public class FoodDetailFragment extends BaseFragment implements
     FoodIngredientsAdapter foodIngredientsAdapter;
     FoodPreparationAdapter foodPreparationAdapter;
     FoodPopularRecipeAdapter foodRelatedAdapter;
+    FoodCommentsAdapter foodCommentsAdapter;
     FragmentProductDetailFoodportalBinding binding;
 
     LinearLayoutManager linearLayoutManagerIngredients;
@@ -402,10 +404,10 @@ public class FoodDetailFragment extends BaseFragment implements
 
         for (int i = 0; i < foodDetailModel.getIngredient().size(); i++) {
             //For Header
-            ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en() == null ? foodDetailModel.getIngredient().get(i).getIngredient_en() + " " + foodDetailModel.getIngredient().get(i).getQuantity() :
-                    foodDetailModel.getIngredient().get(i).getTag_en(), 1,
-                    "" + foodDetailModel.getIngredient().get(i).getQuantity(),
-                    foodDetailModel.getIngredient().get(i).getQuantity() == null ? null : ""
+            ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en() == null ? (foodDetailModel.getIngredient().get(i).getIngredient_en()!=null ?foodDetailModel.getIngredient().get(i).getIngredient_en() :" ") + " " + (foodDetailModel.getIngredient().get(i).getQuantity()!=null ?foodDetailModel.getIngredient().get(i).getQuantity():" ") :
+                    foodDetailModel.getIngredient().get(i).getTag_en()!=null ?foodDetailModel.getIngredient().get(i).getTag_en(): " ", 1,
+                    foodDetailModel.getIngredient().get(i).getQuantity()!=null ? foodDetailModel.getIngredient().get(i).getQuantity():"",
+                    foodDetailModel.getIngredient().get(i).getQuantity() == null ? " " : ""
 
             ));
 
@@ -417,8 +419,8 @@ public class FoodDetailFragment extends BaseFragment implements
                 ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en() + " " +
                         foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity() + " " +
                         foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type(), 0,
-                        foodDetailModel.getIngredient().get(i).getQuantity() == null ? null : "",
-                        foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() + "" + foodDetailModel.getIngredient().get(i).getQuantity_type() : null
+                        foodDetailModel.getIngredient().get(i).getQuantity() == null ? " " : foodDetailModel.getIngredient().get(i).getQuantity(),
+                        foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() + "" + foodDetailModel.getIngredient().get(i).getQuantity_type() : " "
 
 
                 ));
