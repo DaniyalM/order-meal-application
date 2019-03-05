@@ -71,6 +71,7 @@ dependencies {
 
     //glide
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
+    implementation 'com.facebook.android:facebook-android-sdk:4.12.1'
     //Image Cropper
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.3.+'
     implementation 'com.github.bumptech.glide:glide:4.8.0'

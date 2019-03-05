@@ -8,8 +8,10 @@
         <attr name="starHalf" format="reference|integer"/>
         <attr name="CustomRatingBar_starMargin" format="reference|integer"/>
         <attr name="starPadding" format="dimension"/>
+        <attr name="starMargin" format="dimension"/>
         <attr name="onlyForDisplay" format="boolean"/>
         <attr name="halfStars" format="boolean"/>
     </declare-styleable>
+
 
 </resources>

@@ -1,6 +1,6 @@
 package structure.com.foodportal.models.foodModels;
 
-class User {
+public  class User {
     int id;
     int acct_type;
     String name_en;

@@ -1,5 +1,7 @@
 package structure.com.foodportal.models.foodModels;
 
+import java.util.ArrayList;
+
 public class Comments {
 
     int id;
@@ -7,6 +9,16 @@ public class Comments {
     int user_id;
     int feature_type_id;
     String reviews;
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    String created_at;
 
     public int getId() {
         return id;
@@ -57,4 +69,17 @@ public class Comments {
     }
 
     User user;
+
+
+    public ArrayList<Comments> getChild_reviews() {
+        return child_reviews;
+    }
+
+    public void setChild_reviews(ArrayList<Comments> child_reviews) {
+        this.child_reviews = child_reviews;
+    }
+
+    ArrayList<Comments> child_reviews;
+
+
 }

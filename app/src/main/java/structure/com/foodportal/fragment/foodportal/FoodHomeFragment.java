@@ -267,7 +267,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
     public void setData(FoodHomeModelWrapper foodHomeModelWrapper) {
 
-        story_slug = foodHomeModelWrapper.getBanner().get(0).getSlug();
+           story_slug = foodHomeModelWrapper.getBanner().get(0).getSlug();
 
 
         YoYo.with(Techniques.FadeOut).duration(1000).playOn(binding.viewShimmerCategorySlider);

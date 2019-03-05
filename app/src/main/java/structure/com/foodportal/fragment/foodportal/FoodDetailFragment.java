@@ -60,8 +60,10 @@ import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.helper.UniversalMediaController;
 import structure.com.foodportal.helper.UniversalVideoView;
 import structure.com.foodportal.helper.Utils;
+import structure.com.foodportal.interfaces.foodInterfaces.CommentClickListner;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodDetailListner;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
+import structure.com.foodportal.models.foodModels.Comments;
 import structure.com.foodportal.models.foodModels.CustomIngredient;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
@@ -73,7 +75,7 @@ import structure.com.foodportal.singleton.CarelessSingleton;
 import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
 public class FoodDetailFragment extends BaseFragment implements
-        View.OnClickListener, FoodDetailListner, UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener {
+        View.OnClickListener, FoodDetailListner, UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener,CommentClickListner {
 
     FoodIngredientsAdapter foodIngredientsAdapter;
     FoodPreparationAdapter foodPreparationAdapter;
@@ -84,6 +86,7 @@ public class FoodDetailFragment extends BaseFragment implements
     LinearLayoutManager linearLayoutManagerIngredients;
     LinearLayoutManager linearLayoutManagerRelated;
     LinearLayoutManager linearLayoutManagerPreparation;
+    LinearLayoutManager linearLayoutManagerComment;
 
 
     ArrayList<Integer> startTime;
@@ -92,6 +95,7 @@ public class FoodDetailFragment extends BaseFragment implements
     ArrayList<String> title;
     ArrayList<CustomIngredient> ingredients;
     ArrayList<Sections> related;
+    ArrayList<Comments> comments;
     HashMap<String, ArrayList<Ingredient>> subingrdeints;
 
 
@@ -153,6 +157,21 @@ public class FoodDetailFragment extends BaseFragment implements
 
             }
 
+
+            if(foodDetailModel.getAllReviews().size()>0){
+
+                comments.addAll(foodDetailModel.getAllReviews());
+                foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this,true);
+                binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
+                foodCommentsAdapter.notifyDataSetChanged();
+
+            }else{
+
+
+
+            }
+
+
         }
         //  getDetails();
     }
@@ -165,6 +184,7 @@ public class FoodDetailFragment extends BaseFragment implements
 
         linearLayoutManagerIngredients = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
         linearLayoutManagerPreparation = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
+        linearLayoutManagerComment = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
 
         final DefaultItemAnimator defaultItemAnimator = new DefaultItemAnimator();
         defaultItemAnimator.setAddDuration(1000000);
@@ -173,19 +193,30 @@ public class FoodDetailFragment extends BaseFragment implements
 
         binding.rvIngredients.setLayoutManager(linearLayoutManagerIngredients);
         binding.rvPreparations.setLayoutManager(linearLayoutManagerPreparation);
+        binding.rvCommentsSection.setLayoutManager(linearLayoutManagerComment);
 
         binding.rvIngredients.setItemAnimator(defaultItemAnimator);
         binding.rvPreparations.setItemAnimator(defaultItemAnimator);
+        binding.rvCommentsSection.setItemAnimator(defaultItemAnimator);
 
         steps = new ArrayList<>();
         related = new ArrayList<>();
         ingredients = new ArrayList<>();
         title = new ArrayList<>();
+        comments = new ArrayList<>();
         subingrdeints = new HashMap<>();
 
 
         foodPreparationAdapter = new FoodPreparationAdapter(steps, mainActivity, this);
         binding.rvPreparations.setAdapter(foodPreparationAdapter);
+
+
+    }
+
+    @Override
+    public void onReplyClick(int positon) {
+
+
 
 
     }
@@ -314,6 +345,7 @@ public class FoodDetailFragment extends BaseFragment implements
                     subingrdeints.clear();
                     steps.clear();
                     related.clear();
+                    comments.clear();
                     setData(foodDetailModel.getData());
 
                 }
@@ -339,7 +371,18 @@ public class FoodDetailFragment extends BaseFragment implements
 
                 }
 
+                if(foodDetailModel.getAllReviews().size()>0){
 
+                    comments.addAll(foodDetailModel.getAllReviews());
+                    foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this,true);
+                    binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
+                    foodCommentsAdapter.notifyDataSetChanged();
+
+                }else{
+
+
+
+                }
 
 //
 //                    LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
@@ -376,7 +419,7 @@ public class FoodDetailFragment extends BaseFragment implements
         if (foodDetailModel.getVideo_url() != null) {
 
             HttpProxyCacheServer proxy = MyApplication.getProxy(mainActivity);
-            String proxyUrl = proxy.getProxyUrl(VIDEO_URL + foodDetailModel.getVideo_url().replace("1080.mp4", "320.mp4"));
+            String proxyUrl = proxy.getProxyUrl(VIDEO_URL + foodDetailModel.getVideo_url().replace("1080.mp4", "1080.mp4"));
             binding.videoView.setVideoPath(proxyUrl);
             binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
@@ -611,6 +654,16 @@ public class FoodDetailFragment extends BaseFragment implements
 
 
     }
+
+    public void sendreview(FoodDetailModel foodDetailModel){
+        serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
+                "story",
+                foodDetailModel.getFeature_type_id(),
+                foodDetailModel.getId(),
+                "wonderful",
+                1), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
+    }
+
 
     @Override
     public void onCacheAvailable(File cacheFile, String url, int percentsAvailable) {

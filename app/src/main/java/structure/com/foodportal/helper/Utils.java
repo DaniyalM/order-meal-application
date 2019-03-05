@@ -116,6 +116,7 @@ public class Utils {
         Snackbar snackbar;
         snackbar = Snackbar.make(v, text, Snackbar.LENGTH_LONG);
         View snackBarView = snackbar.getView();
+        snackbar.setActionTextColor(Color.WHITE);
         snackBarView.setBackgroundColor(color);
         snackbar.show();
     }

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_marginStart="@dimen/dp50"
+    android:layout_height="wrap_content"
+    android:background="@color/colorFbWhiteBg"
+    app:cardElevation="@dimen/dp5"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp10"
+        android:paddingEnd="@dimen/dp5"
+        android:paddingStart="@dimen/dp5"
+        android:paddingTop="@dimen/dp10">
+        <View
+            android:layout_width="5dp"
+            android:background="@color/colorNav"
+            android:layout_marginEnd="@dimen/dp5"
+            android:layout_height="match_parent"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivUser"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/img_menu_user" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp10"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvUsername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/semiboldfont"
+                        android:gravity="center"
+                        android:text="Ali Zahid"
+                        android:textColor="@color/fbColor" />
+
+                    <TextView
+                        android:id="@+id/tvUserTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/dp5"
+                        android:gravity="center"
+                        android:text="(2 days ago)" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <com.borjabravo.readmoretextview.ReadMoreTextView
+                android:id="@+id/tvMainCommment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp2"
+                android:fontFamily="@font/poppinsmedium"
+                android:lineSpacingExtra="@dimen/dp3"
+                android:textColor="@color/colorBlackButton"
+                android:textSize="@dimen/sp15"
+                app:colorClickableText="@color/colorAccent"
+                app:showTrimExpandedText="true"
+                app:trimCollapsedText="view more"
+                app:trimExpandedText="view less"
+                app:trimLines="5"
+                app:trimMode="trimModeLine" />
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+

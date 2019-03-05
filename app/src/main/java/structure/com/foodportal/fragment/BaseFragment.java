@@ -22,7 +22,7 @@ import structure.com.foodportal.webservice.webservice;
 abstract public class BaseFragment extends Fragment implements webServiceResponseLisener {
     protected ServiceHelper serviceHelper;
     protected webservice webService;
-    RegistrationActivity registrationActivity;
+   public RegistrationActivity registrationActivity;
     public MainActivity mainActivity;
     public BasePreferenceHelper preferenceHelper;
 

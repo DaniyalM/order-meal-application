@@ -24,6 +24,8 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.MediaTypePicker;
 import structure.com.foodportal.interfaces.OnActivityResultInterface;
 
-public class RegistrationActivity extends BaseActivity {
+public class RegistrationActivity extends FacebookBaseFragment {
     AVLoadingIndicatorView imgLoader;
     FrameLayout mainFrame;
     Titlebar titlebar;
@@ -68,7 +70,12 @@ public class RegistrationActivity extends BaseActivity {
     String userModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onSocialInfoFetched(JSONObject data) {
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         // navigator = getIntent().getStringExtra("login");

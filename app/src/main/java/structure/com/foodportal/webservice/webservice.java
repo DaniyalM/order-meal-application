@@ -14,6 +14,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -64,7 +65,7 @@ public interface webservice {
     Call<Api_Response<ArrayList<MakeModel>>> GetAllMakeModels(@Query("brand_id") int brand_id);
 
     @GET(AppConstant.GET_PRODUCTS)
-    Call<Api_Response<ArrayList<ProductModelAPI>>> getAllProducts(@Query("country_id") String country_id,@Query("city_id") Integer city_id,@Query("sub_category_id") Integer sub_category_id, @Query("category_id") Integer category_id,@Query("brand_id") Integer brand_id, @Query("user_id") Integer user_id);
+    Call<Api_Response<ArrayList<ProductModelAPI>>> getAllProducts(@Query("country_id") String country_id, @Query("city_id") Integer city_id, @Query("sub_category_id") Integer sub_category_id, @Query("category_id") Integer category_id, @Query("brand_id") Integer brand_id, @Query("user_id") Integer user_id);
 
     @FormUrlEncoded
 //    @POST(AppConstant.ADD_PRODUCTS)
@@ -107,7 +108,7 @@ public interface webservice {
                                              @Part MultipartBody.Part image);
 
     @GET(AppConstant.GET_MY_PRODUCTS)
-  Call<Api_Response<ArrayList<ProductModelAPI>>> getUserProducts(@Query("user_id") Integer user_id);
+    Call<Api_Response<ArrayList<ProductModelAPI>>> getUserProducts(@Query("user_id") Integer user_id);
 
 
     @POST(AppConstant.USER_LOGOUT)
@@ -150,7 +151,7 @@ public interface webservice {
     Call<Api_Response<ArrayList<CartProductMainClass>>> getCart(@Query("user_id") String user_id);
 
     @POST(AppConstant.ADD_TO_CART)
-    Call<Api_Response> addProductToCart(@Query("product_id") String product_id, @Query("user_id") String user_id, @Query("device_id") String device_id,@Query("rent_type_id") String rent_type_id);
+    Call<Api_Response> addProductToCart(@Query("product_id") String product_id, @Query("user_id") String user_id, @Query("device_id") String device_id, @Query("rent_type_id") String rent_type_id);
 
 
     @POST(AppConstant.REMOVE_FROM_CART)
@@ -184,19 +185,43 @@ public interface webservice {
 
 
     @POST(AppConstant.MARK_ORDER)
-    Call<Api_Response> acceptOrder(@Query("order_id") String order_id, @Query("status") int status,@Query("pickup_date") String pickup_date);
-//////////////////////////////////////////////////////////////////////////
+    Call<Api_Response> acceptOrder(@Query("order_id") String order_id, @Query("status") int status, @Query("pickup_date") String pickup_date);
+
+    //////////////////////////////////////////////////////////////////////////
 //*my apis*//
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS)
     Call<Api_Response<JsonObject>> getfooddetail(@Query("story_slug") String story_slug);
 
-  @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS)
+
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW)
+    Call<Api_Response<JsonObject>> sendreview(@Query("user_id") int user_id,
+                                              @Query("type") String type,
+                                              @Query("feature_type_id") int feature_type_id,
+                                              @Query("story_id") int story_id,
+                                              @Query("reviews") String reviews,
+                                              @Query("parent_id") int parent_id
+    );
+
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SIGNUP)
+    Call<Api_Response<JsonObject>> userSignUp(@Query("name") String name,
+                                              @Query("email") String email,
+                                              @Query("contact_no") String contact_no,
+                                              @Query("password") String password,
+                                              @Query("account_type") int account_type
+    );
+
+    @FormUrlEncoded
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN)
+    Call<Api_Response> userlogin(@FieldMap Map<String,String> map
+    );
+
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS)
     Call<Api_Response<JsonObject>> getfoodtutorialdetail(@Query("story_slug") String story_slug);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME)
     Call<Api_Response<JsonObject>> gethome();
 
-@GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME)
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME)
     Call<Api_Response<JsonObject>> gettutorial(@Query("slug") String slug);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HEADER)

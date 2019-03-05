@@ -16,4 +16,6 @@ public class WebServiceConstants {
     public static final String VERIFY_PIN = "VERIFY_PIN";
     public static final int VALIDATION_CODE = 1000;
     public static final String RESEND_CODE = "RESEND_CODE";
+
+
 }

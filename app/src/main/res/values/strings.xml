@@ -2,6 +2,8 @@
     <string name="app_name">Food Portal</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="facebook_app_id">2515759408499045</string>
+    <string name="fb_login_protocol_scheme">fb502657496930178</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="password">Password</string>
     <string name="email_address">Email Address</string>
@@ -549,4 +551,6 @@
     <string name="better_for_bites">Better for Bites</string>
     <string name="techniques">Techniques</string>
     <string name="makeup">Makeup</string>
+    <string name="fname_require">First name required</string>
+    <string name="lname_require">Last name required</string>
 </resources>
