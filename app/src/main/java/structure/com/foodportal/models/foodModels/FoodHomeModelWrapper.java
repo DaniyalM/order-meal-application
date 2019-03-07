@@ -40,5 +40,15 @@ public   class FoodHomeModelWrapper {
 
     ArrayList<Section> section;
 
+    public Banner getFeature_type() {
+        return feature_type;
+    }
+
+    public void setFeature_type(Banner feature_type) {
+        this.feature_type = feature_type;
+    }
+
+    Banner feature_type;
+
 
 }

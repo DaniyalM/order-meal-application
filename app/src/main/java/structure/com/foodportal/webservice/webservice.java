@@ -3,6 +3,7 @@ package structure.com.foodportal.webservice;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.JsonAdapter;
 
 import org.json.JSONObject;
 
@@ -13,10 +14,12 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -37,8 +40,10 @@ import structure.com.foodportal.models.foodModels.CategorySliderWrapper;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.HeaderWrapper;
+import structure.com.foodportal.models.foodModels.LoginBody;
 import structure.com.foodportal.models.foodModels.MainHeaderWrapper;
 import structure.com.foodportal.models.foodModels.RecipeWrapper;
+import structure.com.foodportal.models.foodModels.User;
 
 /**
  * Created by khanubaid on 12/28/2017.
@@ -189,8 +194,19 @@ public interface webservice {
 
     //////////////////////////////////////////////////////////////////////////
 //*my apis*//
+    @Headers("Accept: application/json")
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN)
+    @FormUrlEncoded
+    Call<Api_Response<JsonObject>> userlogin(@Field("email") String email,
+                                       @Field("password") String password);
+
+
+
+
+
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS)
     Call<Api_Response<JsonObject>> getfooddetail(@Query("story_slug") String story_slug);
+
 
 
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW)
@@ -210,13 +226,13 @@ public interface webservice {
                                               @Query("account_type") int account_type
     );
 
-    @FormUrlEncoded
-    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN)
-    Call<Api_Response> userlogin(@FieldMap Map<String,String> map
-    );
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS)
     Call<Api_Response<JsonObject>> getfoodtutorialdetail(@Query("story_slug") String story_slug);
+
+
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS)
+    Call<Api_Response<JsonObject>> getfoodblog(@Query("story_slug") String story_slug);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME)
     Call<Api_Response<JsonObject>> gethome();

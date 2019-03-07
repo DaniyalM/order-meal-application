@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:backgroundTint="@color/white"
         android:id="@+id/txtAppname"
         android:layout_width="@dimen/dp250"
         android:layout_height="@dimen/dp92"
@@ -13,7 +14,7 @@
         android:gravity="center"
         android:text=""
         android:layout_margin="@dimen/dp40"
-        android:background="@drawable/img_logo"
+        android:background="@drawable/title_logo"
         android:textColor="@color/colorBlue"
         android:textSize="35sp"
         android:textStyle="bold"

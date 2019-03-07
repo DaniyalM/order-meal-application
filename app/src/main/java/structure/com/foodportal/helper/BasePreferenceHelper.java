@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import com.google.gson.GsonBuilder;
 
 import structure.com.foodportal.models.UserModel;
+import structure.com.foodportal.models.foodModels.User;
 
 
 public class BasePreferenceHelper extends PreferenceHelper {
@@ -172,6 +173,20 @@ public class BasePreferenceHelper extends PreferenceHelper {
     public UserModel getUser() {
         return new GsonBuilder().create().fromJson(
                 getStringPreference(context, FILENAME, KEY_USER), UserModel.class);
+    }
+
+    public void putUserFood(User user) {
+        putStringPreference(context,
+                FILENAME,
+                KEY_USER,
+                new GsonBuilder()
+                        .create()
+                        .toJson(user));
+    }
+
+    public User getUserFood() {
+        return new GsonBuilder().create().fromJson(
+                getStringPreference(context, FILENAME, KEY_USER), User.class);
     }
 
     public void removeLoginPreference() {

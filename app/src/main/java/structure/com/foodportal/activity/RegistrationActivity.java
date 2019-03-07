@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.mukesh.countrypicker.CountryPicker;
@@ -271,6 +273,7 @@ public class RegistrationActivity extends FacebookBaseFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
+       FacebookBaseFragment.callbackManager.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case GooglePlaceHelper.REQUEST_CODE_AUTOCOMPLETE:
                 try {
@@ -484,6 +487,9 @@ public class RegistrationActivity extends FacebookBaseFragment {
             progressDialog.setIndeterminate(true);
         }
     }
+
+
+
 
 
 }

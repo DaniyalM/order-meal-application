@@ -43,10 +43,10 @@
             android:id="@+id/applogo"
             android:visibility="visible"
             android:layout_centerInParent="true"
-            android:src="@drawable/logotopbar"
+            android:src="@drawable/title_logo"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp10" />
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp2" />
 
 
         <View

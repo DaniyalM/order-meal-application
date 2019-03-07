@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FoodDetailModel implements Serializable{
+public class FoodDetailModel implements Serializable {
 
     @SerializedName("serving_for")
     private int serving_for;
@@ -75,6 +75,17 @@ public class FoodDetailModel implements Serializable{
 
     @SerializedName("gallery")
     Gallery gallery;
+
+    public String getBlog_thumb_image_path() {
+        return blog_thumb_image_path;
+    }
+
+    public void setBlog_thumb_image_path(String blog_thumb_image_path) {
+        this.blog_thumb_image_path = blog_thumb_image_path;
+    }
+
+    @SerializedName("blog_thumb_image_path")
+    String blog_thumb_image_path;
 
     @SerializedName("schedules")
     ArrayList<Schedules> schedules;
@@ -324,9 +335,6 @@ public class FoodDetailModel implements Serializable{
     public void setSlug(String slug) {
         this.slug = slug;
     }
-
-
-
 
 
 }

@@ -87,7 +87,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     String story_slug = "";
 
 
-    int navSection = 0;
+    String navSection = "Home";
 
     public FoodHomeFragment() {
 
@@ -95,7 +95,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     }
 
 
-    public FoodHomeFragment(int i) {
+    public FoodHomeFragment(String i) {
 
         this.navSection = i;
 
@@ -176,6 +176,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
             switch (navSection) {
 
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.HOME:
                     binding.cvSectionThree.setVisibility(View.VISIBLE);
                     serviceHelper.enqueueCall(webService.gethome(), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME);
                     break;
@@ -209,7 +210,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 //        }
 
     }
-
+    FoodHomeModelWrapper foodhomeModel;
     @Override
     public void ResponseSuccess(Object result, String Tag) {
         switch (Tag) {
@@ -217,7 +218,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME:
 
 
-                FoodHomeModelWrapper foodhomeModel = (FoodHomeModelWrapper) JsonHelpers.convertToModelClass(result, FoodHomeModelWrapper.class);
+                 foodhomeModel = (FoodHomeModelWrapper) JsonHelpers.convertToModelClass(result, FoodHomeModelWrapper.class);
                 if (foodhomeModel != null) {
 
                     mainActivity.runOnUiThread(new Runnable() {
@@ -252,9 +253,24 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 FoodDetailModelWrapper foodDetailModeltwo = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
                 if (foodDetailModeltwo != null) {
 
-               //     LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
+                    //     LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
                     FoodTutorialDetailFragment detailFragment = new FoodTutorialDetailFragment();
                     detailFragment.setFoodDetailModel(foodDetailModeltwo);
+                    mainActivity.addFragment(detailFragment, true, true);
+                    //    setData(foodDetailModel.getData());
+
+                }
+                break;
+
+
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_BLOG_DETAILS:
+
+                FoodDetailModelWrapper foodblog = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
+                if (foodblog != null) {
+
+                    //     LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
+                    FoodBlogDetailFragment detailFragment = new FoodBlogDetailFragment();
+                    detailFragment.setFoodDetailModel(foodblog);
                     mainActivity.addFragment(detailFragment, true, true);
                     //    setData(foodDetailModel.getData());
 
@@ -264,11 +280,17 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
-
     public void setData(FoodHomeModelWrapper foodHomeModelWrapper) {
 
-           story_slug = foodHomeModelWrapper.getBanner().get(0).getSlug();
 
+        if (foodHomeModelWrapper.getFeature_type() != null) {
+
+            story_slug = foodHomeModelWrapper.getFeature_type().getSlug();
+        } else {
+
+            story_slug = foodHomeModelWrapper.getBanner().get(0).getSlug();
+
+        }
 
         YoYo.with(Techniques.FadeOut).duration(1000).playOn(binding.viewShimmerCategorySlider);
         YoYo.with(Techniques.FadeOut).duration(1000).playOn(binding.viewShimmerbanner);
@@ -283,8 +305,10 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         binding.rvCategoryslider.setVisibility(View.VISIBLE);
         binding.cvRecipe.setVisibility(View.VISIBLE);
 
+
         switch (navSection) {
 
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.HOME:
             case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
 
                 binding.cvSectionFive.setVisibility(View.GONE);
@@ -346,7 +370,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
                 binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
                 sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
-                banners.addAll(foodHomeModelWrapper.getBanner());
+                banners.add(foodHomeModelWrapper.getFeature_type());
 
 
                 break;
@@ -374,7 +398,14 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void popularrecipe(int pos) {
 
-        next(sectionsPopular.get(pos).getSlug());
+        if(navSection.equalsIgnoreCase(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG)){
+            next(foodhomeModel.getSection().get(pos).getSection_list().get(0).getSlug());
+
+        }else{
+
+            next(sectionsPopular.get(pos).getSlug());
+
+        }
 
 
     }
@@ -404,6 +435,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         if (NetworkUtils.isNetworkAvailable(mainActivity))
             switch (navSection) {
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.HOME:
 
                     serviceHelper.enqueueCall(webService.getfooddetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
                     break;
@@ -418,7 +450,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                     break;
 
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
-                    serviceHelper.enqueueCall(webService.getfoodtutorialdetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
+                    serviceHelper.enqueueCall(webService.getfoodblog(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_BLOG_DETAILS);
                     break;
 
 

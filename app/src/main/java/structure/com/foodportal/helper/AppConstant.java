@@ -206,8 +206,8 @@ public class AppConstant {
         public static final int PETS = 128;
         public static final int OTHER = 129;
     }
-    public static final String BASE_URL = "http://recipesofpakistan.com/api/";
-    public static final String BASE_URL_IMAGE = "http://cdn.recipesofpakistan.com/";
+    public static final String BASE_URL = "https://recipesofpakistan.com/api/";
+    public static final String BASE_URL_IMAGE = "https://cdn.recipesofpakistan.com/";
     public static final String VIDEO_URL = "https://c.recipesofpakistan.com/";
 
     public class FOODPORTAL_FOOD_DETAILS {
@@ -215,6 +215,7 @@ public class AppConstant {
         public static final String FOOD_SEND_REVIEW = "story/submit-review";
         public static final String FOOD_DETAILS = "story";
         public static final String FOOD_TUTORIAL_DETAILS = "story/tutorial-detail";
+        public static final String FOOD_BLOG_DETAILS = "blogstory";
         public static final String FOOD_HOME = "home";
         public static final String FOOD_TUTORIAL_HOME = "get-home-data-by-feature";
         public static final String FOOD_HEADER = "header/menu";
@@ -224,11 +225,11 @@ public class AppConstant {
         public static final String FOOD_USER_LOGIN = "user/login";
 
 
-        public static final int HOME = 0;
-        public static final int RECIPES = 0;
-        public static final int TUTORIALS = 1;
-        public static final int CLEANING = 2;
-        public static final int BLOG = 3;
+        public static final String HOME = "Home";
+        public static final String RECIPES = "Recipes";
+        public static final String TUTORIALS = "Tutorials";
+        public static final String CLEANING = "Cleaning";
+        public static final String BLOG = "Blog";
 
 
     }

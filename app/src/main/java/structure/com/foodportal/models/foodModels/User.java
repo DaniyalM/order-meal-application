@@ -5,6 +5,16 @@ public  class User {
     int acct_type;
     String name_en;
 
+    public String getContact_no() {
+        return contact_no;
+    }
+
+    public void setContact_no(String contact_no) {
+        this.contact_no = contact_no;
+    }
+
+    String contact_no;
+
     public int getId() {
         return id;
     }

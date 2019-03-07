@@ -51,7 +51,7 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
     CategorySlider categorySlider;
     ArrayList<CategorySlider> categorySliders;
     ConnectionService service;
-    int mode=0;
+    String mode="Home";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
     }
 
 
-    public void setModel(CategorySlider categorySlider,int mode) {
+    public void setModel(CategorySlider categorySlider,String mode) {
         this.mode=mode;
         this.categorySlider = categorySlider;
 
@@ -117,10 +117,13 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
                     serviceHelper.enqueueCall(webService.getSubCategory(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY);
                     break;
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
+                    serviceHelper.enqueueCall(webService.getSubCategory(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY);
                     break;
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING:
+                    serviceHelper.enqueueCall(webService.getSubCategory(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY);
                     break;
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
+                    serviceHelper.enqueueCall(webService.getSubCategory(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY);
                     break;
 
             }

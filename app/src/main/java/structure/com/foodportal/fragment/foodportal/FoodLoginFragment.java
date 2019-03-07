@@ -11,6 +11,11 @@ import android.view.ViewGroup;
 
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,8 +31,12 @@ import structure.com.foodportal.fragment.GetStartedFragment;
 import structure.com.foodportal.global.WebServiceConstants;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.CustomValidation;
+import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
+import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
+import structure.com.foodportal.models.foodModels.LoginBody;
+import structure.com.foodportal.models.foodModels.User;
 
 public class FoodLoginFragment extends BaseFragment implements View.OnClickListener {
 
@@ -59,7 +68,11 @@ public class FoodLoginFragment extends BaseFragment implements View.OnClickListe
 
 
             case R.id.btnSignin:
-                validate();
+                try {
+                    validate();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case R.id.tvsociallogin:
@@ -82,7 +95,7 @@ public class FoodLoginFragment extends BaseFragment implements View.OnClickListe
         binding.btnSignin.setOnClickListener(this);
     }
 
-    private void validate() {
+    private void validate() throws JSONException {
   if (binding.etemail.getText().toString().trim().length() == 0) {
             UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.repuired_email));
             return; }
@@ -138,16 +151,23 @@ public class FoodLoginFragment extends BaseFragment implements View.OnClickListe
         }
     }
 
-    public void login() {
+    public void login() throws JSONException {
         LoginUser mInfo=new LoginUser(binding.etemail.getText().toString(),binding.etpassword.getText().toString());
         String request=new Gson().toJson(mInfo);
 
         //Here the json data is add to a hash map with key data
-        Map<String,String> params = new HashMap<String, String>();
+        Map<String,String> params = new HashMap<>();
         params.put("email", binding.etemail.getText().toString());
         params.put("password", binding.etpassword.getText().toString());
 
-        serviceHelper.enqueueCall(webService.userlogin(params), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN);
+        LoginBody loginBody =new LoginBody(binding.etemail.getText().toString(),binding.etpassword.getText().toString());
+
+
+        JSONObject row = new JSONObject();
+        row.put("email", binding.etemail.getText().toString());
+        row.put("password",binding.etpassword.getText().toString());
+
+        serviceHelper.enqueueCall(webService.userlogin(binding.etemail.getText().toString(),binding.etpassword.getText().toString()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN);
 
     }
     @NonNull
@@ -160,7 +180,10 @@ public class FoodLoginFragment extends BaseFragment implements View.OnClickListe
         switch (tag) {
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN:
 
-
+                User foodblog = (User) JsonHelpers.convertToModelClass(result, User.class);
+                preferenceHelper.putUserFood(foodblog);
+                preferenceHelper.setLoginStatus(true);
+                registrationActivity.showMainActivity();
 
                 break;
 

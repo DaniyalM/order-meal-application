@@ -57,8 +57,19 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
     public void onBindViewHolder(FoodCommentsAdapter.PlanetViewHolder holder, int position) {
 
 
+        switch (sections.get(position).getUser().getAcct_type()){
 
-        UIHelper.setImageWithGlide(context,holder.userimage, AppConstant.BASE_URL_IMAGE+sections.get(position).getUser().getProfile_picture());
+            case 1:
+                UIHelper.setImageWithGlide(context,holder.userimage, AppConstant.BASE_URL_IMAGE+sections.get(position).getUser().getProfile_picture());
+                break;
+            case 2://gmail
+                UIHelper.setImageWithGlide(context,holder.userimage, AppConstant.BASE_URL_IMAGE+sections.get(position).getUser().getProfile_picture());
+                break;
+            case 3://facebook
+                UIHelper.setImageWithGlide(context,holder.userimage, sections.get(position).getUser().getProfile_picture());
+                break;
+
+        }
 
         holder.username.setText(sections.get(position).getUser().getName_en());
         holder.comment.setText(sections.get(position).getReviews());

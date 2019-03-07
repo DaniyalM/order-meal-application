@@ -104,6 +104,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         lblListHeader.setText(headerTitle);
 
 
+        if(_listDataChild.get(getGroup(groupPosition)).size()==0){
+
+
+            etvexpand.setVisibility(View.GONE);
+
+        }else{
+
+            etvexpand.setVisibility(View.VISIBLE);
+        }
+
         etvexpand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

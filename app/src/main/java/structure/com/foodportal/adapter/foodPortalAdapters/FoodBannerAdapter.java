@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import butterknife.internal.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 import structure.com.foodportal.R;
+import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodBannerListner;
 import structure.com.foodportal.models.Category;
@@ -53,14 +54,25 @@ public class FoodBannerAdapter extends RecyclerView.Adapter<FoodBannerAdapter.Pl
 
         holder.text.clearAnimation();
         holder.text.setText(""+ingredientList.get(position).getTitle_en());
-        UIHelper.setImageWithGlide(context,holder.circleImageView,ingredientList.get(position).getGallery().getPhotos().get(0).getImage_path());
-       // setAnimation(holder.itemView, position);
+        if(ingredientList.get(position).getBanner_image_path()!=null){
+            UIHelper.setImageWithGlide(context,holder.circleImageView, ingredientList.get(position).getBanner_image_path());
+        }else{
+
+
+            UIHelper.setImageWithGlide(context,holder.circleImageView,ingredientList.get(position).getGallery().getPhotos().get(0).getImage_path());
+        }
+        // setAnimation(holder.itemView, position);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    foodBannerListner.onBannerClick(position);
+                    if(ingredientList.get(position).getBanner_image_path()!=null){
 
+
+                    }else {
+
+                        foodBannerListner.onBannerClick(position);
+                    }
 
                 }
             });

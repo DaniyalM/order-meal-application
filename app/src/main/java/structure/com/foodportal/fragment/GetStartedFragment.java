@@ -33,23 +33,25 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import structure.com.foodportal.R;
+import structure.com.foodportal.activity.FacebookBaseFragment;
 import structure.com.foodportal.databinding.FragmentGetstartedBinding;
 import structure.com.foodportal.fragment.foodportal.FoodLoginFragment;
 import structure.com.foodportal.fragment.foodportal.FoodSignUpFragment;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
+import structure.com.foodportal.interfaces.foodInterfaces.DataListner;
+import structure.com.foodportal.models.foodModels.User;
 
-public class GetStartedFragment extends BaseFragment implements View.OnClickListener {
+public class GetStartedFragment extends BaseFragment implements View.OnClickListener,DataListner {
 
     FragmentGetstartedBinding binding;
-    CallbackManager callbackManager;
-    boolean isConnected;
-     AccessToken accessToken;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_getstarted, container, false);
         init();
+        registrationActivity.setcontent(this::getdata);
         return binding.getRoot();
     }
 
@@ -131,5 +133,24 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
 
         titlebar.resetView();
         titlebar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void getdata(JSONObject jsonObject) throws JSONException {
+
+
+        String fname= jsonObject.getString("first_name");
+        String lname =jsonObject.getString("last_name");
+        String email =  jsonObject.getString("email");
+        long id = jsonObject.getLong("id");
+        User user =new User();
+        user.setId(Integer.valueOf((int) id));
+        user.setName_en(fname+" "+lname);
+        user.setAcct_type(3);
+        user.setProfile_picture("https://graph.facebook.com/" +id+ "/picture?type=large");
+        preferenceHelper.putUserFood(user);
+        preferenceHelper.setLoginStatus(true);
+        registrationActivity.showMainActivity();
+
     }
 }

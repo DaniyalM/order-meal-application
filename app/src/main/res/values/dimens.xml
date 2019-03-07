@@ -42,6 +42,7 @@
     <dimen name="dp4">4dp</dimen>
     <dimen name="dp70">70dp</dimen>
     <dimen name="sp13">13sp</dimen>
+    <dimen name="sptext">13</dimen>
     <dimen name="dp12">12dp</dimen>
     <dimen name="dp130">130dp</dimen>
     <dimen name="sp15">15sp</dimen>
@@ -60,6 +61,7 @@
     <dimen name="dp92">92dp</dimen>
     <dimen name="dp88">88dp</dimen>
     <dimen name="dp28">28dp</dimen>
+    <dimen name="txtSize">26sp</dimen>
 
     <dimen name="card_insets">8dp</dimen>
     <dimen name="card_min_width">240dp</dimen>

@@ -16,6 +16,35 @@ public class Banner
 
 
     private String serving_for;
+    private String banner_image_path;
+
+    public String getBanner_image_path() {
+        return banner_image_path;
+    }
+
+    public void setBanner_image_path(String banner_image_path) {
+        this.banner_image_path = banner_image_path;
+    }
+
+    public String getLoop_video_path() {
+        return loop_video_path;
+    }
+
+    public void setLoop_video_path(String loop_video_path) {
+        this.loop_video_path = loop_video_path;
+    }
+
+    private String loop_video_path;
+
+    public String getBlog_thumb_image() {
+        return blog_thumb_image;
+    }
+
+    public void setBlog_thumb_image(String blog_thumb_image) {
+        this.blog_thumb_image = blog_thumb_image;
+    }
+
+    private String blog_thumb_image;
 
     private String video_path;
 
@@ -240,6 +269,8 @@ public class Banner
     {
         this.gallery = gallery;
     }
+
+
 
 
 }

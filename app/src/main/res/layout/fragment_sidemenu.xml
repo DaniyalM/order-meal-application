@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:animateLayoutChanges="true"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
 
                     <!--   <ImageView
@@ -45,7 +45,7 @@
                         android:layout_width="@dimen/dp56"
                         android:layout_height="@dimen/dp56"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp50"
+
                         android:src="@drawable/img_menu_user" />
 
                     <TextView
@@ -53,7 +53,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp20"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppinsregular"
                         android:gravity="center_horizontal"
@@ -64,6 +63,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+
                         android:id="@+id/txt_useraddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                         android:drawableStart="@drawable/icon_menu_settings"
                         android:textColor="@color/white"
                         android:textSize="14sp"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
 

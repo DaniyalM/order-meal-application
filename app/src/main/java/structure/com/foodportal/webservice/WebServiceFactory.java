@@ -46,7 +46,8 @@ public class WebServiceFactory {
                     Request request = null;
                     try {
                         Request.Builder requestBuilder = original.newBuilder()
-                                .addHeader("Authorization", "Bearer "/* + preHelper.getUserToken()*/);
+                                .removeHeader("Content-Type")
+                                .header("Authorization", "Bearer "/* + preHelper.getUserToken()*/);
                         request = requestBuilder.build();
                     } catch (Exception ex) {
 //                        Request.Builder requestBuilder = original.newBuilder()

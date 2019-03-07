@@ -29,8 +29,9 @@
             <TextView
                 android:layout_width="@dimen/dp250"
                 android:layout_height="@dimen/dp92"
+                android:backgroundTint="@color/white"
                 android:layout_gravity="center"
-                android:background="@drawable/img_logo"
+                android:background="@drawable/title_logo"
                 android:gravity="center" />
 
 

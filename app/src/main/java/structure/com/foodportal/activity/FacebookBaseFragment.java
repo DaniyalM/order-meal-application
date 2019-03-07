@@ -2,6 +2,7 @@ package structure.com.foodportal.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.facebook.AccessToken;
@@ -19,14 +20,15 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-import structure.com.foodportal.models.UserModel;
+import structure.com.foodportal.interfaces.foodInterfaces.DataListner;
 
 public abstract class FacebookBaseFragment extends BaseActivity {
 
-    private CallbackManager callbackManager;
+    public static  CallbackManager callbackManager;
     private AccessToken accessToken;
 
-    public static boolean isConnected;
+    public static boolean isConnected ;
+
 
 
     public abstract void onSocialInfoFetched(JSONObject data);
@@ -34,7 +36,7 @@ public abstract class FacebookBaseFragment extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(this);
+       // FacebookSdk.sdkInitialize(this);
         //AppEventsLogger.activateApp(this);
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -43,7 +45,7 @@ public abstract class FacebookBaseFragment extends BaseActivity {
             public void onSuccess(LoginResult loginResult) {
                 AccessToken accessToken = loginResult.getAccessToken();
                 fetchUserInfo(accessToken);
-                isConnected = true;
+                isConnected=true;
                 //Log.e("fb", accessToken.getUserId());
 
                 //Log.e("accessToken", "accessToken "+accessToken.getToken());
@@ -51,7 +53,7 @@ public abstract class FacebookBaseFragment extends BaseActivity {
 
                 AccessToken token = AccessToken.getCurrentAccessToken();
                 if (token != null) {
-                    Log.e("accessToken2", "accessToken2 " + token);
+                    Log.e("accessToken2", "accessToken2 "+token);
                 }
             }
 
@@ -63,6 +65,7 @@ public abstract class FacebookBaseFragment extends BaseActivity {
 
             @Override
             public void onError(FacebookException e) {
+
                 Log.e("error", e.toString());
             }
 
@@ -75,7 +78,6 @@ public abstract class FacebookBaseFragment extends BaseActivity {
 
 
     public void loginWithFacebook() {
-        logoutFromFacebook();
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile,email"));
 //		LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email"));
     }
@@ -87,36 +89,30 @@ public abstract class FacebookBaseFragment extends BaseActivity {
                 @Override
                 public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
                     onSocialInfoFetched(jsonObject);
-
-                    disconnectSocialNetworks();
-
-                    prefHelper.setLoginStatus(true);
-                    UserModel userModel = new UserModel();
-
                     try {
-                        userModel.setProfileImage(  jsonObject.getString("profile_picture"));
-                        userModel.setFullName(  jsonObject.getString("name"));
+                        dataListner.getdata(jsonObject);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    prefHelper.putUser(userModel);
-
+                    disconnectSocialNetworks();
                     //Log.e("FbUserData", jsonObject.toString());
                 }
             });
-            //GraphRequest.executeBatchAsync(request);
+            GraphRequest.executeBatchAsync(request);
 
             Bundle parameters = new Bundle();
-            parameters.putString("fields", "id,first_name,last_name,email");
+            parameters.putString("fields","id,first_name,last_name,email");
             request.setParameters(parameters);
             request.executeAsync();
         }
     }
 
 
+
     protected void logoutFromFacebook() {
         LoginManager.getInstance().logOut();
     }
+
 
 
     @Override
@@ -130,5 +126,9 @@ public abstract class FacebookBaseFragment extends BaseActivity {
         logoutFromFacebook();
     }
 
+    DataListner dataListner;
+    public  void setcontent(DataListner dataListner) {
+        this.dataListner= dataListner;
 
+    }
 }

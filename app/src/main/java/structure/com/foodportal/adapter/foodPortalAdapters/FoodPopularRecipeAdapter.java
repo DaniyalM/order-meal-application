@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import butterknife.internal.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 import structure.com.foodportal.R;
+import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.Category;
@@ -50,7 +51,14 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
     public void onBindViewHolder(FoodPopularRecipeAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
         holder.text.setText(""+sections.get(position).getTitle());
-        UIHelper.setImageWithGlide(context,holder.circleImageView,sections.get(position).getGallery().getPhotos().get(0).getImage_path());
+        if(sections.get(position).getBlog_thumb_image()!=null){
+
+            UIHelper.setImageWithGlide(context,holder.circleImageView,  AppConstant.BASE_URL_IMAGE+sections.get(position).getBlog_thumb_image());
+
+        }else{
+            UIHelper.setImageWithGlide(context,holder.circleImageView,sections.get(position).getGallery().getPhotos().get(0).getImage_path());
+
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
