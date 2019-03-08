@@ -102,10 +102,10 @@ dependencies {
     implementation 'com.jaredrummler:material-spinner:1.2.5'
 
     //Googlelocation
-    implementation 'com.google.android.gms:play-services-maps:15.0.1'
-    implementation 'com.google.android.gms:play-services-base:15.0.1'
-    implementation 'com.google.android.gms:play-services-location:15.0.1'
-    implementation 'com.google.android.gms:play-services-places:15.0.1'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.google.android.gms:play-services-base:16.1.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-places:16.0.0'
 
 
     implementation 'com.google.android.exoplayer:exoplayer:2.8.0'
@@ -133,8 +133,8 @@ dependencies {
     //ImageLoader
     implementation 'com.linsea:universalvideoview:1.1.0@aar'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
-    implementation 'com.google.firebase:firebase-core:16.0.1'
-    implementation 'com.google.firebase:firebase-messaging:17.3.2'
+    implementation 'com.google.firebase:firebase-core:16.0.7'
+    implementation 'com.google.firebase:firebase-messaging:17.4.0'
     implementation 'com.github.loicteillard:EasyTabs:0.4'
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
     implementation group: "pl.openrnd.android", name: "multi-level-listview", version: "1.0.1"
@@ -149,5 +149,8 @@ dependencies {
 
     implementation 'com.danikula:videocache:2.7.1'
     implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'me.grantland:autofittextview:0.2.0'
+
 
 }

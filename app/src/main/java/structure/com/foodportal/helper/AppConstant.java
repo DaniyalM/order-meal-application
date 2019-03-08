@@ -206,13 +206,14 @@ public class AppConstant {
         public static final int PETS = 128;
         public static final int OTHER = 129;
     }
-    public static final String BASE_URL = "https://recipesofpakistan.com/api/";
+    public static final String BASE_URL = "https://food.tribune.com.pk/api/";
     public static final String BASE_URL_IMAGE = "https://cdn.recipesofpakistan.com/";
-    public static final String VIDEO_URL = "https://c.recipesofpakistan.com/";
+    public static final String VIDEO_URL = "https://cdn.recipesofpakistan.com/";
 
     public class FOODPORTAL_FOOD_DETAILS {
 
         public static final String FOOD_SEND_REVIEW = "story/submit-review";
+        public static final String FOOD_SAVED_RECIPES = "get-user-saved-stories";
         public static final String FOOD_DETAILS = "story";
         public static final String FOOD_TUTORIAL_DETAILS = "story/tutorial-detail";
         public static final String FOOD_BLOG_DETAILS = "blogstory";

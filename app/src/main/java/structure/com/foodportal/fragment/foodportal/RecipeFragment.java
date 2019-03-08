@@ -28,16 +28,18 @@ import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.interfaces.foodInterfaces.SubCategoryListner;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.CategorySliderWrapper;
+import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.RecipeWrapper;
+import structure.com.foodportal.models.foodModels.SavedRecipe;
 
-public class RecipeFragment  extends BaseFragment implements SubCategoryListner{
+public class RecipeFragment extends BaseFragment implements SubCategoryListner {
 
 
     FoodSubCategory foodCategoryAdapter;
 
     CategorySlider categorySlider;
-
+    FoodDetailModel savedRecipe;
     ArrayList<CategorySlider> categorySliders;
 
     FragmentRecipeBinding binding;
@@ -56,13 +58,18 @@ public class RecipeFragment  extends BaseFragment implements SubCategoryListner{
 
             getCategories(categorySlider.getCategory_slug());
 
+        } else if (savedRecipe != null) {
+
+            getCategories(savedRecipe.getSlug());
+
+
         }
+
 
         return binding.getRoot();
     }
 
     private void setListners() {
-
 
 
         categorySliders = new ArrayList<>();
@@ -81,14 +88,21 @@ public class RecipeFragment  extends BaseFragment implements SubCategoryListner{
 
     }
 
+    public void setModel(FoodDetailModel savedRecipe) {
+
+        this.savedRecipe = savedRecipe;
+
+    }
+
     Titlebar titlebar;
+
     @Override
     protected void setTitle(Titlebar titlebar) {
 
         titlebar.showTitlebar();
         titlebar.setTitle("");
         titlebar.showBackButton(mainActivity);
-        this.titlebar=titlebar;
+        this.titlebar = titlebar;
 
 
     }
@@ -173,7 +187,7 @@ public class RecipeFragment  extends BaseFragment implements SubCategoryListner{
                             setData(categorySliders);
                         }
                     });
-                }else{
+                } else {
                     binding.nodatafound.setVisibility(View.VISIBLE);
                     binding.rvSubCategoryRecipe.setVisibility(View.GONE);
                     binding.rvSubCategoryRecipe.hideShimmerAdapter();
@@ -187,7 +201,7 @@ public class RecipeFragment  extends BaseFragment implements SubCategoryListner{
                 FoodDetailModelWrapper foodDetailModel = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
                 if (foodDetailModel != null) {
 
-                    LocalDataHelper.writeToFile(result.toString(), mainActivity,"Detail");
+                    LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
                     FoodDetailFragment detailFragment = new FoodDetailFragment();
                     detailFragment.setFoodDetailModel(foodDetailModel);
                     mainActivity.addFragment(detailFragment, true, true);
@@ -197,8 +211,6 @@ public class RecipeFragment  extends BaseFragment implements SubCategoryListner{
 
 
                 break;
-
-
 
 
         }
@@ -212,14 +224,14 @@ public class RecipeFragment  extends BaseFragment implements SubCategoryListner{
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
             serviceHelper.enqueueCall(webService.getfooddetail(categorySliders.get(position).getSlug()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
-        else if (LocalDataHelper.readFromFile(mainActivity,"Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity,"Detail").equalsIgnoreCase("")) {
+        else if (LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase("")) {
 
             Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
 
 
         } else {
             Gson g = new Gson();
-            FoodDetailModelWrapper foodDetailModel = g.fromJson(LocalDataHelper.readFromFile(mainActivity,"Detail"), FoodDetailModelWrapper.class);
+            FoodDetailModelWrapper foodDetailModel = g.fromJson(LocalDataHelper.readFromFile(mainActivity, "Detail"), FoodDetailModelWrapper.class);
             FoodDetailFragment detailFragment = new FoodDetailFragment();
             detailFragment.setFoodDetailModel(foodDetailModel);
             mainActivity.addFragment(detailFragment, true, true);

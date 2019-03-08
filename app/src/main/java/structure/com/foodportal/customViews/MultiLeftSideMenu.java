@@ -36,6 +36,7 @@ import structure.com.foodportal.databinding.FragmentSidemenuBinding;
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.fragment.HomeFragment;
 import structure.com.foodportal.fragment.foodportal.FoodHomeFragment;
+import structure.com.foodportal.fragment.foodportal.SavedRecipesFragment;
 import structure.com.foodportal.fragment.foodportal.SubCategoryFragment;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.Spanny;
@@ -317,7 +318,8 @@ public class MultiLeftSideMenu extends BaseFragment {
 
         });
         footerView.getRootView().findViewById(R.id.savedrecipes).setOnClickListener(view -> {
-            Toast.makeText(mainActivity, "Clicked", Toast.LENGTH_SHORT).show();
+            mainActivity.clearBackStack();
+            mainActivity.addFragment(new SavedRecipesFragment(),true,false);
             // updateLeftDrawer("logout");
 
         });
@@ -337,6 +339,7 @@ public class MultiLeftSideMenu extends BaseFragment {
 
             break;
             case 2:
+                UIHelper.setImageWithGlide(mainActivity,binder.imgBackground,preferenceHelper.getUserFood().getProfile_picture());
 
             break;
             case 3:

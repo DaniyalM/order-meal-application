@@ -24,6 +24,10 @@ import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,6 +61,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
 
 
     public void init() {
+
         try {
             PackageInfo info = registrationActivity.getPackageManager().getPackageInfo(
                     "structure.com.foodportal",
@@ -114,8 +119,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
 
                 break;
             case R.id.tvWithGoogle:
-
-                registrationActivity.showMainActivity();
+                registrationActivity.signIn();
                 break;
             case R.id.tvWithEmail:
                 registrationActivity.replaceFragment(new FoodLoginFragment(),true,true);
@@ -151,6 +155,11 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         preferenceHelper.putUserFood(user);
         preferenceHelper.setLoginStatus(true);
         registrationActivity.showMainActivity();
+        Toast.makeText(registrationActivity, "Login Successfully", Toast.LENGTH_SHORT).show();
 
     }
+
+
+
+
 }

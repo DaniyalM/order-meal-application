@@ -1,7 +1,11 @@
 package structure.com.foodportal.fragment.foodportal;
 
+import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.media.AudioAttributes;
+import android.media.Image;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -23,11 +27,32 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.danikula.videocache.CacheListener;
 import com.danikula.videocache.HttpProxyCacheServer;
+import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.DefaultRenderersFactory;
+import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Format;
+import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.audio.AudioRendererEventListener;
+import com.google.android.exoplayer2.decoder.DecoderCounters;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+import com.google.android.exoplayer2.ui.PlayerControlView;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -75,7 +100,7 @@ import structure.com.foodportal.singleton.CarelessSingleton;
 import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
 public class FoodDetailFragment extends BaseFragment implements
-        View.OnClickListener, FoodDetailListner, UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener,CommentClickListner {
+        View.OnClickListener, FoodDetailListner, SimpleExoPlayer.EventListener, UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener, CommentClickListner {
 
     FoodIngredientsAdapter foodIngredientsAdapter;
     FoodPreparationAdapter foodPreparationAdapter;
@@ -101,10 +126,13 @@ public class FoodDetailFragment extends BaseFragment implements
 
     View mBottomLayout;
     View mVideoLayout;
-    UniversalVideoView mVideoView;
+    // UniversalVideoView mVideoView;
     UniversalMediaController mMediaController;
     FoodDetailModelWrapper foodDetailModel;
-
+    FoodDetailModel foodDetailModelSaved;
+    SimpleExoPlayer player;
+    MediaSource mediaSource;
+    SimpleExoPlayerView videoView;
 
     public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel) {
 
@@ -122,14 +150,60 @@ public class FoodDetailFragment extends BaseFragment implements
 
     }
 
+    public void setFoodDetailModel(FoodDetailModel foodDetailModel) {
+
+        this.foodDetailModelSaved = foodDetailModel;
+//        startTime = new ArrayList<>();
+//        endTime = new ArrayList<>();
+//
+//        for (int i = 0; i < this.foodDetailModel.getData().getSteps().size(); i++) {
+//
+//            startTime.add(Utils.getTimeSeconds(this.foodDetailModel.getData().getSteps().get(i).getStart_time()));
+//            endTime.add(Utils.getTimeSeconds(this.foodDetailModel.getData().getSteps().get(i).getEnd_time()));
+//
+//        }
+
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        player.stop();
+        player.stop(true);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        player.stop();
+        player.stop(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (player != null &&mediaSource !=null ) {
+
+            player.prepare(mediaSource, true, true);
+            player.seekTo(0);
+
+        }
+    }
+
+
+    ImageView btnMute;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product_detail_foodportal, container, false);
-        mVideoView = (UniversalVideoView) binding.getRoot().findViewById(R.id.videoView);
+        //   mVideoView = (UniversalVideoView) binding.getRoot().findViewById(R.id.videoView);
         mMediaController = (UniversalMediaController) binding.getRoot().findViewById(R.id.media_controller);
+        videoView = (SimpleExoPlayerView) binding.getRoot().findViewById(R.id.videoView);
+        btnMute = (ImageView) binding.getRoot().findViewById(R.id.mutebtn);
 
-
+        btnMute.setOnClickListener(this);
         setListners();
         return binding.getRoot();
     }
@@ -158,15 +232,14 @@ public class FoodDetailFragment extends BaseFragment implements
             }
 
 
-            if(foodDetailModel.getAllReviews().size()>0){
+            if (foodDetailModel.getAllReviews().size() > 0) {
 
                 comments.addAll(foodDetailModel.getAllReviews());
-                foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this,true);
+                foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true);
                 binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
                 foodCommentsAdapter.notifyDataSetChanged();
 
-            }else{
-
+            } else {
 
 
             }
@@ -177,8 +250,8 @@ public class FoodDetailFragment extends BaseFragment implements
     }
 
     private void initAdapters() {
-        mVideoView.setMediaController(mMediaController);
-        mVideoView.setVideoViewCallback(this);
+        // mVideoView.setMediaController(mMediaController);
+        //   mVideoView.setVideoViewCallback(this);
 
         binding.rvRelatedRecipes.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
 
@@ -217,7 +290,55 @@ public class FoodDetailFragment extends BaseFragment implements
     public void onReplyClick(int positon) {
 
 
+    }
 
+    @Override
+    public void onTimelineChanged(Timeline timeline, Object manifest, int reason) {
+
+    }
+
+    @Override
+    public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+    }
+
+    @Override
+    public void onLoadingChanged(boolean isLoading) {
+
+    }
+
+    @Override
+    public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+    }
+
+    @Override
+    public void onRepeatModeChanged(int repeatMode) {
+
+    }
+
+    @Override
+    public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+    }
+
+    @Override
+    public void onPlayerError(ExoPlaybackException error) {
+
+    }
+
+    @Override
+    public void onPositionDiscontinuity(int reason) {
+
+    }
+
+    @Override
+    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+    }
+
+    @Override
+    public void onSeekProcessed() {
 
     }
 
@@ -230,12 +351,31 @@ public class FoodDetailFragment extends BaseFragment implements
         }
     }
 
+    boolean mute = false;
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.mutebtn:
+
+                if (mute) {
+                    mute = false;
+                    player.setVolume(1f);
+                    btnMute.setImageTintList(ColorStateList.valueOf(mainActivity.getResources().getColor(R.color.colorAccent)));
+
+                } else {
+                    mute = true;
+                    player.setVolume(0f);
+                    btnMute.setImageTintList(ColorStateList.valueOf(mainActivity.getResources().getColor(R.color.colorRed)));
+
+
+                }
+                break;
             case R.id.btnStepByStep:
+                player.stop();
+                player.stop(true);
                 EventBus.getDefault().register(this);
-                binding.videoView.stopPlayback();
+                // binding.videoView.stopPlayback();
                 StepFragment stepFragment = new StepFragment();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     stepFragment.setSharedElementEnterTransition(new DetailsTransition());
@@ -247,7 +387,7 @@ public class FoodDetailFragment extends BaseFragment implements
 
                 // binding.videoView.stopPlayback();
                 //   binding.videoView.closePlayer();
-                mMediaController.setMediaPlayer(new UniversalMediaController.MediaPlayerControl() {
+              /*  mMediaController.setMediaPlayer(new UniversalMediaController.MediaPlayerControl() {
                     @Override
                     public void start() {
 
@@ -312,9 +452,9 @@ public class FoodDetailFragment extends BaseFragment implements
                     public void setFullscreen(boolean fullscreen, int screenOrientation) {
 
                     }
-                });
+                });*/
                 CarelessSingleton.instance.setState(foodDetailModel.getData(), 0);
-                stepFragment.setVideoData(0, foodDetailModel.getData(), startTime, endTime, mVideoView.getCurrentPosition());
+                stepFragment.setVideoData(0, foodDetailModel.getData(), startTime, endTime, (int) player.getCurrentPosition());
                 mainActivity.addFragment(stepFragment, true, true);
 
                 break;
@@ -371,15 +511,14 @@ public class FoodDetailFragment extends BaseFragment implements
 
                 }
 
-                if(foodDetailModel.getAllReviews().size()>0){
+                if (foodDetailModel.getAllReviews().size() > 0) {
 
                     comments.addAll(foodDetailModel.getAllReviews());
-                    foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this,true);
+                    foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true);
                     binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
                     foodCommentsAdapter.notifyDataSetChanged();
 
-                }else{
-
+                } else {
 
 
                 }
@@ -396,40 +535,50 @@ public class FoodDetailFragment extends BaseFragment implements
         }
     }
 
+    private MediaSource buildMediaSource(Uri uri) {
+        return new ExtractorMediaSource.Factory(
+                new DefaultHttpDataSourceFactory("exoplayer-codelab")).
+                createMediaSource(uri);
+    }
+
     private void setData(FoodDetailModel foodDetailModel) {
         binding.nestedScroll.fullScroll(ScrollView.FOCUS_UP);
         binding.nestedScroll.smoothScrollTo(0, 0);
         binding.tvfoodName.requestFocus();
 
 
-        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-        Bitmap bmp = null;
-        int videoHeight, videoWidth;
-        try {
-            retriever.setDataSource(VIDEO_URL + foodDetailModel.getVideo_url());
-            bmp = retriever.getFrameAtTime();
-            videoHeight = bmp.getHeight();
-            videoWidth = bmp.getWidth();
-            mVideoLayout.setMinimumHeight(videoWidth);
-        } catch (Exception ignored) {
-
-        }
-
-
         if (foodDetailModel.getVideo_url() != null) {
+            videoView.requestFocus();
+            videoView.hideController();
+            player = ExoPlayerFactory.newSimpleInstance(
+                    new DefaultRenderersFactory(mainActivity),
+                    new DefaultTrackSelector(), new DefaultLoadControl());
 
-            HttpProxyCacheServer proxy = MyApplication.getProxy(mainActivity);
-            String proxyUrl = proxy.getProxyUrl(VIDEO_URL + foodDetailModel.getVideo_url().replace("1080.mp4", "1080.mp4"));
-            binding.videoView.setVideoPath(proxyUrl);
-            binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
+            videoView.setPlayer(player);
+            player.setPlayWhenReady(true);
+            player.getPlaybackLooper();
+            player.addListener(this);
+            player.setRepeatMode(SimpleExoPlayer.DISCONTINUITY_REASON_SEEK);
+            Uri uri = Uri.parse(foodDetailModel.getVideo_path().replace("1080.mp4", "720.mp4"));
 
-                    mediaPlayer.setLooping(true);
+            mediaSource = buildMediaSource(uri);
+            player.prepare(mediaSource, true, true);
+            player.setRepeatMode(Player.REPEAT_MODE_ONE);
+            videoView.showController();
 
-                }
-            });
-            binding.videoView.start();
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            Bitmap bmp = null;
+            int videoHeight, videoWidth;
+            try {
+                retriever.setDataSource(foodDetailModel.getVideo_path());
+                bmp = retriever.getFrameAtTime();
+                videoHeight = bmp.getHeight();
+                videoWidth = bmp.getWidth();
+                mVideoLayout.setMinimumHeight(videoWidth);
+            } catch (Exception ignored) {
+
+            }
+
 
         }
 
@@ -447,9 +596,9 @@ public class FoodDetailFragment extends BaseFragment implements
 
         for (int i = 0; i < foodDetailModel.getIngredient().size(); i++) {
             //For Header
-            ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en() == null ? (foodDetailModel.getIngredient().get(i).getIngredient_en()!=null ?foodDetailModel.getIngredient().get(i).getIngredient_en() :" ") + " " + (foodDetailModel.getIngredient().get(i).getQuantity()!=null ?foodDetailModel.getIngredient().get(i).getQuantity():" ") :
-                    foodDetailModel.getIngredient().get(i).getTag_en()!=null ?foodDetailModel.getIngredient().get(i).getTag_en(): " ", 1,
-                    foodDetailModel.getIngredient().get(i).getQuantity()!=null ? foodDetailModel.getIngredient().get(i).getQuantity():"",
+            ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en() == null ? (foodDetailModel.getIngredient().get(i).getIngredient_en() != null ? foodDetailModel.getIngredient().get(i).getIngredient_en() : " ") + " " + (foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() : " ") :
+                    foodDetailModel.getIngredient().get(i).getTag_en() != null ? foodDetailModel.getIngredient().get(i).getTag_en() : " ", 1,
+                    foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() : "",
                     foodDetailModel.getIngredient().get(i).getQuantity() == null ? " " : ""
 
             ));
@@ -512,21 +661,22 @@ public class FoodDetailFragment extends BaseFragment implements
         binding.nestedScroll.fullScroll(ScrollView.FOCUS_UP);
         binding.nestedScroll.smoothScrollTo(0, 0);
         binding.tvfoodName.requestFocus();
-
+        player.prepare(mediaSource, true, true);
+        player.seekTo(syncStatusMessage.getSyncStatusMessage());
         EventBus.getDefault().unregister(this);
-        HttpProxyCacheServer proxy = MyApplication.getProxy(mainActivity);
-        String proxyUrl = proxy.getProxyUrl(VIDEO_URL + foodDetailModel.getData().getVideo_url().replace("1080.mp4", "320.mp4"));
-        binding.videoView.setVideoPath(proxyUrl);
-        binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                //mediaPlayer.seekTo(syncStatusMessage.getSyncStatusMessage());
-                mediaPlayer.setLooping(true);
-                mVideoView.seekTo(syncStatusMessage.getSyncStatusMessage());
-
-            }
-        });
-        binding.videoView.start();
+        // HttpProxyCacheServer proxy = MyApplication.getProxy(mainActivity);
+        // String proxyUrl = proxy.getProxyUrl(foodDetailModel.getData().getVideo_path().replace("1080.mp4", "320.mp4"));
+        //  binding.videoView.setVideoPath(proxyUrl);
+//        binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            @Override
+//            public void onPrepared(MediaPlayer mediaPlayer) {
+//                //mediaPlayer.seekTo(syncStatusMessage.getSyncStatusMessage());
+//                mediaPlayer.setLooping(true);
+//                mVideoView.seekTo(syncStatusMessage.getSyncStatusMessage());
+//
+//            }
+//        });
+//        binding.videoView.start();
     }
 
     int stopPosition;
@@ -534,10 +684,11 @@ public class FoodDetailFragment extends BaseFragment implements
     @Override
     public void onStepClick(Step step, int position) {
 
-
+        player.stop();
+        player.stop(true);
         //  stopPosition = binding.videoView.getCurrentPosition();
         EventBus.getDefault().register(this);
-        binding.videoView.stopPlayback();
+        // binding.videoView.stopPlayback();
         //binding.videoView.closePlayer();
         CarelessSingleton.instance.setState(foodDetailModel.getData(), position);
         StepFragment stepFragment = new StepFragment();
@@ -548,7 +699,7 @@ public class FoodDetailFragment extends BaseFragment implements
             stepFragment.setSharedElementReturnTransition(new DetailsTransition());
         }
 
-        stepFragment.setVideoData(position, foodDetailModel.getData(), startTime, endTime, mVideoView.getCurrentPosition());
+        stepFragment.setVideoData(position, foodDetailModel.getData(), startTime, endTime, (int) player.getCurrentPosition());
         mainActivity.addFragment(stepFragment, true, false);
         //  Toast.makeText(mainActivity, "Will be implement later", Toast.LENGTH_SHORT).show();
 
@@ -599,7 +750,8 @@ public class FoodDetailFragment extends BaseFragment implements
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
+        player.stop(true);
+        player.stop();
         if (mainActivity.getSupportFragmentManager().getFragments().size() > 3) {
             mainActivity.getTitleBar().showTitlebar();
             mainActivity.getTitleBar().showBackButton(mainActivity);
@@ -655,7 +807,7 @@ public class FoodDetailFragment extends BaseFragment implements
 
     }
 
-    public void sendreview(FoodDetailModel foodDetailModel){
+    public void sendreview(FoodDetailModel foodDetailModel) {
         serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
                 "story",
                 foodDetailModel.getFeature_type_id(),
@@ -668,25 +820,25 @@ public class FoodDetailFragment extends BaseFragment implements
     @Override
     public void onCacheAvailable(File cacheFile, String url, int percentsAvailable) {
 
-        if (url.equalsIgnoreCase(VIDEO_URL + foodDetailModel.getData().getVideo_url().replace("1080.mp4", "320.mp4"))) {
+        if (url.equalsIgnoreCase(foodDetailModel.getData().getVideo_path().replace("1080.mp4", "320.mp4"))) {
 
-            binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-
-                    mediaPlayer.setLooping(true);
-                    try {
-
-                        mediaPlayer.setDataSource(cacheFile.getAbsolutePath());
-                        Log.d("Video  played", "playing: ");
-                    } catch (IOException e) {
-
-                        Log.d("Video Not played", "onPrepared: ");
-                    }
-
-                }
-            });
-            binding.videoView.start();
+//            binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//                @Override
+//                public void onPrepared(MediaPlayer mediaPlayer) {
+//
+//                    mediaPlayer.setLooping(true);
+//                    try {
+//
+//                        mediaPlayer.setDataSource(cacheFile.getAbsolutePath());
+//                        Log.d("Video  played", "playing: ");
+//                    } catch (IOException e) {
+//
+//                        Log.d("Video Not played", "onPrepared: ");
+//                    }
+//
+//                }
+//            });
+//            binding.videoView.start();
 
 
         }

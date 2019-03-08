@@ -12,12 +12,20 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInApi;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.mukesh.countrypicker.CountryPicker;
@@ -45,8 +53,10 @@ import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.MediaTypePicker;
 import structure.com.foodportal.interfaces.OnActivityResultInterface;
+import structure.com.foodportal.models.foodModels.User;
 
 public class RegistrationActivity extends FacebookBaseFragment {
+    private static final int RC_SIGN_IN = 1;
     AVLoadingIndicatorView imgLoader;
     FrameLayout mainFrame;
     Titlebar titlebar;
@@ -58,7 +68,8 @@ public class RegistrationActivity extends FacebookBaseFragment {
     ArrayList<String> photoPaths;
     MediaTypePicker mediaPickerListener;
     String navigator;
-
+    GoogleSignInApi mGoogleSignInClientApi;
+    GoogleSignInClient mGoogleSignInClient;
     int minWindowWidth, minWindowHeight, aspectRatioX, aspectRatioY;
 
     public String getUserModel() {
@@ -83,19 +94,21 @@ public class RegistrationActivity extends FacebookBaseFragment {
         // navigator = getIntent().getStringExtra("login");
 
         init();
-
+        google();
 
     }
 
     public void showLoader() {
-        imgLoader.show();
-        imgLoader.setVisibility(View.VISIBLE);
+        mainFrame.setVisibility(View.VISIBLE);
+        //imgLoader.show();
+       // imgLoader.setVisibility(View.VISIBLE);
         isLoading = true;
     }
 
     public void hideLoader() {
-        imgLoader.hide();
-        imgLoader.setVisibility(View.GONE);
+        mainFrame.setVisibility(View.GONE);
+      //  imgLoader.hide();
+      //  imgLoader.setVisibility(View.GONE);
         isLoading = false;
     }
 
@@ -203,10 +216,10 @@ public class RegistrationActivity extends FacebookBaseFragment {
                                 false,
                                 (dialog, which, positive, logout) -> {
                                     if (positive) {
-                                       // popBackStackTillEntry(0);
+                                        // popBackStackTillEntry(0);
                                         setSignupPager(null);
-                                        replaceFragmentWithClearBackStack(new GetStartedFragment(),true,false);
-                                        replaceFragment(new LoginFragment(),true,false);
+                                        replaceFragmentWithClearBackStack(new GetStartedFragment(), true, false);
+                                        replaceFragment(new LoginFragment(), true, false);
                                         dialog.dismiss();
                                     } else {
                                         dialog.dismiss();
@@ -218,38 +231,36 @@ public class RegistrationActivity extends FacebookBaseFragment {
                     case 5:
 
                         UIHelper.showSimpleDialog(
-                    this,
-                    0,
+                                this,
+                                0,
                                 this.getResources().getString(R.string.without_picture),
                                 this.getResources().getString(R.string.confirmation_profile_picture),
                                 this.getResources().getString(R.string.skip),
                                 this.getResources().getString(R.string.cancel),
-                    false,
-                    false,
-                    (dialog, which, positive, logout) -> {
-                        if (positive) {
-                            setSignupPager(null);
-                            this.showMainActivity();
-                            dialog.dismiss();
-                        } else {
-                            dialog.dismiss();
-                        }
-                    }
-            );
+                                false,
+                                false,
+                                (dialog, which, positive, logout) -> {
+                                    if (positive) {
+                                        setSignupPager(null);
+                                        this.showMainActivity();
+                                        dialog.dismiss();
+                                    } else {
+                                        dialog.dismiss();
+                                    }
+                                }
+                        );
                         break;
-
 
 
                     case 6:
 
-                    UIHelper.openExitPopUp(this);
+                        UIHelper.openExitPopUp(this);
                         break;
-
 
 
                 }
 
-                } else {
+            } else {
 
                 signupPager.setCurrentItem(signupPager.getCurrentItem() - 1);
 
@@ -271,10 +282,72 @@ public class RegistrationActivity extends FacebookBaseFragment {
 
     }
 
+    public void signIn() {
+
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+    public void google(){
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestProfile()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+       // GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+       // updateUI(account);
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            // Signed in successfully, show authenticated UI.
+            updateUI(account);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("Google SignIn Optons", "signInResult:failed code=" + e.getStatusCode());
+            //updateUI(null);
+        }
+    }
+
+    private void updateUI(GoogleSignInAccount account) {
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+
+        if(account!=null){
+
+        User user = new User();
+        user.setAcct_type(2);
+        user.setProfile_picture(String.valueOf(account.getPhotoUrl()));
+        user.setName_en(account.getDisplayName());
+        user.setFacebook_id(account.getId());
+        user.setEmail(account.getEmail());
+        prefHelper.putUserFood(user);
+        prefHelper.setLoginStatus(true);
+        finish();
+        showMainActivity();
+          Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
+
+      }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
-       FacebookBaseFragment.callbackManager.onActivityResult(requestCode, resultCode, data);
+        FacebookBaseFragment.callbackManager.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            case RC_SIGN_IN:
+                // The Task returned from this call is always completed, no need to attach
+                // a listener.
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                handleSignInResult(task);
+                break;
+
+
             case GooglePlaceHelper.REQUEST_CODE_AUTOCOMPLETE:
                 try {
                     onActivityResultInterface.onActivityResultInterface(requestCode, resultCode, data);
@@ -487,9 +560,6 @@ public class RegistrationActivity extends FacebookBaseFragment {
             progressDialog.setIndeterminate(true);
         }
     }
-
-
-
 
 
 }

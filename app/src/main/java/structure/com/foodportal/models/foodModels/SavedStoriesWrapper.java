@@ -1,6 +1,8 @@
 package structure.com.foodportal.models.foodModels;
 
-public  class User {
+import java.util.ArrayList;
+
+public class SavedStoriesWrapper {
     int id;
 
     public String getFacebook_id() {
@@ -76,4 +78,18 @@ public  class User {
 
     String profile_picture ;
     String rating ;
+
+
+    public ArrayList<SavedRecipe> getSaved_stories() {
+        return saved_stories;
+    }
+
+    public void setSaved_stories(ArrayList<SavedRecipe> saved_stories) {
+        this.saved_stories = saved_stories;
+    }
+
+    ArrayList<SavedRecipe> saved_stories;
+
+
+
 }

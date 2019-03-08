@@ -22,6 +22,8 @@ import structure.com.foodportal.databinding.FragmentFoodSignupBinding;
 import structure.com.foodportal.databinding.FragmentSignupThreeBinding;
 
 import structure.com.foodportal.fragment.BaseFragment;
+import structure.com.foodportal.fragment.GetStartedFragment;
+import structure.com.foodportal.fragment.LoginFragment;
 import structure.com.foodportal.global.WebServiceConstants;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.CustomValidation;
@@ -30,6 +32,7 @@ import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.helper.Utils;
 import structure.com.foodportal.models.UserModel;
 import structure.com.foodportal.models.UserSignUpModel;
+import structure.com.foodportal.models.foodModels.User;
 
 
 public class FoodSignUpFragment extends BaseFragment implements View.OnClickListener {
@@ -122,10 +125,10 @@ public class FoodSignUpFragment extends BaseFragment implements View.OnClickList
 
     public void register() {
         serviceHelper.enqueueCall(webService.userSignUp(binding.etfname.getText().toString() + binding.etlname.getText().toString(),
-                binding.tvWithEmail.getText().toString(),
+                binding.etemail.getText().toString(),
                 binding.etnumber.getText().toString(),
                 binding.etpassword.getText().toString(),
-                1), WebServiceConstants.USER_SIGNUP);
+                1), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SIGNUP);
 
     }
 
@@ -134,6 +137,15 @@ public class FoodSignUpFragment extends BaseFragment implements View.OnClickList
         switch (tag) {
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SIGNUP:
 
+                registrationActivity.clearBackStack();
+                registrationActivity.replaceFragment(new GetStartedFragment(),true,true);
+                registrationActivity.replaceFragment(new FoodLoginFragment(),true,true);
+               // User user =(User) result;
+            //    user.setAcct_type(1);
+             //   preferenceHelper.putUserFood(user);
+             //   preferenceHelper.setLoginStatus(true);
+             //   registrationActivity.finish();
+               // registrationActivity.showMainActivity();
 
 
                 break;

@@ -16,6 +16,18 @@ public class FoodDetailModel implements Serializable {
     @SerializedName("video_path")
     private String video_path;
 
+
+    public String getVideo_url_path() {
+        return video_url_path;
+    }
+
+    public void setVideo_url_path(String video_url_path) {
+        this.video_url_path = video_url_path;
+    }
+
+    @SerializedName("video_url_path")
+    private String video_url_path;
+
     @SerializedName("content_ur")
     private String content_ur;
 

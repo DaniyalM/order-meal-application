@@ -57,7 +57,7 @@ public class ServiceHelper<T> {
             public void onResponse(@NonNull Call<Api_Response<T>> call, @NonNull Response<Api_Response<T>> response) {
 
                 if (response.body() != null) {
-                    if (response.body().getCode()== (WebServiceConstants.SUCCESS_RESPONSE_CODE)) {
+                    if (response.body().getCode() == (WebServiceConstants.SUCCESS_RESPONSE_CODE)) {
                         serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag);
                         ///    UIHelper.showToast(currentActivity, response.body().getMessage());
                         switch (tag) {
@@ -92,16 +92,24 @@ public class ServiceHelper<T> {
                                 UIHelper.showToast(currentActivity, response.body().getMessage());
 
                                 break;
-                                case AppConstant.REMOVE_FROM_CART:
-
-                                UIHelper.showToast(currentActivity, response.body().getMessage());
-
-                                break;  case AppConstant.MARK_ORDER:
+                            case AppConstant.REMOVE_FROM_CART:
 
                                 UIHelper.showToast(currentActivity, response.body().getMessage());
 
                                 break;
+                            case AppConstant.MARK_ORDER:
 
+                                UIHelper.showToast(currentActivity, response.body().getMessage());
+
+                                break;
+                            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN:
+
+                                UIHelper.showToast(currentActivity, response.body().getMessage());
+
+                                break;
+                            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SIGNUP:
+                                UIHelper.showToast(currentActivity, response.body().getMessage());
+                                break;
 
                         }
 
@@ -125,6 +133,7 @@ public class ServiceHelper<T> {
             }
         });
     }
+
     public void enqueueArrayCall(Call<Api_Array_Response<T>> call, final String tag) {
         showLoader();
 
@@ -139,7 +148,7 @@ public class ServiceHelper<T> {
             public void onResponse(@NonNull Call<Api_Array_Response<T>> call, @NonNull Response<Api_Array_Response<T>> response) {
 
                 if (response.body() != null) {
-                    if (response.body().getCode()== (WebServiceConstants.SUCCESS_RESPONSE_CODE)) {
+                    if (response.body().getCode() == (WebServiceConstants.SUCCESS_RESPONSE_CODE)) {
                         serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag);
                         ///    UIHelper.showToast(currentActivity, response.body().getMessage());
                         switch (tag) {
@@ -174,11 +183,12 @@ public class ServiceHelper<T> {
                                 UIHelper.showToast(currentActivity, response.body().getMessage());
 
                                 break;
-                                case AppConstant.REMOVE_FROM_CART:
+                            case AppConstant.REMOVE_FROM_CART:
 
                                 UIHelper.showToast(currentActivity, response.body().getMessage());
 
-                                break;  case AppConstant.MARK_ORDER:
+                                break;
+                            case AppConstant.MARK_ORDER:
 
                                 UIHelper.showToast(currentActivity, response.body().getMessage());
 

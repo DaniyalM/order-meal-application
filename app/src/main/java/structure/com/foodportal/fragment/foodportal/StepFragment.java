@@ -206,7 +206,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
         player.seekTo(startTime.get(value), endTime.get(value));
         player.addListener(this);
         player.setRepeatMode(SimpleExoPlayer.DISCONTINUITY_REASON_SEEK);
-        Uri uri = Uri.parse(AppConstant.VIDEO_URL + foodDetailModel.getVideo_url().replace("1080.mp4","320.mp4"));
+        Uri uri = Uri.parse(foodDetailModel.getVideo_path().replace("1080.mp4","720.mp4"));
 
          mediaSource = buildMediaSource(uri);
         player.prepare(mediaSource, true, true);
