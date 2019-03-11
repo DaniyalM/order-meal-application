@@ -199,15 +199,23 @@ public interface webservice {
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN)
     @FormUrlEncoded
     Call<Api_Response<JsonObject>> userlogin(@Field("email") String email,
-                                       @Field("password") String password);
+                                             @Field("password") String password);
 
+    @Headers("Accept: application/json")
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN)
+    @FormUrlEncoded
+    Call<Api_Response<JsonObject>> sacvestory(@Field("email") String email,
+                                             @Field("password") String password);
 
-
+    @Headers("Accept: application/json")
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN)
+    @FormUrlEncoded
+    Call<Api_Response<JsonObject>> markfavorite(@Field("email") String email,
+                                              @Field("password") String password);
 
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS)
     Call<Api_Response<JsonObject>> getfooddetail(@Query("story_slug") String story_slug);
-
 
 
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW)
@@ -221,10 +229,10 @@ public interface webservice {
 
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SIGNUP)
     Call<Api_Response<User>> userSignUp(@Query("name") String name,
-                                              @Query("email") String email,
-                                              @Query("contact_no") String contact_no,
-                                              @Query("password") String password,
-                                              @Query("account_type") int account_type
+                                        @Query("email") String email,
+                                        @Query("contact_no") String contact_no,
+                                        @Query("password") String password,
+                                        @Query("account_type") int account_type
     );
 
 

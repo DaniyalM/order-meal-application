@@ -99,16 +99,14 @@ public class RegistrationActivity extends FacebookBaseFragment {
     }
 
     public void showLoader() {
-        mainFrame.setVisibility(View.VISIBLE);
-        //imgLoader.show();
-       // imgLoader.setVisibility(View.VISIBLE);
+        imgLoader.show();
+        imgLoader.setVisibility(View.VISIBLE);
         isLoading = true;
     }
 
     public void hideLoader() {
-        mainFrame.setVisibility(View.GONE);
-      //  imgLoader.hide();
-      //  imgLoader.setVisibility(View.GONE);
+        imgLoader.hide();
+        imgLoader.setVisibility(View.GONE);
         isLoading = false;
     }
 
@@ -289,7 +287,9 @@ public class RegistrationActivity extends FacebookBaseFragment {
     }
     public void google(){
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
                 .requestProfile()
+                .requestId()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 

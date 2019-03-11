@@ -13,22 +13,9 @@
 
     <FrameLayout
         android:id="@+id/mainFrame"
-        android:visibility="gone"
-        android:clickable="true"
         android:layout_below="@id/title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:padding="@dimen/dp10"
-        android:src="@drawable/loader"
-        android:layout_centerInParent="true"
-        android:tint="@color/colorAccent"
-        app:indicatorColor="@color/colorWhite"
-        app:indicatorName="BallClipRotateMultipleIndicator" />
+        android:layout_height="match_parent"/>
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/imgLoader"
@@ -40,7 +27,6 @@
         android:visibility="gone"
         app:indicatorColor="@color/colorWhite"
         app:indicatorName="BallClipRotateMultipleIndicator" />
-    </FrameLayout>
 
 
 

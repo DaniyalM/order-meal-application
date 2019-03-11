@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import structure.com.foodportal.R;
+import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.SubCategoryListner;
 import structure.com.foodportal.models.foodModels.CategorySlider;
@@ -47,7 +48,17 @@ public class FoodSubCategory  extends RecyclerView.Adapter<FoodSubCategory.Plane
 
 
         holder.text.setText(sections.get(position).getCategory_title_en()== null ? sections.get(position).getTitle_en():sections.get(position).getCategory_title_en());
-        UIHelper.setImageWithGlide(context,holder.circleImageView,sections.size()>0 ? sections.get(position).getGallery().getPhotos().get(0).getImage_path() : null);
+        if(sections.get(position).getSlider_image()!=null ||sections.get(position).getSlider_thumb_image()!=null){
+
+            UIHelper.setImageWithGlide(context,holder.circleImageView,  sections.get(position).getSlider_image()!=null? AppConstant.BASE_URL_IMAGE+sections.get(position).getSlider_image(): AppConstant.BASE_URL_IMAGE+sections.get(position).getSlider_thumb_image());
+
+        }else{
+
+            UIHelper.setImageWithGlide(context,holder.circleImageView,sections.get(position).getGallery().getPhotos().get(0).getImage_path());
+
+        }
+
+        //UIHelper.setImageWithGlide(context,holder.circleImageView,sections.size()>0 ? sections.get(position).getGallery().getPhotos().get(0).getImage_path() : null);
             // setAnimation(holder.itemView, position);
 
              holder.itemView.setOnClickListener(new View.OnClickListener() {

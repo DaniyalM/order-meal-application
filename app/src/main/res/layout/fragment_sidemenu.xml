@@ -29,6 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:gravity="center"
                     android:animateLayoutChanges="true"
                     android:orientation="vertical">
 
@@ -40,12 +41,31 @@
                 android:scaleType="fitStart"
                 android:src="@drawable/img_menu" />-->
 
+                    <com.skyfishjy.library.RippleBackground
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:id="@+id/content"
+                        app:rb_color="@color/white"
+                        app:rb_radius="20dp"
+                        app:rb_type="fillRipple"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        app:rb_rippleAmount="4"
+                        app:rb_duration="2000"
+                        app:rb_scale="3">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/img_background"
-                        android:layout_width="@dimen/dp60"
-                        android:layout_height="@dimen/dp60"
+                        android:layout_width="@dimen/dp80"
+                        android:layout_centerInParent="true"
+                        android:padding="@dimen/dp2"
+                        android:layout_height="@dimen/dp80"
+                        android:background="@drawable/border_item_rounded"
                         android:layout_gravity="center"
                         />
+                    </com.skyfishjy.library.RippleBackground>
 
                     <TextView
                         android:layout_marginTop="@dimen/dp10"
@@ -62,7 +82,7 @@
 
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/sp15"
+                        android:textSize="@dimen/sp18"
                         android:textStyle="bold" />
 
                     <TextView

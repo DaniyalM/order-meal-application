@@ -102,7 +102,7 @@ public class MultiLeftSideMenu extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_sidemenu, container, false);
         // if(headerWrapper!=null && headerWrapper.size()>0){
-
+        binder.content.startRippleAnimation();
 
         confMenu();
 
@@ -365,7 +365,7 @@ public class MultiLeftSideMenu extends BaseFragment {
             if (headerWrapper.size()>=2 ) {
 
 
-              if(headerWrapper.get(1).getSlug().equalsIgnoreCase("tutorials")){
+              if(headerWrapper.get(1).getSlug().equalsIgnoreCase("tutorial")){
 
                   tutorials.addAll(headerWrapper.get(1).getCategories());
                   sourceString = headerWrapper.get(1).getTitle_en();
@@ -398,7 +398,7 @@ public class MultiLeftSideMenu extends BaseFragment {
 
 
 
-                if(headerWrapper.get(2).getSlug().equalsIgnoreCase("tutorials")){
+                if(headerWrapper.get(2).getSlug().equalsIgnoreCase("tutorial")){
 
                     tutorials.addAll(headerWrapper.get(2).getCategories());
                     sourceString = headerWrapper.get(2).getTitle_en();
@@ -436,7 +436,7 @@ public class MultiLeftSideMenu extends BaseFragment {
 
 
 
-                if(headerWrapper.get(3).getSlug().equalsIgnoreCase("tutorials")){
+                if(headerWrapper.get(3).getSlug().equalsIgnoreCase("tutorial")){
 
                     tutorials.addAll(headerWrapper.get(3).getCategories());
                     sourceString = headerWrapper.get(3).getTitle_en();

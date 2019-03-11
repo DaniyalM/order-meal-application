@@ -109,7 +109,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_homefood, container, false);
         setListners();
         mainActivity.hideBottombar();
-
+        binding.content.startRippleAnimation();
 
         gethomeDetails();
         return binding.getRoot();
@@ -338,7 +338,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 sectionsFeatured.addAll(foodHomeModelWrapper.getSection().get(1).getSection_list());
                 sectionsBetterForBites.addAll(foodHomeModelWrapper.getSection().get(2).getSection_list());
                 categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
-                banners.addAll(foodHomeModelWrapper.getBanner());
+                banners.add(foodHomeModelWrapper.getFeature_type());
 
                 break;
 

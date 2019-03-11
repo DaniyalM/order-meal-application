@@ -151,6 +151,7 @@ dependencies {
     implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'me.grantland:autofittextview:0.2.0'
+    implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
 
 
 }

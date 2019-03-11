@@ -43,6 +43,7 @@ import structure.com.foodportal.interfaces.foodInterfaces.SubCategoryListner;
 import structure.com.foodportal.models.Category;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.CategorySliderWrapper;
+import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.FoodHomeModelWrapper;
 
 public class SubCategoryFragment extends BaseFragment implements View.OnClickListener, SubCategoryListner{
@@ -203,6 +204,19 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
                 }
                 break;
 
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS:
+                FoodDetailModelWrapper foodDetailModeltwo = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
+                if (foodDetailModeltwo != null && foodDetailModeltwo.getData()!=null) {
+
+                    //     LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
+                    FoodTutorialDetailFragment detailFragment = new FoodTutorialDetailFragment();
+                    detailFragment.setFoodDetailModel(foodDetailModeltwo);
+                    mainActivity.addFragment(detailFragment, true, true);
+                    //    setData(foodDetailModel.getData());
+
+                }
+                break;
+
         }
 
     }
@@ -211,9 +225,31 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onSubCategoryClick(int position) {
 
-        RecipeFragment recipeFragment = new RecipeFragment();
-        recipeFragment.setModel(categorySliders.get(position));
-        mainActivity.addFragment(recipeFragment, true, true);
+
+        if (NetworkUtils.isNetworkAvailable(mainActivity))
+            switch (mode){
+
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
+                    RecipeFragment recipeFragment = new RecipeFragment();
+                    recipeFragment.setModel(categorySliders.get(position));
+                    mainActivity.addFragment(recipeFragment, true, true);
+                    break;
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
+                    serviceHelper.enqueueCall(webService.getfoodtutorialdetail(categorySliders.get(position).getCategory_slug()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
+                    break;
+
+
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING:
+                //    serviceHelper.enqueueCall(webService.getSubCategory(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY);
+                    break;
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
+                   // serviceHelper.enqueueCall(webService.getSubCategory(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY);
+                    break;
+
+            }
+//        RecipeFragment recipeFragment = new RecipeFragment();
+//        recipeFragment.setModel(categorySliders.get(position));
+//        mainActivity.addFragment(recipeFragment, true, true);
 
         //mainActivity.addFragment(new );
 

@@ -224,6 +224,8 @@ public class AppConstant {
         public static final String SUB_CATEGORY_RECIPE = "category/detail";
         public static final String FOOD_USER_SIGNUP = "user/register";
         public static final String FOOD_USER_LOGIN = "user/login";
+        public static final String FOOD_SAVE_STORY = "user/save-story";
+        public static final String FOOD_MARK_FAVORITE = "user/story-favorite-status";
 
 
         public static final String HOME = "Home";

@@ -234,21 +234,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         </FrameLayout>
-                    <com.borjabravo.readmoretextview.ReadMoreTextView
-                        app:trimExpandedText="view less"
-                        app:trimCollapsedText="view more"
-                        app:trimLines="5"
-                        app:showTrimExpandedText="true"
-                        app:colorClickableText="@color/colorAccent"
-                        app:trimMode="trimModeLine"
-                        android:lineSpacingExtra="@dimen/dp3"
-                        android:textSize="@dimen/sp15"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:padding="@dimen/dp6"
-                        android:id="@+id/webview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        />
+                        <im.delight.android.webview.AdvancedWebView
+                            android:id="@+id/myWebView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>

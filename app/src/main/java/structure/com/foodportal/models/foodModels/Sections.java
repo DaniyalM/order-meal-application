@@ -7,6 +7,16 @@ public class Sections {
     String slug;
     String video_path;
 
+    public String getVideo_thumb() {
+        return video_thumb;
+    }
+
+    public void setVideo_thumb(String video_thumb) {
+        this.video_thumb = video_thumb;
+    }
+
+    String video_thumb;
+
     public String getTitle_en() {
         return title_en;
     }

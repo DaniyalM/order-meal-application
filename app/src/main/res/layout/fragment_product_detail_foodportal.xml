@@ -49,9 +49,16 @@
                             android:paddingStart="@dimen/dp6"
                             android:layout_height="wrap_content">
 
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+
                             <TextView
                                 android:id="@+id/tvfoodName"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsbold"
                                 android:gravity="center|start"
@@ -60,6 +67,19 @@
                                 android:textColor="@color/colorBlack"
                                 android:textSize="@dimen/sp20"
                                 android:textStyle="bold" />
+
+                                <Switch
+                                    android:padding="@dimen/dp5"
+                                    android:thumbTextPadding="@dimen/dp5"
+                                    android:textAlignment="center"
+                                    android:text="Save"
+                                    android:id="@+id/togglebutton"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="onToggleClicked"/>
+
+                            </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

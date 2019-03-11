@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import butterknife.internal.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 import structure.com.foodportal.R;
+import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.Category;
@@ -50,7 +51,17 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
     public void onBindViewHolder(FoodFeaturedAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
         holder.text.setText(""+sections.get(position).getTitle());
-        UIHelper.setImageWithGlide(context,holder.circleImageView,sections.size()>0 ? sections.get(position).getGallery().getPhotos().get(0).getImage_path() : null);
+        if(sections.get(position).getBlog_thumb_image()!=null ||sections.get(position).getVideo_thumb()!=null){
+
+            UIHelper.setImageWithGlide(context,holder.circleImageView,  sections.get(position).getBlog_thumb_image()!=null? AppConstant.BASE_URL_IMAGE+sections.get(position).getBlog_thumb_image(): AppConstant.BASE_URL_IMAGE+sections.get(position).getVideo_thumb());
+
+        }else{
+
+            UIHelper.setImageWithGlide(context,holder.circleImageView,sections.get(position).getGallery().getPhotos().get(0).getImage_path());
+
+        }
+
+       // UIHelper.setImageWithGlide(context,holder.circleImageView,sections.size()>0 ? sections.get(position).getGallery().getPhotos().get(0).getImage_path() : null);
    //     setAnimation(holder.itemView, position);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

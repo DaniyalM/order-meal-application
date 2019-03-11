@@ -23,6 +23,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -121,9 +123,37 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
             if(foodDetailModel.getData().getContent_en()!= null){
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    binding.webview.setText(Html.fromHtml(foodDetailModel.getData().getContent_en(), Html.FROM_HTML_MODE_COMPACT));
+
+
+                    WebSettings settings = binding.myWebView.getSettings();
+                    settings.setMinimumFontSize(18);
+                    settings.setLoadWithOverviewMode(true);
+                    settings.setUseWideViewPort(true);
+                    settings.setBuiltInZoomControls(false);
+                    settings.setDisplayZoomControls(false);
+                    binding.myWebView.setWebChromeClient(new WebChromeClient());
+                    String changeFontHtml = changedHeaderHtml(foodDetailModel.getData().getContent_en());
+                    binding.myWebView.loadDataWithBaseURL(null, changeFontHtml,
+                            "text/html", "UTF-8", null);
+                    //  binding.myWebView.loadDataWithBaseURL("", foodDetailModel.getData().getContent_en(), "text/html", "UTF-8", "");
+                    binding.myWebView.getSettings().setSupportMultipleWindows(true);
+
+
+
                 } else {
-                    binding.webview.setText(Html.fromHtml(foodDetailModel.getData().getContent_en()));
+                    WebSettings settings = binding.myWebView.getSettings();
+                    settings.setMinimumFontSize(18);
+                    settings.setLoadWithOverviewMode(true);
+                    settings.setUseWideViewPort(true);
+                    settings.setBuiltInZoomControls(false);
+                    settings.setDisplayZoomControls(false);
+                    binding.myWebView.setWebChromeClient(new WebChromeClient());
+                    String changeFontHtml = changedHeaderHtml(foodDetailModel.getData().getContent_en());
+                    binding.myWebView.loadDataWithBaseURL(null, changeFontHtml,
+                            "text/html", "UTF-8", null);
+                    //  binding.myWebView.loadDataWithBaseURL("", foodDetailModel.getData().getContent_en(), "text/html", "UTF-8", "");
+                    binding.myWebView.getSettings().setSupportMultipleWindows(true);
+
                 }
 
             }
@@ -132,6 +162,16 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
         }
         //  getDetails();
     }
+    public static String changedHeaderHtml(String htmlText) {
+        String jsTag = "<style> .easyimage img { width:80%;} </style>";
+        // String head = "<head><meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" /></head>";
+        String head = "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">" + jsTag + "</head>";
+
+        String closedTag = "</body></html>";
+        String changeFontHtml = head + htmlText + closedTag;
+        return changeFontHtml;
+    }
+
 
     private void initAdapters() {
         mVideoView.setMediaController(mMediaController);
@@ -188,22 +228,53 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 
                 }
 
-            if(foodDetailModel.getData().getContent_en()!= null){
 
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                if(foodDetailModel.getData().getContent_en()!= null){
+
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
 
-                    binding.webview.setText(Html.fromHtml(foodDetailModel.getData().getContent_en(), Html.FROM_HTML_MODE_COMPACT));
-                   // Utils.makeTextViewResizable(binding.webview, 5, ""+Html.fromHtml(foodDetailModel.getData().getContent_en(), Html.FROM_HTML_MODE_COMPACT), true);
-                } else {
-                    binding.webview.setText(Html.fromHtml(foodDetailModel.getData().getContent_en()));
-                   // Utils.makeTextViewResizable(binding.webview, 5, ""+Html.fromHtml(foodDetailModel.getData().getContent_en(), Html.FROM_HTML_MODE_COMPACT), true);
+                        WebSettings settings = binding.myWebView.getSettings();
+                        settings.setMinimumFontSize(18);
+                        settings.setLoadWithOverviewMode(true);
+                        settings.setUseWideViewPort(true);
+                        settings.setBuiltInZoomControls(false);
+                        settings.setDisplayZoomControls(false);
+                        binding.myWebView.setWebChromeClient(new WebChromeClient());
+                        String changeFontHtml = changedHeaderHtml(foodDetailModel.getData().getContent_en());
+                        binding.myWebView.loadDataWithBaseURL(null, changeFontHtml,
+                                "text/html", "UTF-8", null);
+                        //  binding.myWebView.loadDataWithBaseURL("", foodDetailModel.getData().getContent_en(), "text/html", "UTF-8", "");
+                        binding.myWebView.getSettings().setSupportMultipleWindows(true);
+
+
+
+                    } else {
+                        WebSettings settings = binding.myWebView.getSettings();
+                        settings.setMinimumFontSize(18);
+                        settings.setLoadWithOverviewMode(true);
+                        settings.setUseWideViewPort(true);
+                        settings.setBuiltInZoomControls(false);
+                        settings.setDisplayZoomControls(false);
+                        binding.myWebView.setWebChromeClient(new WebChromeClient());
+                        String changeFontHtml = changedHeaderHtml(foodDetailModel.getData().getContent_en());
+                        binding.myWebView.loadDataWithBaseURL(null, changeFontHtml,
+                                "text/html", "UTF-8", null);
+                        //  binding.myWebView.loadDataWithBaseURL("", foodDetailModel.getData().getContent_en(), "text/html", "UTF-8", "");
+                        binding.myWebView.getSettings().setSupportMultipleWindows(true);
+
+                    }
+
                 }
 
-            }
+
 
 
                 break;
+
+
+
+
 
         }
     }
