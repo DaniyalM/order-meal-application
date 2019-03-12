@@ -178,7 +178,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.HOME:
                     binding.cvSectionThree.setVisibility(View.VISIBLE);
-                    serviceHelper.enqueueCall(webService.gethome(), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME);
+                    serviceHelper.enqueueCall(webService.gethome(String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME);
                     break;
 
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
@@ -400,14 +400,9 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
         if(navSection.equalsIgnoreCase(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG)){
             next(foodhomeModel.getSection().get(pos).getSection_list().get(0).getSlug());
-
         }else{
-
             next(sectionsPopular.get(pos).getSlug());
-
         }
-
-
     }
 
     @Override
@@ -437,7 +432,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.HOME:
 
-                    serviceHelper.enqueueCall(webService.getfooddetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+                    serviceHelper.enqueueCall(webService.getfooddetail(slug,String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
                     break;
 
 

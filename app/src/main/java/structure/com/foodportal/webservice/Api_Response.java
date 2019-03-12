@@ -11,6 +11,16 @@ public class Api_Response<T> {
     private Boolean is_blocked;
     private T Result;
     private String Message;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    private String token;
     private int Response;
 
     public int getCode() {

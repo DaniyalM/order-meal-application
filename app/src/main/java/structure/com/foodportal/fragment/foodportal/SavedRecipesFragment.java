@@ -241,7 +241,7 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onSubCategoryClick(int position) {
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getfooddetail(categorySliders.get(position).getStories().getSlug()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+            serviceHelper.enqueueCall(webService.getfooddetail(categorySliders.get(position).getStories().getSlug(),String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
 //        FoodDetailFragment recipeFragment = new FoodDetailFragment();
 //        recipeFragment.setFoodDetailModel(categorySliders.get(position).getStories());
 //        mainActivity.addFragment(recipeFragment, true, true);

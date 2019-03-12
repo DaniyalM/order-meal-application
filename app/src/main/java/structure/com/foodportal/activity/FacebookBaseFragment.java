@@ -127,7 +127,7 @@ public abstract class FacebookBaseFragment extends BaseActivity {
     }
 
     DataListner dataListner;
-    public  void setcontent(DataListner dataListner) {
+    public  void setcontentFB(DataListner dataListner) {
         this.dataListner= dataListner;
 
     }

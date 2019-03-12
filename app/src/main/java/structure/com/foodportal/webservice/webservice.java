@@ -202,20 +202,36 @@ public interface webservice {
                                              @Field("password") String password);
 
     @Headers("Accept: application/json")
-    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN)
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY)
     @FormUrlEncoded
-    Call<Api_Response<JsonObject>> sacvestory(@Field("email") String email,
-                                             @Field("password") String password);
+    Call<Api_Response> sacvestory(@Field("user_id") String email,
+                                              @Field("type") String type,
+                                              @Field("feature_type_id") String feature_type_id,
+                                              @Field("story_id") String story_id);
 
     @Headers("Accept: application/json")
-    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN)
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE)
     @FormUrlEncoded
-    Call<Api_Response<JsonObject>> markfavorite(@Field("email") String email,
-                                              @Field("password") String password);
+    Call<Api_Response> markfavorite(@Field("user_id") String email,
+                                                @Field("type") String type,
+                                                @Field("feature_type_id") String feature_type_id,
+                                                @Field("story_id") String story_id);
+
+    @Headers("Accept: application/json")
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK)
+    @FormUrlEncoded
+    Call<Api_Response> LoginFACEBOOK(@Field("email") String email,@Field("provider_id") String provider_id,
+                                                 @Field("name") String name,@Field("from") String from);
+
+    @Headers("Accept: application/json")
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_GOOGLE)
+    @FormUrlEncoded
+    Call<Api_Response> LoginGOOGLE(@Field("email") String email,@Field("provider_id") String provider_id,
+                                               @Field("name") String name,@Field("from") String from,@Field("avatar_original") String avatar_original);
 
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS)
-    Call<Api_Response<JsonObject>> getfooddetail(@Query("story_slug") String story_slug);
+    Call<Api_Response<JsonObject>> getfooddetail(@Query("story_slug") String story_slug,@Query("user_id") String user_id);
 
 
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW)
@@ -244,7 +260,7 @@ public interface webservice {
     Call<Api_Response<JsonObject>> getfoodblog(@Query("story_slug") String story_slug);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME)
-    Call<Api_Response<JsonObject>> gethome();
+    Call<Api_Response<JsonObject>> gethome(@Query("user_id") String user_id);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME)
     Call<Api_Response<JsonObject>> gettutorial(@Query("slug") String slug);

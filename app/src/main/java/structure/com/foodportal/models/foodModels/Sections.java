@@ -6,6 +6,25 @@ public class Sections {
     String title_en;
     String slug;
     String video_path;
+     int is_favorite;
+
+    public int getIs_favorite() {
+        return is_favorite;
+    }
+
+    public void setIs_favorite(int is_favorite) {
+        this.is_favorite = is_favorite;
+    }
+
+    public int getIs_save() {
+        return is_save;
+    }
+
+    public void setIs_save(int is_save) {
+        this.is_save = is_save;
+    }
+
+    int is_save;
 
     public String getVideo_thumb() {
         return video_thumb;

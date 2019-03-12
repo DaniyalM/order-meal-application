@@ -36,17 +36,21 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+import io.reactivex.annotations.NonNull;
+import okhttp3.RequestBody;
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.FacebookBaseFragment;
 import structure.com.foodportal.databinding.FragmentGetstartedBinding;
 import structure.com.foodportal.fragment.foodportal.FoodLoginFragment;
 import structure.com.foodportal.fragment.foodportal.FoodSignUpFragment;
+import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.DataListner;
 import structure.com.foodportal.models.foodModels.User;
 
-public class GetStartedFragment extends BaseFragment implements View.OnClickListener,DataListner {
+public class GetStartedFragment extends BaseFragment implements View.OnClickListener, DataListner {
 
     FragmentGetstartedBinding binding;
 
@@ -55,7 +59,8 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_getstarted, container, false);
         init();
-        registrationActivity.setcontent(this::getdata);
+        registrationActivity.setcontent(this);
+        registrationActivity.setcontentFB(this);
         return binding.getRoot();
     }
 
@@ -86,6 +91,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         binding.tvWithGoogle.setOnClickListener(this);
 
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +128,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
                 registrationActivity.signIn();
                 break;
             case R.id.tvWithEmail:
-                registrationActivity.replaceFragment(new FoodLoginFragment(),true,true);
+                registrationActivity.replaceFragment(new FoodLoginFragment(), true, true);
 
                 break;
 
@@ -143,23 +149,71 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
     public void getdata(JSONObject jsonObject) throws JSONException {
 
 
-        String fname= jsonObject.getString("first_name");
-        String lname =jsonObject.getString("last_name");
-        String email =  jsonObject.getString("email");
+        String fname = jsonObject.getString("first_name");
+        String lname = jsonObject.getString("last_name");
+        String email = jsonObject.getString("email");
         long id = jsonObject.getLong("id");
-        User user =new User();
+        User user = new User();
         user.setId(Integer.valueOf((int) id));
-        user.setName_en(fname+" "+lname);
+        user.setName_en(fname + " " + lname);
         user.setAcct_type(3);
-        user.setProfile_picture("https://graph.facebook.com/" +id+ "/picture?type=large");
-        preferenceHelper.putUserFood(user);
-        preferenceHelper.setLoginStatus(true);
-        registrationActivity.showMainActivity();
-        Toast.makeText(registrationActivity, "Login Successfully", Toast.LENGTH_SHORT).show();
+        user.setEmail(email);
+        user.setProfile_picture("https://graph.facebook.com/" + id + "/picture?type=large");
+        facebooklogin(user);
+//        preferenceHelper.putUserFood(user);
+//        preferenceHelper.setLoginStatus(true);
+//        registrationActivity.showMainActivity();
+//        Toast.makeText(registrationActivity, "Login Successfully", Toast.LENGTH_SHORT).show();
+
+
+    }
+
+    @Override
+    public void getdataGOOGLE(User user) {
+
+        googlelogin(user);
+
 
     }
 
 
+    public void facebooklogin(User user) {
+        serviceHelper.enqueueCall(webService.LoginFACEBOOK(user.getEmail(), String.valueOf(user.getId()), user.getName_en(), "facebook"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK);
 
+
+    }
+
+    public void googlelogin(User user) {
+        serviceHelper.enqueueCall(webService.LoginGOOGLE(user.getEmail(), user.getFacebook_id(), user.getName_en(), "google",user.getProfile_picture()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK);
+
+
+    }
+
+    User user;
+    @Override
+    public void ResponseSuccess(Object result, String tag) {
+        switch (tag) {
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK:
+
+                 user = (User) JsonHelpers.convertToModelClass(result, User.class);
+                preferenceHelper.putUserFood(user);
+                Toast.makeText(registrationActivity, "Login Successfully", Toast.LENGTH_SHORT).show();
+                preferenceHelper.setLoginStatus(true);
+                registrationActivity.showMainActivity();
+
+                break;
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_GOOGLE:
+
+                 user = (User) JsonHelpers.convertToModelClass(result, User.class);
+                preferenceHelper.putUserFood(user);
+                Toast.makeText(registrationActivity, "Login Successfully", Toast.LENGTH_SHORT).show();
+                preferenceHelper.setLoginStatus(true);
+                registrationActivity.showMainActivity();
+
+                break;
+
+
+        }
+    }
 
 }

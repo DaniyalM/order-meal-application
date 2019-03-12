@@ -27,8 +27,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.danikula.videocache.CacheListener;
@@ -55,6 +57,7 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.like.LikeButton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -64,6 +67,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.xml.parsers.SAXParser;
 
 import structure.com.foodportal.MyApplication;
 import structure.com.foodportal.R;
@@ -183,7 +188,7 @@ public class FoodDetailFragment extends BaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        if (player != null &&mediaSource !=null ) {
+        if (player != null && mediaSource != null) {
 
             player.prepare(mediaSource, true, true);
             player.seekTo(0);
@@ -193,6 +198,9 @@ public class FoodDetailFragment extends BaseFragment implements
 
 
     ImageView btnMute;
+    LikeButton likebtn;
+    Button savebtn;
+    TextView tvShowall;
 
     @Nullable
     @Override
@@ -202,8 +210,14 @@ public class FoodDetailFragment extends BaseFragment implements
         mMediaController = (UniversalMediaController) binding.getRoot().findViewById(R.id.media_controller);
         videoView = (SimpleExoPlayerView) binding.getRoot().findViewById(R.id.videoView);
         btnMute = (ImageView) binding.getRoot().findViewById(R.id.mutebtn);
+        savebtn = (Button) binding.getRoot().findViewById(R.id.savebtn);
+        tvShowall = (TextView) binding.getRoot().findViewById(R.id.tvShowall);
+        likebtn = (LikeButton) binding.getRoot().findViewById(R.id.lkFav);
 
+        tvShowall.setOnClickListener(this);
         btnMute.setOnClickListener(this);
+        savebtn.setOnClickListener(this);
+        likebtn.setOnClickListener(this);
         setListners();
         return binding.getRoot();
     }
@@ -387,77 +401,35 @@ public class FoodDetailFragment extends BaseFragment implements
 
                 // binding.videoView.stopPlayback();
                 //   binding.videoView.closePlayer();
-              /*  mMediaController.setMediaPlayer(new UniversalMediaController.MediaPlayerControl() {
-                    @Override
-                    public void start() {
-
-                    }
-
-                    @Override
-                    public void pause() {
-
-                    }
-
-                    @Override
-                    public int getDuration() {
-                        return 0;
-                    }
-
-                    @Override
-                    public int getCurrentPosition() {
-                        return 0;
-                    }
-
-                    @Override
-                    public void seekTo(int pos) {
-
-                    }
-
-                    @Override
-                    public boolean isPlaying() {
-                        return false;
-                    }
-
-                    @Override
-                    public int getBufferPercentage() {
-                        return 0;
-                    }
-
-                    @Override
-                    public boolean canPause() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean canSeekBackward() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean canSeekForward() {
-                        return false;
-                    }
-
-                    @Override
-                    public void closePlayer() {
-
-                    }
-
-                    @Override
-                    public void setFullscreen(boolean fullscreen) {
-
-                    }
-
-                    @Override
-                    public void setFullscreen(boolean fullscreen, int screenOrientation) {
-
-                    }
-                });*/
                 CarelessSingleton.instance.setState(foodDetailModel.getData(), 0);
                 stepFragment.setVideoData(0, foodDetailModel.getData(), startTime, endTime, (int) player.getCurrentPosition());
                 mainActivity.addFragment(stepFragment, true, true);
 
                 break;
+
+            case R.id.savebtn:
+
+                serviceHelper.enqueueCall(webService.sacvestory(String.valueOf(preferenceHelper.getUserFood().getId()), "story", String.valueOf(foodDetailModel.getData().getFeature_type_id()), String.valueOf(foodDetailModel.getData().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY);
+
+                break;
+
+            case R.id.lkFav:
+                serviceHelper.enqueueCall(webService.markfavorite(preferenceHelper.getUserFood().getFacebook_id(), "story", String.valueOf(foodDetailModel.getData().getFeature_type_id()), String.valueOf(foodDetailModel.getData().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE);
+
+                break;
+
+
+            case R.id.tvShowall:
+                player.stop();
+                player.stop(true);
+                //  stopPosition = binding.videoView.getCurrentPosition();
+                EventBus.getDefault().register(this);
+                    CommentsFragment commentsFragment= new CommentsFragment();
+                    commentsFragment.setArrayComments(foodDetailModel);
+                    mainActivity.addFragment(commentsFragment,true,true);
+                break;
+
+
         }
     }
 
@@ -522,12 +494,35 @@ public class FoodDetailFragment extends BaseFragment implements
 
 
                 }
-
 //
 //                    LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
 //                    FoodDetailFragment detailFragment = new FoodDetailFragment();
 //                    detailFragment.setFoodDetailModel(foodDetailModel);
 //                    mainActivity.replaceFragment(detailFragment, true, true);
+                break;
+
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE:
+
+                if (likebtn.isLiked()) {
+                    likebtn.setLiked(false);
+                } else {
+
+
+                    likebtn.setLiked(true);
+                }
+
+                break;
+
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY:
+
+                if (savebtn.getText().equals("Saved")) {
+                    savebtn.setTextColor(Color.WHITE);
+                    savebtn.setText("Save");
+                } else {
+
+                    savebtn.setTextColor(Color.RED);
+                    savebtn.setText("Saved");
+                }
 
 
                 break;
@@ -545,7 +540,23 @@ public class FoodDetailFragment extends BaseFragment implements
         binding.nestedScroll.fullScroll(ScrollView.FOCUS_UP);
         binding.nestedScroll.smoothScrollTo(0, 0);
         binding.tvfoodName.requestFocus();
+        if (foodDetailModel.getIs_favorite() == 1) {
+            likebtn.setLiked(true);
+        } else {
 
+
+            likebtn.setLiked(false);
+        }
+        if (foodDetailModel.getIs_save() == 1) {
+
+            savebtn.setTextColor(Color.RED);
+            savebtn.setText("Saved");
+        } else {
+
+
+            savebtn.setTextColor(Color.WHITE);
+            savebtn.setText("Save");
+        }
 
         if (foodDetailModel.getVideo_url() != null) {
             videoView.requestFocus();
@@ -664,19 +675,7 @@ public class FoodDetailFragment extends BaseFragment implements
         player.prepare(mediaSource, true, true);
         player.seekTo(syncStatusMessage.getSyncStatusMessage());
         EventBus.getDefault().unregister(this);
-        // HttpProxyCacheServer proxy = MyApplication.getProxy(mainActivity);
-        // String proxyUrl = proxy.getProxyUrl(foodDetailModel.getData().getVideo_path().replace("1080.mp4", "320.mp4"));
-        //  binding.videoView.setVideoPath(proxyUrl);
-//        binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//            @Override
-//            public void onPrepared(MediaPlayer mediaPlayer) {
-//                //mediaPlayer.seekTo(syncStatusMessage.getSyncStatusMessage());
-//                mediaPlayer.setLooping(true);
-//                mVideoView.seekTo(syncStatusMessage.getSyncStatusMessage());
-//
-//            }
-//        });
-//        binding.videoView.start();
+
     }
 
     int stopPosition;
@@ -789,7 +788,7 @@ public class FoodDetailFragment extends BaseFragment implements
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getfooddetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+            serviceHelper.enqueueCall(webService.getfooddetail(slug,String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
         else if (LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase("")) {
 
             Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();

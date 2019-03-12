@@ -58,6 +58,11 @@ public class ServiceHelper<T> {
 
                 if (response.body() != null) {
                     if (response.body().getCode() == (WebServiceConstants.SUCCESS_RESPONSE_CODE)) {
+                        if(response.body().getToken()!=null&& !response.body().getToken().equalsIgnoreCase("")){
+                            BasePreferenceHelper preferenceHelper= new BasePreferenceHelper(currentActivity);
+                            preferenceHelper.putUserToken(response.body().getToken());
+
+                        }
                         serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag);
                         ///    UIHelper.showToast(currentActivity, response.body().getMessage());
                         switch (tag) {

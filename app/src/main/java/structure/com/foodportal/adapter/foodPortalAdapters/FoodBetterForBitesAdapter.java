@@ -10,6 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.like.LikeButton;
+
 import java.util.ArrayList;
 
 import structure.com.foodportal.R;
@@ -62,7 +64,13 @@ public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterF
                 foodHomeListner.betterforurbites(position);
             }
         });
+        if(sections.get(position).getIs_favorite()==1){
+            holder.likeButton.setLiked(true);
 
+        }else{
+            holder.likeButton.setLiked(false);
+
+        }
         setAnimation(holder.itemView, position);
 
 
@@ -88,12 +96,14 @@ public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterF
 
         protected TextView text;
         ImageView circleImageView;
-
+        LikeButton likeButton;
         public PlanetViewHolder(View itemView) {
             super(itemView);
 
             text = (TextView) itemView.findViewById(R.id.tvPopularRecipe);
             circleImageView = (ImageView) itemView.findViewById(R.id.ivPopularRecipe);
+            likeButton = (LikeButton) itemView.findViewById(R.id.lkFav);
+
         }
     }
 }

@@ -343,7 +343,8 @@ public class MultiLeftSideMenu extends BaseFragment {
 
             break;
             case 3:
-                UIHelper.setImageWithGlide(mainActivity,binder.imgBackground,preferenceHelper.getUserFood().getProfile_picture());
+                UIHelper.setImageWithGlide(mainActivity,binder.imgBackground,
+                        "https://graph.facebook.com/" + preferenceHelper.getUserFood().getProfile_picture() + "/picture?type=large");
 
             break;
 

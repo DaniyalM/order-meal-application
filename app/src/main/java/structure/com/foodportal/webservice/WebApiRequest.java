@@ -13,6 +13,7 @@ import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.activity.RegistrationActivity;
 import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.NetworkUtils;
 import structure.com.foodportal.helper.UIHelper;
 
@@ -34,7 +35,8 @@ public class WebApiRequest {
     }
 
     public static WebApiRequest getInstance(Activity activity, String baseUrl) {
-        apiService = WebServiceFactory.getInstance( baseUrl);
+        BasePreferenceHelper basePreferenceHelper =new BasePreferenceHelper(activity);
+        apiService = WebServiceFactory.getInstance( baseUrl,basePreferenceHelper );
         currentActivity = activity;
 
         return ourInstance;

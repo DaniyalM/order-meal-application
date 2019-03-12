@@ -71,6 +71,9 @@ public class FeaturedProductsAdapter extends PagerAdapter {
             }
         });
 
+
+
+
         container.addView(rootView);
         return rootView;
     }

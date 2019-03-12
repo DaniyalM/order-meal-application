@@ -37,7 +37,7 @@
                             android:id="@+id/ivDishImage"
                             android:layout_width="@dimen/dp70"
                             android:layout_height="@dimen/dp70"
-                            android:layout_gravity="center"
+                            android:layout_gravity="top"
                             android:src="@drawable/image_placeholder" />
 
                         <LinearLayout
@@ -46,12 +46,12 @@
                             android:orientation="vertical"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:paddingStart="@dimen/dp6"
+                            android:paddingStart="@dimen/dp4"
                             android:layout_height="wrap_content">
 
                             <LinearLayout
                                 android:orientation="horizontal"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
 
@@ -59,24 +59,55 @@
                                 android:id="@+id/tvfoodName"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
+                                android:layout_gravity="center"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsbold"
-                                android:gravity="center|start"
-                                android:lineSpacingExtra="-10dp"
-                                android:text="Berbere Spice Chicken Wings"
+                                android:gravity="start"
+                                android:text="Berbere Spice"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="@dimen/sp20"
+                                android:textSize="@dimen/sp18"
                                 android:textStyle="bold" />
 
-                                <Switch
+                                <Button
+                                    android:layout_marginStart="@dimen/dp5"
+                                    android:layout_gravity="center"
+                                    android:textColor="@color/white"
+                                    android:backgroundTint="@color/colorTextGray"
+                                    android:background="@drawable/rounded_drawable"
                                     android:padding="@dimen/dp5"
-                                    android:thumbTextPadding="@dimen/dp5"
                                     android:textAlignment="center"
                                     android:text="Save"
-                                    android:id="@+id/togglebutton"
+                                    android:id="@+id/savebtn"
+                                    android:layout_width="@dimen/dp60"
+                                    android:layout_height="30dp"
+                                    />
+
+                                <android.support.v7.widget.CardView
+                                    android:layout_marginStart="@dimen/dp5"
+                                    app:cardCornerRadius="@dimen/dp20"
+                                    android:layout_gravity="center"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:onClick="onToggleClicked"/>
+                                    app:cardBackgroundColor="@color/colorTextGray"
+                                    android:layout_height="wrap_content">
+                                <com.like.LikeButton
+                                    android:id="@+id/lkFav"
+                                    android:padding="@dimen/dp5"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_gravity="center"
+                                    app:anim_scale_factor="1"
+                                    app:circle_end_color="@color/colorRed"
+                                    app:circle_start_color="@color/white"
+                                    app:dots_primary_color="@color/colorRed"
+                                    app:dots_secondary_color="@color/colorAccentPink"
+                                    app:icon_size="@dimen/dp12"
+                                    app:icon_type="heart"
+                                    app:is_enabled="true"
+                                    app:like_drawable="@drawable/liked"
+                                    app:liked="false"
+                                    app:unlike_drawable="@drawable/unliked" />
+
+                                </android.support.v7.widget.CardView>
 
                             </LinearLayout>
 

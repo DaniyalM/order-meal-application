@@ -36,7 +36,13 @@ abstract public class BaseFragment extends Fragment implements webServiceRespons
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        webService = WebServiceFactory.getInstance(AppConstant.BASE_URL);
+        if(registrationActivity!=null){
+            webService = WebServiceFactory.getInstance(AppConstant.BASE_URL);
+        }
+        else{
+
+            webService = WebServiceFactory.getInstance(AppConstant.BASE_URL);
+        }
         serviceHelper = new ServiceHelper(this, getActivity());
 
         setPreferenceHelper();

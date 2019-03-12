@@ -34,6 +34,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -53,6 +54,7 @@ import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.MediaTypePicker;
 import structure.com.foodportal.interfaces.OnActivityResultInterface;
+import structure.com.foodportal.interfaces.foodInterfaces.DataListner;
 import structure.com.foodportal.models.foodModels.User;
 
 public class RegistrationActivity extends FacebookBaseFragment {
@@ -313,10 +315,16 @@ public class RegistrationActivity extends FacebookBaseFragment {
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Google SignIn Optons", "signInResult:failed code=" + e.getStatusCode());
             //updateUI(null);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
+    DataListner dataListner;
+    public  void setcontent(DataListner dataListner) {
+        this.dataListner= dataListner;
 
-    private void updateUI(GoogleSignInAccount account) {
+    }
+    private void updateUI(GoogleSignInAccount account) throws JSONException {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
 
         if(account!=null){
@@ -325,13 +333,16 @@ public class RegistrationActivity extends FacebookBaseFragment {
         user.setAcct_type(2);
         user.setProfile_picture(String.valueOf(account.getPhotoUrl()));
         user.setName_en(account.getDisplayName());
-        user.setFacebook_id(account.getId());
+        user.setId(Integer.valueOf(account.getId()));
         user.setEmail(account.getEmail());
-        prefHelper.putUserFood(user);
-        prefHelper.setLoginStatus(true);
-        finish();
-        showMainActivity();
-          Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
+
+      dataListner.getdataGOOGLE(user);
+
+//        prefHelper.putUserFood(user);
+//        prefHelper.setLoginStatus(true);
+//        finish();
+//        showMainActivity();
+//          Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
 
       }
     }

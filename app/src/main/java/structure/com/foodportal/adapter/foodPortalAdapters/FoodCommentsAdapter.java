@@ -123,7 +123,7 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
             }
         });
 
-
+        setAnimation(holder.llsubcomment,position);
 
 
 

@@ -121,7 +121,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        webService = WebServiceFactory.getInstance(AppConstant.BASE_URL);
+        webService = WebServiceFactory.getInstance(AppConstant.BASE_URL,prefHelper);
         serviceHelper = new ServiceHelper(this, this);
         if (getIntent().getExtras() != null) {
             bundle = new Bundle();

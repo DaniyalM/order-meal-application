@@ -11,6 +11,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.like.LikeButton;
+
 import java.util.ArrayList;
 
 import butterknife.internal.Utils;
@@ -73,6 +75,13 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
 
             }
         });
+        if(sections.get(position).getIs_favorite()==1){
+            holder.likeButton.setLiked(true);
+
+        }else{
+            holder.likeButton.setLiked(false);
+
+        }
     }
     private void setAnimation(View viewToAnimate, int position)
     {
@@ -92,7 +101,7 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
     }
 
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
-
+        LikeButton likeButton;
         protected TextView text;
         ImageView circleImageView;
 
@@ -101,6 +110,8 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
 
             text = (TextView) itemView.findViewById(R.id.tvPopularRecipe);
             circleImageView = (ImageView) itemView.findViewById(R.id.ivPopularRecipe);
+            likeButton = (LikeButton) itemView.findViewById(R.id.lkFav);
+
         }
     }
 }
