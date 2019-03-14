@@ -210,7 +210,7 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
         if(this.foodDetailModel.getAllReviews().size()>0){
 
             comments.addAll(this.foodDetailModel.getAllReviews());
-            foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this,true);
+            foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this,true,false);
             binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
             foodCommentsAdapter.notifyDataSetChanged();
 

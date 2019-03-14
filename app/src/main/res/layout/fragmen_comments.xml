@@ -1,12 +1,38 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 <LinearLayout
+    android:orientation="vertical"
     android:background="@color/colorFbWhiteBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <android.support.v7.widget.RecyclerView
     android:id="@+id/rvCommentsSection"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
   />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:paddingStart="@dimen/dp10"
+            android:hint="Write comments....."
+            android:id="@+id/etCommentsm"
+            android:singleLine="true"
+            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/send"
+            android:tint="@color/colorAccentPink"
+            android:layout_gravity="center"
+            android:src="@android:drawable/ic_menu_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
 </LinearLayout>
     </layout>

@@ -66,6 +66,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="PauseDialog" parent="@android:style/Theme.Material.Dialog.Alert">
+        <item name="android:windowAnimationStyle">@style/PauseDialogAnimation</item>
+    </style>
 
+    <style name="PauseDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_left_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
+        <item name="android:background">@color/colorAccent</item>
+    </style>
 
 </resources>

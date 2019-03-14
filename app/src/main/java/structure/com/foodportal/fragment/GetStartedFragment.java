@@ -154,7 +154,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         String email = jsonObject.getString("email");
         long id = jsonObject.getLong("id");
         User user = new User();
-        user.setId(Integer.valueOf((int) id));
+        user.setId(String.valueOf(id));
         user.setName_en(fname + " " + lname);
         user.setAcct_type(3);
         user.setEmail(email);
@@ -184,7 +184,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
     }
 
     public void googlelogin(User user) {
-        serviceHelper.enqueueCall(webService.LoginGOOGLE(user.getEmail(), user.getFacebook_id(), user.getName_en(), "google",user.getProfile_picture()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK);
+        serviceHelper.enqueueCall(webService.LoginGOOGLE(user.getEmail(), user.getId(), user.getName_en(), "google",user.getProfile_picture()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK);
 
 
     }

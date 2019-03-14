@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:visibility="visible"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/dp10"
+    android:paddingEnd="@dimen/dp5"
+    android:paddingStart="@dimen/dp5"
+    android:paddingTop="@dimen/dp10">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="5dp"
+            android:background="@color/colorNav"
+            android:layout_marginEnd="@dimen/dp5"
+            android:layout_height="match_parent"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivUserSub"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/img_menu_user" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp10"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:gravity="top"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textSize="@dimen/sp13"
+                    android:id="@+id/tvUsernameSub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/semiboldfont"
+                    android:gravity="start"
+                    android:text="Ali Zahid"
+                    android:textColor="@color/fbColor" />
+
+                <TextView
+                    android:textSize="@dimen/sp13"
+                    android:id="@+id/tvUserTimeSub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:gravity="center"
+                    android:text="(2 days ago)" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <com.borjabravo.readmoretextview.ReadMoreTextView
+            android:id="@+id/tvSubCommment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp2"
+            android:fontFamily="@font/poppinsmedium"
+            android:lineSpacingExtra="@dimen/dp3"
+            android:textColor="@color/colorBlackShade"
+            android:textSize="@dimen/sp15"
+            app:colorClickableText="@color/colorAccent"
+            app:showTrimExpandedText="true"
+            app:trimCollapsedText="view more"
+            app:trimExpandedText="view less"
+            app:trimLines="5"
+            app:trimMode="trimModeLine" />
+
+
+
+    </LinearLayout>
+</LinearLayout>

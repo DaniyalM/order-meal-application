@@ -1,7 +1,9 @@
 package structure.com.foodportal.adapter.foodPortalAdapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.slf4j.helpers.Util;
@@ -19,8 +22,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 import structure.com.foodportal.R;
+import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.customViews.CustomRatingBar;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.UIHelper;
@@ -32,16 +37,18 @@ import structure.com.foodportal.models.foodModels.Sections;
 
 public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapter.PlanetViewHolder> {
 
-    ArrayList<Comments> sections;
-    Context context;
+    ArrayList<Comments> sections= new ArrayList<>();
+    MainActivity context;
     private int lastPosition = -1;
     CommentClickListner commentClickListner;
-    boolean showTwo;
-    public FoodCommentsAdapter(ArrayList<Comments> sections, Context context, CommentClickListner commentClickListner,boolean showTwo) {
+    boolean showTwo, main;
+
+    public FoodCommentsAdapter(ArrayList<Comments> sections, MainActivity context, CommentClickListner commentClickListner, boolean showTwo, boolean main) {
         this.showTwo = showTwo;
+        this.main = main;
         this.sections = sections;
         this.context = context;
-        this.commentClickListner =  commentClickListner;
+        this.commentClickListner = commentClickListner;
     }
 
     @Override
@@ -52,50 +59,172 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
     }
 
 
-
     @Override
     public void onBindViewHolder(FoodCommentsAdapter.PlanetViewHolder holder, int position) {
 
-
-        switch (sections.get(position).getUser().getAcct_type()){
+        if(sections.size()>0){
+        switch (sections.get(position).getUser().getAcct_type()) {
 
             case 1:
-                UIHelper.setImageWithGlide(context,holder.userimage, AppConstant.BASE_URL_IMAGE+sections.get(position).getUser().getProfile_picture());
+                UIHelper.setImageWithGlide(context, holder.userimage, AppConstant.BASE_URL_IMAGE + sections.get(position).getUser().getProfile_picture());
                 break;
             case 2://gmail
-                UIHelper.setImageWithGlide(context,holder.userimage, AppConstant.BASE_URL_IMAGE+sections.get(position).getUser().getProfile_picture());
+                UIHelper.setImageWithGlide(context, holder.userimage, AppConstant.BASE_URL_IMAGE + sections.get(position).getUser().getProfile_picture());
                 break;
             case 3://facebook
-                UIHelper.setImageWithGlide(context,holder.userimage, sections.get(position).getUser().getProfile_picture());
+                UIHelper.setImageWithGlide(context, holder.userimage, "https://graph.facebook.com/" + sections.get(position).getUser().getProfile_picture() + "/picture?type=large");
                 break;
 
         }
 
         holder.username.setText(sections.get(position).getUser().getName_en());
         holder.comment.setText(sections.get(position).getReviews());
-        holder.time.setText(sections.get(position).getCreated_at());
+            try {
+                holder.time.setText( convertime(sections.get(position).getCreated_at()));
+            } catch (ParseException e) {
 
-
-        if(sections.get(position).getChild_reviews().size()>0){
-
-            if(sections.get(position).getChild_reviews().size()>1){
-
-                holder.subusername.setText(sections.get(position).getChild_reviews().get(sections.get(position).getChild_reviews().size()-1).getUser().getName_en());
-                holder.subcomment.setText(sections.get(position).getChild_reviews().get(sections.get(position).getChild_reviews().size()-1).getReviews());
-                holder.subtime.setText(sections.get(position).getChild_reviews().get(sections.get(position).getChild_reviews().size()-1).getCreated_at());
-                UIHelper.setImageWithGlide(context,holder.subuserimage, AppConstant.BASE_URL_IMAGE+sections.get(position).getChild_reviews().get(sections.get(position).getChild_reviews().size()-1).getUser().getProfile_picture());
-                holder.viewall.setVisibility(View.VISIBLE);
-                holder.llsubcomment.setVisibility(View.VISIBLE);
-
-            }else{
-                holder.subusername.setText(sections.get(position).getChild_reviews().get(0).getUser().getName_en());
-                holder.subcomment.setText(sections.get(position).getChild_reviews().get(0).getReviews());
-                holder.subtime.setText(sections.get(position).getChild_reviews().get(0).getCreated_at());
-                UIHelper.setImageWithGlide(context,holder.subuserimage, AppConstant.BASE_URL_IMAGE+sections.get(position).getChild_reviews().get(0).getUser().getProfile_picture());
-
-                holder.llsubcomment.setVisibility(View.VISIBLE);
 
             }
+
+            if (sections.get(position).getChild_reviews().size() > 0) {
+
+
+            if (sections.get(position).getChild_reviews().size() > 1) {
+                holder.scroll.removeAllViews();
+                for (int i = 0; i < sections.get(position).getChild_reviews().size(); i++) {
+
+
+                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View view = inflater.inflate(R.layout.subcomment_layout, null);
+                    TextView sub_user_name = view.findViewById(R.id.tvUsernameSub);
+                    TextView sub_user_time = view.findViewById(R.id.tvUserTimeSub);
+                    TextView sub_comment = view.findViewById(R.id.tvSubCommment);
+                    ImageView sub_user_image = view.findViewById(R.id.ivUserSub);
+
+                    if (main) {
+                        sub_user_name.setText(sections.get(position).getChild_reviews().get(i).getUser().getName_en());
+                        sub_comment.setText(sections.get(position).getChild_reviews().get(i).getReviews());
+                        try {
+                            sub_user_time.setText( convertime(sections.get(position).getChild_reviews().get(i).getCreated_at()));
+                        } catch (ParseException e) {
+
+
+                        }
+
+
+                        switch (sections.get(position).getChild_reviews().get(i).getUser().getAcct_type()) {
+
+                            case 1:
+                                UIHelper.setImageWithGlide(context, sub_user_image, AppConstant.BASE_URL_IMAGE + sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture());
+                                break;
+                            case 2://gmail
+                                UIHelper.setImageWithGlide(context, sub_user_image, AppConstant.BASE_URL_IMAGE + sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture());
+                                break;
+                            case 3://facebook
+                                UIHelper.setImageWithGlide(context, sub_user_image, "https://graph.facebook.com/" + sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture() + "/picture?type=large");
+                                break;
+
+                        }
+
+
+                        holder.scroll.addView(view, i);
+                        //  holder.llsubcomment.setVisibility(View.VISIBLE);
+                    } else {
+                        sub_user_name.setText(sections.get(position).getChild_reviews().get(i).getUser().getName_en());
+                        sub_comment.setText(sections.get(position).getChild_reviews().get(i).getReviews());
+                        try {
+                            sub_user_time.setText( convertime(sections.get(position).getChild_reviews().get(i).getCreated_at()));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        switch (sections.get(position).getChild_reviews().get(i).getUser().getAcct_type()) {
+
+                            case 1:
+                                UIHelper.setImageWithGlide(context, sub_user_image, AppConstant.BASE_URL_IMAGE + sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture());
+                                break;
+                            case 2://gmail
+                                UIHelper.setImageWithGlide(context, sub_user_image, AppConstant.BASE_URL_IMAGE + sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture());
+                                break;
+                            case 3://facebook
+                                UIHelper.setImageWithGlide(context, sub_user_image, "https://graph.facebook.com/" + sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture() + "/picture?type=large");
+                                break;
+
+                        }
+                        holder.scroll.addView(view, i);
+                        //  holder.llsubcomment.setVisibility(View.VISIBLE);
+                        //  holder.scroll.addView(view,i);
+                    }
+
+
+                }
+
+            }
+            if (sections.get(position).getChild_reviews().size() == 1) {
+
+                holder.scroll.removeAllViews();
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = inflater.inflate(R.layout.subcomment_layout, null);
+                TextView sub_user_name = view.findViewById(R.id.tvUsernameSub);
+                TextView sub_user_time = view.findViewById(R.id.tvUserTimeSub);
+                TextView sub_comment = view.findViewById(R.id.tvSubCommment);
+                ImageView sub_user_image = view.findViewById(R.id.ivUserSub);
+
+                sub_user_name.setText(sections.get(position).getChild_reviews().get(0).getUser().getName_en());
+                sub_comment.setText(sections.get(position).getChild_reviews().get(0).getReviews());
+                try {
+                    sub_user_time.setText(
+                            convertime(
+                            sections.get(position).getChild_reviews().get(0).getCreated_at()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                switch (sections.get(position).getChild_reviews().get(0).getUser().getAcct_type()) {
+
+                    case 1:
+                        UIHelper.setImagewithGlide(context, sub_user_image, AppConstant.BASE_URL_IMAGE + sections.get(position).getChild_reviews().get(0).getUser().getProfile_picture());
+                        break;
+                    case 2://gmail
+                        UIHelper.setImagewithGlide(context, sub_user_image, AppConstant.BASE_URL_IMAGE + sections.get(position).getChild_reviews().get(0).getUser().getProfile_picture());
+                        break;
+                    case 3://facebook
+                        UIHelper.setImagewithGlide(context, sub_user_image, "https://graph.facebook.com/" + sections.get(position).getChild_reviews().get(0).getUser().getProfile_picture() + "/picture?type=large");
+                        break;
+
+                }
+                holder.scroll.addView(view, 0);
+                //holder.llsubcomment.setVisibility(View.VISIBLE);
+            }
+
+
+//
+//            if(sections.get(position).getChild_reviews().size()>1){
+//                if(main){
+//                    holder.subusername.setText(sections.get(position).getChild_reviews().get(0).getUser().getName_en());
+//                    holder.subcomment.setText(sections.get(position).getChild_reviews().get(0).getReviews());
+//                    holder.subtime.setText(sections.get(position).getChild_reviews().get(0).getCreated_at());
+//                    UIHelper.setImageWithGlide(context,holder.subuserimage, AppConstant.BASE_URL_IMAGE+sections.get(position).getChild_reviews().get(0).getUser().getProfile_picture());
+//
+//                    holder.llsubcomment.setVisibility(View.VISIBLE);
+//                }else{
+//                    holder.subusername.setText(sections.get(position).getChild_reviews().get(sections.get(position).getChild_reviews().size()-1).getUser().getName_en());
+//                    holder.subcomment.setText(sections.get(position).getChild_reviews().get(sections.get(position).getChild_reviews().size()-1).getReviews());
+//                    holder.subtime.setText(sections.get(position).getChild_reviews().get(sections.get(position).getChild_reviews().size()-1).getCreated_at());
+//                    UIHelper.setImageWithGlide(context,holder.subuserimage, AppConstant.BASE_URL_IMAGE+sections.get(position).getChild_reviews().get(sections.get(position).getChild_reviews().size()-1).getUser().getProfile_picture());
+//                    holder.viewall.setVisibility(View.VISIBLE);
+//                    holder.llsubcomment.setVisibility(View.VISIBLE);
+//
+//                }
+//
+//            }else{
+//                holder.subusername.setText(sections.get(position).getChild_reviews().get(0).getUser().getName_en());
+//                holder.subcomment.setText(sections.get(position).getChild_reviews().get(0).getReviews());
+//                holder.subtime.setText(sections.get(position).getChild_reviews().get(0).getCreated_at());
+//                UIHelper.setImageWithGlide(context,holder.subuserimage, AppConstant.BASE_URL_IMAGE+sections.get(position).getChild_reviews().get(0).getUser().getProfile_picture());
+//
+//                holder.llsubcomment.setVisibility(View.VISIBLE);
+//
+//            }
+        }
 
 
         }
@@ -123,49 +252,48 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
             }
         });
 
-        setAnimation(holder.llsubcomment,position);
-
-
+        //setAnimation(holder.itemView, position);
 
 
     }
-    private void setAnimation(View viewToAnimate, int position)
-    {
+
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > 0)
-        {
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out);
+        if (position > 0) {
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
     }
 
 
+
+    public  void addAll(ArrayList<Comments>sections){
+        this.sections.clear();
+        this.sections.addAll(sections);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
 
-        if(showTwo){
-            return 2;
-        }
-      else return sections.size();
+        if (showTwo) {
+            return sections.size()>0?1:0;
+        } else return sections.size();
 
     }
 
 
-
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
-        protected TextView username,comment,time,reply;
+        protected TextView username, comment, time, reply;
         ImageView userimage;
         CustomRatingBar rating;
 
 
-
-        TextView subusername,subcomment,subtime;
-        ImageView subuserimage;
-
         TextView viewall;
         LinearLayout llsubcomment;
+        LinearLayout scroll;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
@@ -176,15 +304,24 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
             time = itemView.findViewById(R.id.tvUserTime);
             reply = itemView.findViewById(R.id.tvReply);
             userimage = itemView.findViewById(R.id.ivUser);
-
-            subuserimage = itemView.findViewById(R.id.ivUserSub);
             viewall = itemView.findViewById(R.id.tvviewall);
-            subusername = itemView.findViewById(R.id.tvUsernameSub);
-            subtime = itemView.findViewById(R.id.tvUserTimeSub);
-            subcomment = itemView.findViewById(R.id.tvSubCommment);
-            llsubcomment = itemView.findViewById(R.id.llsubcomment);
+            scroll = itemView.findViewById(R.id.llsubcomments);
 
 
         }
     }
+
+   public CharSequence convertime(String createdat) throws ParseException {
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+       long time = sdf.parse(createdat).getTime();
+       long now = System.currentTimeMillis();
+
+       CharSequence ago =
+               DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
+
+
+       return ago;
+    }
+
 }

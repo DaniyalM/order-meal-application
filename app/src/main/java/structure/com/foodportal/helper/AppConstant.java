@@ -213,6 +213,8 @@ public class AppConstant {
     public class FOODPORTAL_FOOD_DETAILS {
 
         public static final String FOOD_SEND_REVIEW = "story/submit-review";
+        public static final String FOOD_SEND_REPLY = "story/submit-review";
+        public static final String FOOD_ALL_REVIEW = "story/all-review";
         public static final String FOOD_SAVED_RECIPES = "get-user-saved-stories";
         public static final String FOOD_DETAILS = "story";
         public static final String FOOD_TUTORIAL_DETAILS = "story/tutorial-detail";

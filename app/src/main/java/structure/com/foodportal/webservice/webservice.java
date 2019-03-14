@@ -37,6 +37,7 @@ import structure.com.foodportal.models.ProductModelAPI;
 import structure.com.foodportal.models.UserModel;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.CategorySliderWrapper;
+import structure.com.foodportal.models.foodModels.CommentsWrapper;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.HeaderWrapper;
@@ -234,8 +235,21 @@ public interface webservice {
     Call<Api_Response<JsonObject>> getfooddetail(@Query("story_slug") String story_slug,@Query("user_id") String user_id);
 
 
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW)
+    Call<Api_Response<CommentsWrapper>> getAlReviews(@Query("story_id") String story_id);
+
+
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW)
     Call<Api_Response<JsonObject>> sendreview(@Query("user_id") int user_id,
+                                              @Query("type") String type,
+                                              @Query("feature_type_id") int feature_type_id,
+                                              @Query("story_id") int story_id,
+                                              @Query("reviews") String reviews,
+                                              @Query("parent_id") int parent_id
+    );
+
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REPLY)
+    Call<Api_Response<JsonObject>> sendreply(@Query("user_id") int user_id,
                                               @Query("type") String type,
                                               @Query("feature_type_id") int feature_type_id,
                                               @Query("story_id") int story_id,
@@ -276,7 +290,7 @@ public interface webservice {
     Call<Api_Response<RecipeWrapper>> getRecipeCategory(@Query("category_slug") String category_slug);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVED_RECIPES)
-    Call<Api_Response<SavedStoriesWrapper>> getSavedRecipes(@Query("id") int id);
+    Call<Api_Response<SavedStoriesWrapper>> getSavedRecipes(@Query("id") String id);
 }
 
 

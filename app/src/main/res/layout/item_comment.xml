@@ -1,160 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="@dimen/dp5"
     android:background="@color/colorFbWhiteBg"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardUseCompatPadding="true"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingTop="@dimen/dp10"
-    android:paddingStart="@dimen/dp5"
-    android:paddingEnd="@dimen/dp5"
-    android:paddingBottom="@dimen/dp10">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <View
-
-        android:layout_width="5dp"
-        android:background="@color/colorAccent"
-        android:layout_marginEnd="@dimen/dp5"
-        android:layout_height="match_parent"/>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivUser"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/img_menu_user" />
-        </LinearLayout>
+    app:cardElevation="@dimen/dp5"
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp10"
         android:orientation="vertical">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="0dp"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="start"
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-               >
-            <TextView
-                android:id="@+id/tvUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:fontFamily="@font/semiboldfont"
-                android:gravity="center"
-                android:text="Ali Zahid"
-                android:textSize="@dimen/dp12"
-                android:textColor="@color/fbColor" />
-
-            <TextView
-                android:id="@+id/tvUserTime"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:textSize="@dimen/dp12"
-                android:layout_marginStart="@dimen/dp5"
-                android:gravity="center"
-
-                android:text="(2 days ago)" />
-            </LinearLayout>
-            <structure.com.foodportal.customViews.CustomRatingBar
-                android:id="@+id/starRating"
-                app:stars="3"
-                android:layout_width="wrap_content"
-                android:layout_height="13dp"
-                android:layout_gravity="end|center"
-                android:clickable="false"
-                android:gravity="end"
-                android:paddingStart="2dp"
-                app:starMargin="3dp"/>
-        </LinearLayout>
-
-        <com.borjabravo.readmoretextview.ReadMoreTextView
-            app:trimExpandedText="view less"
-            app:trimCollapsedText="view more"
-            app:trimLines="5"
-            app:showTrimExpandedText="true"
-            app:colorClickableText="@color/colorAccent"
-            app:trimMode="trimModeLine"
-            android:lineSpacingExtra="@dimen/dp3"
-            android:textSize="@dimen/sp13"
-            android:fontFamily="@font/poppinsmedium"
-            android:id="@+id/tvMainCommment"
-            android:layout_marginTop="@dimen/dp2"
-            android:textColor="@color/colorBlackShade"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
-        <TextView
-            android:id="@+id/tvReply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:textSize="13sp"
-            android:drawableStart="@android:drawable/ic_menu_revert"
-            android:drawableTint="@color/fbColor"
-            android:gravity="center"
-            android:text="reply" />
-
-
-    </LinearLayout>
-</LinearLayout>
-
-
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/llsubcomment"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/dp10"
-            android:layout_marginStart="@dimen/dp40"
             android:paddingEnd="@dimen/dp5"
             android:paddingStart="@dimen/dp5"
             android:paddingTop="@dimen/dp10">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
 
-            <View
-                android:layout_width="5dp"
-                android:background="@color/colorNav"
-                android:layout_marginEnd="@dimen/dp5"
-                android:layout_height="match_parent"/>
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ivUserSub"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/img_menu_user" />
-            </LinearLayout>
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/dp5"
+                    android:background="@color/colorAccent" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivUser"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/img_menu_user" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_gravity="top"
+                android:gravity="top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
@@ -165,50 +54,61 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:layout_gravity="top"
+                    android:gravity="top"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
+                        android:layout_gravity="start"
                         android:gravity="start"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:textSize="@dimen/sp13"
-                            android:id="@+id/tvUsernameSub"
+                            android:id="@+id/tvUsername"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center"
+                            android:layout_gravity="start"
                             android:fontFamily="@font/semiboldfont"
-                            android:gravity="center"
+                            android:gravity="start"
                             android:text="Ali Zahid"
-                            android:textColor="@color/fbColor" />
+                            android:textColor="@color/fbColor"
+                            android:textSize="@dimen/dp12" />
 
                         <TextView
-                            android:textSize="@dimen/sp13"
-                            android:id="@+id/tvUserTimeSub"
+                            android:id="@+id/tvUserTime"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp5"
+                            android:layout_gravity="start"
                             android:gravity="center"
-                            android:text="(2 days ago)" />
+                            android:text="(2 days ago)"
+                            android:textSize="@dimen/dp12" />
+
                     </LinearLayout>
 
-
+                    <structure.com.foodportal.customViews.CustomRatingBar
+                        android:id="@+id/starRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="13dp"
+                        android:layout_gravity="end|top"
+                        android:clickable="false"
+                        android:gravity="end|top"
+                        android:paddingStart="2dp"
+                        app:starMargin="3dp"
+                        app:stars="3" />
                 </LinearLayout>
 
                 <com.borjabravo.readmoretextview.ReadMoreTextView
-                    android:id="@+id/tvSubCommment"
+                    android:id="@+id/tvMainCommment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dp2"
                     android:fontFamily="@font/poppinsmedium"
                     android:lineSpacingExtra="@dimen/dp3"
                     android:textColor="@color/colorBlackShade"
-                    android:textSize="@dimen/sp15"
+                    android:textSize="@dimen/sp13"
                     app:colorClickableText="@color/colorAccent"
                     app:showTrimExpandedText="true"
                     app:trimCollapsedText="view more"
@@ -216,26 +116,154 @@
                     app:trimLines="5"
                     app:trimMode="trimModeLine" />
 
+                <TextView
+                    android:id="@+id/tvReply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:drawableStart="@android:drawable/ic_menu_revert"
+                    android:drawableTint="@color/fbColor"
+                    android:gravity="center"
+                    android:text="reply"
+                    android:textSize="13sp" />
 
 
             </LinearLayout>
         </LinearLayout>
 
 
+        <!--
 
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/tvviewall"
-                android:textColor="@color/colorAccent"
-                android:padding="@dimen/dp5"
-                android:gravity="end"
-                android:layout_gravity="end"
-                android:text="view all replies...."
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/llsubcomment"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/dp10"
+                    android:layout_marginStart="@dimen/dp40"
+                    android:paddingEnd="@dimen/dp5"
+                    android:paddingStart="@dimen/dp5"
+                    android:paddingTop="@dimen/dp10">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_width="5dp"
+                        android:background="@color/colorNav"
+                        android:layout_marginEnd="@dimen/dp5"
+                        android:layout_height="match_parent"/>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/ivUserSub"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/img_menu_user" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="start"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:textSize="@dimen/sp13"
+                                    android:id="@+id/tvUsernameSub"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/semiboldfont"
+                                    android:gravity="center"
+                                    android:text="Ali Zahid"
+                                    android:textColor="@color/fbColor" />
+
+                                <TextView
+                                    android:textSize="@dimen/sp13"
+                                    android:id="@+id/tvUserTimeSub"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp5"
+                                    android:gravity="center"
+                                    android:text="(2 days ago)" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <com.borjabravo.readmoretextview.ReadMoreTextView
+                            android:id="@+id/tvSubCommment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/dp2"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:lineSpacingExtra="@dimen/dp3"
+                            android:textColor="@color/colorBlackShade"
+                            android:textSize="@dimen/sp15"
+                            app:colorClickableText="@color/colorAccent"
+                            app:showTrimExpandedText="true"
+                            app:trimCollapsedText="view more"
+                            app:trimExpandedText="view less"
+                            app:trimLines="5"
+                            app:trimMode="trimModeLine" />
+
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+        -->
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+            <LinearLayout
+                android:animateLayoutChanges="true"
+                android:layoutAnimation="@anim/layout_bottom_animation"
+                android:background="@color/colorFbWhiteBg"
+                android:layout_marginStart="@dimen/dp40"
+                android:id="@+id/llsubcomments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/tvviewall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:padding="@dimen/dp5"
+            android:text="view all replies...."
+            android:textColor="@color/colorAccent"
+            android:visibility="gone" />
     </LinearLayout>
-
-
 
 
 </android.support.v7.widget.CardView>

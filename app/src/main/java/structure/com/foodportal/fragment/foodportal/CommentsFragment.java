@@ -1,5 +1,7 @@
 package structure.com.foodportal.fragment.foodportal;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,9 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,17 +42,20 @@ import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.LocalDataHelper;
 import structure.com.foodportal.helper.NetworkUtils;
 import structure.com.foodportal.helper.Titlebar;
+import structure.com.foodportal.helper.UIHelper;
+import structure.com.foodportal.helper.Utils;
 import structure.com.foodportal.interfaces.foodInterfaces.CommentClickListner;
 import structure.com.foodportal.interfaces.foodInterfaces.SubCategoryListner;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.CategorySliderWrapper;
 import structure.com.foodportal.models.foodModels.Comments;
+import structure.com.foodportal.models.foodModels.CommentsWrapper;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.RecipeWrapper;
 import structure.com.foodportal.models.foodModels.SavedRecipe;
 
-public class CommentsFragment extends BaseFragment implements CommentClickListner {
+public class CommentsFragment extends BaseFragment implements CommentClickListner, View.OnClickListener {
 
 
     FoodSubCategory foodCategoryAdapter;
@@ -59,8 +68,10 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
     ArrayList<Comments> comments;
     FragmenCommentsBinding binding;
     FoodCommentsAdapter foodCommentsAdapter;
-    public void setArrayComments(FoodDetailModelWrapper foodDetailModel){
-        this.foodDetailModel= foodDetailModel;
+
+    public void setArrayComments(FoodDetailModelWrapper foodDetailModel)
+    {
+        this.foodDetailModel = foodDetailModel;
 
 
     }
@@ -76,39 +87,58 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
         setListners();
 
 
-
-
         return binding.getRoot();
     }
 
 
+    void setListners() {
+        binding.send.setOnClickListener(this);
+        final DefaultItemAnimator defaultItemAnimator = new DefaultItemAnimator();
+        defaultItemAnimator.setAddDuration(1000000);
+        defaultItemAnimator.setRemoveDuration(1000000);
+        binding.rvCommentsSection.setItemAnimator(defaultItemAnimator);
+        linearLayoutManagerComment = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
+        binding.rvCommentsSection.setLayoutManager(linearLayoutManagerComment);
+        comments = new ArrayList<>();
+        setdata(foodDetailModel);
 
-        void setListners(){
+    }
 
-
-
-            final DefaultItemAnimator defaultItemAnimator = new DefaultItemAnimator();
-            defaultItemAnimator.setAddDuration(1000000);
-            defaultItemAnimator.setRemoveDuration(1000000);
-            binding.rvCommentsSection.setItemAnimator(defaultItemAnimator);
-            linearLayoutManagerComment = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
-            binding.rvCommentsSection.setLayoutManager(linearLayoutManagerComment);
-            comments= new ArrayList<>();
-            setdata();
-
-        }
-
-    private void setdata() {
+    private void setdata(FoodDetailModelWrapper foodDetailModel) {
+        foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, false, true);
+        binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
+        int resId = R.anim.layout_bottom_animation;
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(mainActivity, resId);
+        binding.rvCommentsSection.setLayoutAnimation(animation);
         if (foodDetailModel.getAllReviews().size() > 0) {
-            comments.addAll(foodDetailModel.getAllReviews());
-            foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, false);
-            binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
-            foodCommentsAdapter.notifyDataSetChanged();
+            foodCommentsAdapter.addAll(foodDetailModel.getAllReviews());
 
         } else {
 
 
         }
+
+        binding.rvCommentsSection.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        binding.rvCommentsSection.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                        for (int i = 0; i < binding.rvCommentsSection.getChildCount(); i++) {
+                            View v = binding.rvCommentsSection.getChildAt(i);
+                            v.setAlpha(0.0f);
+                            v.animate().alpha(1.0f)
+                                    .setDuration(300)
+                                    .setStartDelay(i * 50)
+                                    .start();
+                        }
+
+                        return true;
+                    }
+                });
+
+
     }
 
     Titlebar titlebar;
@@ -135,20 +165,27 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
 
     }
 
-
-
-
-
+    CommentsWrapper foodDetailModelWrapper;
     @Override
     public void ResponseSuccess(Object result, String Tag) {
         switch (Tag) {
             case AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY_RECIPE:
 
 
-
                 break;
 
-            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS:
+
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW:
+                binding.rvCommentsSection.smoothScrollToPosition(replyposition);
+                allreview(foodDetailModel.getData());
+
+                break;
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW:
+
+                 foodDetailModelWrapper = (CommentsWrapper) result;
+                foodDetailModel.setAllReviews(null);
+                 foodDetailModel.setAllReviews(foodDetailModelWrapper.getData());
+                foodCommentsAdapter.addAll(foodDetailModelWrapper.getData());
 
 
                 break;
@@ -162,5 +199,131 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
     @Override
     public void onReplyClick(int positon) {
 
+        createDialog(foodDetailModel, positon);
     }
+
+    @Override
+    public void onClick(View view) {
+
+
+        switch (view.getId()) {
+
+            case R.id.send:
+
+                if (binding.etCommentsm.getText().toString().trim().equalsIgnoreCase("")) {
+
+                    Toast.makeText(registrationActivity, "Please write somthing", Toast.LENGTH_SHORT).show();
+                } else {
+                    Utils.hideKeyboard(getView(), mainActivity);
+                    sendreview(foodDetailModel.getData());
+
+                }
+
+
+                break;
+
+
+        }
+    }
+
+    public void sendreview(FoodDetailModel foodDetailModel) {
+        serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
+                "story",
+                foodDetailModel.getFeature_type_id(),
+                foodDetailModel.getId(), binding.etCommentsm.getText().toString(),
+                0), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
+        binding.etCommentsm.setText("");
+    }
+
+    int replyposition = 0;
+
+    public void sendreply(FoodDetailModelWrapper foodDetailModel, int position,String editText) {
+        replyposition = position;
+        serviceHelper.enqueueCall(webService.sendreply(preferenceHelper.getUser().getId(),
+                "story",
+                foodDetailModel.getData().getFeature_type_id(),
+                foodDetailModel.getAllReviews().get(position).getStory_id(), editText,
+                foodDetailModel.getAllReviews().get(position).getId()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
+    }
+
+    public void allreview(FoodDetailModel foodDetailModel) {
+        serviceHelper.enqueueCall(webService.getAlReviews(String.valueOf(foodDetailModel.getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW);
+    }
+
+    void createDialog(FoodDetailModelWrapper foodDetailModelWrapper, int pos) {
+
+
+        LayoutInflater li = LayoutInflater.from(mainActivity);
+        View promptsView = li.inflate(R.layout.prompts, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                mainActivity,R.style.PauseDialog);
+        promptsView.setBackgroundColor(mainActivity.getResources().getColor(R.color.colorAccent));
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+        final ImageView personimage = (ImageView) promptsView
+                .findViewById(R.id.replyingimage);
+        final TextView personname = (TextView) promptsView
+                .findViewById(R.id.replyingname);
+        final TextView persontext = (TextView) promptsView
+                .findViewById(R.id.replyingetxt);
+
+        switch (foodDetailModelWrapper.getAllReviews().get(pos).getUser().getAcct_type()) {
+
+            case 1:
+                UIHelper.setImageWithGlide(mainActivity, personimage, AppConstant.BASE_URL_IMAGE +foodDetailModelWrapper.getAllReviews().get(pos).getUser().getProfile_picture());
+                break;
+            case 2://gmail
+                UIHelper.setImageWithGlide(mainActivity,personimage, AppConstant.BASE_URL_IMAGE + foodDetailModelWrapper.getAllReviews().get(pos).getUser().getProfile_picture());
+                break;
+            case 3://facebook
+                UIHelper.setImageWithGlide(mainActivity, personimage, "https://graph.facebook.com/" + foodDetailModelWrapper.getAllReviews().get(pos).getUser().getProfile_picture() + "/picture?type=large");
+                break;
+
+        }
+
+
+        personname.setText(foodDetailModelWrapper.getAllReviews().get(pos).getUser().getName_en());
+        persontext.setText(foodDetailModelWrapper.getAllReviews().get(pos).getReviews());
+        // set dialog message
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // get user input and set it to result
+                                // edit text
+
+                                if (userInput.getText().toString().trim().equalsIgnoreCase("")) {
+                                    Toast.makeText(mainActivity, "Please write something", Toast.LENGTH_SHORT).show();
+
+                                } else {
+                                    dialog.dismiss();
+                                    sendreply(foodDetailModelWrapper, pos,userInput.getText().toString());
+                                }
+
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+
+    }
+
+
 }

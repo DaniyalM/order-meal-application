@@ -333,7 +333,7 @@ public class RegistrationActivity extends FacebookBaseFragment {
         user.setAcct_type(2);
         user.setProfile_picture(String.valueOf(account.getPhotoUrl()));
         user.setName_en(account.getDisplayName());
-        user.setId(Integer.valueOf(account.getId()));
+        user.setId(account.getId());
         user.setEmail(account.getEmail());
 
       dataListner.getdataGOOGLE(user);
