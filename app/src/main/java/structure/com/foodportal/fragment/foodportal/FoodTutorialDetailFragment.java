@@ -135,8 +135,8 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
                     String changeFontHtml = changedHeaderHtml(foodDetailModel.getData().getContent_en());
                     binding.myWebView.loadDataWithBaseURL(null, changeFontHtml,
                             "text/html", "UTF-8", null);
-                    //  binding.myWebView.loadDataWithBaseURL("", foodDetailModel.getData().getContent_en(), "text/html", "UTF-8", "");
                     binding.myWebView.getSettings().setSupportMultipleWindows(true);
+                    //  binding.myWebView.loadDataWithBaseURL("", foodDetailModel.getData().getContent_en(), "text/html", "UTF-8", "");
 
 
 

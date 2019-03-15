@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:padding="@dimen/dp2"
+        android:background="@drawable/rounded_drawable"
+        android:id="@+id/masalaimage"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/image_placeholder" />
+
+  <TextView
+      android:id="@+id/masalaname"
+      android:textColor="@color/colorAccent"
+      android:gravity="center"
+      android:textSize="@dimen/dp15"
+      android:text="Araoma"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+
+
+</LinearLayout>

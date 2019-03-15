@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:layout_alignParentTop="true"
-        app:cardCornerRadius="@dimen/dp6">
+        >
 
         <ImageView
             android:id="@+id/ivPopularRecipe"
@@ -33,6 +33,7 @@
             android:clickable="false"
             android:id="@+id/lkFav"
             android:padding="@dimen/dp15"
+            android:visibility="gone"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="end"

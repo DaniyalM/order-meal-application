@@ -28,7 +28,7 @@
                 android:orientation="horizontal">
 
                 <View
-
+                    android:visibility="gone"
                     android:layout_width="5dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/dp5"
@@ -74,7 +74,7 @@
                             android:fontFamily="@font/semiboldfont"
                             android:gravity="start"
                             android:text="Ali Zahid"
-                            android:textColor="@color/fbColor"
+                            android:textColor="@color/colorAccent"
                             android:textSize="@dimen/dp12" />
 
                         <TextView
@@ -119,10 +119,11 @@
                 <TextView
                     android:id="@+id/tvReply"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/colorAccent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:drawableStart="@android:drawable/ic_menu_revert"
-                    android:drawableTint="@color/fbColor"
+                    android:drawableTint="@color/colorAccent"
                     android:gravity="center"
                     android:text="reply"
                     android:textSize="13sp" />
@@ -240,7 +241,7 @@
             <LinearLayout
                 android:animateLayoutChanges="true"
                 android:layoutAnimation="@anim/layout_bottom_animation"
-                android:background="@color/colorFbWhiteBg"
+                android:background="@color/white"
                 android:layout_marginStart="@dimen/dp40"
                 android:id="@+id/llsubcomments"
                 android:layout_width="match_parent"

@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,7 @@ import structure.com.foodportal.helper.DataSyncEvent;
 import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.LocalDataHelper;
 import structure.com.foodportal.helper.NetworkUtils;
+import structure.com.foodportal.helper.SimpleItemTouchHelperCallback;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.helper.Utils;
@@ -105,8 +107,14 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
     }
 
     private void setdata(FoodDetailModelWrapper foodDetailModel) {
+
+
         foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, false, true);
         binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
+      /*  ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(foodCommentsAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(binding.rvCommentsSection);*/
         int resId = R.anim.layout_bottom_animation;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(mainActivity, resId);
         binding.rvCommentsSection.setLayoutAnimation(animation);
@@ -182,6 +190,10 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
                 break;
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW:
 
+                foodCommentsAdapter=null;
+                comments.clear();
+                foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, false, true);
+                binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
                  foodDetailModelWrapper = (CommentsWrapper) result;
                 foodDetailModel.setAllReviews(null);
                  foodDetailModel.setAllReviews(foodDetailModelWrapper.getData());

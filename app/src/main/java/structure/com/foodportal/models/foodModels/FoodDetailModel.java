@@ -16,6 +16,50 @@ public class FoodDetailModel implements Serializable {
     @SerializedName("video_path")
     private String video_path;
 
+    @SerializedName("before_start_en")
+    private String before_start_en;
+
+    @SerializedName("before_start_content_en")
+    private String before_start_content_en;
+
+    @SerializedName("masalas_aromatics_en")
+    private String masalas_aromatics_en;
+
+    public String getBefore_start_en() {
+        return before_start_en;
+    }
+
+    public void setBefore_start_en(String before_start_en) {
+        this.before_start_en = before_start_en;
+    }
+
+    public String getBefore_start_content_en() {
+        return before_start_content_en;
+    }
+
+    public void setBefore_start_content_en(String before_start_content_en) {
+        this.before_start_content_en = before_start_content_en;
+    }
+
+    public String getMasalas_aromatics_en() {
+        return masalas_aromatics_en;
+    }
+
+    public void setMasalas_aromatics_en(String masalas_aromatics_en) {
+        this.masalas_aromatics_en = masalas_aromatics_en;
+    }
+
+    public String getMasalas_aromatics_content_en() {
+        return masalas_aromatics_content_en;
+    }
+
+    public void setMasalas_aromatics_content_en(String masalas_aromatics_content_en) {
+        this.masalas_aromatics_content_en = masalas_aromatics_content_en;
+    }
+
+    @SerializedName("masalas_aromatics_content_en")
+    private String masalas_aromatics_content_en;
+
 
     public String getVideo_url_path() {
         return video_url_path;
@@ -347,6 +391,36 @@ public class FoodDetailModel implements Serializable {
     public void setSlug(String slug) {
         this.slug = slug;
     }
+
+    public FoodDetailModel getSpecial_recipe_story() {
+        return special_recipe_story;
+    }
+
+    public void setSpecial_recipe_story(FoodDetailModel special_recipe_story) {
+        this.special_recipe_story = special_recipe_story;
+    }
+
+    FoodDetailModel special_recipe_story;
+
+    ArrayList<SpecialIngedient> special_ingredients;
+
+    public ArrayList<SpecialIngedient> getSpecial_ingredients() {
+        return special_ingredients;
+    }
+
+    public void setSpecial_ingredients(ArrayList<SpecialIngedient> special_ingredients) {
+        this.special_ingredients = special_ingredients;
+    }
+
+    public ArrayList<SpecialIngredientSteps> getSpecial_recipe_step() {
+        return special_recipe_step;
+    }
+
+    public void setSpecial_recipe_step(ArrayList<SpecialIngredientSteps> special_recipe_step) {
+        this.special_recipe_step = special_recipe_step;
+    }
+
+    ArrayList<SpecialIngredientSteps> special_recipe_step;
 
 
 }

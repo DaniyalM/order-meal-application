@@ -217,6 +217,7 @@ public class AppConstant {
         public static final String FOOD_ALL_REVIEW = "story/all-review";
         public static final String FOOD_SAVED_RECIPES = "get-user-saved-stories";
         public static final String FOOD_DETAILS = "story";
+        public static final String FOOD_SPECIAL_RECIPE = "special-story";
         public static final String FOOD_TUTORIAL_DETAILS = "story/tutorial-detail";
         public static final String FOOD_BLOG_DETAILS = "blogstory";
         public static final String FOOD_HOME = "home";

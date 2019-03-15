@@ -1,10 +1,8 @@
 package structure.com.foodportal.adapter.foodPortalAdapters;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,30 +10,24 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import org.slf4j.helpers.Util;
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
 import java.util.TimeZone;
 
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.customViews.CustomRatingBar;
 import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.helper.ItemTouchHelperAdapter;
 import structure.com.foodportal.helper.UIHelper;
-import structure.com.foodportal.helper.Utils;
 import structure.com.foodportal.interfaces.foodInterfaces.CommentClickListner;
-import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.foodModels.Comments;
-import structure.com.foodportal.models.foodModels.Sections;
 
-public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapter.PlanetViewHolder> {
+public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapter.PlanetViewHolder> implements ItemTouchHelperAdapter {
 
     ArrayList<Comments> sections= new ArrayList<>();
     MainActivity context;
@@ -283,6 +275,26 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
 
     }
 
+    @Override
+    public void onItemDismiss(int position) {
+        sections.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(sections, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(sections, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+
+    }
 
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 

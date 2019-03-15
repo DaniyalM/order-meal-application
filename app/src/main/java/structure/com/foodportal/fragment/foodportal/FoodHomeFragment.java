@@ -277,6 +277,19 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 }
                 break;
 
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SPECIAL_RECIPE:
+                FoodDetailModelWrapper foodDetailModel2 = (FoodDetailModelWrapper) result;
+                if (foodDetailModel2 != null) {
+
+                   // LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
+                    FoodSpecialDetailFragment detailFragment = new FoodSpecialDetailFragment();
+                    detailFragment.setFoodDetailModelSpecial(foodDetailModel2.getStory());
+                    mainActivity.addFragment(detailFragment, true, true);
+                    //    setData(foodDetailModel.getData());
+
+                }
+                break;
+
         }
     }
 
@@ -412,7 +425,9 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void betterforurbites(int pos) {
-        next(sectionsBetterForBites.get(pos).getSlug());
+
+        getSpecialRecipe(sectionsBetterForBites.get(pos).getSlug(),preferenceHelper.getUserFood().getId());
+        //next(sectionsBetterForBites.get(pos).getSlug());
 
 
     }
@@ -465,6 +480,13 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 //            mainActivity.addFragment(detailFragment, true, true);
 //
 //        }
+
+
+    }
+
+    public void getSpecialRecipe(String slug,String user_id){
+
+        serviceHelper.enqueueCall(webService.getfoodSpecialblog(slug,user_id), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SPECIAL_RECIPE);
 
 
     }

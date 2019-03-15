@@ -18,6 +18,17 @@ public class FoodDetailModelWrapper implements Serializable{
     @SerializedName("data")
     FoodDetailModel data;
 
+    public FoodDetailModel getStory() {
+        return story;
+    }
+
+    public void setStory(FoodDetailModel story) {
+        this.story = story;
+    }
+
+    @SerializedName("story")
+    FoodDetailModel story;
+
     public ArrayList<Comments> getAllReviews() {
         return allReviews;
     }

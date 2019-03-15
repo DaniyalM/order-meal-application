@@ -1,5 +1,6 @@
 package structure.com.foodportal.fragment.foodportal;
 
+
 import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -18,6 +19,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 
+import android.text.Html;
 import android.transition.ChangeBounds;
 import android.transition.ChangeImageTransform;
 import android.transition.ChangeTransform;
@@ -27,6 +29,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -71,13 +75,16 @@ import java.util.HashMap;
 import javax.xml.parsers.SAXParser;
 
 import structure.com.foodportal.MyApplication;
-import structure.com.foodportal.R;
+
 import structure.com.foodportal.adapter.foodPortalAdapters.ExpandableListAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodCommentsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodIngredientsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPopularRecipeAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPreparationAdapter;
+import structure.com.foodportal.adapter.foodPortalAdapters.FoodSpecialIngredientAdapter;
+import structure.com.foodportal.adapter.foodPortalAdapters.FoodSpecialStepsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.StepbyStepAdapter;
+import structure.com.foodportal.databinding.FragmentFoodSpecialDetailBinding;
 import structure.com.foodportal.databinding.FragmentProductDetailFoodportalBinding;
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.helper.AppConstant;
@@ -93,30 +100,42 @@ import structure.com.foodportal.helper.Utils;
 import structure.com.foodportal.interfaces.foodInterfaces.CommentClickListner;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodDetailListner;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
+import structure.com.foodportal.interfaces.foodInterfaces.SpecialStepListner;
 import structure.com.foodportal.models.foodModels.Comments;
 import structure.com.foodportal.models.foodModels.CustomIngredient;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.Ingredient;
 import structure.com.foodportal.models.foodModels.Sections;
+import structure.com.foodportal.models.foodModels.SpecialIngedient;
+import structure.com.foodportal.models.foodModels.SpecialIngredientSteps;
 import structure.com.foodportal.models.foodModels.Step;
 import structure.com.foodportal.singleton.CarelessSingleton;
 
 import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
-public class FoodDetailFragment extends BaseFragment implements
-        View.OnClickListener, FoodDetailListner, SimpleExoPlayer.EventListener, UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener, CommentClickListner {
+public class FoodSpecialDetailFragment extends BaseFragment implements
+        View.OnClickListener, FoodDetailListner, SimpleExoPlayer.EventListener, UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener, CommentClickListner,SpecialStepListner {
 
     FoodIngredientsAdapter foodIngredientsAdapter;
     FoodPreparationAdapter foodPreparationAdapter;
     FoodPopularRecipeAdapter foodRelatedAdapter;
     FoodCommentsAdapter foodCommentsAdapter;
-    FragmentProductDetailFoodportalBinding binding;
+
+    FoodSpecialIngredientAdapter foodSpecialIngredientAdapter;
+    FoodSpecialStepsAdapter foodSpecialStepsAdapter;
+
+
+    FragmentFoodSpecialDetailBinding binding;
 
     LinearLayoutManager linearLayoutManagerIngredients;
     LinearLayoutManager linearLayoutManagerRelated;
     LinearLayoutManager linearLayoutManagerPreparation;
     LinearLayoutManager linearLayoutManagerComment;
+    LinearLayoutManager linearLayoutManagerSpecialSteps;
+
+    ArrayList<SpecialIngedient> specialIngedients;
+    ArrayList<SpecialIngredientSteps> specialIngredientSteps;
 
 
     ArrayList<Integer> startTime;
@@ -155,6 +174,7 @@ public class FoodDetailFragment extends BaseFragment implements
 
 
     }
+
     public void setFoodDetailModelSpecial(FoodDetailModel foodDetailModel) {
 
         this.foodDetailModelSpecial = foodDetailModel;
@@ -221,7 +241,7 @@ public class FoodDetailFragment extends BaseFragment implements
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product_detail_foodportal, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_special_detail, container, false);
         //   mVideoView = (UniversalVideoView) binding.getRoot().findViewById(R.id.videoView);
         mMediaController = (UniversalMediaController) binding.getRoot().findViewById(R.id.media_controller);
         videoView = (SimpleExoPlayerView) binding.getRoot().findViewById(R.id.videoView);
@@ -265,7 +285,7 @@ public class FoodDetailFragment extends BaseFragment implements
             if (foodDetailModel.getAllReviews().size() > 0) {
 
                 comments.addAll(foodDetailModel.getAllReviews());
-                foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true,false);
+                foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true, false);
                 binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
                 foodCommentsAdapter.notifyDataSetChanged();
 
@@ -276,9 +296,6 @@ public class FoodDetailFragment extends BaseFragment implements
 
 
         }
-
-
-
 
 
         if (foodDetailModelSpecial != null) {
@@ -316,12 +333,6 @@ public class FoodDetailFragment extends BaseFragment implements
         }
 
 
-
-
-
-
-
-
         //  getDetails();
     }
 
@@ -331,23 +342,30 @@ public class FoodDetailFragment extends BaseFragment implements
 
         binding.rvRelatedRecipes.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
 
+        binding.rvSpecialIngredients.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
+
         linearLayoutManagerIngredients = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
         linearLayoutManagerPreparation = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
         linearLayoutManagerComment = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
+        linearLayoutManagerSpecialSteps = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
 
         final DefaultItemAnimator defaultItemAnimator = new DefaultItemAnimator();
         defaultItemAnimator.setAddDuration(1000000);
         defaultItemAnimator.setRemoveDuration(1000000);
 
 
+        binding.rvSpecialSteps.setLayoutManager(linearLayoutManagerSpecialSteps);
         binding.rvIngredients.setLayoutManager(linearLayoutManagerIngredients);
         binding.rvPreparations.setLayoutManager(linearLayoutManagerPreparation);
         binding.rvCommentsSection.setLayoutManager(linearLayoutManagerComment);
 
+        binding.rvSpecialSteps.setItemAnimator(defaultItemAnimator);
         binding.rvIngredients.setItemAnimator(defaultItemAnimator);
         binding.rvPreparations.setItemAnimator(defaultItemAnimator);
         binding.rvCommentsSection.setItemAnimator(defaultItemAnimator);
 
+        specialIngedients = new ArrayList<>();
+        specialIngredientSteps = new ArrayList<>();
         steps = new ArrayList<>();
         related = new ArrayList<>();
         ingredients = new ArrayList<>();
@@ -359,6 +377,19 @@ public class FoodDetailFragment extends BaseFragment implements
         foodPreparationAdapter = new FoodPreparationAdapter(steps, mainActivity, this);
         binding.rvPreparations.setAdapter(foodPreparationAdapter);
 
+
+        foodSpecialIngredientAdapter = new FoodSpecialIngredientAdapter(foodDetailModelSpecial.getSpecial_ingredients(), mainActivity, this);
+        binding.rvSpecialIngredients.setAdapter(foodSpecialIngredientAdapter);
+
+
+        foodSpecialStepsAdapter = new FoodSpecialStepsAdapter(foodDetailModelSpecial.getSpecial_recipe_step(), mainActivity);
+        binding.rvSpecialSteps.setAdapter(foodSpecialStepsAdapter);
+
+
+        binding.specialingrdient.setText(foodDetailModelSpecial.getSpecial_ingredients().get(0).getIngredient_en());
+
+        foodSpecialIngredientAdapter.notifyDataSetChanged();
+        foodSpecialStepsAdapter.notifyDataSetChanged();
 
     }
 
@@ -416,6 +447,13 @@ public class FoodDetailFragment extends BaseFragment implements
     @Override
     public void onSeekProcessed() {
 
+    }
+
+    @Override
+    public void specialClick(String data) {
+
+
+        binding.specialingrdient.setText(data);
     }
 
     public class DetailsTransition extends TransitionSet {
@@ -486,9 +524,9 @@ public class FoodDetailFragment extends BaseFragment implements
                 player.stop(true);
                 //  stopPosition = binding.videoView.getCurrentPosition();
                 EventBus.getDefault().register(this);
-                    CommentsFragment commentsFragment= new CommentsFragment();
-                    commentsFragment.setArrayComments(foodDetailModel);
-                    mainActivity.addFragment(commentsFragment,true,true);
+                CommentsFragment commentsFragment = new CommentsFragment();
+                commentsFragment.setArrayComments(foodDetailModel);
+                mainActivity.addFragment(commentsFragment, true, true);
                 break;
 
 
@@ -548,7 +586,7 @@ public class FoodDetailFragment extends BaseFragment implements
                 if (foodDetailModel.getAllReviews().size() > 0) {
 
                     comments.addAll(foodDetailModel.getAllReviews());
-                    foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true,false);
+                    foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true, false);
                     binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
                     foodCommentsAdapter.notifyDataSetChanged();
 
@@ -602,6 +640,22 @@ public class FoodDetailFragment extends BaseFragment implements
         binding.nestedScroll.fullScroll(ScrollView.FOCUS_UP);
         binding.nestedScroll.smoothScrollTo(0, 0);
         binding.tvfoodName.requestFocus();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            binding.beforeStartContentEn.setText(Html.fromHtml(foodDetailModelSpecial.getBefore_start_content_en(), Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            binding.beforeStartContentEn.setText(Html.fromHtml(foodDetailModelSpecial.getBefore_start_content_en()));
+        }
+      //  binding.beforeStartContentEn.setText(foodDetailModelSpecial.getBefore_start_content_en());
+        binding.beforeStartEn.setText(foodDetailModelSpecial.getBefore_start_en());
+        binding.masalasAromaticsContentEn.setText(foodDetailModelSpecial.getMasalas_aromatics_content_en());
+        binding.masalasAromaticsEn.setText(foodDetailModelSpecial.getMasalas_aromatics_en());
+
+
+
+
+
+
+
         if (foodDetailModel.getIs_favorite() == 1) {
             likebtn.setLiked(true);
         } else {
@@ -705,7 +759,15 @@ public class FoodDetailFragment extends BaseFragment implements
         foodIngredientsAdapter.notifyDataSetChanged();
 
     }
+    public static String changedHeaderHtml(String htmlText) {
+        String jsTag = "<style> .easyimage img { width:80%;} </style>";
+        // String head = "<head><meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" /></head>";
+        String head = "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">" + jsTag + "</head>";
 
+        String closedTag = "</body></html>";
+        String changeFontHtml = head + htmlText + closedTag;
+        return changeFontHtml;
+    }
 
 //    @Override
 //    public void onStart() {
@@ -850,7 +912,7 @@ public class FoodDetailFragment extends BaseFragment implements
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getfooddetail(slug,String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+            serviceHelper.enqueueCall(webService.getfooddetail(slug, String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
         else if (LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase("")) {
 
             Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
