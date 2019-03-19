@@ -1,8 +1,11 @@
 package structure.com.foodportal.adapter.foodPortalAdapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +45,10 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
 
         if(ingredientList.get(position).getIsHeader()==1){
             k=0;
-            String sourceString = "<b>" + ingredientList.get(position).getName()!=null ? ingredientList.get(position).getName():" " + "</b> ";
+            String sourceString = "* " + ingredientList.get(position).getName()!=null ? ingredientList.get(position).getName():" " + " *";
             holder.text.setText(Html.fromHtml(sourceString));
+            holder.text.setTypeface(null, Typeface.BOLD);
+            holder.text.setTextColor(Color.BLACK);
 
             holder.tvQuantity.setText(ingredientList.get(position).getMainquantity()!=null ?ingredientList.get(position).getMainquantity(): " ");
 

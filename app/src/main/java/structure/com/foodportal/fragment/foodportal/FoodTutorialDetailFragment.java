@@ -316,7 +316,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 
         }
 
-        UIHelper.setImageWithGlide(mainActivity, binding.ivDishImage, foodDetailModel.getGallery().getPhotos().get(0).getImage_path());
+        UIHelper.setImageWithGlide(mainActivity, binding.ivDishImage,foodDetailModel.getBlog_thumb_image_path());
         binding.tvfoodName.setText("" + foodDetailModel.getTitle_en());
         binding.tvServingDetails.setText("" + foodDetailModel.getCountFavorites() + " likes");
         binding.tvServingTime.setText("" + foodDetailModel.getTotalViews() + " views");
@@ -442,6 +442,11 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 
     @Override
     public void categorySliderClick(int position) {
+
+    }
+
+    @Override
+    public void masterTechniquesClick(int position) {
 
     }
 

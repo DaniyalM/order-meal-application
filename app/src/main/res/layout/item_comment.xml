@@ -105,16 +105,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dp2"
-                    android:fontFamily="@font/poppinsmedium"
+                    android:fontFamily="@font/regularfont"
                     android:lineSpacingExtra="@dimen/dp3"
                     android:textColor="@color/colorBlackShade"
                     android:textSize="@dimen/sp13"
+                    android:text="when we talk about food with naan we talk about nihari and paye"
                     app:colorClickableText="@color/colorAccent"
                     app:showTrimExpandedText="true"
                     app:trimCollapsedText="view more"
                     app:trimExpandedText="view less"
                     app:trimLines="5"
                     app:trimMode="trimModeLine" />
+
+
+
+                <ImageView
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone"
+                    android:padding="@dimen/dp1"
+                    android:src="@drawable/image_placeholder"
+                    android:background="@drawable/bordered_item_rounded_dark"
+                    android:id="@+id/attachedImage"
+                    android:layout_width="@dimen/dp200"
+                    android:layout_height="200dp" />
 
                 <TextView
                     android:id="@+id/tvReply"
@@ -127,8 +140,6 @@
                     android:gravity="center"
                     android:text="reply"
                     android:textSize="13sp" />
-
-
             </LinearLayout>
         </LinearLayout>
 

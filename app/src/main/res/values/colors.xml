@@ -4,6 +4,7 @@
     <color name="colorBlue">#263b7a</color>
     <color name="colorEmail">#0077a2</color>
     <color name="colorDarkBlue">#04437e</color>
+    <color name="colorAccentPink">#FF4081</color>
     <color name="starColor">#0A5298</color>
     <color name="colorRed">#CD2D36</color>
     <color name="colorRedLight">#F5D6D6</color>
@@ -29,4 +30,5 @@
     <color name="colorNav">#013d55</color>
     <color name="colorFbWhiteBg">#f1f1f1</color>
     <color name="colorYellow">#f2ee00</color>
+    <color name="colorAccent">#0078a1</color>
 </resources>

@@ -26,6 +26,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(String s) {
 //        super.onNewToken(s);
         BasePreferenceHelper.setDeviceToken(getApplicationContext(), s.trim());
+        Log.i("Firebase Token", ""+s);
     }
 
     @Override

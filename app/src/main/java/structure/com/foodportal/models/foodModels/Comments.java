@@ -10,6 +10,16 @@ public class Comments {
     int feature_type_id;
     String reviews;
 
+    public String getReview_image() {
+        return review_image;
+    }
+
+    public void setReview_image(String review_image) {
+        this.review_image = review_image;
+    }
+
+    String review_image;
+
     public String getCreated_at() {
         return created_at;
     }

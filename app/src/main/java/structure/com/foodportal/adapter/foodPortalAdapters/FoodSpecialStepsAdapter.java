@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flaviofaria.kenburnsview.KenBurnsView;
+
 import java.util.ArrayList;
 
 import structure.com.foodportal.R;
@@ -56,14 +58,14 @@ public class FoodSpecialStepsAdapter extends RecyclerView.Adapter<FoodSpecialSte
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView mainheading,maincontent;
-        ImageView imagemain;
+        KenBurnsView imagemain;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
 
             mainheading = (TextView) itemView.findViewById(R.id.mainheading);
             maincontent = (TextView) itemView.findViewById(R.id.maincontent);
-            imagemain = (ImageView) itemView.findViewById(R.id.imagemain);
+            imagemain = (KenBurnsView) itemView.findViewById(R.id.imagemain);
         }
     }
 }

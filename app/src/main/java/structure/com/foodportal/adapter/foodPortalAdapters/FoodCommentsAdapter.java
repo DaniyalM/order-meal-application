@@ -68,6 +68,11 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
                 break;
 
         }
+        if(sections.get(position).getReview_image()!=null){
+            holder.attachedImage.setVisibility(View.VISIBLE);
+            UIHelper.setImageWithGlide(context, holder.attachedImage, sections.get(position).getReview_image());
+
+        }
 
         holder.username.setText(sections.get(position).getUser().getName_en());
         holder.comment.setText(sections.get(position).getReviews());
@@ -299,7 +304,7 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView username, comment, time, reply;
-        ImageView userimage;
+        ImageView userimage,attachedImage;
         CustomRatingBar rating;
 
 
@@ -316,6 +321,7 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
             time = itemView.findViewById(R.id.tvUserTime);
             reply = itemView.findViewById(R.id.tvReply);
             userimage = itemView.findViewById(R.id.ivUser);
+            attachedImage = itemView.findViewById(R.id.attachedImage);
             viewall = itemView.findViewById(R.id.tvviewall);
             scroll = itemView.findViewById(R.id.llsubcomments);
 

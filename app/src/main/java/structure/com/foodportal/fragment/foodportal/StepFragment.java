@@ -102,7 +102,13 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
     public void setVideoData(int positon, FoodDetailModel foodDetailModel,  ArrayList<Integer> startTime, ArrayList<Integer> endTime,int tobeplayed) {
         this.positon = positon;
         value = positon;
-        this.foodDetailModel = foodDetailModel;
+        if(foodDetailModel.getSteps()!=null){
+
+            this.foodDetailModel = foodDetailModel;
+        }else{
+            this.foodDetailModel = foodDetailModel.getSpecial_recipe_story();
+
+        }
         this.startTime =startTime;
         this.endTime =endTime;
         this.tobeplayed =tobeplayed;

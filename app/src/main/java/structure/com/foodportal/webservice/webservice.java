@@ -236,7 +236,7 @@ public interface webservice {
 
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW)
-    Call<Api_Response<CommentsWrapper>> getAlReviews(@Query("story_id") String story_id);
+    Call<Api_Response<CommentsWrapper>> getAlReviews(@Query("story_id") String story_id,@Query("type") String type);
 
 
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW)
@@ -293,7 +293,7 @@ public interface webservice {
     Call<Api_Response<RecipeWrapper>> getRecipeCategory(@Query("category_slug") String category_slug);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVED_RECIPES)
-    Call<Api_Response<SavedStoriesWrapper>> getSavedRecipes(@Query("id") String id);
+    Call<Api_Response<SavedStoriesWrapper>> getSavedRecipes(@Query("id") int id);
 }
 
 

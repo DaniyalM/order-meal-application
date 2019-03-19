@@ -70,9 +70,9 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
     ArrayList<Comments> comments;
     FragmenCommentsBinding binding;
     FoodCommentsAdapter foodCommentsAdapter;
-
-    public void setArrayComments(FoodDetailModelWrapper foodDetailModel)
-    {
+   public boolean sepcial;
+    public void setArrayComments(FoodDetailModelWrapper foodDetailModel,Boolean sepcial)
+    {      this.sepcial=sepcial;
         this.foodDetailModel = foodDetailModel;
 
 
@@ -118,7 +118,7 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
         int resId = R.anim.layout_bottom_animation;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(mainActivity, resId);
         binding.rvCommentsSection.setLayoutAnimation(animation);
-        if (foodDetailModel.getAllReviews().size() > 0) {
+        if (foodDetailModel.getAllReviews()!=null&& foodDetailModel.getAllReviews().size() > 0) {
             foodCommentsAdapter.addAll(foodDetailModel.getAllReviews());
 
         } else {
@@ -239,11 +239,26 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
     }
 
     public void sendreview(FoodDetailModel foodDetailModel) {
+
+
+        if(sepcial){
+        serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
+                "special_recipe",
+                foodDetailModel.getFeature_type_id(),
+                foodDetailModel.getId(), binding.etCommentsm.getText().toString(),
+                0), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
+
+    }   else{
+
         serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
                 "story",
                 foodDetailModel.getFeature_type_id(),
                 foodDetailModel.getId(), binding.etCommentsm.getText().toString(),
                 0), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
+    }
+
+
+
         binding.etCommentsm.setText("");
     }
 
@@ -251,15 +266,30 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
 
     public void sendreply(FoodDetailModelWrapper foodDetailModel, int position,String editText) {
         replyposition = position;
-        serviceHelper.enqueueCall(webService.sendreply(preferenceHelper.getUser().getId(),
-                "story",
-                foodDetailModel.getData().getFeature_type_id(),
-                foodDetailModel.getAllReviews().get(position).getStory_id(), editText,
-                foodDetailModel.getAllReviews().get(position).getId()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
+        if(sepcial){
+            serviceHelper.enqueueCall(webService.sendreply(preferenceHelper.getUser().getId(),
+                    "special_recipe",
+                    foodDetailModel.getData().getFeature_type_id(),
+                    foodDetailModel.getAllReviews().get(position).getStory_id(), editText,
+                    foodDetailModel.getAllReviews().get(position).getId()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
+
+        }else {
+            serviceHelper.enqueueCall(webService.sendreply(preferenceHelper.getUser().getId(),
+                    "story",
+                    foodDetailModel.getData().getFeature_type_id(),
+                    foodDetailModel.getAllReviews().get(position).getStory_id(), editText,
+                    foodDetailModel.getAllReviews().get(position).getId()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
+        }
+
     }
 
     public void allreview(FoodDetailModel foodDetailModel) {
-        serviceHelper.enqueueCall(webService.getAlReviews(String.valueOf(foodDetailModel.getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW);
+        if(sepcial){
+        serviceHelper.enqueueCall(webService.getAlReviews(String.valueOf(foodDetailModel.getId()),"special_recipe"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW);
+    }else{
+            serviceHelper.enqueueCall(webService.getAlReviews(String.valueOf(foodDetailModel.getId()),"story"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW);
+
+        }
     }
 
     void createDialog(FoodDetailModelWrapper foodDetailModelWrapper, int pos) {

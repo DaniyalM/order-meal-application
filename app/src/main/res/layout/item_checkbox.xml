@@ -1,27 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:orientation="vertical">
 
 
     <ImageView
-        android:padding="@dimen/dp2"
-        android:background="@drawable/rounded_drawable"
         android:id="@+id/masalaimage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:background="@drawable/rounded_drawable"
+        android:padding="@dimen/dp2"
         android:src="@drawable/image_placeholder" />
 
-  <TextView
-      android:id="@+id/masalaname"
-      android:textColor="@color/colorAccent"
-      android:gravity="center"
-      android:textSize="@dimen/dp15"
-      android:text="Araoma"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/masalaname"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center"
+        android:text="Araoma"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/dp16" />
 
+    <LinearLayout
+        android:id="@+id/selectedposition"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="2dp"
+            android:background="@color/colorAccent" />
+
+
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="2dp"
+            android:background="@color/colorAccentPink" />
+    </LinearLayout>
 
 </LinearLayout>

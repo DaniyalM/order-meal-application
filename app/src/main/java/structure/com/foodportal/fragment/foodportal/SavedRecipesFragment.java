@@ -112,7 +112,7 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
     public void getSavedRecipes() {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getSavedRecipes(preferenceHelper.getUserFood().getId()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVED_RECIPES);
+            serviceHelper.enqueueCall(webService.getSavedRecipes(Integer.valueOf(preferenceHelper.getUserFood().getId().replace(".0",""))), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVED_RECIPES);
 //            switch (mode){
 //
 //                case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:

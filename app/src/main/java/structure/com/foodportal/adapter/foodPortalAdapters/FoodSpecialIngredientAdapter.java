@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -56,7 +57,6 @@ public class FoodSpecialIngredientAdapter extends RecyclerView.Adapter<FoodSpeci
                 specialStepListener.specialClick(ingredientList.get(position).getIngredient_en());
 
 
-
             }
         });
 
@@ -74,10 +74,12 @@ public class FoodSpecialIngredientAdapter extends RecyclerView.Adapter<FoodSpeci
 
         protected TextView masalaname;
         ImageView masalaimage;
+        LinearLayout selectedposition;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
 
+            selectedposition = (LinearLayout) itemView.findViewById(R.id.selectedposition);
             masalaname = (TextView) itemView.findViewById(R.id.masalaname);
             masalaimage = (ImageView) itemView.findViewById(R.id.masalaimage);
         }

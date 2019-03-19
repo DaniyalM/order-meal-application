@@ -24,7 +24,7 @@
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/sp16" />
 
-        <ImageView
+        <com.flaviofaria.kenburnsview.KenBurnsView
             android:id="@+id/imagemain"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -35,13 +35,14 @@
 
         <TextView
             android:id="@+id/maincontent"
+            android:fontFamily="@font/semiboldfont"
+            android:textColor="@color/colorTextGray"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dp5"
-            android:fontFamily="@font/poppinslight"
             android:padding="@dimen/dp10"
             android:text="The term 'trotters' refers to cow, goat, or buffalo feet. Trotters contain hair that can either be removed by rubbing wheat flour (atta) over them, or by asking the butcher to do so with a sharp knife. Trotters are often used to make soup or stock. In South Asian homes, the cut is popularly consumed because of its unique flavor and the fact that it contains no meat, only tendons and skin."
-            android:textColor="@color/colorBlack" />
+           />
 
 
     </LinearLayout>

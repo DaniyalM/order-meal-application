@@ -100,8 +100,21 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.lblListHeader);
         ImageView etvexpand = (ImageView) convertView
                 .findViewById(R.id.etvexpand);
+
+
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
+        if(headerTitle.equals("Recipes")){
+
+            lblListHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_menu_recipe,0,0,0);
+        }
+        if(headerTitle.equals("Tutorials")){
+
+            lblListHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_menu_tutorial,0,0,0);
+        }  if(headerTitle.equals("Blog")){
+
+            lblListHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_menu_my_saved_recipe,0,0,0);
+        }
 
 
         if(_listDataChild.get(getGroup(groupPosition)).size()==0){

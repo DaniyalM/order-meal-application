@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/dp10"
+    android:paddingBottom="@dimen/dp5"
     android:paddingEnd="@dimen/dp5"
     android:paddingStart="@dimen/dp5"
-    android:paddingTop="@dimen/dp10">
+    android:paddingTop="@dimen/dp5">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dp2"
-            android:fontFamily="@font/poppinsmedium"
+            android:fontFamily="@font/regularfont"
             android:lineSpacingExtra="@dimen/dp3"
             android:textColor="@color/colorBlackShade"
             android:textSize="@dimen/sp15"

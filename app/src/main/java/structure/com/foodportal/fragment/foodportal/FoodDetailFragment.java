@@ -486,9 +486,9 @@ public class FoodDetailFragment extends BaseFragment implements
                 player.stop(true);
                 //  stopPosition = binding.videoView.getCurrentPosition();
                 EventBus.getDefault().register(this);
-                    CommentsFragment commentsFragment= new CommentsFragment();
-                    commentsFragment.setArrayComments(foodDetailModel);
-                    mainActivity.addFragment(commentsFragment,true,true);
+                CommentsFragment commentsFragment= new CommentsFragment();
+                commentsFragment.setArrayComments(foodDetailModel,false);
+                mainActivity.addFragment(commentsFragment,true,true);
                 break;
 
 
@@ -748,6 +748,7 @@ public class FoodDetailFragment extends BaseFragment implements
         player.stop();
         player.stop(true);
         //  stopPosition = binding.videoView.getCurrentPosition();
+        EventBus.getDefault().unregister(this);
         EventBus.getDefault().register(this);
         // binding.videoView.stopPlayback();
         //binding.videoView.closePlayer();
@@ -844,6 +845,11 @@ public class FoodDetailFragment extends BaseFragment implements
 
     @Override
     public void categorySliderClick(int position) {
+
+    }
+
+    @Override
+    public void masterTechniquesClick(int position) {
 
     }
 

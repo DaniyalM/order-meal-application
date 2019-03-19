@@ -49,6 +49,7 @@ import structure.com.foodportal.adapter.foodPortalAdapters.FoodBannerAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodBetterForBitesAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodCategoryAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodFeaturedAdapter;
+import structure.com.foodportal.adapter.foodPortalAdapters.FoodMasterTechniquesAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPopularRecipeAdapter;
 import structure.com.foodportal.databinding.FragmentHomefoodBinding;
 import structure.com.foodportal.fragment.BaseFragment;
@@ -77,12 +78,14 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     FoodCategoryAdapter foodCategoryAdapter;
     FoodPopularRecipeAdapter foodPopularRecipeAdapter;
     FoodFeaturedAdapter foodFeaturedAdapter;
+    FoodMasterTechniquesAdapter foodMasterTechniquesAdapter;
     FoodBetterForBitesAdapter foodBetterForBitesAdapter;
     FoodBannerAdapter foodBannerAdapter;
     ArrayList<CategorySlider> categorySliders;
     ArrayList<Banner> banners;
     ArrayList<Sections> sectionsPopular;
     ArrayList<Sections> sectionsFeatured;
+    ArrayList<Sections> masterTechniques;
     ArrayList<Sections> sectionsBetterForBites;
     String story_slug = "";
 
@@ -121,6 +124,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         categorySliders = new ArrayList<>();
         sectionsPopular = new ArrayList<>();
         sectionsFeatured = new ArrayList<>();
+        masterTechniques = new ArrayList<>();
         sectionsBetterForBites = new ArrayList<>();
         banners = new ArrayList<>();
 
@@ -128,16 +132,19 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         foodBannerAdapter = new FoodBannerAdapter(banners, mainActivity, this);
         foodPopularRecipeAdapter = new FoodPopularRecipeAdapter(sectionsPopular, mainActivity, this);
         foodFeaturedAdapter = new FoodFeaturedAdapter(sectionsFeatured, mainActivity, this);
+        foodMasterTechniquesAdapter = new FoodMasterTechniquesAdapter(masterTechniques, mainActivity, this);
         foodBetterForBitesAdapter = new FoodBetterForBitesAdapter(sectionsBetterForBites, mainActivity, this);
 
 
         binding.rvCategoryslider.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
         binding.rvPopularRecipe.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
         binding.rvFeaturedRecipes.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
+        binding.rvtechniques.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
         binding.slider.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
         binding.rvBetterforBites.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
 
 
+        binding.rvtechniques.setAdapter(foodMasterTechniquesAdapter);
         binding.rvCategoryslider.setAdapter(foodCategoryAdapter);
         binding.rvPopularRecipe.setAdapter(foodPopularRecipeAdapter);
         binding.rvFeaturedRecipes.setAdapter(foodFeaturedAdapter);
@@ -283,7 +290,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
                    // LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
                     FoodSpecialDetailFragment detailFragment = new FoodSpecialDetailFragment();
-                    detailFragment.setFoodDetailModelSpecial(foodDetailModel2.getStory());
+                    detailFragment.setFoodDetailModelSpecial(foodDetailModel2.getStory(),foodDetailModel2.getAllReviews());
                     mainActivity.addFragment(detailFragment, true, true);
                     //    setData(foodDetailModel.getData());
 
@@ -305,15 +312,15 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
         }
 
-        YoYo.with(Techniques.FadeOut).duration(1000).playOn(binding.viewShimmerCategorySlider);
-        YoYo.with(Techniques.FadeOut).duration(1000).playOn(binding.viewShimmerbanner);
+       // YoYo.with(Techniques.FadeOut).duration(1000).playOn(binding.viewShimmerCategorySlider);
+      //  YoYo.with(Techniques.FadeOut).duration(1000).playOn(binding.viewShimmerbanner);
 
         binding.viewShimmerCategorySlider.setVisibility(View.GONE);
         binding.viewShimmerbanner.setVisibility(View.GONE);
 
 
-        YoYo.with(Techniques.FadeIn).duration(1000).playOn(binding.rvCategoryslider);
-        YoYo.with(Techniques.FadeIn).duration(1000).playOn(binding.cvRecipe);
+     //   YoYo.with(Techniques.FadeIn).duration(1000).playOn(binding.rvCategoryslider);
+     //   YoYo.with(Techniques.FadeIn).duration(1000).playOn(binding.cvRecipe);
 
         binding.rvCategoryslider.setVisibility(View.VISIBLE);
         binding.cvRecipe.setVisibility(View.VISIBLE);
@@ -324,15 +331,17 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
             case AppConstant.FOODPORTAL_FOOD_DETAILS.HOME:
             case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
 
-                binding.cvSectionFive.setVisibility(View.GONE);
+              //  binding.cvSectionFive.setVisibility(View.GONE);
 
                 binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
                 binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
                 binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_en().replaceAll("_", " "));
+                binding.tvtechniques.setText(foodHomeModelWrapper.getSection().get(4).getSection_name_en().replaceAll("_", " "));
                 binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_en());
                 sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
                 sectionsFeatured.addAll(foodHomeModelWrapper.getSection().get(1).getSection_list());
                 sectionsBetterForBites.addAll(foodHomeModelWrapper.getSection().get(3).getSection_list());
+                masterTechniques.addAll(foodHomeModelWrapper.getSection().get(4).getSection_list());
                 categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
                 banners.addAll(foodHomeModelWrapper.getBanner());
 
@@ -395,6 +404,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         foodPopularRecipeAdapter.notifyDataSetChanged();
         foodFeaturedAdapter.notifyDataSetChanged();
         foodBetterForBitesAdapter.notifyDataSetChanged();
+        foodMasterTechniquesAdapter.notifyDataSetChanged();
 
 
     }
@@ -426,17 +436,38 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void betterforurbites(int pos) {
 
-        getSpecialRecipe(sectionsBetterForBites.get(pos).getSlug(),preferenceHelper.getUserFood().getId());
+
+            if(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES.equals(navSection)||
+             AppConstant.FOODPORTAL_FOOD_DETAILS.HOME.equals(navSection)){
+
+                getSpecialRecipe(sectionsBetterForBites.get(pos).getSlug(),preferenceHelper.getUserFood().getId());
+
+            }else{
+
+                next(sectionsBetterForBites.get(pos).getSlug());
+            }
+
+
+
+
+        }
         //next(sectionsBetterForBites.get(pos).getSlug());
 
 
-    }
+
 
     @Override
     public void categorySliderClick(int position) {
         RecipeFragment recipeFragment = new RecipeFragment();
         recipeFragment.setModel(categorySliders.get(position));
         mainActivity.addFragment(recipeFragment, true, true);
+    }
+
+    @Override
+    public void masterTechniquesClick(int position) {
+
+        serviceHelper.enqueueCall(webService.getfoodtutorialdetail(masterTechniques.get(position).getSlug()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
+
     }
 
 

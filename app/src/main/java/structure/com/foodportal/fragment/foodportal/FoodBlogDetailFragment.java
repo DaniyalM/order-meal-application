@@ -79,7 +79,7 @@ import structure.com.foodportal.singleton.CarelessSingleton;
 
 import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
-public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeListner,CommentClickListner {
+public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeListner,CommentClickListner,View.OnClickListener {
 
 
     FoodPopularRecipeAdapter foodRelatedAdapter;
@@ -109,6 +109,7 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     private void setListners() {
         mainActivity.hideBottombar();
         initAdapters();
+        binding.tvShowall.setOnClickListener(this);
 
 
         if (foodDetailModel != null) {
@@ -291,6 +292,11 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
     }
 
+    @Override
+    public void masterTechniquesClick(int position) {
+
+    }
+
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
@@ -315,6 +321,24 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
     @Override
     public void onReplyClick(int positon) {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+
+            case R.id.tvShowall:
+             //   player.stop();
+                //player.stop(true);
+                //  stopPosition = binding.videoView.getCurrentPosition();
+              //  EventBus.getDefault().register(this);
+                CommentsFragment commentsFragment= new CommentsFragment();
+                commentsFragment.setArrayComments(foodDetailModel,false);
+                mainActivity.addFragment(commentsFragment,true,true);
+                break;
+
+        }
 
     }
 }

@@ -17,6 +17,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.OrientationHelper;
 
 import android.text.Html;
@@ -76,6 +77,7 @@ import javax.xml.parsers.SAXParser;
 
 import structure.com.foodportal.MyApplication;
 
+import structure.com.foodportal.R;
 import structure.com.foodportal.adapter.foodPortalAdapters.ExpandableListAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodCommentsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodIngredientsAdapter;
@@ -158,6 +160,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
     SimpleExoPlayer player;
     MediaSource mediaSource;
     SimpleExoPlayerView videoView;
+    private ArrayList<Comments> allReviews;
 
     public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel) {
 
@@ -175,9 +178,10 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
     }
 
-    public void setFoodDetailModelSpecial(FoodDetailModel foodDetailModel) {
+    public void setFoodDetailModelSpecial(FoodDetailModel foodDetailModel,ArrayList<Comments> allReviews) {
 
         this.foodDetailModelSpecial = foodDetailModel;
+        this.allReviews = allReviews;
         startTime = new ArrayList<>();
         endTime = new ArrayList<>();
 
@@ -253,6 +257,8 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
         tvShowall.setOnClickListener(this);
         btnMute.setOnClickListener(this);
         savebtn.setOnClickListener(this);
+        savebtn.setVisibility(View.GONE);
+        likebtn.setVisibility(View.GONE);
         likebtn.setOnClickListener(this);
         setListners();
         return binding.getRoot();
@@ -289,9 +295,12 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
                 binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
                 foodCommentsAdapter.notifyDataSetChanged();
 
-            } else {
+            } else if(allReviews.size()>0){
 
-
+                comments.addAll(allReviews);
+                foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true, false);
+                binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
+                foodCommentsAdapter.notifyDataSetChanged();
             }
 
 
@@ -380,7 +389,8 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
         foodSpecialIngredientAdapter = new FoodSpecialIngredientAdapter(foodDetailModelSpecial.getSpecial_ingredients(), mainActivity, this);
         binding.rvSpecialIngredients.setAdapter(foodSpecialIngredientAdapter);
-
+        LinearSnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(binding.rvSpecialIngredients);
 
         foodSpecialStepsAdapter = new FoodSpecialStepsAdapter(foodDetailModelSpecial.getSpecial_recipe_step(), mainActivity);
         binding.rvSpecialSteps.setAdapter(foodSpecialStepsAdapter);
@@ -501,20 +511,20 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
                 // binding.videoView.stopPlayback();
                 //   binding.videoView.closePlayer();
-                CarelessSingleton.instance.setState(foodDetailModel.getData(), 0);
-                stepFragment.setVideoData(0, foodDetailModel.getData(), startTime, endTime, (int) player.getCurrentPosition());
+                CarelessSingleton.instance.setState(foodDetailModelSpecial, 0);
+                stepFragment.setVideoData(0, foodDetailModelSpecial, startTime, endTime, (int) player.getCurrentPosition());
                 mainActivity.addFragment(stepFragment, true, true);
 
                 break;
 
             case R.id.savebtn:
 
-                serviceHelper.enqueueCall(webService.sacvestory(String.valueOf(preferenceHelper.getUserFood().getId()), "story", String.valueOf(foodDetailModel.getData().getFeature_type_id()), String.valueOf(foodDetailModel.getData().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY);
+                serviceHelper.enqueueCall(webService.sacvestory(String.valueOf(preferenceHelper.getUserFood().getId()), "story", String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getFeature_type_id()), String.valueOf(foodDetailModelSpecial.getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY);
 
                 break;
 
             case R.id.lkFav:
-                serviceHelper.enqueueCall(webService.markfavorite(preferenceHelper.getUserFood().getFacebook_id(), "story", String.valueOf(foodDetailModel.getData().getFeature_type_id()), String.valueOf(foodDetailModel.getData().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE);
+                serviceHelper.enqueueCall(webService.markfavorite(preferenceHelper.getUserFood().getFacebook_id(), "story", String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getFeature_type_id()), String.valueOf(foodDetailModelSpecial.getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE);
 
                 break;
 
@@ -525,7 +535,19 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
                 //  stopPosition = binding.videoView.getCurrentPosition();
                 EventBus.getDefault().register(this);
                 CommentsFragment commentsFragment = new CommentsFragment();
-                commentsFragment.setArrayComments(foodDetailModel);
+                if(foodDetailModelSpecial!=null){
+
+
+                    FoodDetailModelWrapper foodDetailModelWrapper =new FoodDetailModelWrapper();
+                    foodDetailModelWrapper.setAllReviews(allReviews);
+                    foodDetailModelWrapper.setData(foodDetailModelSpecial);
+                    commentsFragment.setArrayComments(foodDetailModelWrapper,true);
+
+                }else{
+
+
+                    commentsFragment.setArrayComments(foodDetailModel,false);
+                }
                 mainActivity.addFragment(commentsFragment, true, true);
                 break;
 
@@ -813,7 +835,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
         EventBus.getDefault().register(this);
         // binding.videoView.stopPlayback();
         //binding.videoView.closePlayer();
-        CarelessSingleton.instance.setState(foodDetailModel.getData(), position);
+        CarelessSingleton.instance.setState(foodDetailModelSpecial.getSpecial_recipe_story(), position);
         StepFragment stepFragment = new StepFragment();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             stepFragment.setSharedElementEnterTransition(new DetailsTransition());
@@ -822,7 +844,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
             stepFragment.setSharedElementReturnTransition(new DetailsTransition());
         }
 
-        stepFragment.setVideoData(position, foodDetailModel.getData(), startTime, endTime, (int) player.getCurrentPosition());
+        stepFragment.setVideoData(position, foodDetailModelSpecial.getSpecial_recipe_story(), startTime, endTime, (int) player.getCurrentPosition());
         mainActivity.addFragment(stepFragment, true, false);
         //  Toast.makeText(mainActivity, "Will be implement later", Toast.LENGTH_SHORT).show();
 
@@ -906,6 +928,11 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
     @Override
     public void categorySliderClick(int position) {
+
+    }
+
+    @Override
+    public void masterTechniquesClick(int position) {
 
     }
 

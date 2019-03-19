@@ -7,4 +7,5 @@ public interface FoodHomeListner {
     void featuredrecipe(int pos);
     void betterforurbites(int pos);
     void categorySliderClick(int position);
+    void masterTechniquesClick(int position);
 }
