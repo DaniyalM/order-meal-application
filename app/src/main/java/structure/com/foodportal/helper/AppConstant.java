@@ -212,6 +212,7 @@ public class AppConstant {
 
     public class FOODPORTAL_FOOD_DETAILS {
 
+        public static final String FOOD_HOME_SEARCH = "home/search";
         public static final String FOOD_SEND_REVIEW = "story/submit-review";
         public static final String FOOD_SEND_REPLY = "story/submit-review";
         public static final String FOOD_ALL_REVIEW = "story/all-review";

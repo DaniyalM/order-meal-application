@@ -8,9 +8,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+  <!--  <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />-->
 
     <application
         android:name=".MyApplication"
@@ -57,7 +57,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="737e3c303e65c4f916fb62eb55603ad006512f59" />
+            android:value="c1d16a2f9f17d433eec516a51fab1dcd0d2d5eab" />
 
         <activity android:name=".activity.MapActivity"></activity>
         <meta-data android:name="com.facebook.sdk.ApplicationId"

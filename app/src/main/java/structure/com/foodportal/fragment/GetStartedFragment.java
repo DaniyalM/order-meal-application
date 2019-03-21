@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -54,16 +55,32 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
 
     FragmentGetstartedBinding binding;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_getstarted, container, false);
         init();
+        getVersionInfo();
         registrationActivity.setcontent(this);
         registrationActivity.setcontentFB(this);
         return binding.getRoot();
     }
 
+    private void getVersionInfo() {
+        String versionName = "";
+        int versionCode = -1;
+        try {
+            PackageInfo packageInfo = registrationActivity.getPackageManager().getPackageInfo(registrationActivity.getPackageName(), 0);
+            versionName = packageInfo.versionName;
+            versionCode = packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        // TextView textViewVersionInfo = (TextView) findViewById(R.id.textview_version_info);
+        binding.versionapp.setText(String.format("v" + versionName));
+    }
 
     public void init() {
 
@@ -184,18 +201,19 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
     }
 
     public void googlelogin(User user) {
-        serviceHelper.enqueueCall(webService.LoginGOOGLE(user.getEmail(), user.getId(), user.getName_en(), "google",user.getProfile_picture()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK);
+        serviceHelper.enqueueCall(webService.LoginGOOGLE(user.getEmail(), user.getId(), user.getName_en(), "google", user.getProfile_picture()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK);
 
 
     }
 
     User user;
+
     @Override
     public void ResponseSuccess(Object result, String tag) {
         switch (tag) {
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK:
 
-                 user = (User) JsonHelpers.convertToModelClass(result, User.class);
+                user = (User) JsonHelpers.convertToModelClass(result, User.class);
                 preferenceHelper.putUserFood(user);
                 Toast.makeText(registrationActivity, "Login Successfully", Toast.LENGTH_SHORT).show();
                 preferenceHelper.setLoginStatus(true);
@@ -204,7 +222,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
                 break;
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_GOOGLE:
 
-                 user = (User) JsonHelpers.convertToModelClass(result, User.class);
+                user = (User) JsonHelpers.convertToModelClass(result, User.class);
                 preferenceHelper.putUserFood(user);
                 Toast.makeText(registrationActivity, "Login Successfully", Toast.LENGTH_SHORT).show();
                 preferenceHelper.setLoginStatus(true);

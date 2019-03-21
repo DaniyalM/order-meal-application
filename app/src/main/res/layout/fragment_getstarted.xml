@@ -46,7 +46,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/dp10"
-                android:fontFamily="@font/lightfont"
                 android:gravity="center"
                 android:padding="@dimen/dp10"
                 android:text="@string/unlock_cooking_food_recipes_and_your_personal_recipe_box_with_a_free_trial"
@@ -90,10 +89,23 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/dp10"
-                android:background="@drawable/img_email"
                 android:gravity="center"
                 android:padding="@dimen/dp10"
-                android:textColor="@color/white" /></LinearLayout>
+                android:background="@drawable/img_email"
+                android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/versionapp"
+                    android:text="V1.0.0"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/dp10"
+                    android:gravity="center"
+                    android:padding="@dimen/dp10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
 
         </LinearLayout>

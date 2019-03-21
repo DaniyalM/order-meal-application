@@ -173,6 +173,15 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         titlebar.showTitlebar();
         //titlebar.setTitle(getString(R.string.cooking_food));
         titlebar.showMenuButton(mainActivity);
+        titlebar.showsearch(mainActivity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mainActivity.replaceFragment(new FoodSearchFragment(),true,true);
+
+            }
+        });
+
 
 
     }

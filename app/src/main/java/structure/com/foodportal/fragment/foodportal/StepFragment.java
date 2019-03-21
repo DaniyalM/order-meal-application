@@ -16,6 +16,9 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.Printer;
 import android.view.LayoutInflater;
@@ -24,8 +27,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -72,6 +77,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import structure.com.foodportal.R;
+import structure.com.foodportal.adapter.foodPortalAdapters.FoodIngredientsAdapter;
 import structure.com.foodportal.databinding.FragmentStepBinding;
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.fragment.SignupFragment;
@@ -82,75 +88,78 @@ import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.helper.UniversalMediaController;
 import structure.com.foodportal.helper.UniversalVideoView;
+import structure.com.foodportal.models.foodModels.CustomIngredient;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.singleton.CarelessSingleton;
 
 import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
-public class StepFragment extends BaseFragment implements View.OnClickListener,SimpleExoPlayer.EventListener{
+public class StepFragment extends BaseFragment implements View.OnClickListener, SimpleExoPlayer.EventListener {
 
 
     FoodDetailModel foodDetailModel;
     int positon;
     ArrayList<Integer> startTime;
-    ArrayList<Integer> endTime ;
+    ArrayList<Integer> endTime;
     int value = 0;
-    int tobeplayed= 0;
+    int tobeplayed = 0;
+    ArrayList<CustomIngredient> ingredients;
+    LinearLayoutManager linearLayoutManagerIngredients;
+    FoodIngredientsAdapter foodIngredientsAdapter;
     public StepFragment() {
     }
 
-    public void setVideoData(int positon, FoodDetailModel foodDetailModel,  ArrayList<Integer> startTime, ArrayList<Integer> endTime,int tobeplayed) {
+    public void setVideoData(int positon, FoodDetailModel foodDetailModel, ArrayList<Integer> startTime, ArrayList<Integer> endTime, int tobeplayed) {
         this.positon = positon;
         value = positon;
-        if(foodDetailModel.getSteps()!=null){
+        if (foodDetailModel.getSteps() != null) {
 
             this.foodDetailModel = foodDetailModel;
-        }else{
+        } else {
             this.foodDetailModel = foodDetailModel.getSpecial_recipe_story();
 
         }
-        this.startTime =startTime;
-        this.endTime =endTime;
-        this.tobeplayed =tobeplayed;
-
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.tobeplayed = tobeplayed;
 
 
     }
 
     private Timer timer;
     TimerTask task;
+
     private void timerCounter(int positon) {
 
-        if(timer != null) {
+        if (timer != null) {
             task.cancel();
-            task =null;
+            task = null;
             timer.cancel();
             timer.purge();
             timer = null;
         }
-         timer = new Timer();
-         task = new TimerTask() {
+        timer = new Timer();
+        task = new TimerTask() {
             @Override
             public void run() {
                 mainActivity.runOnUiThread(new Runnable() {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void run() {
-                        Log.d("Time", "Seconds: "+player.getCurrentPosition()/1000);
-                        if(player.getCurrentPosition()>(((endTime.get(value)*1000))))
-                        {
+                        Log.d("Time", "Seconds: " + player.getCurrentPosition() / 1000);
+                        if (player.getCurrentPosition() > (((endTime.get(value) * 1000)))) {
 
-                         //  SeekParameters seekParameters =new SeekParameters(startTime.get(value)*1000,endTime.get(value)*1000);
+                            //  SeekParameters seekParameters =new SeekParameters(startTime.get(value)*1000,endTime.get(value)*1000);
 
 
-                           //player.setSeekParameters(seekParameters);
+                            //player.setSeekParameters(seekParameters);
 
-                           player.seekTo(startTime.get(value)*1000);
-                           // player.stop();
-                           // timer.cancel();
-                          //  timer.purge();
-                           // task.cancel();
-                          //  player.stop(true);
+                            player.seekTo(startTime.get(value) * 1000);
+                            // player.stop();
+                            // timer.cancel();
+                            //  timer.purge();
+                            // task.cancel();
+                            //  player.stop(true);
                             playvideo();
                         }
 
@@ -165,7 +174,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
     private int duration = 0;
 
     private void setDuration() {
-     //   duration = binding.videoView.getDuration();
+        //   duration = binding.videoView.getDuration();
     }
 
     UniversalMediaController mMediaController;
@@ -174,8 +183,11 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
     SimpleExoPlayer player;
     MediaSource mediaSource;
     ProgressBar storiesProgressView;
-    int onestep =0;
-
+    int onestep = 0;
+    LinearLayout llmainingredients;
+    View vingredients;
+    RecyclerView rvIngredients;
+    TextView tvingredients;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -190,9 +202,15 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_step, container, false);
         storiesProgressView = binding.getRoot().findViewById(R.id.progressView);
+        llmainingredients = binding.getRoot().findViewById(R.id.llmainingredients);
+        vingredients = binding.getRoot().findViewById(R.id.vingredients);
+        rvIngredients = binding.getRoot().findViewById(R.id.rvIngredients);
+        tvingredients = binding.getRoot().findViewById(R.id.tvingredients);
+        linearLayoutManagerIngredients = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
         ViewCompat.setTransitionName(binding.getRoot().findViewById(R.id.video_layout), "stepbystep");
 
-
+        tvingredients.setOnClickListener(this);
+        vingredients.setOnClickListener(this);
 
 
         foodDetailModel = (FoodDetailModel) CarelessSingleton.instance.getState();
@@ -200,7 +218,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
         mMediaController = (UniversalMediaController) binding.getRoot().findViewById(R.id.media_controller);
 
         onestep = 100 / foodDetailModel.getSteps().size();
-        storiesProgressView.setProgress((int) onestep*value+1);
+        storiesProgressView.setProgress((int) onestep * value + 1);
 
         binding.videoView.requestFocus();
         binding.videoView.hideController();
@@ -212,9 +230,9 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
         player.seekTo(startTime.get(value), endTime.get(value));
         player.addListener(this);
         player.setRepeatMode(SimpleExoPlayer.DISCONTINUITY_REASON_SEEK);
-        Uri uri = Uri.parse(foodDetailModel.getVideo_path().replace("1080.mp4","720.mp4"));
+        Uri uri = Uri.parse(foodDetailModel.getVideo_path().replace("1080.mp4", "720.mp4"));
 
-         mediaSource = buildMediaSource(uri);
+        mediaSource = buildMediaSource(uri);
         player.prepare(mediaSource, true, true);
 
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
@@ -238,62 +256,55 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
         //timerCounter(positon);
 
 
-
-
-
-
-
-
 //        binding.videoView.setVideoPath(
 //                AppConstant.VIDEO_URL + foodDetailModel.getVideo_url());
-        UIHelper.setImageWithGlide(mainActivity, binding.imageforrecplace,foodDetailModel.getGallery().getPhotos().get(0).getImage_path());
+        UIHelper.setImageWithGlide(mainActivity, binding.imageforrecplace, foodDetailModel.getGallery().getPhotos().get(0).getImage_path());
 
-      //  playvideo(value);
+        //  playvideo(value);
         binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
         binding.tvSteps.setText("Step " + (value + 1));
 
         binding.videoLayout.setOnTouchListener(new OnSwipeTouchListner(mainActivity) {
             public void onSwipeTop() {
 
-             //   Toast.makeText(mainActivity, "top", Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(mainActivity, "top", Toast.LENGTH_SHORT).show();
             }
 
             public void onSwipeRight() {
 
-                if(value==0){
+                if (value == 0) {
                     mainActivity.onBackPressed();
                     return;
                 }
                 value--;
-              if(value >=0)
-              {
-                 // storiesProgressView.setProgress((int) (onestep * (1 + value)));
+                if (value >= 0) {
+                    // storiesProgressView.setProgress((int) (onestep * (1 + value)));
 
-                  ProgressBarAnimation anim = new ProgressBarAnimation(storiesProgressView, storiesProgressView.getProgress(), (int) (onestep * (1 + value)));
-                  anim.setDuration(1200);
-                  storiesProgressView.startAnimation(anim);
+                    ProgressBarAnimation anim = new ProgressBarAnimation(storiesProgressView, storiesProgressView.getProgress(), (int) (onestep * (1 + value)));
+                    anim.setDuration(1200);
+                    storiesProgressView.startAnimation(anim);
 
-                  //value = value-1;
-                playvideo();
-                binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
-                binding.tvSteps.setText("Step "+(value+1));
-              }
-              //  Toast.makeText(mainActivity, "right", Toast.LENGTH_SHORT).show();
+                    //value = value-1;
+                    playvideo();
+                    binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
+                    binding.tvSteps.setText("Step " + (value + 1));
+                }
+                //  Toast.makeText(mainActivity, "right", Toast.LENGTH_SHORT).show();
             }
 
             public void onSwipeLeft() {
 
-                if(value<0){
+                if (value < 0) {
 
                     return;
-                }else  if(value==foodDetailModel.getSteps().size()-1){
+                } else if (value == foodDetailModel.getSteps().size() - 1) {
 
-                    value=0;
+                    value = 0;
                     ProgressBarAnimation anim = new ProgressBarAnimation(storiesProgressView, storiesProgressView.getProgress(), (int) (onestep * (1 + value)));
                     anim.setDuration(1200);
                     storiesProgressView.startAnimation(anim);
                     binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
-                    binding.tvSteps.setText("Step "+(value+1));
+                    binding.tvSteps.setText("Step " + (value + 1));
                     //  storiesProgressView.setProgress((int) (onestep * (1 + value)));
                     playvideo();
                     return;
@@ -303,28 +314,28 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
 
                 value++;
 
-                if(value>0){
-              //  value = value+1;
+                if (value > 0) {
+                    //  value = value+1;
                     ProgressBarAnimation anim = new ProgressBarAnimation(storiesProgressView, storiesProgressView.getProgress(), (int) (onestep * (1 + value)));
                     anim.setDuration(1200);
                     storiesProgressView.startAnimation(anim);
 
-                   // storiesProgressView.setProgress((int) (onestep * (1 + value)));
+                    // storiesProgressView.setProgress((int) (onestep * (1 + value)));
 
                     playvideo();
-                binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
-                binding.tvSteps.setText("Step "+(value+1));
+                    binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
+                    binding.tvSteps.setText("Step " + (value + 1));
                 }
-               // Toast.makeText(mainActivity, "left", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(mainActivity, "left", Toast.LENGTH_SHORT).show();
             }
 
             public void onSwipeBottom() {
-              //  Toast.makeText(mainActivity, "bottom", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(mainActivity, "bottom", Toast.LENGTH_SHORT).show();
             }
 
         });
 
-
+        setingrdient(foodDetailModel);
         return binding.getRoot();
 
 
@@ -335,12 +346,11 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
     public void onDestroyView() {
         EventBus.getDefault().post(new DataSyncEvent(tobeplayed));
         super.onDestroyView();
-       // mainActivity.getTitleBar().showTitlebar();
-     //   mainActivity.getTitleBar().showBackButton(mainActivity);
+        // mainActivity.getTitleBar().showTitlebar();
+        //   mainActivity.getTitleBar().showBackButton(mainActivity);
 
 
-
-                //EventBus.getDefault().post(new HelloWorldEvent(mediaplayer.getCurrentPosition()));
+        //EventBus.getDefault().post(new HelloWorldEvent(mediaplayer.getCurrentPosition()));
         timer.cancel();
         timer.purge();
         task.cancel();
@@ -357,11 +367,26 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
         timerCounter(positon);
 
 
-
     }
 
     @Override
     public void onClick(View view) {
+
+
+
+        switch (view.getId()){
+
+
+            case R.id.tvingredients:
+
+                llmainingredients.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.vingredients:
+                llmainingredients.setVisibility(View.GONE);
+                break;
+
+        }
 
     }
 
@@ -370,7 +395,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
 
         titlebar.showTitlebar();
         titlebar.showBackButton(mainActivity);
-      //  titlebar.setTitle(foodDetailModel.getTitle_en());
+        //  titlebar.setTitle(foodDetailModel.getTitle_en());
     }
 
     private MediaSource buildMediaSource(Uri uri) {
@@ -381,7 +406,6 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
 
     @Override
     public void onTimelineChanged(Timeline timeline, Object manifest, int reason) {
-
 
 
     }
@@ -431,14 +455,13 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
     public void onSeekProcessed() {
 
 
-
     }
 
 
     public class ProgressBarAnimation extends Animation {
         private ProgressBar progressBar;
         private float from;
-        private float  to;
+        private float to;
 
         public ProgressBarAnimation(ProgressBar progressBar, float from, float to) {
             super();
@@ -456,6 +479,45 @@ public class StepFragment extends BaseFragment implements View.OnClickListener,S
 
     }
 
+    public  void setingrdient(FoodDetailModel foodDetailModel){
+        linearLayoutManagerIngredients = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
+        ingredients =new ArrayList<>();
+        for (int i = 0; i < foodDetailModel.getIngredient().size(); i++) {
+            //For Header
+            ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en() == null ? (foodDetailModel.getIngredient().get(i).getIngredient_en() != null ? foodDetailModel.getIngredient().get(i).getIngredient_en() : " ") + " " + (foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() : " ") :
+                    foodDetailModel.getIngredient().get(i).getTag_en() != null ? foodDetailModel.getIngredient().get(i).getTag_en() : " ", 1,
+                    foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() : "",
+                    foodDetailModel.getIngredient().get(i).getQuantity() == null ? " " : ""
+
+            ));
+
+            for (int k = 0; k < foodDetailModel.getIngredient().get(i).getSub_ingredients().size(); k++) {
+
+
+                //For SubList
+
+                ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en() + " " +
+                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity() + " " +
+                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type(), 0,
+                        foodDetailModel.getIngredient().get(i).getQuantity() == null ? " " : foodDetailModel.getIngredient().get(i).getQuantity(),
+                        foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() + "" + foodDetailModel.getIngredient().get(i).getQuantity_type() : " "
+
+
+                ));
+
+
+            }
+
+
+        }
+
+
+        foodIngredientsAdapter = new FoodIngredientsAdapter(ingredients, null, mainActivity);
+        rvIngredients.setLayoutManager(linearLayoutManagerIngredients);
+       rvIngredients.setAdapter(foodIngredientsAdapter);
+       foodIngredientsAdapter.notifyDataSetChanged();
+
+    }
 
 
 }

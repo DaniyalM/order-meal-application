@@ -358,6 +358,7 @@ public class FoodDetailFragment extends BaseFragment implements
 
         foodPreparationAdapter = new FoodPreparationAdapter(steps, mainActivity, this);
         binding.rvPreparations.setAdapter(foodPreparationAdapter);
+        Log.d("Token",preferenceHelper.getDeviceToken());
 
 
     }
@@ -511,6 +512,8 @@ public class FoodDetailFragment extends BaseFragment implements
     public void ResponseSuccess(Object result, String Tag) {
         switch (Tag) {
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS:
+                player.stop();
+                player.stop(true);
                 FoodDetailModelWrapper foodDetailModel = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
 
 
@@ -744,12 +747,11 @@ public class FoodDetailFragment extends BaseFragment implements
 
     @Override
     public void onStepClick(Step step, int position) {
-
         player.stop();
         player.stop(true);
-        //  stopPosition = binding.videoView.getCurrentPosition();
-        EventBus.getDefault().unregister(this);
         EventBus.getDefault().register(this);
+        //  stopPosition = binding.videoView.getCurrentPosition();
+      //  EventBus.getDefault().register(this);
         // binding.videoView.stopPlayback();
         //binding.videoView.closePlayer();
         CarelessSingleton.instance.setState(foodDetailModel.getData(), position);

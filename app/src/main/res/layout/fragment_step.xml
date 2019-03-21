@@ -1,86 +1,140 @@
-<layout>
-    <LinearLayout
-        android:background="@color/colorFbWhiteBg"
-            android:id="@+id/scrollView"
-            android:animateLayoutChanges="true"
-            xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:background="@color/colorFbWhiteBg"
             android:orientation="vertical">
 
-            <TextView
-                android:background="@color/white"
-                android:fontFamily="@font/poppinsbold"
-                android:textColor="@color/colorAccentPink"
-                android:id="@+id/tvSteps"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:padding="@dimen/dp6"
-                android:text="Step 1"
-                android:textSize="@dimen/dp18" />
+                android:layout_height="?actionBarSize"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvSteps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppinsbold"
+                    android:gravity="center"
+                    android:padding="@dimen/dp6"
+                    android:text="Step 1"
+                    android:textColor="@color/colorAccentPink"
+                    android:textSize="@dimen/dp18" />
+
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:id="@+id/tvingredients"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/dp15"
+                    android:gravity="center"
+                    android:text="Ingredients" />
+            </RelativeLayout>
+
+
             <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
                 android:id="@+id/progressView"
-                android:max="100"
-                android:progressTint="@color/colorAccentPink"
-                android:indeterminate="false"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="5dp" />
+                android:layout_height="5dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progressTint="@color/colorAccentPink" />
 
 
             <FrameLayout
-                android:transitionName="stepbystep"
                 android:id="@+id/video_layout"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:background="@android:color/black">
+                android:background="@android:color/black"
+                android:transitionName="stepbystep">
 
                 <com.google.android.exoplayer2.ui.SimpleExoPlayerView
                     android:id="@+id/videoView"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
                     android:layout_gravity="center"
-                    app:resize_mode="fill"
-                    app:surface_type="surface_view"
                     app:auto_show="true"
-                    app:use_controller="false"
+                    app:resize_mode="fill"
                     app:show_buffering="true"
-                   />
+                    app:surface_type="surface_view"
+                    app:use_controller="false" />
+
                 <ImageView
-                    android:visibility="gone"
                     android:id="@+id/imageforrecplace"
-                    android:src="@drawable/image_placeholder"
                     android:layout_width="match_parent"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/image_placeholder"
+                    android:visibility="gone" />
 
 
                 <structure.com.foodportal.helper.UniversalMediaController
 
-               android:visibility="gone"
                     android:id="@+id/media_controller"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
+                    android:visibility="gone"
                     app:uvv_scalable="false" />
 
             </FrameLayout>
 
 
             <believe.cht.fadeintextview.TextView
-                app:letterDuration="100"
-                android:padding="@dimen/dp10"
-                android:fontFamily="@font/poppinsmedium"
-                android:textColor="@color/colorAccent"
-                android:layout_marginTop="@dimen/dp20"
-                android:layout_marginBottom="@dimen/dp20"
                 android:id="@+id/tvStepDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp20"
+                android:fontFamily="@font/poppinsmedium"
                 android:gravity="center"
-                android:textSize="@dimen/dp15" />
+                android:padding="@dimen/dp10"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/dp15"
+                app:letterDuration="100" />
 
         </LinearLayout>
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/llmainingredients"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="end">
+
+            <View
+                android:id="@+id/vingredients"
+                android:background="@color/transparent"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvIngredients"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="@color/colorFbWhiteBg"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
 </layout>

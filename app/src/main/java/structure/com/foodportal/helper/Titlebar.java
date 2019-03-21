@@ -19,7 +19,8 @@ public class Titlebar extends RelativeLayout {
     private TitlebarBinding binding;
     private OnClickListener menuOnclickListener;
     private OnClickListener notificationOnclickListener;
-
+    RelativeLayout rlSearch;
+    ImageView ivSearch;
     public Titlebar(Context context) {
         super(context);
         initLayout(context);
@@ -38,6 +39,9 @@ public class Titlebar extends RelativeLayout {
     private void initLayout(Context context) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         binding = DataBindingUtil.inflate(inflater, R.layout.titlebar, this, true);
+        rlSearch = binding.getRoot().findViewById(R.id.rlSearch);
+        ivSearch = binding.getRoot().findViewById(R.id.ivSearch);
+
         resetView();
 
     }
@@ -57,6 +61,15 @@ public class Titlebar extends RelativeLayout {
         binding.imgBack.setVisibility(VISIBLE);
         binding.imgBack.setImageResource(R.drawable.backbtn);
         binding.imgBack.setOnClickListener(view -> activity.onBackPressed());
+    }
+    public ImageView showsearch(Activity activity){
+        rlSearch.setVisibility(VISIBLE);
+        return  ivSearch;
+    }
+
+    public void hidesearch(){
+
+        rlSearch.setVisibility(GONE);
     }
 
     public ImageView showBackButton(final Activity activity, boolean modified) {
@@ -130,6 +143,7 @@ public class Titlebar extends RelativeLayout {
         binding.ivCart.setVisibility(INVISIBLE);
         binding.ivFilter.setVisibility(INVISIBLE);
         binding.tvCartCount.setVisibility(INVISIBLE);
+        hidesearch();
 
 
     }

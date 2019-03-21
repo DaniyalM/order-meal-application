@@ -294,6 +294,9 @@ public interface webservice {
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVED_RECIPES)
     Call<Api_Response<SavedStoriesWrapper>> getSavedRecipes(@Query("id") int id);
+
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME_SEARCH)
+    Call<Api_Array_Response<FoodDetailModel>> getSearchResult(@Query("search") String search);
 }
 
 

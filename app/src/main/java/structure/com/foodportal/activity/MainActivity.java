@@ -118,9 +118,8 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+       super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         webService = WebServiceFactory.getInstance(AppConstant.BASE_URL,prefHelper);
         serviceHelper = new ServiceHelper(this, this);
         if (getIntent().getExtras() != null) {
@@ -144,7 +143,6 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
             }
         });
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
 
     }
 

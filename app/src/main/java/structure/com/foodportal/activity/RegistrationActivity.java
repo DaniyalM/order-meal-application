@@ -297,12 +297,12 @@ public class RegistrationActivity extends FacebookBaseFragment {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-       // GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-       // updateUI(account);
-    }
+//    @Override
+//    protected void onStart() {
+//        //super.onStart();
+//       // GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+//       // updateUI(account);
+//    }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
