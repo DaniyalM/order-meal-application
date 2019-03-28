@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_marginStart="@dimen/dp5"
+    android:layout_marginEnd="@dimen/dp5"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical">
@@ -8,8 +10,8 @@
 
     <ImageView
         android:id="@+id/masalaimage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:background="@drawable/rounded_drawable"
         android:padding="@dimen/dp2"
@@ -23,12 +25,19 @@
         android:gravity="center"
         android:text="Araoma"
         android:textColor="@color/colorAccent"
-        android:textSize="@dimen/dp16" />
+        android:textSize="@dimen/dp12" />
+
+    <RadioButton
+        android:id="@+id/radio"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:id="@+id/selectedposition"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

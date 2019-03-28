@@ -204,6 +204,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
+                                    android:id="@+id/sharing"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -323,13 +324,13 @@
                                 android:textSize="@dimen/sp16" />
 
                             <TextView
+                                android:lineSpacingExtra="@dimen/dp2"
                                 android:id="@+id/beforeStartContentEn"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Before You Begin"
-                                android:fontFamily="@font/semiboldfont"
-                                android:textColor="@color/colorTextGray"
-                                android:textSize="@dimen/sp13" />
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/sp15" />
 
 
                         </LinearLayout>
@@ -358,8 +359,9 @@
                                 android:textSize="@dimen/sp16" />
 
                             <TextView
-                                android:fontFamily="@font/semiboldfont"
-                                android:textColor="@color/colorTextGray"
+                                android:textSize="@dimen/sp15"
+                                android:lineSpacingExtra="@dimen/dp2"
+                                android:textColor="@color/colorBlack"
                                 android:id="@+id/masalas_aromatics_content_en"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -394,6 +396,7 @@
                                 android:id="@+id/rvSpecialIngredients"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 tools:listitem="@layout/item_checkbox" />
 
                             <TextView
@@ -465,6 +468,7 @@
                             android:layout_marginBottom="@dimen/dp5"
                             android:layout_marginTop="@dimen/dp10"
                             android:layout_weight="1"
+                            android:layout_gravity="center"
                             android:nestedScrollingEnabled="true"
                             android:scrollbars="none"
                             android:transitionGroup="true"

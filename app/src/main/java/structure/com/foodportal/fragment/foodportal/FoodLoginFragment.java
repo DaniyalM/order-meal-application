@@ -30,6 +30,7 @@ import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.fragment.GetStartedFragment;
 import structure.com.foodportal.global.WebServiceConstants;
 import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.CustomValidation;
 import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.Titlebar;
@@ -167,7 +168,7 @@ public class FoodLoginFragment extends BaseFragment implements View.OnClickListe
         row.put("email", binding.etemail.getText().toString());
         row.put("password",binding.etpassword.getText().toString());
 
-        serviceHelper.enqueueCall(webService.userlogin(binding.etemail.getText().toString(),binding.etpassword.getText().toString()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN);
+        serviceHelper.enqueueCall(webService.userlogin(binding.etemail.getText().toString(),binding.etpassword.getText().toString(),"android", preferenceHelper.getDeviceToken()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN);
 
     }
     @NonNull

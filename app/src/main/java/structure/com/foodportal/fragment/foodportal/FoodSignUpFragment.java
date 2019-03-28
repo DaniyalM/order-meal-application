@@ -35,7 +35,7 @@ import structure.com.foodportal.models.UserSignUpModel;
 import structure.com.foodportal.models.foodModels.User;
 
 
-public class FoodSignUpFragment extends BaseFragment implements View.OnClickListener {
+public class  FoodSignUpFragment extends BaseFragment implements View.OnClickListener {
 
     FragmentFoodSignupBinding binding;
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/actionprice"
+        android:title="Share to Whatsapp"
+        />
+
+    <item
+        android:id="@+id/actionLocation"
+        android:title="Share to facebook"
+        />
+
+    <item
+        android:id="@+id/actionRating"
+        android:title="Share to Instagram"
+        />
+
+</menu>

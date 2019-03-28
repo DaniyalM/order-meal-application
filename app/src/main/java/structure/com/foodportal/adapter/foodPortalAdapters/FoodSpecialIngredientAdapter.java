@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import structure.com.foodportal.models.foodModels.Step;
 public class FoodSpecialIngredientAdapter extends RecyclerView.Adapter<FoodSpecialIngredientAdapter.PlanetViewHolder> {
 
     ArrayList<SpecialIngedient> ingredientList;
+     public  int lastCheckedPosition = -1;
 
     MainActivity context;
     SpecialStepListner specialStepListener;
@@ -48,13 +50,13 @@ public class FoodSpecialIngredientAdapter extends RecyclerView.Adapter<FoodSpeci
 
         holder.masalaname.setText(ingredientList.get(position).getTitle_en());
         UIHelper.setImagewithGlide(context,holder.masalaimage,ingredientList.get(position).getImage_path());
-
+        holder.radioButton.setChecked(position == lastCheckedPosition);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                specialStepListener.specialClick(ingredientList.get(position).getIngredient_en());
+                holder.radioButton.setChecked(position == lastCheckedPosition);
+              //  specialStepListener.specialClick(ingredientList.get(position).getIngredient_en());
 
 
             }
@@ -65,23 +67,39 @@ public class FoodSpecialIngredientAdapter extends RecyclerView.Adapter<FoodSpeci
 
     }
 
+
+
+
+
     @Override
     public int getItemCount() {
         return ingredientList.size();
     }
 
-    public static class PlanetViewHolder extends RecyclerView.ViewHolder {
+    public  class PlanetViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView masalaname;
         ImageView masalaimage;
         LinearLayout selectedposition;
+        RadioButton radioButton;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
 
             selectedposition = (LinearLayout) itemView.findViewById(R.id.selectedposition);
             masalaname = (TextView) itemView.findViewById(R.id.masalaname);
+            radioButton = (RadioButton) itemView.findViewById(R.id.radio);
             masalaimage = (ImageView) itemView.findViewById(R.id.masalaimage);
+            radioButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    lastCheckedPosition = getAdapterPosition();
+                    specialStepListener.specialClick(ingredientList.get(lastCheckedPosition).getIngredient_en());
+                    notifyDataSetChanged();
+
+                }
+            });
+
         }
     }
 }

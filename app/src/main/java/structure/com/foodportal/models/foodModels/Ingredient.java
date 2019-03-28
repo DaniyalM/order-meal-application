@@ -3,7 +3,8 @@ package structure.com.foodportal.models.foodModels;
 import java.util.ArrayList;
 
 public class Ingredient {
-    private String quantity;
+
+    private String quantity_en;
 
     private int is_active;
 
@@ -21,7 +22,7 @@ public class Ingredient {
 
     private String tag_en;
 
-    private String quantity_type;
+    private String quantity_type_en;
 
     private int id;
 
@@ -30,11 +31,11 @@ public class Ingredient {
     private String ingredient_en;
 
     public String getQuantity() {
-        return quantity;
+        return quantity_en;
     }
 
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
+    public void setQuantity(String quantity_en) {
+        this.quantity_en = quantity_en;
     }
 
     public int getIs_active() {
@@ -102,11 +103,11 @@ public class Ingredient {
     }
 
     public String getQuantity_type() {
-        return quantity_type;
+        return quantity_type_en;
     }
 
-    public void setQuantity_type(String quantity_type) {
-        this.quantity_type = quantity_type;
+    public void setQuantity_type(String quantity_type_en) {
+        this.quantity_type_en = quantity_type_en;
     }
 
     public int getId() {

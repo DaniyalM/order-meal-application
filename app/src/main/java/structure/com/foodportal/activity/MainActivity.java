@@ -23,6 +23,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
@@ -125,6 +126,11 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         if (getIntent().getExtras() != null) {
             bundle = new Bundle();
             bundle = getIntent().getExtras();
+
+            for (String key : getIntent().getExtras().keySet()) {
+                String value = getIntent().getExtras().getString(key);
+                Log.d("Notification ", "Key: " + key + " Value: " + value);
+            }
         }
 
         init();

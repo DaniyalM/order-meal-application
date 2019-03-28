@@ -200,7 +200,9 @@ public interface webservice {
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_LOGIN)
     @FormUrlEncoded
     Call<Api_Response<JsonObject>> userlogin(@Field("email") String email,
-                                             @Field("password") String password);
+                                             @Field("password") String password,
+                                             @Field("device_type") String device_type,
+                                             @Field("device_token") String device_token);
 
     @Headers("Accept: application/json")
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY)
@@ -222,13 +224,15 @@ public interface webservice {
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK)
     @FormUrlEncoded
     Call<Api_Response> LoginFACEBOOK(@Field("email") String email,@Field("provider_id") String provider_id,
-                                                 @Field("name") String name,@Field("from") String from);
+                                                 @Field("name") String name,@Field("from") String from, @Field("device_type") String device_type,
+                                     @Field("device_token") String device_token);
 
     @Headers("Accept: application/json")
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_GOOGLE)
     @FormUrlEncoded
     Call<Api_Response> LoginGOOGLE(@Field("email") String email,@Field("provider_id") String provider_id,
-                                               @Field("name") String name,@Field("from") String from,@Field("avatar_original") String avatar_original);
+                                               @Field("name") String name,@Field("from") String from,@Field("avatar_original") String avatar_original, @Field("device_type") String device_type,
+                                   @Field("device_token") String device_token);
 
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS)

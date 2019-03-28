@@ -1,6 +1,8 @@
 package structure.com.foodportal.interfaces.foodInterfaces;
 
+import structure.com.foodportal.models.foodModels.FoodDetailModel;
+
 public interface FoodSearchListner {
 
-    void clickSearch(int position);
+    void clickSearch(FoodDetailModel foodDetailModel, int position);
 }

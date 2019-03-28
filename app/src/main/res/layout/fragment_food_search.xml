@@ -55,16 +55,15 @@
         android:padding="@dimen/dp5"
         android:text="Suggestions"
         android:textColor="@color/colorBlack" />
-
-
-
-    <EditText
-        android:textSize="@dimen/sp20"
-        android:background="@null"
-        android:id="@+id/chips"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvSuggestions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content"/>
+
+
+
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -73,12 +72,10 @@
         android:text="Meal Types"
         android:textColor="@color/colorBlack" />
 
-        <EditText
-            android:textSize="@dimen/sp20"
-            android:background="@null"
-            android:id="@+id/chipsextra"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvMealType"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

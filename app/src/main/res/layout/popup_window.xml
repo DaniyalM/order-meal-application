@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvfacebook"
+        android:fontFamily="@font/poppinsbold"
+        android:background="@color/fbColor"
+        android:textColor="@color/white"
+        android:padding="@dimen/dp15"
+        android:text="Share with Facebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvwatsapp"
+        android:fontFamily="@font/poppinsbold"
+        android:background="@color/colorLightGreen"
+        android:textColor="@color/white"
+        android:padding="@dimen/dp15"
+        android:text="Share with Watsapp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvinstagram"
+        android:fontFamily="@font/poppinsbold"
+        android:textColor="@color/white"
+        android:background="@color/colorAccentPink"
+        android:padding="@dimen/dp15"
+        android:text="Share with Instagram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

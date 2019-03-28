@@ -106,6 +106,14 @@ public class SplashActivity extends AppCompatActivity implements StoriesProgress
 
     private void showMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
+        if(getIntent().getExtras()!=null)
+            i.putExtras(getIntent().getExtras());
+
+
+        else{
+
+        }
+
         startActivity(i);
         finish();
     }

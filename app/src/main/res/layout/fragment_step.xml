@@ -1,6 +1,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
+        android:clickable="true"
+        android:background="@color/colorFbWhiteBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -10,7 +12,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
-            android:background="@color/colorFbWhiteBg"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -19,15 +20,17 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/dp5"
                     android:id="@+id/tvSteps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:layout_gravity="center"
+                    android:layout_gravity="start"
                     android:fontFamily="@font/poppinsbold"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:padding="@dimen/dp6"
-                    android:text="Step 1"
+                    android:text="1 of 6"
                     android:textColor="@color/colorAccentPink"
                     android:textSize="@dimen/dp18" />
 
@@ -36,6 +39,7 @@
                     android:id="@+id/tvingredients"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsbold"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
@@ -97,12 +101,16 @@
                 android:id="@+id/tvStepDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginEnd="@dimen/dp15"
                 android:layout_marginBottom="@dimen/dp20"
                 android:layout_marginTop="@dimen/dp20"
                 android:fontFamily="@font/poppinsmedium"
-                android:gravity="center"
+                android:gravity="start"
                 android:padding="@dimen/dp10"
+                android:clickable="false"
+                android:enabled="false"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/dp15"
                 app:letterDuration="100" />

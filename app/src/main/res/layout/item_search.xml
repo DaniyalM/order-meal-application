@@ -60,7 +60,7 @@
     </LinearLayout>
         <ImageView
         android:id="@+id/recipeimage"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_gravity="center"
         android:background="@drawable/placeholder"
         android:layout_width="50dp"

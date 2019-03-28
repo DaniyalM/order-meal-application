@@ -59,6 +59,7 @@ import structure.com.foodportal.helper.LocalDataHelper;
 import structure.com.foodportal.helper.NetworkUtils;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
+import structure.com.foodportal.interfaces.DataLoadedListener;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodBannerListner;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.foodModels.Banner;
@@ -89,8 +90,11 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     ArrayList<Sections> sectionsBetterForBites;
     String story_slug = "";
 
-
+    DataLoadedListener dataLoadedListener;
     String navSection = "Home";
+    public void setDataLoadedListener(DataLoadedListener dataLoadedListener) {
+        this.dataLoadedListener = dataLoadedListener;
+    }
 
     public FoodHomeFragment() {
 
@@ -113,7 +117,9 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         setListners();
         mainActivity.hideBottombar();
         binding.content.startRippleAnimation();
-
+        if (dataLoadedListener != null) {
+            dataLoadedListener.onDataLoaded();
+        }
         gethomeDetails();
         return binding.getRoot();
     }
@@ -431,7 +437,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     public void popularrecipe(int pos) {
 
         if(navSection.equalsIgnoreCase(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG)){
-            next(foodhomeModel.getSection().get(pos).getSection_list().get(0).getSlug());
+            next(foodhomeModel.getSection().get(0).getSection_list().get(pos).getSlug());
         }else{
             next(sectionsPopular.get(pos).getSlug());
         }

@@ -262,7 +262,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
 
         //  playvideo(value);
         binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
-        binding.tvSteps.setText("Step " + (value + 1));
+        binding.tvSteps.setText((value + 1) +" of "+ foodDetailModel.getSteps().size());
 
         binding.videoLayout.setOnTouchListener(new OnSwipeTouchListner(mainActivity) {
             public void onSwipeTop() {
@@ -287,7 +287,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
                     //value = value-1;
                     playvideo();
                     binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
-                    binding.tvSteps.setText("Step " + (value + 1));
+                    binding.tvSteps.setText((value + 1) +" of "+ foodDetailModel.getSteps().size());
                 }
                 //  Toast.makeText(mainActivity, "right", Toast.LENGTH_SHORT).show();
             }
@@ -304,7 +304,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
                     anim.setDuration(1200);
                     storiesProgressView.startAnimation(anim);
                     binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
-                    binding.tvSteps.setText("Step " + (value + 1));
+                    binding.tvSteps.setText((value + 1) +" of "+ foodDetailModel.getSteps().size());
                     //  storiesProgressView.setProgress((int) (onestep * (1 + value)));
                     playvideo();
                     return;
@@ -324,7 +324,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
 
                     playvideo();
                     binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
-                    binding.tvSteps.setText("Step " + (value + 1));
+                    binding.tvSteps.setText((value + 1) +" of "+ foodDetailModel.getSteps().size());
                 }
                 // Toast.makeText(mainActivity, "left", Toast.LENGTH_SHORT).show();
             }
@@ -484,33 +484,33 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
         ingredients =new ArrayList<>();
         for (int i = 0; i < foodDetailModel.getIngredient().size(); i++) {
             //For Header
-            ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en() == null ? (foodDetailModel.getIngredient().get(i).getIngredient_en() != null ? foodDetailModel.getIngredient().get(i).getIngredient_en() : " ") + " " + (foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() : " ") :
-                    foodDetailModel.getIngredient().get(i).getTag_en() != null ? foodDetailModel.getIngredient().get(i).getTag_en() : " ", 1,
-                    foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() : "",
-                    foodDetailModel.getIngredient().get(i).getQuantity() == null ? " " : ""
 
-            ));
+            if(foodDetailModel.getIngredient().get(i).getTag_en()!=null){
+
+                ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en(),1, " "," "));
+
+            }else{
+
+                ingredients.add(new CustomIngredient(" ",0, foodDetailModel.getIngredient().get(i).getIngredient_en(),foodDetailModel.getIngredient().get(i).getQuantity()+" "+(
+                        foodDetailModel.getIngredient().get(i).getQuantity_type()!=null ? foodDetailModel.getIngredient().get(i).getQuantity_type(): " ")));
+            }
 
             for (int k = 0; k < foodDetailModel.getIngredient().get(i).getSub_ingredients().size(); k++) {
 
 
                 //For SubList
 
-                ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en() + " " +
-                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity() + " " +
-                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type(), 0,
-                        foodDetailModel.getIngredient().get(i).getQuantity() == null ? " " : foodDetailModel.getIngredient().get(i).getQuantity(),
-                        foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() + "" + foodDetailModel.getIngredient().get(i).getQuantity_type() : " "
-
-
-                ));
+                ingredients.add(new CustomIngredient(" ",
+                        0,
+                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en(),
+                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity()+" "+(
+                                foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type()!=null ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type(): " ")));
 
 
             }
 
 
         }
-
 
         foodIngredientsAdapter = new FoodIngredientsAdapter(ingredients, null, mainActivity);
         rvIngredients.setLayoutManager(linearLayoutManagerIngredients);

@@ -8,7 +8,7 @@
     <TextView
         android:drawableStart="@drawable/icon_menu_my_saved_recipe"
         android:paddingStart="@dimen/dp20"
-        android:drawablePadding="@dimen/dp20"
+        android:drawablePadding="@dimen/dp15"
         android:drawableTint="@color/white"
         android:gravity="center|start"
         android:text="Save Recipes"
@@ -24,7 +24,7 @@
  <TextView
         android:drawableStart="@drawable/icon_menu_logout"
         android:paddingStart="@dimen/dp20"
-        android:drawablePadding="@dimen/dp20"
+     android:drawablePadding="@dimen/dp15"
         android:drawableTint="@color/white"
         android:gravity="center|start"
         android:text="Logout"

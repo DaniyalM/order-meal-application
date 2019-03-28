@@ -1,6 +1,7 @@
 package structure.com.foodportal.fragment.foodportal;
 
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -34,6 +35,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -117,7 +119,7 @@ import structure.com.foodportal.singleton.CarelessSingleton;
 import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
 public class FoodSpecialDetailFragment extends BaseFragment implements
-        View.OnClickListener, FoodDetailListner, SimpleExoPlayer.EventListener, UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener, CommentClickListner,SpecialStepListner {
+        View.OnClickListener, FoodDetailListner, SimpleExoPlayer.EventListener, UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener, CommentClickListner, SpecialStepListner {
 
     FoodIngredientsAdapter foodIngredientsAdapter;
     FoodPreparationAdapter foodPreparationAdapter;
@@ -178,7 +180,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
     }
 
-    public void setFoodDetailModelSpecial(FoodDetailModel foodDetailModel,ArrayList<Comments> allReviews) {
+    public void setFoodDetailModelSpecial(FoodDetailModel foodDetailModel, ArrayList<Comments> allReviews) {
 
         this.foodDetailModelSpecial = foodDetailModel;
         this.allReviews = allReviews;
@@ -241,7 +243,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
     LikeButton likebtn;
     Button savebtn;
     TextView tvShowall;
-
+    LinearLayout sharing;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -253,7 +255,9 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
         savebtn = (Button) binding.getRoot().findViewById(R.id.savebtn);
         tvShowall = (TextView) binding.getRoot().findViewById(R.id.tvShowall);
         likebtn = (LikeButton) binding.getRoot().findViewById(R.id.lkFav);
+        sharing = (LinearLayout) binding.getRoot().findViewById(R.id.sharing);
 
+        sharing.setOnClickListener(this);
         tvShowall.setOnClickListener(this);
         btnMute.setOnClickListener(this);
         savebtn.setOnClickListener(this);
@@ -295,7 +299,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
                 binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
                 foodCommentsAdapter.notifyDataSetChanged();
 
-            } else if(allReviews.size()>0){
+            } else if (allReviews.size() > 0) {
 
                 comments.addAll(allReviews);
                 foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true, false);
@@ -480,6 +484,15 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.sharing:
+                String shareBody = "Here is the share content body";
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+
+                break;
             case R.id.mutebtn:
 
                 if (mute) {
@@ -511,7 +524,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
                 // binding.videoView.stopPlayback();
                 //   binding.videoView.closePlayer();
-                CarelessSingleton.instance.setState(foodDetailModelSpecial, 0);
+                CarelessSingleton.instance.setState(foodDetailModelSpecial.getSpecial_recipe_story(), 0);
                 stepFragment.setVideoData(0, foodDetailModelSpecial, startTime, endTime, (int) player.getCurrentPosition());
                 mainActivity.addFragment(stepFragment, true, true);
 
@@ -535,18 +548,18 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
                 //  stopPosition = binding.videoView.getCurrentPosition();
                 EventBus.getDefault().register(this);
                 CommentsFragment commentsFragment = new CommentsFragment();
-                if(foodDetailModelSpecial!=null){
+                if (foodDetailModelSpecial != null) {
 
 
-                    FoodDetailModelWrapper foodDetailModelWrapper =new FoodDetailModelWrapper();
+                    FoodDetailModelWrapper foodDetailModelWrapper = new FoodDetailModelWrapper();
                     foodDetailModelWrapper.setAllReviews(allReviews);
                     foodDetailModelWrapper.setData(foodDetailModelSpecial);
-                    commentsFragment.setArrayComments(foodDetailModelWrapper,true);
+                    commentsFragment.setArrayComments(foodDetailModelWrapper, true);
 
-                }else{
+                } else {
 
 
-                    commentsFragment.setArrayComments(foodDetailModel,false);
+                    commentsFragment.setArrayComments(foodDetailModel, false);
                 }
                 mainActivity.addFragment(commentsFragment, true, true);
                 break;
@@ -667,15 +680,10 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
         } else {
             binding.beforeStartContentEn.setText(Html.fromHtml(foodDetailModelSpecial.getBefore_start_content_en()));
         }
-      //  binding.beforeStartContentEn.setText(foodDetailModelSpecial.getBefore_start_content_en());
+        //  binding.beforeStartContentEn.setText(foodDetailModelSpecial.getBefore_start_content_en());
         binding.beforeStartEn.setText(foodDetailModelSpecial.getBefore_start_en());
         binding.masalasAromaticsContentEn.setText(foodDetailModelSpecial.getMasalas_aromatics_content_en());
         binding.masalasAromaticsEn.setText(foodDetailModelSpecial.getMasalas_aromatics_en());
-
-
-
-
-
 
 
         if (foodDetailModel.getIs_favorite() == 1) {
@@ -741,38 +749,35 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
 
         steps.addAll(foodDetailModel.getSteps());
-
-
         for (int i = 0; i < foodDetailModel.getIngredient().size(); i++) {
             //For Header
-            ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en() == null ? (foodDetailModel.getIngredient().get(i).getIngredient_en() != null ? foodDetailModel.getIngredient().get(i).getIngredient_en() : " ") + " " + (foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() : " ") :
-                    foodDetailModel.getIngredient().get(i).getTag_en() != null ? foodDetailModel.getIngredient().get(i).getTag_en() : " ", 1,
-                    foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() : "",
-                    foodDetailModel.getIngredient().get(i).getQuantity() == null ? " " : ""
 
-            ));
+            if(foodDetailModel.getIngredient().get(i).getTag_en()!=null){
+
+                ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en(),1, " "," "));
+
+            }else{
+
+                ingredients.add(new CustomIngredient(" ",0, foodDetailModel.getIngredient().get(i).getIngredient_en(),foodDetailModel.getIngredient().get(i).getQuantity()+" "+(
+                        foodDetailModel.getIngredient().get(i).getQuantity_type()!=null ? foodDetailModel.getIngredient().get(i).getQuantity_type(): " ")));
+            }
 
             for (int k = 0; k < foodDetailModel.getIngredient().get(i).getSub_ingredients().size(); k++) {
 
 
                 //For SubList
 
-                ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en() + " " +
-                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity() + " " +
-                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type(), 0,
-                        foodDetailModel.getIngredient().get(i).getQuantity() == null ? " " : foodDetailModel.getIngredient().get(i).getQuantity(),
-                        foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() + "" + foodDetailModel.getIngredient().get(i).getQuantity_type() : " "
-
-
-                ));
+                ingredients.add(new CustomIngredient(" ",
+                        0,
+                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en(),
+                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity()+" "+(
+                                foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type()!=null ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type(): " ")));
 
 
             }
 
 
         }
-
-
         foodIngredientsAdapter = new FoodIngredientsAdapter(ingredients, title, mainActivity);
         binding.rvIngredients.setAdapter(foodIngredientsAdapter);
 
@@ -781,6 +786,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
         foodIngredientsAdapter.notifyDataSetChanged();
 
     }
+
     public static String changedHeaderHtml(String htmlText) {
         String jsTag = "<style> .easyimage img { width:80%;} </style>";
         // String head = "<head><meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" /></head>";

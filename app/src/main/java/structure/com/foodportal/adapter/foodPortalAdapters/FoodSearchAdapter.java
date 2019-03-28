@@ -53,7 +53,7 @@ public class FoodSearchAdapter extends RecyclerView.Adapter<FoodSearchAdapter.Fo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                foodDetailListner.clickSearch(position);
+                foodDetailListner.clickSearch(steps.get(position),position);
             }
         });
 

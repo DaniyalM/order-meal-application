@@ -1,0 +1,21 @@
+<android.support.design.circularreveal.cardview.CircularRevealCardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/changeColor"
+    android:layout_margin="@dimen/dp5"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/lightGray"
+    android:background="@drawable/border_item_rounded"
+    app:cardCornerRadius="@dimen/dp25"
+    >
+    <TextView
+
+        android:padding="@dimen/dp15"
+        android:id="@+id/chip"
+        android:text="Chip my biryani"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    </android.support.design.circularreveal.cardview.CircularRevealCardView>
+

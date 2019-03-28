@@ -6,7 +6,7 @@
     <TextView
         android:drawableStart="@drawable/home"
         android:drawableTint="@color/white"
-        android:drawablePadding="@dimen/dp20"
+        android:drawablePadding="@dimen/dp15"
         android:paddingStart="@dimen/dp20"
         android:gravity="center|start"
         android:text="Home"
