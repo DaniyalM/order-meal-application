@@ -53,6 +53,16 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
     public void onBindViewHolder(FoodPopularRecipeAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
         holder.text.setText(""+sections.get(position).getTitle());
+        if(sections.get(position).getFeatured_image_path()!=null){
+
+            UIHelper.setImageWithGlide(context,holder.circleImageView, sections.get(position).getFeatured_image_path());
+
+        }else
+            if(sections.get(position).getGallery()!=null && sections.get(position).getGallery().getPhotos().size()>0   ){
+                UIHelper.setImageWithGlide(context,holder.circleImageView, sections.get(position).getGallery().getPhotos().get(0).getImage_path());
+
+
+            }else
         if(sections.get(position).getBlog_thumb_image()!=null ||sections.get(position).getVideo_thumb()!=null){
 
             UIHelper.setImageWithGlide(context,holder.circleImageView, sections.get(position).getBlog_thumb_image()!=null? AppConstant.BASE_URL_IMAGE+sections.get(position).getBlog_thumb_image(): AppConstant.BASE_URL_IMAGE+sections.get(position).getVideo_thumb());

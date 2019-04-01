@@ -555,4 +555,6 @@
     <string name="makeup">Makeup</string>
     <string name="fname_require">First name required</string>
     <string name="lname_require">Last name required</string>
+    <string name="foodtribune">Food Tribune</string>
+    <string name="foodDescription">Food Tribune Description</string>
 </resources>

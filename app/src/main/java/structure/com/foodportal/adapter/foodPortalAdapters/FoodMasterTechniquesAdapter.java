@@ -52,24 +52,17 @@ public class FoodMasterTechniquesAdapter extends RecyclerView.Adapter<FoodMaster
     @Override
     public void onBindViewHolder(FoodMasterTechniquesAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
-        holder.text.setText(""+sections.get(position).getTitle());
 
-            UIHelper.setImageWithGlide(context,holder.circleImageView,  sections.get(position).getBlog_thumb_image());
+
+        holder.text.setText(""+sections.get(position).getTitle());
+        UIHelper.setImageWithGlide(context,holder.circleImageView,  sections.get(position).getFeatured_image_path());
 
 
 
         // UIHelper.setImageWithGlide(context,holder.circleImageView,sections.size()>0 ? sections.get(position).getGallery().getPhotos().get(0).getImage_path() : null);
         //     setAnimation(holder.itemView, position);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                foodHomeListner.masterTechniquesClick(position);
-
-            }
-        });
+        holder.itemView.setOnClickListener(view -> foodHomeListner.masterTechniquesClick(position));
         if(sections.get(position).getIs_favorite()==1){
             holder.likeButton.setLiked(true);
 

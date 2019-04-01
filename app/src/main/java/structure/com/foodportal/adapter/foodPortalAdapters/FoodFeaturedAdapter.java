@@ -53,6 +53,11 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
     public void onBindViewHolder(FoodFeaturedAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
         holder.text.setText(""+sections.get(position).getTitle());
+        if(sections.get(position).getFeatured_image_path()!=null){
+
+            UIHelper.setImageWithGlide(context,holder.circleImageView, sections.get(position).getFeatured_image_path());
+
+        }else
         if(sections.get(position).getBlog_thumb_image()!=null ||sections.get(position).getVideo_thumb()!=null){
 
             UIHelper.setImageWithGlide(context,holder.circleImageView,  sections.get(position).getBlog_thumb_image()!=null? AppConstant.BASE_URL_IMAGE+sections.get(position).getBlog_thumb_image(): AppConstant.BASE_URL_IMAGE+sections.get(position).getVideo_thumb());

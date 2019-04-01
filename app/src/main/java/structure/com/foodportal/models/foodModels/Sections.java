@@ -54,6 +54,16 @@ public class Sections {
 
     String blog_thumb_image;
 
+    public String getFeatured_image_path() {
+        return featured_image_path;
+    }
+
+    public void setFeatured_image_path(String featured_image_path) {
+        this.featured_image_path = featured_image_path;
+    }
+
+    String featured_image_path;
+
     public String getContent_en() {
         return content_en;
     }

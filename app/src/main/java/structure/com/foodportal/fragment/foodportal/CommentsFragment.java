@@ -224,7 +224,7 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
 
                 if (binding.etCommentsm.getText().toString().trim().equalsIgnoreCase("")) {
 
-                    Toast.makeText(registrationActivity, "Please write somthing", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mainActivity, "Please write somthing", Toast.LENGTH_SHORT).show();
                 } else {
                     Utils.hideKeyboard(getView(), mainActivity);
                     sendreview(foodDetailModel.getData());
