@@ -41,7 +41,7 @@ public class FoodMasterTechniquesAdapter extends RecyclerView.Adapter<FoodMaster
 
     @Override
     public FoodMasterTechniquesAdapter.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_popular_recipe, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_technique, parent, false);
         PlanetViewHolder viewHolder = new PlanetViewHolder(v);
         return viewHolder;
     }

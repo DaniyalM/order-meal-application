@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import structure.com.foodportal.R;
+import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.helper.Spanny;
 import structure.com.foodportal.models.foodModels.CustomIngredient;
 import structure.com.foodportal.models.foodModels.Ingredient;
@@ -27,9 +28,9 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
     ArrayList<CustomIngredient> ingredientList;
     ArrayList<String> title;
     String mytitle;
-    Context context;
+    MainActivity context;
 
-    public FoodIngredientsAdapter(ArrayList<CustomIngredient> ingredientList, ArrayList<String> title, Context context) {
+    public FoodIngredientsAdapter(ArrayList<CustomIngredient> ingredientList, ArrayList<String> title, MainActivity context) {
         this.ingredientList = ingredientList;
         this.title = title;
         this.context = context;
@@ -52,15 +53,20 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
             k=0;
             String sourceString =  ingredientList.get(position).getName();
             holder.text.setText(Html.fromHtml(sourceString));
-            holder.text.setTypeface(null, Typeface.BOLD);
+            Typeface face = Typeface.createFromAsset(context.getResources().getAssets(),
+                    "font/proximaextrabold.ttf");
+            holder.text.setTypeface(face);
             holder.text.setTextColor(Color.BLACK);
-            holder.text.setBackgroundColor(context.getResources().getColor(R.color.white));
+           // holder.text.setBackgroundColor(context.getResources().getColor(R.color.white));
 
 
            // holder.tvQuantity.setText("  "/*ingredientList.get(position).getMainquantity()!=null ?ingredientList.get(position).getMainquantity(): " "*/);
 
         }else{
             k++;
+            Typeface face = Typeface.createFromAsset(context.getResources().getAssets(),
+            "font/poppinsmedium.ttf");
+            holder.text.setTypeface(face);
             Spanny spanny=new Spanny();
             spanny.append("",new ForegroundColorSpan(context.getResources().getColor(R.color.colorAccentPink)),new StyleSpan(Typeface.BOLD)
             ).append(ingredientList.get(position).getMainquantity());

@@ -20,10 +20,13 @@ import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.BasePreferenceHelper;
+import structure.com.foodportal.interfaces.DataLoadedListener;
 import structure.com.foodportal.models.FCMPayload;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static int NOTIFICATION_ID = 1;
+    DataLoadedListener dataLoadedListener;
+
 
     @Override
     public void onNewToken(String s) {
@@ -43,20 +46,39 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
     private void makepush(RemoteMessage message) {
-        FCMPayload fcmPayload =new FCMPayload();
-        fcmPayload =(FCMPayload) message.getData() ;
-
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.mipmap.food_logo)
+                .setSmallIcon(R.drawable.mirchiblack)
                 .setContentTitle(message.getNotification().getTitle())
                 .setContentText(message.getNotification().getBody())
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
+
+        FCMPayload fcmPayload =new FCMPayload();
+//        fcmPayload =(FCMPayload) message.getData() ;
+
+        if(message.getData() != null){
+            if(message.getData().get("action_type") != null){
+              //  builder.setContentTitle(message.getData().get("action_type"));
+                fcmPayload.setAction_type(message.getData().get("action_type"));
+            }
+            if(message.getData().get("ref_id") != null){
+              //  builder.setContentText(message.getData().get("ref_id"));
+                fcmPayload.setRef_id(Integer.valueOf(message.getData().get("ref_id")));
+            }
+            if(message.getData().get("slug") != null){
+                fcmPayload.setSlug(message.getData().get("slug"));
+            }
+            if(message.getData().get("action_type") != null){
+                fcmPayload.setAction_type(message.getData().get("action_type"));
+            }
+        }
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstant.FcmHelper.FCM_DATA_PAYLOAD, fcmPayload);
+        intent.putExtras(bundle);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.foodtribune);

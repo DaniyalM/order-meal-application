@@ -115,7 +115,7 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
                                 UIHelper.setImageWithGlide(context, sub_user_image, AppConstant.BASE_URL_IMAGE + sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture());
                                 break;
                             case 2://gmail
-                                UIHelper.setImageWithGlide(context, sub_user_image, AppConstant.BASE_URL_IMAGE + sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture());
+                                UIHelper.setImageWithGlide(context, sub_user_image,  sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture());
                                 break;
                             case 3://facebook
                                 UIHelper.setImageWithGlide(context, sub_user_image, "https://graph.facebook.com/" + sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture() + "/picture?type=large");
@@ -140,7 +140,7 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
                                 UIHelper.setImageWithGlide(context, sub_user_image, AppConstant.BASE_URL_IMAGE + sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture());
                                 break;
                             case 2://gmail
-                                UIHelper.setImageWithGlide(context, sub_user_image, AppConstant.BASE_URL_IMAGE + sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture());
+                                UIHelper.setImageWithGlide(context, sub_user_image, sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture());
                                 break;
                             case 3://facebook
                                 UIHelper.setImageWithGlide(context, sub_user_image, "https://graph.facebook.com/" + sections.get(position).getChild_reviews().get(i).getUser().getProfile_picture() + "/picture?type=large");

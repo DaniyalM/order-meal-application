@@ -6,6 +6,24 @@ public class FCMPayload implements Serializable {
     private int id, action_id;
     private String title, message, action_type;
 
+    public int getRef_id() {
+        return ref_id;
+    }
+
+    public void setRef_id(int ref_id) {
+        this.ref_id = ref_id;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    private int ref_id;
+    private String slug;
     public int getId() {
         return id;
     }

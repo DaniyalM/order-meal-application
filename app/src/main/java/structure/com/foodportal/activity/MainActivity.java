@@ -127,10 +127,32 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
             bundle = new Bundle();
             bundle = getIntent().getExtras();
 
-            for (String key : getIntent().getExtras().keySet()) {
-                String value = getIntent().getExtras().getString(key);
-                Log.d("Notification ", "Key: " + key + " Value: " + value);
-            }
+//            if (bundle != null) {
+//                FCMPayload fcmPayload = (FCMPayload) bundle.getSerializable(AppConstant.FcmHelper.FCM_DATA_PAYLOAD);
+//                if (fcmPayload != null) {
+//                    if (fcmPayload.getAction_type().equals(AppConstant.FcmHelper.ACTION_TYPE_JOB) || fcmPayload.getAction_type().equals(AppConstant.FcmHelper.COMPLETED)) {
+//                        CartFragment cartFragment = new CartFragment();
+//                        cartFragment.setFromNotification(true);
+//                        replaceFragment(cartFragment, true, true);
+//                        bundle = null;
+//                    } else if (fcmPayload.getAction_type().equals(AppConstant.FcmHelper.ACCEPTED) || fcmPayload.getAction_type().equals(AppConstant.FcmHelper.CANCELLED)) {
+//                        OrdersHistoryFragment ordersHistoryFragment = new OrdersHistoryFragment();
+//                        ordersHistoryFragment.setFromNotification(true);
+//                        ordersHistoryFragment.setActionId(fcmPayload.getAction_id());
+//                        replaceFragment(ordersHistoryFragment, true, false);
+//                        bundle = null;
+//                    }
+//                }
+//            }
+
+
+
+
+
+//            for (String key : getIntent().getExtras().keySet()) {
+//                String value = getIntent().getExtras().getString(key);
+//                Log.d("Notification ", "Key: " + key + " Value: " + value);
+//            }
         }
 
         init();

@@ -239,7 +239,7 @@
                                 android:id="@+id/ivTipOftheDay"
                                 android:layout_width="65dp"
                                 android:layout_height="65dp"
-                                android:layout_gravity="center|top"
+                                android:layout_gravity="start|top"
                                 android:padding="@dimen/dp2"
                                 android:layout_centerInParent="true"
                                 android:layout_marginStart="@dimen/dp5"

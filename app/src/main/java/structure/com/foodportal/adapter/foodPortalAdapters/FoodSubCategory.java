@@ -49,10 +49,10 @@ public class FoodSubCategory  extends RecyclerView.Adapter<FoodSubCategory.Plane
 
         holder.text.setText(sections.get(position).getCategory_title_en()== null ? sections.get(position).getTitle_en():sections.get(position).getCategory_title_en());
 
-            UIHelper.setImageWithGlide(context,holder.circleImageView,  sections.get(position).getSlider_path());
+            UIHelper.setImageWithGlide(context,holder.circleImageView,  sections.get(position).getSlider_path()!=null?sections.get(position).getSlider_image():sections.get(position).getGallery().getPhotos().get(0).getImage_path());
 
         //UIHelper.setImageWithGlide(context,holder.circleImageView,sections.size()>0 ? sections.get(position).getGallery().getPhotos().get(0).getImage_path() : null);
-            // setAnimation(holder.itemView, position);
+             setAnimation(holder.itemView, position);
 
              holder.itemView.setOnClickListener(new View.OnClickListener() {
                  @Override

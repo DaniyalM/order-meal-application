@@ -697,7 +697,6 @@ public class FoodDetailFragment extends BaseFragment implements
             player.prepare(mediaSource, true, true);
             player.setRepeatMode(Player.REPEAT_MODE_ONE);
             videoView.showController();
-
             MediaMetadataRetriever retriever = new MediaMetadataRetriever();
             Bitmap bmp = null;
             int videoHeight, videoWidth;
@@ -710,7 +709,7 @@ public class FoodDetailFragment extends BaseFragment implements
             } catch (Exception ignored) {
 
             }
-
+            player.seekTo(1);
 
         }
 

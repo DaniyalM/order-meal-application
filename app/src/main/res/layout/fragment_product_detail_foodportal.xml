@@ -61,8 +61,8 @@
                                 android:layout_weight="1"
                                 android:layout_gravity="center"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsbold"
                                 android:gravity="start"
+                                android:fontFamily="@font/proximaextrabold"
                                 android:text="Berbere Spice"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="@dimen/sp18"
@@ -259,7 +259,6 @@
                     android:background="@android:color/black">
 
 
-
                     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
                         android:id="@+id/videoView"
                         android:layout_width="match_parent"
@@ -269,6 +268,8 @@
                         app:use_controller="true"
                         app:resize_mode="fill"
                         app:uvv_fitXY="true" />
+
+
 
                     <structure.com.foodportal.helper.UniversalMediaController
                         android:visibility="gone"
@@ -315,7 +316,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsbold"
+                            android:fontFamily="@font/proximaextrabold"
                             android:text="@string/ingredients"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/sp18"
@@ -383,7 +384,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:fontFamily="@font/poppinsbold"
+                                android:fontFamily="@font/proximaextrabold"
                                 android:text="Related Recipes"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccent"
@@ -422,7 +423,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsbold"
+                            android:fontFamily="@font/proximaextrabold"
                             android:text="Preparations"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/sp18"
@@ -462,7 +463,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/poppinsbold"
+                            android:fontFamily="@font/proximaextrabold"
                             android:text="how'd it turn out"
                             android:textAllCaps="true"
                             android:textColor="@color/colorNav"

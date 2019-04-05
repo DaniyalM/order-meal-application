@@ -14,7 +14,8 @@
     <color name="colorBlackText">#7A7A7A</color>
     <color name="colorBlackTextHint">#FFB9B9B9</color>
     <color name="lightGray">#D9D9D9</color>
-    <color name="home_color">#F5F5F5</color>
+    <color name="lightergray">#bcbcbc</color>
+    <color name="home_color">#c1f5f5f5</color>
     <color name="home_color_bordered">#EAEAEE</color>
     <color name="home_top_bg">#F5F5F5</color>
     <color name="colorLightGreen">#60BB4E</color>
@@ -30,5 +31,6 @@
     <color name="colorNav">#013d55</color>
     <color name="colorFbWhiteBg">#f1f1f1</color>
     <color name="colorYellow">#f2ee00</color>
-    <color name="colorAccent">#0078a1</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentBlue">#0078a1</color>
 </resources>

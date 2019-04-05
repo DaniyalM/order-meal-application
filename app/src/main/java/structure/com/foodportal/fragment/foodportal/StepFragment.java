@@ -515,7 +515,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
         foodIngredientsAdapter = new FoodIngredientsAdapter(ingredients, null, mainActivity);
         rvIngredients.setLayoutManager(linearLayoutManagerIngredients);
        rvIngredients.setAdapter(foodIngredientsAdapter);
-       foodIngredientsAdapter.notifyDataSetChanged();
+       //foodIngredientsAdapter.notifyDataSetChanged();
 
     }
 
