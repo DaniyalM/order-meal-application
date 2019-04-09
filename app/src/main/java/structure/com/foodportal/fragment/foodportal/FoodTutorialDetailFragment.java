@@ -1,8 +1,10 @@
 package structure.com.foodportal.fragment.foodportal;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -25,6 +27,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -70,7 +74,7 @@ import structure.com.foodportal.singleton.CarelessSingleton;
 
 import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
-public class FoodTutorialDetailFragment extends BaseFragment implements  UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener {
+public class FoodTutorialDetailFragment extends BaseFragment implements  UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener,View.OnClickListener {
 
 
     FoodPopularRecipeAdapter foodRelatedAdapter;
@@ -85,7 +89,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
     public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel) {
         this.foodDetailModel = foodDetailModel;
         }
-
+    ImageView sharing;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -100,6 +104,8 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 
     private void setListners() {
         mainActivity.hideBottombar();
+        sharing = (ImageView) binding.getRoot().findViewById(R.id.sharing);
+        sharing.setOnClickListener(this::onClick);
         initAdapters();
 
 
@@ -178,6 +184,54 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
         mVideoView.setVideoViewCallback(this);
         binding.rvRelatedRecipes.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
         related = new ArrayList<>();
+    }
+
+    @Override
+    public void onClick(View view) {
+      switch (view.getId()){
+        case R.id.sharing:
+        String shareBody = "https://recipesofpakistan.com/en/recipe/" + foodDetailModel.getData().getSlug();
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+
+
+        //showMenuPopup(sharing);
+        //onButtonShowPopupWindowClick(sharing);
+//                Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+//                whatsappIntent.setType("text/plain");
+//                whatsappIntent.setPackage("com.whatsapp");
+//                whatsappIntent.putExtra(Intent.EXTRA_TEXT, "The text you wanted to share");
+//                try {
+//                    mainActivity.startActivity(whatsappIntent);
+//                } catch (android.content.ActivityNotFoundException ex) {
+//
+//
+//                    Toast.makeText(mainActivity, "Unable to find watsapp", Toast.LENGTH_SHORT).show();
+//                }
+
+//                String shareBody = "Here is the share content body";
+//                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+//                sharingIntent.setType("text/plain");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+//                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+
+
+//                String shareBody = "Here is the share content body";
+//                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+//                sharingIntent.setType("text/plain");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+//                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+
+        break;
+
+      }
+
+
     }
 
     public class DetailsTransition extends TransitionSet {

@@ -62,8 +62,6 @@
 
             android:resource="@drawable/mirchiwhite" />
         <activity android:name=".activity.MapActivity"></activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
@@ -80,7 +78,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:host="https://www.recipesofpakistan.com"
+                    android:host="https://food.tribune.com.pk"
                     android:scheme="https" />
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>

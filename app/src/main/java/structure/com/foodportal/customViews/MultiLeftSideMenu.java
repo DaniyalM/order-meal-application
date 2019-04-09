@@ -314,6 +314,7 @@ public class MultiLeftSideMenu extends BaseFragment {
             mainActivity.prefHelper.setLoginStatus(false);
             mainActivity.finish();
             mainActivity.showRegistrationActivity();
+
             // updateLeftDrawer("logout");
 
         });

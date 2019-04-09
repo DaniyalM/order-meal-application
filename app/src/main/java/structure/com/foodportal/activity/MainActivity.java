@@ -723,7 +723,6 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         ArrayList<HeaderWrapper> headerWrappers = new ArrayList<>();
         headerWrappers.addAll((ArrayList<HeaderWrapper>) result);
         if (headerWrappers != null) {
-
             settingSideMenu(sideMenuType, sideMenuDirection, headerWrappers);
             unlockDrawers();
 

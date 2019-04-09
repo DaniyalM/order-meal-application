@@ -52,7 +52,7 @@ public class FoodCategoryAdapter extends RecyclerView.Adapter<FoodCategoryAdapte
     public void onBindViewHolder(FoodCategoryAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
         holder.text.setText(""+ingredientList.get(position).getCategory_title_en());
-        UIHelper.setImageWithGlide(context,holder.circleImageView,""+ingredientList.get(position).getBanner_path());
+        UIHelper.setImageWithGlide(context,holder.circleImageView,""+ingredientList.get(position).getSlider_path());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

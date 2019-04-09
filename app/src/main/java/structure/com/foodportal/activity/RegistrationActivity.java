@@ -24,7 +24,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInApi;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -288,8 +290,11 @@ public class RegistrationActivity extends FacebookBaseFragment {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     public void google(){
+        String servertoken= this.getResources().getString(R.string.server_client_id);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
+             //   .requestServerAuthCode(servertoken)
+            //    .requestScopes(new Scope(Scopes.PLUS_ME))
                 .requestProfile()
                 .requestId()
                 .build();

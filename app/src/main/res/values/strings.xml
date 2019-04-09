@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">Tribune Food</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-  <!--  <string name="facebook_app_id">393557137872869</string>
-    <string name="fb_login_protocol_scheme">fb502657496930178</string>-->
-    <string name="facebook_app_id">393557137872869</string>
-    <string name="fb_login_protocol_scheme">fb1896531897054067</string>
+    <string name="app_name">Food Tribune</string>
+    <string name="fb_login_protocol_scheme">fb393557137872869</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="password">Password</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <!--  <string name="facebook_app_id">393557137872869</string>
+      <string name="fb_login_protocol_scheme">fb502657496930178</string>-->
+    <string name="facebook_app_id">393557137872869</string>
     <string name="email_address">Email Address</string>
     <string name="sign_in">Sign In</string>
     <string name="forgot_password">Forgot Password?</string>
@@ -557,4 +557,5 @@
     <string name="lname_require">Last name required</string>
     <string name="foodtribune">Food Tribune</string>
     <string name="foodDescription">Food Tribune Description</string>
+    <string name="server_client_id">964728012300-aq7aopoe0jdvc1v738f8l6g58sbic3u8.apps.googleusercontent.com</string>
 </resources>

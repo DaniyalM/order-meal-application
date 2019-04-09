@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "964728012300-89661crd4aqcr3c7efoaortih4vjvfuo.apps.googleusercontent.com",
+          "client_id": "964728012300-gl5cp7e12gtmqcf301r74gk8rtl3sek4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "structure.com.foodportal",
@@ -23,8 +23,20 @@
           }
         },
         {
-          "client_id": "964728012300-rnmhgc5qohvv90v3fakhj2usmgev0nl1.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "964728012300-hbhvrgiksks48jv88rjh03pcme2qenrj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "structure.com.foodportal",
+            "certificate_hash": "e37422a13dd8594a180a92c15b1b9bebfe77b06f"
+          }
+        },
+        {
+          "client_id": "964728012300-gv4ft5v4r2h2tmnv06cchscf0pfvnsbe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "structure.com.foodportal",
+            "certificate_hash": "14be2033415bc64935bbd92051b73435ec86c734"
+          }
         }
       ],
       "api_key": [
@@ -33,20 +45,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "964728012300-rnmhgc5qohvv90v3fakhj2usmgev0nl1.apps.googleusercontent.com",
+              "client_id": "964728012300-b4gh1g3tr3g9ecrns9j5bof4u2r9nc0i.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

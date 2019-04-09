@@ -351,7 +351,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
                 binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
                 binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_en().replaceAll("_", " "));
-                binding.tvtechniques.setText(foodHomeModelWrapper.getSection().get(4).getSection_name_en().replaceAll("_", " "));
+                binding.tvtechniques.setText(/*foodHomeModelWrapper.getSection().get(4).getSection_name_en().replaceAll("_", " ")*/"Tutorials");
                 binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_en());
                 sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
                 sectionsFeatured.addAll(foodHomeModelWrapper.getSection().get(1).getSection_list());
