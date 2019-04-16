@@ -254,23 +254,29 @@
 
 
                 <FrameLayout
+                    android:layout_marginTop="@dimen/dp10"
                     android:id="@+id/video_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="450dp"
+                    android:layout_height="wrap_content"
                     android:background="@android:color/black">
 
 
                     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
                         android:id="@+id/videoView"
                         android:layout_width="match_parent"
-                        android:layout_height="450dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         app:uvv_autoRotation="false"
                         app:use_controller="true"
                         app:resize_mode="fill"
                         app:uvv_fitXY="true" />
 
-
+                    <structure.com.foodportal.helper.UniversalMediaController
+                        android:id="@+id/media_controller"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:visibility="gone"
+                        app:uvv_scalable="false" /><!--
 
                     <structure.com.foodportal.helper.UniversalMediaController
                         android:visibility="gone"
@@ -278,7 +284,7 @@
                         android:soundEffectsEnabled="true"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        app:uvv_scalable="false" />
+                        app:uvv_scalable="false" />-->
                     <ImageView
                         android:id="@+id/mutebtn"
                         android:padding="@dimen/dp5"
@@ -478,7 +484,7 @@
                             android:gravity="end"
                             android:text="show all"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorRed"
+                            android:textColor="@color/colorAccent"
                             android:textSize="@dimen/dp15" />
 
                     </LinearLayout>

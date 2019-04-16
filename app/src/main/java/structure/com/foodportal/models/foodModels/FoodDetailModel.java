@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class FoodDetailModel implements Serializable {
 
+
+
     @SerializedName("serving_for")
     private int serving_for;
 

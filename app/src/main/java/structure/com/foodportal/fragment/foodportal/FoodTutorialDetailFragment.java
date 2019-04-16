@@ -375,7 +375,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
         binding.tvServingDetails.setText("" + foodDetailModel.getCountFavorites() + " likes");
         binding.tvServingTime.setText("" + foodDetailModel.getTotalViews() + " views");
         binding.tvPreparationTime.setText("" + foodDetailModel.getCook_time());
-        binding.tvfoodDiscount.setText("" + foodDetailModel.getGallery().getDescription_en());
+        binding.tvfoodDiscount.setText("" + foodDetailModel.getExcerpt_en());
 
 
 

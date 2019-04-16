@@ -262,7 +262,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
         btnMute.setOnClickListener(this);
         savebtn.setOnClickListener(this);
         savebtn.setVisibility(View.GONE);
-        likebtn.setVisibility(View.GONE);
+        likebtn.setVisibility(View.VISIBLE);
         likebtn.setOnClickListener(this);
         setListners();
         return binding.getRoot();
@@ -531,18 +531,29 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
                 break;
 
             case R.id.savebtn:
+                if(preferenceHelper.getUserFood().getAcct_type()==4){
+                    Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
 
-                serviceHelper.enqueueCall(webService.sacvestory(String.valueOf(preferenceHelper.getUserFood().getId()), "story", String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getFeature_type_id()), String.valueOf(foodDetailModelSpecial.getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY);
-
+                }else {
+                    serviceHelper.enqueueCall(webService.sacvestory(String.valueOf(preferenceHelper.getUserFood().getId()), "story", String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getFeature_type_id()), String.valueOf(foodDetailModelSpecial.getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY);
+                }
                 break;
 
-            case R.id.lkFav:
-                serviceHelper.enqueueCall(webService.markfavorite(preferenceHelper.getUserFood().getFacebook_id(), "story", String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getFeature_type_id()), String.valueOf(foodDetailModelSpecial.getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE);
+            case R.id.lkFav:  if(preferenceHelper.getUserFood().getAcct_type()==4){
+                Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
 
+            }else {
+                serviceHelper.enqueueCall(webService.markfavorite(preferenceHelper.getUserFood().getFacebook_id(), "special_recipe", String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getFeature_type_id()), String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE);
+            }
                 break;
 
 
             case R.id.tvShowall:
+                if(preferenceHelper.getUserFood().getAcct_type()==4){
+                    Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
+
+                }else{
+
                 player.stop();
                 player.stop(true);
                 //  stopPosition = binding.videoView.getCurrentPosition();
@@ -561,7 +572,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
                     commentsFragment.setArrayComments(foodDetailModel, false);
                 }
-                mainActivity.addFragment(commentsFragment, true, true);
+                mainActivity.addFragment(commentsFragment, true, true);}
                 break;
 
 

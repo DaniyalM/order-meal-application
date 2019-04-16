@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.media.AudioAttributes;
 import android.media.Image;
 import android.media.MediaMetadataRetriever;
@@ -26,6 +27,7 @@ import android.transition.ChangeTransform;
 import android.transition.Fade;
 import android.transition.TransitionSet;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -33,6 +35,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -149,6 +152,7 @@ public class FoodDetailFragment extends BaseFragment implements
     MediaSource mediaSource;
     SimpleExoPlayerView videoView;
     TextView servings;
+
     public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel) {
 
         this.foodDetailModel = foodDetailModel;
@@ -236,6 +240,17 @@ public class FoodDetailFragment extends BaseFragment implements
     TextView tvShowall;
     LinearLayout sharing;
 
+    public void setscreensize() {
+
+        Display display = mainActivity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.x;
+        videoView.setLayoutParams(new FrameLayout.LayoutParams(width, height));
+       // binding.videoView.setLayoutParams(new FrameLayout.LayoutParams(width, height));
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -261,6 +276,7 @@ public class FoodDetailFragment extends BaseFragment implements
 
     private void setListners() {
         mainActivity.hideBottombar();
+
         initAdapters();
         binding.btnStepByStep.setOnClickListener(this);
 
@@ -371,7 +387,7 @@ public class FoodDetailFragment extends BaseFragment implements
         foodPreparationAdapter = new FoodPreparationAdapter(steps, mainActivity, this);
         binding.rvPreparations.setAdapter(foodPreparationAdapter);
         Log.d("Token", preferenceHelper.getDeviceToken());
-
+        setscreensize();
 
     }
 
@@ -453,36 +469,6 @@ public class FoodDetailFragment extends BaseFragment implements
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
 
-
-                //showMenuPopup(sharing);
-                //onButtonShowPopupWindowClick(sharing);
-//                Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
-//                whatsappIntent.setType("text/plain");
-//                whatsappIntent.setPackage("com.whatsapp");
-//                whatsappIntent.putExtra(Intent.EXTRA_TEXT, "The text you wanted to share");
-//                try {
-//                    mainActivity.startActivity(whatsappIntent);
-//                } catch (android.content.ActivityNotFoundException ex) {
-//
-//
-//                    Toast.makeText(mainActivity, "Unable to find watsapp", Toast.LENGTH_SHORT).show();
-//                }
-
-//                String shareBody = "Here is the share content body";
-//                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-//                sharingIntent.setType("text/plain");
-//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
-//                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-//                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
-
-
-//                String shareBody = "Here is the share content body";
-//                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-//                sharingIntent.setType("text/plain");
-//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
-//                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-//                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
-
                 break;
 
 
@@ -524,25 +510,42 @@ public class FoodDetailFragment extends BaseFragment implements
                 break;
 
             case R.id.savebtn:
+                if (preferenceHelper.getUserFood().getAcct_type() == 4) {
+                    Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
 
-                serviceHelper.enqueueCall(webService.sacvestory(String.valueOf(preferenceHelper.getUserFood().getId()), "story", String.valueOf(foodDetailModel.getData().getFeature_type_id()), String.valueOf(foodDetailModel.getData().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY);
+                } else {
+
+                    serviceHelper.enqueueCall(webService.sacvestory(String.valueOf(preferenceHelper.getUserFood().getId()), "story", String.valueOf(foodDetailModel.getData().getFeature_type_id()), String.valueOf(foodDetailModel.getData().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY);
+                }
 
                 break;
 
             case R.id.lkFav:
-                serviceHelper.enqueueCall(webService.markfavorite(preferenceHelper.getUserFood().getFacebook_id(), "story", String.valueOf(foodDetailModel.getData().getFeature_type_id()), String.valueOf(foodDetailModel.getData().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE);
+                if (preferenceHelper.getUserFood().getAcct_type() == 4) {
+                    Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
 
+                } else {
+
+                    serviceHelper.enqueueCall(webService.markfavorite(preferenceHelper.getUserFood().getFacebook_id(), "story", String.valueOf(foodDetailModel.getData().getFeature_type_id()), String.valueOf(foodDetailModel.getData().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE);
+                }
                 break;
 
 
             case R.id.tvShowall:
-                player.stop();
-                player.stop(true);
-                //  stopPosition = binding.videoView.getCurrentPosition();
-                EventBus.getDefault().register(this);
-                CommentsFragment commentsFragment = new CommentsFragment();
-                commentsFragment.setArrayComments(foodDetailModel, false);
-                mainActivity.addFragment(commentsFragment, true, true);
+                if (preferenceHelper.getUserFood().getAcct_type() == 4) {
+                    Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    player.stop();
+                    player.stop(true);
+                    //  stopPosition = binding.videoView.getCurrentPosition();
+                    EventBus.getDefault().register(this);
+                    CommentsFragment commentsFragment = new CommentsFragment();
+                    commentsFragment.setArrayComments(foodDetailModel, false);
+                    mainActivity.addFragment(commentsFragment, true, true);
+
+                }
                 break;
 
 
@@ -660,7 +663,7 @@ public class FoodDetailFragment extends BaseFragment implements
         binding.nestedScroll.fullScroll(ScrollView.FOCUS_UP);
         binding.nestedScroll.smoothScrollTo(0, 0);
         binding.tvfoodName.requestFocus();
-        servings.setText("for "+foodDetailModel.getServing_for()+" servings");
+        servings.setText("for " + foodDetailModel.getServing_for() + " servings");
         if (foodDetailModel.getIs_favorite() == 1) {
             likebtn.setLiked(true);
         } else {
@@ -691,7 +694,7 @@ public class FoodDetailFragment extends BaseFragment implements
             player.getPlaybackLooper();
             player.addListener(this);
             player.setRepeatMode(SimpleExoPlayer.DISCONTINUITY_REASON_SEEK);
-            Uri uri = Uri.parse(foodDetailModel.getVideo_path().replace("1080.mp4", "720.mp4"));
+            Uri uri = Uri.parse(foodDetailModel.getVideo_path().replace("1080.mp4", "320.mp4"));
 
             mediaSource = buildMediaSource(uri);
             player.prepare(mediaSource, true, true);
@@ -756,14 +759,14 @@ public class FoodDetailFragment extends BaseFragment implements
         for (int i = 0; i < foodDetailModel.getIngredient().size(); i++) {
             //For Header
 
-            if(foodDetailModel.getIngredient().get(i).getTag_en()!=null){
+            if (foodDetailModel.getIngredient().get(i).getTag_en() != null) {
 
-                ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en(),1, " "," "));
+                ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en(), 1, " ", " "));
 
-            }else{
+            } else {
 
-                ingredients.add(new CustomIngredient(" ",0, foodDetailModel.getIngredient().get(i).getIngredient_en(),foodDetailModel.getIngredient().get(i).getQuantity()+" "+(
-                        foodDetailModel.getIngredient().get(i).getQuantity_type()!=null ? foodDetailModel.getIngredient().get(i).getQuantity_type(): " ")));
+                ingredients.add(new CustomIngredient(" ", 0, foodDetailModel.getIngredient().get(i).getIngredient_en(), foodDetailModel.getIngredient().get(i).getQuantity() + " " + (
+                        foodDetailModel.getIngredient().get(i).getQuantity_type() != null ? foodDetailModel.getIngredient().get(i).getQuantity_type() : " ")));
             }
 
             for (int k = 0; k < foodDetailModel.getIngredient().get(i).getSub_ingredients().size(); k++) {
@@ -774,16 +777,14 @@ public class FoodDetailFragment extends BaseFragment implements
                 ingredients.add(new CustomIngredient(" ",
                         0,
                         foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en(),
-                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity()+" "+(
-                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type()!=null ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type(): " ")));
+                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity() + " " + (
+                                foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type() != null ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type() : " ")));
 
 
             }
 
 
         }
-
-
 
 
         foodIngredientsAdapter = new FoodIngredientsAdapter(ingredients, title, mainActivity);
@@ -1013,6 +1014,7 @@ public class FoodDetailFragment extends BaseFragment implements
         }
 
     }
+
     private void showMenuPopup(View v) {
         /** Instantiating PopupMenu class */
         PopupMenu popup = new PopupMenu(mainActivity, v);
@@ -1029,36 +1031,36 @@ public class FoodDetailFragment extends BaseFragment implements
                 switch (item.getItemId()) {
                     case R.id.actionprice:
                         Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
-                whatsappIntent.setType("text/plain");
-                whatsappIntent.setPackage("com.whatsapp");
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT, "The text you wanted to share");
-                try {
-                    mainActivity.startActivity(whatsappIntent);
-                } catch (android.content.ActivityNotFoundException ex) {
+                        whatsappIntent.setType("text/plain");
+                        whatsappIntent.setPackage("com.whatsapp");
+                        whatsappIntent.putExtra(Intent.EXTRA_TEXT, "The text you wanted to share");
+                        try {
+                            mainActivity.startActivity(whatsappIntent);
+                        } catch (android.content.ActivityNotFoundException ex) {
 
 
-                    Toast.makeText(mainActivity, "Unable to find watsapp", Toast.LENGTH_SHORT).show();
-                }
+                            Toast.makeText(mainActivity, "Unable to find watsapp", Toast.LENGTH_SHORT).show();
+                        }
                         break;
 
                     case R.id.actionLocation:
                         String shareBody = "Here is the share content body";
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+                        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                        sharingIntent.setType("text/plain");
+                        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+                        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
 
 
                         break;
 
                     case R.id.actionRating:
                         String shareBod = "Here is the share content body";
-                Intent sharingInten= new Intent(android.content.Intent.ACTION_SEND);
-                sharingInten.setType("text/plain");
-                sharingInten.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
-                sharingInten.putExtra(android.content.Intent.EXTRA_TEXT, shareBod);
-                startActivity(Intent.createChooser(sharingInten, getResources().getString(R.string.login_with_facebook)));
+                        Intent sharingInten = new Intent(android.content.Intent.ACTION_SEND);
+                        sharingInten.setType("text/plain");
+                        sharingInten.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+                        sharingInten.putExtra(android.content.Intent.EXTRA_TEXT, shareBod);
+                        startActivity(Intent.createChooser(sharingInten, getResources().getString(R.string.login_with_facebook)));
 
 
                         break;
@@ -1102,7 +1104,7 @@ public class FoodDetailFragment extends BaseFragment implements
 
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken
-        popupWindow.showAtLocation(view, Gravity.END|Gravity.TOP, 0, 0);
+        popupWindow.showAtLocation(view, Gravity.END | Gravity.TOP, 0, 0);
         // dismiss the popup window when touched
         popupWindow.setAnimationStyle(R.style.Animation);
         popupView.setOnTouchListener(new View.OnTouchListener() {

@@ -42,6 +42,7 @@ import okhttp3.RequestBody;
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.FacebookBaseFragment;
 import structure.com.foodportal.databinding.FragmentGetstartedBinding;
+import structure.com.foodportal.fragment.foodportal.FoodHomeFragment;
 import structure.com.foodportal.fragment.foodportal.FoodLoginFragment;
 import structure.com.foodportal.fragment.foodportal.FoodSignUpFragment;
 import structure.com.foodportal.helper.AppConstant;
@@ -84,6 +85,8 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
 
     public void init() {
 
+
+
         try {
             PackageInfo info = registrationActivity.getPackageManager().getPackageInfo(
                     "structure.com.foodportal",
@@ -100,6 +103,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         } catch (NoSuchAlgorithmException e) {
 
         }
+        binding.loginAsGuest.setOnClickListener(this);
         binding.getStarted.setOnClickListener(this);
         binding.proceedAsGuest.setOnClickListener(this);
         binding.signIn.setOnClickListener(this);
@@ -149,6 +153,25 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
 
                 break;
 
+            case R.id.loginAsGuest:
+
+                String fname = "Anonymous";
+                String lname = "user";
+                String email = "dummy@express.com.pk";
+                long id = 293;
+                User user = new User();
+                user.setId(String.valueOf(id));
+                user.setName_en(fname + " " + lname);
+                user.setAcct_type(4);
+                user.setEmail(email);
+                user.setProfile_picture("http://kbae.com.au/images/no_user_image.png");
+                preferenceHelper.putUserFood(user);
+                preferenceHelper.setLoginStatus(true);
+                registrationActivity.finish();
+                registrationActivity.showMainActivity();
+
+                break;
+
 
         }
 
@@ -195,13 +218,13 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
 
 
     public void facebooklogin(User user) {
-        serviceHelper.enqueueCall(webService.LoginFACEBOOK(user.getEmail(), String.valueOf(user.getId()), user.getName_en(), "facebook","android", preferenceHelper.getDeviceToken()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK);
+        serviceHelper.enqueueCall(webService.LoginFACEBOOK(user.getEmail(), String.valueOf(user.getId()), user.getName_en(), "facebook", "android", preferenceHelper.getDeviceToken()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK);
 
 
     }
 
     public void googlelogin(User user) {
-        serviceHelper.enqueueCall(webService.LoginGOOGLE(user.getEmail(), user.getId(), user.getName_en(), "google", user.getProfile_picture(),"android", preferenceHelper.getDeviceToken()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_GOOGLE);
+        serviceHelper.enqueueCall(webService.LoginGOOGLE(user.getEmail(), user.getId(), user.getName_en(), "google", user.getProfile_picture(), "android", preferenceHelper.getDeviceToken()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_GOOGLE);
 
 
     }

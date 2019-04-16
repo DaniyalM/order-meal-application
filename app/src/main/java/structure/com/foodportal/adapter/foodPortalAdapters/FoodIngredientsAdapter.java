@@ -68,7 +68,7 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
             "font/poppinsmedium.ttf");
             holder.text.setTypeface(face);
             Spanny spanny=new Spanny();
-            spanny.append("",new ForegroundColorSpan(context.getResources().getColor(R.color.colorAccentPink)),new StyleSpan(Typeface.BOLD)
+            spanny.append("",new ForegroundColorSpan(context.getResources().getColor(R.color.colorAccent)),new StyleSpan(Typeface.BOLD)
             ).append(ingredientList.get(position).getMainquantity());
             holder.text.setText( spanny);
             holder.tvQuantity.setText(ingredientList.get(position).getSubquantity() );

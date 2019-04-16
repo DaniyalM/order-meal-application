@@ -208,7 +208,8 @@ public class AppConstant {
     }
     public static final String BASE_URL = "https://food.tribune.com.pk/api/";
     public static final String BASE_URL_IMAGE = "https://cdn.recipesofpakistan.com/";
-    public static final String VIDEO_URL = "https://cdn.recipesofpakistan.com/";
+   // public static final String VIDEO_URL = "https://cdn.recipesofpakistan.com/";
+    public static final String VIDEO_URL = "https://cdn-food.tribune.com.pk/";
 
     public class FOODPORTAL_FOOD_DETAILS {
 

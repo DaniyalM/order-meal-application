@@ -158,9 +158,10 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
     }
     public static String changedHeaderHtml(String htmlText) {
-        String jsTag = "<style> .easyimage img { width:80%;} </style>";
+        String jsTag2 = "<style> p  {font-family:Arial; font-size:18} </style>";
+        String jsTag = "<style> .easyimage img { width:80%; height:258; align-content: center;} </style>";
        // String head = "<head><meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" /></head>";
-        String head = "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">" + jsTag + "</head>";
+        String head = "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=yes\">" + jsTag2+jsTag + "</head>";
 
         String closedTag = "</body></html>";
         String changeFontHtml = head + htmlText + closedTag;
@@ -333,9 +334,14 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
                 //player.stop(true);
                 //  stopPosition = binding.videoView.getCurrentPosition();
               //  EventBus.getDefault().register(this);
+
+                if(preferenceHelper.getUserFood().getAcct_type()==4){
+                    Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
+
+                }else{
                 CommentsFragment commentsFragment= new CommentsFragment();
                 commentsFragment.setArrayComments(foodDetailModel,false);
-                mainActivity.addFragment(commentsFragment,true,true);
+                mainActivity.addFragment(commentsFragment,true,true);}
                 break;
 
         }

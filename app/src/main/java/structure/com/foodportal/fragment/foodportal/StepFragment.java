@@ -3,6 +3,7 @@ package structure.com.foodportal.fragment.foodportal;
 import android.annotation.SuppressLint;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.TimedMetaData;
@@ -21,12 +22,14 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.Printer;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
@@ -194,6 +197,19 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
     }
 
+
+    public void setscreensize() {
+
+        Display display = mainActivity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.x;
+        binding.videoView.setLayoutParams(new FrameLayout.LayoutParams(width, height));
+        // binding.videoView.setLayoutParams(new FrameLayout.LayoutParams(width, height));
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -201,6 +217,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
                              Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_step, container, false);
+        setscreensize();
         storiesProgressView = binding.getRoot().findViewById(R.id.progressView);
         llmainingredients = binding.getRoot().findViewById(R.id.llmainingredients);
         vingredients = binding.getRoot().findViewById(R.id.vingredients);
@@ -519,5 +536,42 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
 
     }
 
+
+    @Override
+    public void onPause() {
+        super.onPause();
+   //     player.stop();
+
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+//        if (timer != null) {
+//            task.cancel();
+//            task = null;
+//            timer.cancel();
+//            timer.purge();
+//            timer = null;
+//        }
+    //    player.stop();
+//       player.stop(true);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+//        if (player != null && mediaSource != null) {
+//
+//            player.prepare(mediaSource, true, true);
+//            //player.seekTo(startTime.get(value), endTime.get(value));
+//
+//        }
+//        playvideo();
+    }
 
 }

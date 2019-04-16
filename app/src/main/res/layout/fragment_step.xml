@@ -1,5 +1,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:clickable="true"
         android:background="@color/colorFbWhiteBg"
@@ -63,14 +71,14 @@
             <FrameLayout
                 android:id="@+id/video_layout"
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
+                android:layout_height="wrap_content"
                 android:background="@android:color/black"
                 android:transitionName="stepbystep">
 
                 <com.google.android.exoplayer2.ui.SimpleExoPlayerView
                     android:id="@+id/videoView"
                     android:layout_width="match_parent"
-                    android:layout_height="450dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     app:auto_show="true"
                     app:resize_mode="fill"
@@ -145,4 +153,6 @@
 
 
     </RelativeLayout>
+    </LinearLayout>
+    </ScrollView>
 </layout>

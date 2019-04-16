@@ -319,9 +319,16 @@ public class MultiLeftSideMenu extends BaseFragment {
 
         });
         footerView.getRootView().findViewById(R.id.savedrecipes).setOnClickListener(view -> {
+
+            if(preferenceHelper.getUserFood().getAcct_type()==4){
+                Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
+
+            }else{
             mainActivity.clearBackStack();
             mainActivity.addFragment(new SavedRecipesFragment(),true,false);
             // updateLeftDrawer("logout");
+                //
+                }
 
         });
 
@@ -346,9 +353,11 @@ public class MultiLeftSideMenu extends BaseFragment {
             case 3:
                 UIHelper.setImageWithGlide(mainActivity,binder.imgBackground,
                         "https://graph.facebook.com/" + preferenceHelper.getUserFood().getProfile_picture() + "/picture?type=large");
-
             break;
 
+            case 4:
+                UIHelper.setImageWithGlide(mainActivity,binder.imgBackground,preferenceHelper.getUserFood().getProfile_picture());
+                break;
 
         }
 

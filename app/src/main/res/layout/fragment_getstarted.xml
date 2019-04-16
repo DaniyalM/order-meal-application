@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
 
@@ -93,7 +94,24 @@
                 android:padding="@dimen/dp10"
                 android:background="@drawable/img_email"
                 android:textColor="@color/white" />
+        <android.support.design.circularreveal.cardview.CircularRevealCardView
+            app:cardCornerRadius="@dimen/dp30"
+            android:background="@color/colorAccentPink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             >
+            <TextView
+                android:id="@+id/loginAsGuest"
+                android:padding="@dimen/dp10"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@color/colorAccentPink"
+                android:textColor="@color/white"
+                android:text="Login As Guest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+        </android.support.design.circularreveal.cardview.CircularRevealCardView>
                 <TextView
                     android:id="@+id/versionapp"
                     android:text="V1.0.0"

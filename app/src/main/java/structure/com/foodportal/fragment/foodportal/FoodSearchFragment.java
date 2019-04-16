@@ -254,11 +254,15 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onSuggestionsClick(int position) {
         searchAutoComplete.setText(suggestionList.get(position));
+        serviceHelper.enqueueArrayCall(webService.getSearchResult(searchAutoComplete.getText().toString().trim()),
+                AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME_SEARCH);
 
     }
 
     @Override
     public void onMealTypeClick(int position) {
         searchAutoComplete.setText(mealTypeList.get(position));
+        serviceHelper.enqueueArrayCall(webService.getSearchResult(searchAutoComplete.getText().toString().trim()),
+                AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME_SEARCH);
     }
 }

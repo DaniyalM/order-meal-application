@@ -42,7 +42,7 @@ public class FoodPreparationAdapter extends RecyclerView.Adapter<FoodPreparation
         //  holder.image.setImageResource(R.drawable.planetimage);
         Drawable drawable = context.getDrawable(R.drawable.icon_play);
         Spanny spanny;
-        drawable.setTint(context.getResources().getColor(R.color.colorAccentPink));
+        drawable.setTint(context.getResources().getColor(R.color.colorAccent));
         int lineHeight = holder.text.getLineHeight();
         drawable.setBounds(0, 0, lineHeight, lineHeight);
          spanny = new Spanny().append(steps.get(position).getSteps_en()).append(" ", new ImageSpan(drawable));

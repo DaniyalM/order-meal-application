@@ -274,7 +274,7 @@ public interface webservice {
     Call<Api_Response<JsonObject>> getfoodtutorialdetail(@Query("story_slug") String story_slug);
 
 
-    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS)
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS)
     Call<Api_Response<JsonObject>> getfoodblog(@Query("story_slug") String story_slug);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SPECIAL_RECIPE)

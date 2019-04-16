@@ -226,7 +226,7 @@
                             android:layout_height="wrap_content">
 
                         <TextView
-                            android:background="@color/colorNav"
+                            android:background="@color/colorAccent"
                             android:paddingStart="@dimen/dp6"
                             android:textColor="@color/white"
                             android:textSize="@dimen/dp24"
