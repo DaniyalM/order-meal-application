@@ -233,6 +233,8 @@ public class AppConstant {
         public static final String FOOD_USER_SOCIAL_LOGIN_GOOGLE = "user/social-login/google";
         public static final String FOOD_SAVE_STORY = "user/save-story";
         public static final String FOOD_MARK_FAVORITE = "user/story-favorite-status";
+        public static final String FOOD_POPULAR = "home/popular";
+        public static final String FOOD_FEATURED = "home/featured";
 
 
         public static final String HOME = "Home";

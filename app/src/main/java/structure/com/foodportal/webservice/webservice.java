@@ -1,11 +1,7 @@
 package structure.com.foodportal.webservice;
 
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.annotations.JsonAdapter;
-
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,9 +10,7 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -35,16 +29,14 @@ import structure.com.foodportal.models.Notification;
 import structure.com.foodportal.models.Order;
 import structure.com.foodportal.models.ProductModelAPI;
 import structure.com.foodportal.models.UserModel;
-import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.CategorySliderWrapper;
 import structure.com.foodportal.models.foodModels.CommentsWrapper;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.HeaderWrapper;
-import structure.com.foodportal.models.foodModels.LoginBody;
-import structure.com.foodportal.models.foodModels.MainHeaderWrapper;
 import structure.com.foodportal.models.foodModels.RecipeWrapper;
 import structure.com.foodportal.models.foodModels.SavedStoriesWrapper;
+import structure.com.foodportal.models.foodModels.Section;
 import structure.com.foodportal.models.foodModels.User;
 
 /**
@@ -208,39 +200,39 @@ public interface webservice {
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY)
     @FormUrlEncoded
     Call<Api_Response> sacvestory(@Field("user_id") String email,
-                                              @Field("type") String type,
-                                              @Field("feature_type_id") String feature_type_id,
-                                              @Field("story_id") String story_id);
+                                  @Field("type") String type,
+                                  @Field("feature_type_id") String feature_type_id,
+                                  @Field("story_id") String story_id);
 
     @Headers("Accept: application/json")
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE)
     @FormUrlEncoded
     Call<Api_Response> markfavorite(@Field("user_id") String email,
-                                                @Field("type") String type,
-                                                @Field("feature_type_id") String feature_type_id,
-                                                @Field("story_id") String story_id);
+                                    @Field("type") String type,
+                                    @Field("feature_type_id") String feature_type_id,
+                                    @Field("story_id") String story_id);
 
     @Headers("Accept: application/json")
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK)
     @FormUrlEncoded
-    Call<Api_Response> LoginFACEBOOK(@Field("email") String email,@Field("provider_id") String provider_id,
-                                                 @Field("name") String name,@Field("from") String from, @Field("device_type") String device_type,
+    Call<Api_Response> LoginFACEBOOK(@Field("email") String email, @Field("provider_id") String provider_id,
+                                     @Field("name") String name, @Field("from") String from, @Field("device_type") String device_type,
                                      @Field("device_token") String device_token);
 
     @Headers("Accept: application/json")
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_GOOGLE)
     @FormUrlEncoded
-    Call<Api_Response> LoginGOOGLE(@Field("email") String email,@Field("provider_id") String provider_id,
-                                               @Field("name") String name,@Field("from") String from,@Field("avatar_original") String avatar_original, @Field("device_type") String device_type,
+    Call<Api_Response> LoginGOOGLE(@Field("email") String email, @Field("provider_id") String provider_id,
+                                   @Field("name") String name, @Field("from") String from, @Field("avatar_original") String avatar_original, @Field("device_type") String device_type,
                                    @Field("device_token") String device_token);
 
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS)
-    Call<Api_Response<JsonObject>> getfooddetail(@Query("story_slug") String story_slug,@Query("user_id") String user_id);
+    Call<Api_Response<JsonObject>> getfooddetail(@Query("story_slug") String story_slug, @Query("user_id") String user_id);
 
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW)
-    Call<Api_Response<CommentsWrapper>> getAlReviews(@Query("story_id") String story_id,@Query("type") String type);
+    Call<Api_Response<CommentsWrapper>> getAlReviews(@Query("story_id") String story_id, @Query("type") String type);
 
 
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW)
@@ -254,11 +246,11 @@ public interface webservice {
 
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REPLY)
     Call<Api_Response<JsonObject>> sendreply(@Query("user_id") int user_id,
-                                              @Query("type") String type,
-                                              @Query("feature_type_id") int feature_type_id,
-                                              @Query("story_id") int story_id,
-                                              @Query("reviews") String reviews,
-                                              @Query("parent_id") int parent_id
+                                             @Query("type") String type,
+                                             @Query("feature_type_id") int feature_type_id,
+                                             @Query("story_id") int story_id,
+                                             @Query("reviews") String reviews,
+                                             @Query("parent_id") int parent_id
     );
 
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SIGNUP)
@@ -278,7 +270,7 @@ public interface webservice {
     Call<Api_Response<JsonObject>> getfoodblog(@Query("story_slug") String story_slug);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SPECIAL_RECIPE)
-    Call<Api_Response<FoodDetailModelWrapper>> getfoodSpecialblog(@Query("story_slug") String story_slug,@Query("user_id") String user_id);
+    Call<Api_Response<FoodDetailModelWrapper>> getfoodSpecialblog(@Query("story_slug") String story_slug, @Query("user_id") String user_id);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME)
     Call<Api_Response<JsonObject>> gethome(@Query("user_id") String user_id);
@@ -298,6 +290,12 @@ public interface webservice {
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVED_RECIPES)
     Call<Api_Response<SavedStoriesWrapper>> getSavedRecipes(@Query("id") int id);
+
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_POPULAR)
+    Call<Api_Response<Section>> getPopularRecipes(@Query("page") int page, @Query("limit") int limit);
+
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_FEATURED)
+    Call<Api_Response<Section>> getFeaturedRecipes(@Query("page") int page, @Query("limit") int limit);
 
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME_SEARCH)
     Call<Api_Array_Response<FoodDetailModel>> getSearchResult(@Query("search") String search);

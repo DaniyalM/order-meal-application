@@ -12,6 +12,16 @@ public class Api_Response<T> {
     private T Result;
     private String Message;
 
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    private int pages;
+
     public String getToken() {
         return token;
     }

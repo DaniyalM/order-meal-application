@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -116,11 +117,19 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
     protected ServiceHelper serviceHelper;
     protected webservice webService;
     Bundle bundle;
+    protected PowerManager.WakeLock mWakeLock;
 
+    public void keepScreenAwake(){
+        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
+        this.mWakeLock.acquire();
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        keepScreenAwake();
         webService = WebServiceFactory.getInstance(AppConstant.BASE_URL,prefHelper);
         serviceHelper = new ServiceHelper(this, this);
         if (getIntent().getExtras() != null) {
@@ -379,6 +388,12 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 
     public Titlebar getTitleBar() {
         return titlebar;
+    }
+
+    @Override
+    protected void onDestroy() {
+        this.mWakeLock.release();
+        super.onDestroy();
     }
 
     @Override

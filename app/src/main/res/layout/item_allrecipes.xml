@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.card.MaterialCardView
+        app:cardBackgroundColor="@color/white"
+        android:background="@drawable/black_border_item_rounded"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="@dimen/dp5"
+        app:cardCornerRadius="@dimen/dp10"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+                <ImageView
+                    android:id="@+id/image"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/placeholder" />
+                <View
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/gradient_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"/>
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/recipe"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinssemibold"
+                android:text="Beef Biryani"
+                android:textColor="@color/colorBlack" />
+
+        </LinearLayout>
+    </android.support.design.card.MaterialCardView>
+
+
+</LinearLayout>

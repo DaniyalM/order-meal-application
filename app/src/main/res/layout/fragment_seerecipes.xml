@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:background="@color/colorFbWhiteBg"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+   <!-- <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >-->
+
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+        android:id="@+id/rvAllRecipes"
+        app:shimmer_demo_child_count="8"
+        app:shimmer_demo_grid_child_count="2"
+        app:shimmer_demo_layout="@layout/layout_demo_grid"
+        app:shimmer_demo_layout_manager_type="grid"
+        app:shimmer_demo_angle="30"
+        app:shimmer_demo_duration="700"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.cooltechworks.views.shimmer.ShimmerRecyclerView>
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
+
+
+</LinearLayout>

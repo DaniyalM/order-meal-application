@@ -152,6 +152,7 @@ public class FoodDetailFragment extends BaseFragment implements
     MediaSource mediaSource;
     SimpleExoPlayerView videoView;
     TextView servings;
+    private boolean b=false;
 
     public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel) {
 
@@ -445,6 +446,10 @@ public class FoodDetailFragment extends BaseFragment implements
     @Override
     public void onSeekProcessed() {
 
+    }
+
+    public void showback(boolean b) {
+    this.b=b;
     }
 
     public class DetailsTransition extends TransitionSet {

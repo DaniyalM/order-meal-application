@@ -55,7 +55,7 @@ public class FoodMasterTechniquesAdapter extends RecyclerView.Adapter<FoodMaster
 
 
         holder.text.setText(""+sections.get(position).getTitle());
-        UIHelper.setImageWithGlide(context,holder.circleImageView,  sections.get(position).getFeatured_image_path());
+        UIHelper.setImageWithGlide(context,holder.circleImageView,  sections.get(position).getBlog_thumb_image_path_size());
 
 
 

@@ -63,7 +63,19 @@ public class ServiceHelper<T> {
                             preferenceHelper.putUserToken(response.body().getToken());
 
                         }
+                        if(tag.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_POPULAR)){
+
+                            serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag);
+
+
+                        }else if(tag.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_FEATURED)){
+                            serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag);
+
+
+                        }else{
                         serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag);
+
+                        }
                         ///    UIHelper.showToast(currentActivity, response.body().getMessage());
                         switch (tag) {
                             case WebServiceConstants.USER_UPDATE:

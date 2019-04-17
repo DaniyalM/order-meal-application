@@ -6,7 +6,17 @@ public class Sections {
     String title_en;
     String slug;
     String video_path;
-     int is_favorite;
+    int is_favorite;
+
+    public String getBlog_thumb_image_path_size() {
+        return blog_thumb_image_path_size;
+    }
+
+    public void setBlog_thumb_image_path_size(String blog_thumb_image_path_size) {
+        this.blog_thumb_image_path_size = blog_thumb_image_path_size;
+    }
+
+    String blog_thumb_image_path_size;
 
     public int getIs_favorite() {
         return is_favorite;

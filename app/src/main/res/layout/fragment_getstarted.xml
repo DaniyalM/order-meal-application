@@ -60,15 +60,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-            <TextView
+            <com.facebook.login.widget.LoginButton
                 android:id="@+id/tvWithFacebok"
-                android:layout_width="wrap_content"
+                android:layout_margin="@dimen/dp10"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/dp10"
-                android:background="@drawable/fb"
                 android:gravity="center"
-                android:padding="@dimen/dp10"
                 android:textColor="@color/white" />
 
 
@@ -98,6 +96,7 @@
             app:cardCornerRadius="@dimen/dp30"
             android:background="@color/colorAccentPink"
             android:layout_width="match_parent"
+            android:layout_margin="@dimen/dp10"
             android:layout_height="wrap_content"
              >
             <TextView
@@ -107,7 +106,7 @@
                 android:gravity="center"
                 android:background="@color/colorAccentPink"
                 android:textColor="@color/white"
-                android:text="Login As Guest"
+                android:text="Login as guest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
