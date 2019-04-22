@@ -8,13 +8,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Html;
-import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,46 +20,20 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-import pl.openrnd.multilevellistview.ItemInfo;
-import pl.openrnd.multilevellistview.MultiLevelListView;
-import pl.openrnd.multilevellistview.OnItemClickListener;
 import structure.com.foodportal.R;
 import structure.com.foodportal.adapter.foodPortalAdapters.DrawerAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.ExpandableListAdapter;
-import structure.com.foodportal.customViews.data.BaseItem;
-import structure.com.foodportal.customViews.data.CustomDataProvider;
 import structure.com.foodportal.databinding.FragmentSidemenuBinding;
 import structure.com.foodportal.fragment.BaseFragment;
-import structure.com.foodportal.fragment.HomeFragment;
 import structure.com.foodportal.fragment.foodportal.FoodHomeFragment;
 import structure.com.foodportal.fragment.foodportal.SavedRecipesFragment;
 import structure.com.foodportal.fragment.foodportal.SubCategoryFragment;
 import structure.com.foodportal.helper.AppConstant;
-import structure.com.foodportal.helper.Spanny;
 import structure.com.foodportal.helper.Titlebar;
-
-
-import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import pl.openrnd.multilevellistview.ItemInfo;
-import pl.openrnd.multilevellistview.MultiLevelListView;
-import pl.openrnd.multilevellistview.OnItemClickListener;
 import structure.com.foodportal.helper.UIHelper;
-import structure.com.foodportal.helper.Utils;
-import structure.com.foodportal.models.Category;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.DrawerItem;
 import structure.com.foodportal.models.foodModels.HeaderWrapper;
@@ -220,25 +191,25 @@ public class MultiLeftSideMenu extends BaseFragment {
                                         int groupPosition, int childPosition, long id) {
                 // TODO Auto-generated method stub
 
-               // expandableListView.collapseGroup(groupPosition);
+                // expandableListView.collapseGroup(groupPosition);
                 SubCategoryFragment subCategoryFragment;
                 switch (listDataHeader.get(groupPosition)) {
-                      case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
+                    case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
                         mainActivity.closeDrawer();
                         mainActivity.clearBackStack();
-                         subCategoryFragment = new SubCategoryFragment();
+                        subCategoryFragment = new SubCategoryFragment();
                         subCategoryFragment.setModel(listDataChild.get(
                                 listDataHeader.get(groupPosition)).get(
-                                childPosition),AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES);
+                                childPosition), AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES);
                         mainActivity.addFragment(subCategoryFragment, true, false);
                         break;
                     case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
                         mainActivity.closeDrawer();
                         mainActivity.clearBackStack();
-                         subCategoryFragment = new SubCategoryFragment();
+                        subCategoryFragment = new SubCategoryFragment();
                         subCategoryFragment.setModel(listDataChild.get(
                                 listDataHeader.get(groupPosition)).get(
-                                childPosition),AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS);
+                                childPosition), AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS);
                         mainActivity.addFragment(subCategoryFragment, true, false);
 
 
@@ -249,9 +220,8 @@ public class MultiLeftSideMenu extends BaseFragment {
                         subCategoryFragment = new SubCategoryFragment();
                         subCategoryFragment.setModel(listDataChild.get(
                                 listDataHeader.get(groupPosition)).get(
-                                childPosition),AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING);
+                                childPosition), AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING);
                         mainActivity.addFragment(subCategoryFragment, true, false);
-
 
 
                         break;
@@ -261,15 +231,12 @@ public class MultiLeftSideMenu extends BaseFragment {
                         subCategoryFragment = new SubCategoryFragment();
                         subCategoryFragment.setModel(listDataChild.get(
                                 listDataHeader.get(groupPosition)).get(
-                                childPosition),AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG);
+                                childPosition), AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG);
                         mainActivity.addFragment(subCategoryFragment, true, false);
 
                         break;
 
                 }
-
-
-
 
 
                 return false;
@@ -300,7 +267,6 @@ public class MultiLeftSideMenu extends BaseFragment {
         expandableListView.addFooterView(footerView);//Add view to list view as footer view
 
 
-
         headerTitle.setOnClickListener(view -> {
             mainActivity.clearBackStack();
             mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES), true, false);
@@ -320,15 +286,33 @@ public class MultiLeftSideMenu extends BaseFragment {
         });
         footerView.getRootView().findViewById(R.id.savedrecipes).setOnClickListener(view -> {
 
-            if(preferenceHelper.getUserFood().getAcct_type()==4){
+            if (preferenceHelper.getUserFood().getAcct_type() == 4) {
                 Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
 
-            }else{
-            mainActivity.clearBackStack();
-            mainActivity.addFragment(new SavedRecipesFragment(),true,false);
-            // updateLeftDrawer("logout");
+            } else {
+                mainActivity.clearBackStack();
+                SavedRecipesFragment savedRecipesFragment =new SavedRecipesFragment();
+                savedRecipesFragment.setSavedRecipes(true);
+                mainActivity.addFragment(savedRecipesFragment, true, false);
+                // updateLeftDrawer("logout");
                 //
-                }
+            }
+
+        });
+        footerView.getRootView().findViewById(R.id.recentlyViewed).setOnClickListener(view -> {
+
+            if (preferenceHelper.getUserFood().getAcct_type() == 4) {
+                Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
+
+            } else {
+
+                mainActivity.clearBackStack();
+                SavedRecipesFragment savedRecipesFragment =new SavedRecipesFragment();
+                savedRecipesFragment.setSavedRecipes(false);
+                mainActivity.addFragment(savedRecipesFragment, true, false);
+                // updateLeftDrawer("logout");
+                //
+            }
 
         });
 
@@ -341,22 +325,22 @@ public class MultiLeftSideMenu extends BaseFragment {
 
         setMenu();
         binder.txtUsername.setText(preferenceHelper.getUserFood().getName_en());
-        switch (preferenceHelper.getUserFood().getAcct_type()){
+        switch (preferenceHelper.getUserFood().getAcct_type()) {
             case 1:
-                UIHelper.setImageWithGlide(mainActivity,binder.imgBackground,AppConstant.BASE_URL_IMAGE+preferenceHelper.getUserFood().getProfile_picture());
+                UIHelper.setImageWithGlide(mainActivity, binder.imgBackground, AppConstant.BASE_URL_IMAGE + preferenceHelper.getUserFood().getProfile_picture());
 
-            break;
+                break;
             case 2:
-                UIHelper.setImageWithGlide(mainActivity,binder.imgBackground,preferenceHelper.getUserFood().getProfile_picture());
+                UIHelper.setImageWithGlide(mainActivity, binder.imgBackground, preferenceHelper.getUserFood().getProfile_picture());
 
-            break;
+                break;
             case 3:
-                UIHelper.setImageWithGlide(mainActivity,binder.imgBackground,
+                UIHelper.setImageWithGlide(mainActivity, binder.imgBackground,
                         "https://graph.facebook.com/" + preferenceHelper.getUserFood().getProfile_picture() + "/picture?type=large");
-            break;
+                break;
 
             case 4:
-                UIHelper.setImageWithGlide(mainActivity,binder.imgBackground,preferenceHelper.getUserFood().getProfile_picture());
+                UIHelper.setImageWithGlide(mainActivity, binder.imgBackground, preferenceHelper.getUserFood().getProfile_picture());
                 break;
 
         }
@@ -373,61 +357,56 @@ public class MultiLeftSideMenu extends BaseFragment {
 
             }
 
-            if (headerWrapper.size()>=2 ) {
+            if (headerWrapper.size() >= 2) {
 
 
-              if(headerWrapper.get(1).getSlug().equalsIgnoreCase("tutorial")){
+                if (headerWrapper.get(1).getSlug().equalsIgnoreCase("tutorial")) {
 
-                  tutorials.addAll(headerWrapper.get(1).getCategories());
-                  sourceString = headerWrapper.get(1).getTitle_en();
-                  listDataHeader.add(sourceString);
-                  listDataChild.put(sourceString, tutorials);
+                    tutorials.addAll(headerWrapper.get(1).getCategories());
+                    sourceString = headerWrapper.get(1).getTitle_en();
+                    listDataHeader.add(sourceString);
+                    listDataChild.put(sourceString, tutorials);
 
-              }
-              else if(headerWrapper.get(1).getSlug().equalsIgnoreCase("cleaning")){
+                } else if (headerWrapper.get(1).getSlug().equalsIgnoreCase("cleaning")) {
 
-                  cleaning.addAll(headerWrapper.get(1).getCategories());
+                    cleaning.addAll(headerWrapper.get(1).getCategories());
 
-                  sourceString = headerWrapper.get(1).getTitle_en();
-                  listDataHeader.add(sourceString);
-                  listDataChild.put(sourceString, cleaning);
-                }
-              else if(headerWrapper.get(1).getSlug().equalsIgnoreCase("blog")){
+                    sourceString = headerWrapper.get(1).getTitle_en();
+                    listDataHeader.add(sourceString);
+                    listDataChild.put(sourceString, cleaning);
+                } else if (headerWrapper.get(1).getSlug().equalsIgnoreCase("blog")) {
 
-                 // blog.addAll(headerWrapper.get(1).getCategories());
+                    // blog.addAll(headerWrapper.get(1).getCategories());
 
-                  sourceString = headerWrapper.get(1).getTitle_en();
-                  listDataHeader.add(sourceString);
-                  listDataChild.put(sourceString, blog);
+                    sourceString = headerWrapper.get(1).getTitle_en();
+                    listDataHeader.add(sourceString);
+                    listDataChild.put(sourceString, blog);
                 }
 
 
             }
 
 
-            if (headerWrapper.size()>=3 ) {
+            if (headerWrapper.size() >= 3) {
 
 
-
-                if(headerWrapper.get(2).getSlug().equalsIgnoreCase("tutorial")){
+                if (headerWrapper.get(2).getSlug().equalsIgnoreCase("tutorial")) {
 
                     tutorials.addAll(headerWrapper.get(2).getCategories());
                     sourceString = headerWrapper.get(2).getTitle_en();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, tutorials);
 
-                }
-                else if(headerWrapper.get(2).getSlug().equalsIgnoreCase("cleaning")){
+                } else if (headerWrapper.get(2).getSlug().equalsIgnoreCase("cleaning")) {
 
                     cleaning.addAll(headerWrapper.get(2).getCategories());
 
                     sourceString = headerWrapper.get(2).getTitle_en();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, cleaning);
-                }
-                else if(headerWrapper.get(2).getSlug().equalsIgnoreCase("blog")){
+                } else if (headerWrapper.get(2).getSlug().equalsIgnoreCase("blog")) {
 
-                   // blog.addAll(headerWrapper.get(2).getCategories());
+                    // blog.addAll(headerWrapper.get(2).getCategories());
 
                     sourceString = headerWrapper.get(2).getTitle_en();
                     listDataHeader.add(sourceString);
@@ -435,46 +414,32 @@ public class MultiLeftSideMenu extends BaseFragment {
                 }
 
 
-
-
-
-
-
-
             }
-            if (headerWrapper.size()>= 4 ) {
+            if (headerWrapper.size() >= 4) {
 
 
-
-
-                if(headerWrapper.get(3).getSlug().equalsIgnoreCase("tutorial")){
+                if (headerWrapper.get(3).getSlug().equalsIgnoreCase("tutorial")) {
 
                     tutorials.addAll(headerWrapper.get(3).getCategories());
                     sourceString = headerWrapper.get(3).getTitle_en();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, tutorials);
 
-                }
-                else if(headerWrapper.get(3).getSlug().equalsIgnoreCase("cleaning")){
+                } else if (headerWrapper.get(3).getSlug().equalsIgnoreCase("cleaning")) {
 
                     cleaning.addAll(headerWrapper.get(3).getCategories());
 
                     sourceString = headerWrapper.get(3).getTitle_en();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, cleaning);
-                }
-                else if(headerWrapper.get(3).getSlug().equalsIgnoreCase("blog")){
+                } else if (headerWrapper.get(3).getSlug().equalsIgnoreCase("blog")) {
 
-                   // blog.addAll(headerWrapper.get(3).getCategories());
+                    // blog.addAll(headerWrapper.get(3).getCategories());
 
                     sourceString = headerWrapper.get(3).getTitle_en();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, blog);
                 }
-
-
-
-
 
 
             }

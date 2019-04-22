@@ -66,4 +66,14 @@ public class SavedRecipe {
     }
 
     FoodDetailModel stories;
+
+    public FoodDetailModel getStory() {
+        return story;
+    }
+
+    public void setStory(FoodDetailModel story) {
+        this.story = story;
+    }
+
+    FoodDetailModel story;
 }

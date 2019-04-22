@@ -90,6 +90,16 @@ public class SavedStoriesWrapper {
 
     ArrayList<SavedRecipe> saved_stories;
 
+    public ArrayList<SavedRecipe> getRecently_viewed() {
+        return recently_viewed;
+    }
+
+    public void setRecently_viewed(ArrayList<SavedRecipe> recently_viewed) {
+        this.recently_viewed = recently_viewed;
+    }
+
+    ArrayList<SavedRecipe> recently_viewed;
+
 
 
 }

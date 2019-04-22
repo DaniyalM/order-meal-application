@@ -35,6 +35,10 @@ public class FeaturedProductsAdapter extends PagerAdapter {
         this.arrayList.addAll(arrayList);
     }
 
+
+
+
+
     @Override
     public int getCount() {
         return arrayList.size();

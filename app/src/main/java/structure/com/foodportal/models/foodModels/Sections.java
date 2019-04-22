@@ -127,5 +127,34 @@ public class Sections {
 
     Gallery gallery;
 
+    public int getFeature_type_id() {
+        return feature_type_id;
+    }
+
+    public void setFeature_type_id(int feature_type_id) {
+        this.feature_type_id = feature_type_id;
+    }
+
+    int  feature_type_id;
+
+    public int getServing_for() {
+        return serving_for;
+    }
+
+    public void setServing_for(int serving_for) {
+        this.serving_for = serving_for;
+    }
+
+    public String getCook_time() {
+        return cook_time;
+    }
+
+    public void setCook_time(String cook_time) {
+        this.cook_time = cook_time;
+    }
+
+    int  serving_for;
+    String  cook_time;
+
 
 }

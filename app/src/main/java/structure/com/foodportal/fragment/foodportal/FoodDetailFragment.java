@@ -952,12 +952,22 @@ public class FoodDetailFragment extends BaseFragment implements
     }
 
     @Override
+    public void recentlyViewed(int pos) {
+
+    }
+
+    @Override
     public void categorySliderClick(int position) {
 
     }
 
     @Override
     public void masterTechniquesClick(int position) {
+
+    }
+
+    @Override
+    public void onSaveRecipe(int slug) {
 
     }
 

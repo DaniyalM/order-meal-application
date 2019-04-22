@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,7 +43,7 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
 
     @Override
     public FoodFeaturedAdapter.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_popular_recipe, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_featured, parent, false);
         PlanetViewHolder viewHolder = new PlanetViewHolder(v);
         return viewHolder;
     }
@@ -52,6 +54,23 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
     @Override
     public void onBindViewHolder(FoodFeaturedAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
+
+
+        if(sections.get(position).getFeature_type_id()==1){
+
+            holder.tvPopularRecipeServes.setVisibility(View.VISIBLE);
+            holder.tvPopularRecipeCookingTime.setVisibility(View.VISIBLE);
+            holder.tvPopularRecipeServes.setText("Serves for "+sections.get(position).getServing_for()+" person(s)");
+            holder.tvPopularRecipeCookingTime.setText("Cooking Time "+sections.get(position).getCook_time());
+
+
+        }else{
+
+            holder.tvPopularRecipeServes.setVisibility(View.GONE);
+            holder.tvPopularRecipeCookingTime.setVisibility(View.GONE);
+
+        }
+
         holder.text.setText(""+sections.get(position).getTitle());
         if(sections.get(position).getFeatured_image_path()!=null){
 
@@ -87,6 +106,35 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
             holder.likeButton.setLiked(false);
 
         }
+
+        if (sections.get(position).getIs_save() == 1) {
+            holder.checkbox.setChecked(true);
+        } else {
+            holder.checkbox.setChecked(false);
+        }
+
+        holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (b) {
+
+                    foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                    holder.checkbox.setChecked(true);
+
+
+                } else {
+                    foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                    holder.checkbox.setChecked(false);
+
+                }
+
+            }
+        });
+
+
+
+
     }
     private void setAnimation(View viewToAnimate, int position)
     {
@@ -107,12 +155,15 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
 
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
         LikeButton likeButton;
-        protected TextView text;
+        protected TextView text,tvPopularRecipeServes,tvPopularRecipeCookingTime;
         ImageView circleImageView;
+        CheckBox checkbox;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
-
+            checkbox = (CheckBox) itemView.findViewById(R.id.checkbox);
+            tvPopularRecipeServes = (TextView) itemView.findViewById(R.id.tvPopularRecipeServes);
+            tvPopularRecipeCookingTime = (TextView) itemView.findViewById(R.id.tvPopularRecipeCookingTime);
             text = (TextView) itemView.findViewById(R.id.tvPopularRecipe);
             circleImageView = (ImageView) itemView.findViewById(R.id.ivPopularRecipe);
             likeButton = (LikeButton) itemView.findViewById(R.id.lkFav);

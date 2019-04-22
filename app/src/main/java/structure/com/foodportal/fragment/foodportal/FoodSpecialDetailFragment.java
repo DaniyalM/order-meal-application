@@ -261,7 +261,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
         tvShowall.setOnClickListener(this);
         btnMute.setOnClickListener(this);
         savebtn.setOnClickListener(this);
-        savebtn.setVisibility(View.GONE);
+        savebtn.setVisibility(View.VISIBLE);
         likebtn.setVisibility(View.VISIBLE);
         likebtn.setOnClickListener(this);
         setListners();
@@ -944,12 +944,22 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
     }
 
     @Override
+    public void recentlyViewed(int pos) {
+
+    }
+
+    @Override
     public void categorySliderClick(int position) {
 
     }
 
     @Override
     public void masterTechniquesClick(int position) {
+
+    }
+
+    @Override
+    public void onSaveRecipe(int slug) {
 
     }
 

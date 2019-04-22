@@ -56,6 +56,11 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
     ArrayList<SavedRecipe> categorySliders;
     ConnectionService service;
     String mode = "Home";
+    Boolean savedRecipes= true;
+    public  void setSavedRecipes(boolean savedRecipes){
+        this.savedRecipes=savedRecipes;
+
+    }
 
     @Nullable
     @Override
@@ -65,11 +70,23 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_subcategory, container, false);
         setListners();
         mainActivity.hideBottombar();
+        if(savedRecipes){
 
-        getSavedRecipes();
+
+            getSavedRecipes();
+        }else{
+            getRecentlyViewed();
+
+        }
 
 
         return binding.getRoot();
+    }
+
+    private void getRecentlyViewed() {
+        if (NetworkUtils.isNetworkAvailable(mainActivity))
+            serviceHelper.enqueueCall(webService.getRecentlyViewedRecipes(Integer.valueOf(preferenceHelper.getUserFood().getId().replace(".0",""))), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECENTLYVIEWED_RECIPES);
+
     }
 
     private void setListners() {
@@ -228,7 +245,25 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
                 FoodDetailFragment recipeFragment = new FoodDetailFragment();
                 recipeFragment.setFoodDetailModel(foodDetailModel);
                 mainActivity.addFragment(recipeFragment, true, true);
+                break;
 
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECENTLYVIEWED_RECIPES:
+                    categorySliders = ((SavedStoriesWrapper) result).getRecently_viewed();
+
+                    if (categorySliders != null && categorySliders.size() > 0) {
+
+                        mainActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //LocalDataHelper.writeToFile(result.toString(), mainActivity, "SubCategory");
+                                setData(categorySliders);
+                            }
+                        });
+                    } else {
+                        binding.rvSubCategory.setVisibility(View.GONE);
+                        binding.nodatafound.setVisibility(View.VISIBLE);
+                        binding.rvSubCategory.hideShimmerAdapter();
+                    }
 
                 break;
 
@@ -241,7 +276,7 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onSubCategoryClick(int position) {
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getfooddetail(categorySliders.get(position).getStories().getSlug(),String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+            serviceHelper.enqueueCall(webService.getfooddetail(categorySliders.get(position).getStories()!=null ?categorySliders.get(position).getStories().getSlug():categorySliders.get(position).getStory().getSlug(),String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
 //        FoodDetailFragment recipeFragment = new FoodDetailFragment();
 //        recipeFragment.setFoodDetailModel(categorySliders.get(position).getStories());
 //        mainActivity.addFragment(recipeFragment, true, true);

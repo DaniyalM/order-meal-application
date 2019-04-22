@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.adapters.AbsListViewBindingAdapter;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,16 +12,19 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.PagerSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +57,7 @@ import structure.com.foodportal.adapter.foodPortalAdapters.FoodCategoryAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodFeaturedAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodMasterTechniquesAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPopularRecipeAdapter;
+import structure.com.foodportal.adapter.foodPortalAdapters.FoodRecentlyViewedAdapter;
 import structure.com.foodportal.databinding.FragmentHomefoodBinding;
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.helper.AppConstant;
@@ -78,11 +83,11 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
 
     FragmentHomefoodBinding binding;
-
     FoodCategoryAdapter foodCategoryAdapter;
     FoodPopularRecipeAdapter foodPopularRecipeAdapter;
     FoodFeaturedAdapter foodFeaturedAdapter;
     FoodMasterTechniquesAdapter foodMasterTechniquesAdapter;
+    FoodRecentlyViewedAdapter foodRecenltyViewedAdapter;
     FoodBetterForBitesAdapter foodBetterForBitesAdapter;
     FoodBannerAdapter foodBannerAdapter;
     ArrayList<CategorySlider> categorySliders;
@@ -90,6 +95,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     ArrayList<Sections> sectionsPopular;
     ArrayList<Sections> sectionsFeatured;
     ArrayList<Sections> masterTechniques;
+    ArrayList<Sections> recentlyViewed;
     ArrayList<Sections> sectionsBetterForBites;
     String story_slug = "";
 
@@ -116,6 +122,10 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
     TextView tvp;
     TextView tvf;
+
+
+    View vp;
+    View vf;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -123,10 +133,15 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_homefood, container, false);
         setListners();
-        View vp = binding.getRoot().findViewById(R.id.bannerPopular);
-        View vf = binding.getRoot().findViewById(R.id.bannerFeatured);
+         vp = binding.getRoot().findViewById(R.id.bannerPopular);
+         vf = binding.getRoot().findViewById(R.id.bannerFeatured);
+
+
+
+
          ksp = vp.findViewById(R.id.ivBanner);
          ksf = vf.findViewById(R.id.ivBanner);
+
 
          tvp = vp.findViewById(R.id.tvRecipename);
          tvf = vf.findViewById(R.id.tvRecipename);
@@ -149,6 +164,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         sectionsPopular = new ArrayList<>();
         sectionsFeatured = new ArrayList<>();
         masterTechniques = new ArrayList<>();
+        recentlyViewed = new ArrayList<>();
         sectionsBetterForBites = new ArrayList<>();
         banners = new ArrayList<>();
 
@@ -273,6 +289,15 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void ResponseSuccess(Object result, String Tag) {
         switch (Tag) {
+
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY:
+
+
+
+                break;
+
+
+
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME:
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME:
 
@@ -384,6 +409,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
             case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
 
 
+
                 UIHelper.setImageWithGlide(mainActivity,ksp,foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getFeatured_image_path());
                 UIHelper.setImageWithGlide(mainActivity,ksf,foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getFeatured_image_path());
                 tvp.setText(foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getTitle_en());
@@ -406,6 +432,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 break;
 
             case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
+
                 binding.lltipoftheday.setVisibility(View.GONE);
                 binding.cvSectionFive.setVisibility(View.GONE);
 
@@ -506,6 +533,13 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
 
     }
+
+    @Override
+    public void recentlyViewed(int pos) {
+
+        next(banners.get(pos).getSlug());
+
+    }
     //next(sectionsBetterForBites.get(pos).getSlug());
 
 
@@ -520,6 +554,18 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     public void masterTechniquesClick(int position) {
 
         serviceHelper.enqueueCall(webService.getfoodtutorialdetail(masterTechniques.get(position).getSlug()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
+
+    }
+
+    @Override
+    public void onSaveRecipe(int slug) {
+        if (preferenceHelper.getUserFood().getAcct_type() == 4) {
+            Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
+
+        } else {
+
+            serviceHelper.enqueueCall(webService.sacvestory(String.valueOf(preferenceHelper.getUserFood().getId()), "story", "1", String.valueOf(slug)), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY);
+        }
 
     }
 

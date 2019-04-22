@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import io.reactivex.annotations.Nullable;
+
 public class FoodDetailModel implements Serializable {
 
 
@@ -130,6 +132,18 @@ public class FoodDetailModel implements Serializable {
 
     @SerializedName("slug")
     private String slug;
+
+    public String getRecipe_type() {
+        return recipe_type;
+    }
+
+    public void setRecipe_type(String recipe_type) {
+        this.recipe_type = recipe_type;
+    }
+
+    @Nullable
+    @SerializedName("recipe_type")
+    private String recipe_type;
 
     @SerializedName("gallery")
     Gallery gallery;

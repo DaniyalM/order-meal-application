@@ -34,7 +34,7 @@ public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterF
 
     @Override
     public FoodBetterForBitesAdapter.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_popular_recipe, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_special_recipe, parent, false);
         FoodBetterForBitesAdapter.PlanetViewHolder viewHolder = new FoodBetterForBitesAdapter.PlanetViewHolder(v);
         return viewHolder;
     }

@@ -2,6 +2,7 @@ package structure.com.foodportal.adapter.foodPortalAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,23 +46,70 @@ public class FoodSavedRecipeAdapter  extends RecyclerView.Adapter<FoodSavedRecip
     @Override
     public void onBindViewHolder(FoodSavedRecipeAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
+       // Log.d("FOODLIST", ": "+position+ " "+ sections.get(position).getStory().getRecipe_type());
+        if(sections.get(position).getStories()==null && sections.get(position).getStory() ==null ){
 
 
-        holder.text.setText(sections.get(position).getStories().getTitle_en());
-        UIHelper.setImageWithGlide(context,holder.circleImageView,sections.get(position).getStories().getGallery().getPhotos().get(0).getImage_path());
-        // setAnimation(holder.itemView, position);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                subCategoryListner.onSubCategoryClick(position);
+        }
 
-            }
-        });
+        else{
+
+                if(sections.get(position).getStory() !=null ){
+
+                    if(sections.get(position).getStory().getRecipe_type().equals("recipe")){
+                        holder.text.setText(sections.get(position).getStories()!=null ?sections.get(position).getStories().getTitle_en()
+                                : sections.get(position).getStory().getTitle_en());
+                        UIHelper.setImageWithGlide(context,holder.circleImageView,sections.get(position).getStories()!=null
+                                ? sections.get(position).getStories().getGallery().getPhotos().get(0).getImage_path():
+                                sections.get(position).getStory().getGallery().getPhotos().get(0).getImage_path());
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                subCategoryListner.onSubCategoryClick(position);
+
+                            }
+                        });
+                    }else{
+                      //  holder.itemView.setVisibility(View.GONE);
+
+                    }
+
+                }else{
+
+                    holder.text.setText(sections.get(position).getStories()!=null ?sections.get(position).getStories().getTitle_en()
+                            : sections.get(position).getStory().getTitle_en());
+                    UIHelper.setImageWithGlide(context,holder.circleImageView,sections.get(position).getStories()!=null
+                            ? sections.get(position).getStories().getGallery().getPhotos().get(0).getImage_path():
+                            sections.get(position).getStory().getGallery().getPhotos().get(0).getImage_path());
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            subCategoryListner.onSubCategoryClick(position);
+
+                        }
+                    });
+
+                }
+
+
+
+
+            // setAnimation(holder.itemView, position);
+
+
+
+
+        }
+
+
 
 
     }
+
     private void setAnimation(View viewToAnimate, int position)
     {
         // If the bound view wasn't previously displayed on screen, it's animated
