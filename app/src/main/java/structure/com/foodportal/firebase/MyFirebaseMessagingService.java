@@ -18,6 +18,7 @@ import java.util.Objects;
 
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
+import structure.com.foodportal.activity.SplashActivity;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.interfaces.DataLoadedListener;
@@ -49,7 +50,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
     private void makepush(RemoteMessage message) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         //intent.add(FLAG_ACTIVITY_SINGLE_TOP );
         FCMPayload fcmPayload =new FCMPayload();
 //        fcmPayload =(FCMPayload) message.getData() ;
@@ -74,7 +75,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         bundle.putSerializable(AppConstant.FcmHelper.FCM_DATA_PAYLOAD, fcmPayload);
         intent.putExtras(bundle);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,   PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.mirchiblack)
                 .setContentTitle(message.getNotification().getTitle())

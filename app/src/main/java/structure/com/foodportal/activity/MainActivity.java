@@ -122,47 +122,35 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         webService = WebServiceFactory.getInstance(AppConstant.BASE_URL, prefHelper);
         serviceHelper = new ServiceHelper(this, this);
         if (getIntent().getExtras() != null) {
+
             bundle = new Bundle();
             bundle = getIntent().getExtras();
           FCMPayload fcmPayload= (FCMPayload) bundle.getSerializable(AppConstant.FcmHelper.FCM_DATA_PAYLOAD);
             if (bundle != null) {
-                if(bundle.get("action_type")!=null){
+                if (fcmPayload != null) {
 
-                    action_type = bundle.get("action_type").toString();
-                    ref_id = Integer.valueOf(bundle.get("ref_id").toString());
-                    slug = bundle.get("slug").toString();
+                    action_type = fcmPayload.getAction_type();
+                    ref_id = fcmPayload.getRef_id();
+                    slug = fcmPayload.getSlug();
+                } else {
+
+
+                    if(bundle.get("action_type")!=null){
+                        action_type = bundle.get("action_type").toString();
+                        ref_id = Integer.valueOf(bundle.get("ref_id").toString());
+                        slug = bundle.get("slug").toString();
+                    }
+
+
+
                 }
-
-
 
 
 
             }
 
 
-//            if (bundle != null) {
-//                FCMPayload fcmPayload = (FCMPayload) bundle.getSerializable(AppConstant.FcmHelper.FCM_DATA_PAYLOAD);
-//                if (fcmPayload != null) {
-//                    if (fcmPayload.getAction_type().equals(AppConstant.FcmHelper.ACTION_TYPE_JOB) || fcmPayload.getAction_type().equals(AppConstant.FcmHelper.COMPLETED)) {
-//                        CartFragment cartFragment = new CartFragment();
-//                        cartFragment.setFromNotification(true);
-//                        replaceFragment(cartFragment, true, true);
-//                        bundle = null;
-//                    } else if (fcmPayload.getAction_type().equals(AppConstant.FcmHelper.ACCEPTED) || fcmPayload.getAction_type().equals(AppConstant.FcmHelper.CANCELLED)) {
-//                        OrdersHistoryFragment ordersHistoryFragment = new OrdersHistoryFragment();
-//                        ordersHistoryFragment.setFromNotification(true);
-//                        ordersHistoryFragment.setActionId(fcmPayload.getAction_id());
-//                        replaceFragment(ordersHistoryFragment, true, false);
-//                        bundle = null;
-//                    }
-//                }
-//            }
 
-
-//            for (String key : getIntent().getExtras().keySet()) {
-//                String value = getIntent().getExtras().getString(key);
-//                Log.d("Notification ", "Key: " + key + " Value: " + value);
-//            }
         }
 
         init();
@@ -323,15 +311,6 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 //            sideMneuFragmentContainer = new MultiLeftSideMenu(headerWrapper);
 //            sideMneuFragmentContainer.MultiLeftSideMenu(headerWrapper);
 
-            FragmentTransaction transaction = getSupportFragmentManager()
-                    .beginTransaction();
-            transaction.replace(framelayout.getId(), new MultiLeftSideMenu(headerWrapper,action_type)).commit();
-            setDrawerListeners();
-            // drawerLayout.closeDrawers();
-
-
-
-
 
 
             if (action_type != null){
@@ -350,20 +329,20 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
                     case "cleaning":
                         clearBackStack();
                         closeDrawer();
-                         foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING);
+                        foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING);
                         foodHomeFragment.setTypeandSlug(action_type,slug);
                         addFragment(foodHomeFragment, true, false);
 
-                     //   addFragment(new FoodHomeFragment(action_type,slug), true, true);
+                        //   addFragment(new FoodHomeFragment(action_type,slug), true, true);
                         break;
                     case "tutorial":
                         clearBackStack();
                         closeDrawer();
-                         foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS);
+                        foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS);
                         foodHomeFragment.setTypeandSlug(action_type,slug);
                         addFragment(foodHomeFragment, true, false);
 
-                      ///  addFragment(new FoodHomeFragment(action_type,slug), true, true);
+                        ///  addFragment(new FoodHomeFragment(action_type,slug), true, true);
                         break;
                     case "blog":
                         clearBackStack();
@@ -390,6 +369,19 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
                 addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES), true, true);
 
             }
+
+
+            FragmentTransaction transaction = getSupportFragmentManager()
+                    .beginTransaction();
+            transaction.replace(framelayout.getId(), new MultiLeftSideMenu(headerWrapper,action_type)).commit();
+            setDrawerListeners();
+            // drawerLayout.closeDrawers();
+
+
+
+
+
+
 
 
 
