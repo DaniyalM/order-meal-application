@@ -1,53 +1,24 @@
 package structure.com.foodportal.fragment.foodportal;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.adapters.AbsListViewBindingAdapter;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.FrameLayout;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.flaviofaria.kenburnsview.KenBurnsView;
-import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 
 import structure.com.foodportal.R;
@@ -66,16 +37,13 @@ import structure.com.foodportal.helper.LocalDataHelper;
 import structure.com.foodportal.helper.NetworkUtils;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
-import structure.com.foodportal.helper.Utils;
 import structure.com.foodportal.interfaces.DataLoadedListener;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodBannerListner;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.foodModels.Banner;
 import structure.com.foodportal.models.foodModels.CategorySlider;
-import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.FoodHomeModelWrapper;
-import structure.com.foodportal.models.foodModels.Photos;
 import structure.com.foodportal.models.foodModels.Sections;
 
 @SuppressLint("ValidFragment")
@@ -98,7 +66,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     ArrayList<Sections> recentlyViewed;
     ArrayList<Sections> sectionsBetterForBites;
     String story_slug = "";
-
+    String type, slug;
     DataLoadedListener dataLoadedListener;
     String navSection = "Home";
 
@@ -106,10 +74,18 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         this.dataLoadedListener = dataLoadedListener;
     }
 
-    public FoodHomeFragment() {
 
+    public void setTypeandSlug(String type, String slug){
+        this.type = type;
+        this.slug = slug;
 
     }
+//    public FoodHomeFragment(String type, String slug) {
+//
+//        this.type = type;
+//        this.slug = slug;
+//
+//    }
 
 
     public FoodHomeFragment(String i) {
@@ -117,15 +93,18 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         this.navSection = i;
 
     }
+
     KenBurnsView ksp;
     KenBurnsView ksf;
 
     TextView tvp;
     TextView tvf;
 
+    CardView featurecv, popularcv;
 
     View vp;
     View vf;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -133,26 +112,42 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_homefood, container, false);
         setListners();
-         vp = binding.getRoot().findViewById(R.id.bannerPopular);
-         vf = binding.getRoot().findViewById(R.id.bannerFeatured);
+        vp = binding.getRoot().findViewById(R.id.bannerPopular);
+        vf = binding.getRoot().findViewById(R.id.bannerFeatured);
+
+        popularcv = binding.getRoot().findViewById(R.id.popularCardView);
+        featurecv = binding.getRoot().findViewById(R.id.featureCardView);
 
 
+        ksp = vp.findViewById(R.id.ivBanner);
+        ksf = vf.findViewById(R.id.ivBanner);
 
 
-         ksp = vp.findViewById(R.id.ivBanner);
-         ksf = vf.findViewById(R.id.ivBanner);
-
-
-         tvp = vp.findViewById(R.id.tvRecipename);
-         tvf = vf.findViewById(R.id.tvRecipename);
+        tvp = vp.findViewById(R.id.tvRecipename);
+        tvf = vf.findViewById(R.id.tvRecipename);
 
         mainActivity.hideBottombar();
         binding.content.startRippleAnimation();
         if (dataLoadedListener != null) {
             dataLoadedListener.onDataLoaded();
         }
+
+
         gethomeDetails();
+
+
+
         return binding.getRoot();
+    }
+
+    private final static int FADE_DURATION = 1000;
+
+    private void setScaleAnimation(View view) {
+        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
+
+
     }
 
     private void setListners() {
@@ -199,6 +194,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     }
 
     SeeAllRecipersFragment seeAllRecipersFragment;
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -209,19 +205,19 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
             case R.id.tvPopularRecipe:
 
 
-                if(navSection.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.HOME)|| navSection.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES))
-                {  seeAllRecipersFragment =new SeeAllRecipersFragment();
-                seeAllRecipersFragment.setbool(true);
-                mainActivity.addFragment(seeAllRecipersFragment,true,true);
+                if (navSection.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.HOME) || navSection.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES)) {
+                    seeAllRecipersFragment = new SeeAllRecipersFragment();
+                    seeAllRecipersFragment.setbool(true);
+                    mainActivity.addFragment(seeAllRecipersFragment, true, true);
                 }
                 break;
 
             case R.id.tvFeaturedRecipes:
-                if(navSection.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.HOME)|| navSection.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES)){
-                seeAllRecipersFragment =new SeeAllRecipersFragment();
-                seeAllRecipersFragment.setbool(false);
-                mainActivity.addFragment(seeAllRecipersFragment,true,true);
-        }
+                if (navSection.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.HOME) || navSection.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES)) {
+                    seeAllRecipersFragment = new SeeAllRecipersFragment();
+                    seeAllRecipersFragment.setbool(false);
+                    mainActivity.addFragment(seeAllRecipersFragment, true, true);
+                }
                 break;
         }
     }
@@ -282,6 +278,8 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 //
 //        }
 
+
+
     }
 
     FoodHomeModelWrapper foodhomeModel;
@@ -293,9 +291,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY:
 
 
-
                 break;
-
 
 
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME:
@@ -377,6 +373,9 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
+    String popularslug;
+    String featuredslug;
+
     public void setData(FoodHomeModelWrapper foodHomeModelWrapper) {
 
 
@@ -400,6 +399,8 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         //   YoYo.with(Techniques.FadeIn).duration(1000).playOn(binding.cvRecipe);
 
         binding.rvCategoryslider.setVisibility(View.VISIBLE);
+        setScaleAnimation(binding.rvCategoryslider);
+        setScaleAnimation(binding.cvRecipe);
         binding.cvRecipe.setVisibility(View.VISIBLE);
 
 
@@ -408,10 +409,27 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
             case AppConstant.FOODPORTAL_FOOD_DETAILS.HOME:
             case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
 
+                popularcv.setVisibility(View.VISIBLE);
+                featurecv.setVisibility(View.VISIBLE);
+                popularslug = foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getSlug();
+                featuredslug = foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getSlug();
+                tvp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
+                        next(popularslug);
+                    }
+                });
+                tvf.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                UIHelper.setImageWithGlide(mainActivity,ksp,foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getFeatured_image_path());
-                UIHelper.setImageWithGlide(mainActivity,ksf,foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getFeatured_image_path());
+                        next(featuredslug);
+
+                    }
+                });
+                UIHelper.setImageWithGlide(mainActivity, ksp, foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getFeatured_image_path());
+                UIHelper.setImageWithGlide(mainActivity, ksf, foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getFeatured_image_path());
                 tvp.setText(foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getTitle_en());
                 tvf.setText(foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getTitle_en());
                 //  binding.cvSectionFive.setVisibility(View.GONE);
@@ -421,7 +439,9 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_en().replaceAll("_", " "));
                 binding.tvtechniques.setText(/*foodHomeModelWrapper.getSection().get(4).getSection_name_en().replaceAll("_", " ")*/"Tutorials");
                 binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_en());
+                foodHomeModelWrapper.getSection().get(0).getSection_list().remove(0);
                 sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
+                foodHomeModelWrapper.getSection().get(1).getSection_list().remove(0);
                 sectionsFeatured.addAll(foodHomeModelWrapper.getSection().get(1).getSection_list());
                 sectionsBetterForBites.addAll(foodHomeModelWrapper.getSection().get(3).getSection_list());
                 masterTechniques.addAll(foodHomeModelWrapper.getSection().get(4).getSection_list());
@@ -490,6 +510,36 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         foodBetterForBitesAdapter.notifyDataSetChanged();
         foodMasterTechniquesAdapter.notifyDataSetChanged();
 
+
+        if (type != null){
+
+            switch (type) {
+
+                case "recipe":
+                    next(slug);
+
+                    break;
+                case "cleaning":
+                    next(slug);
+
+                    break;
+                case "tutorial":
+                    next(slug);
+                    break;
+                case "blog":
+                    next(slug);
+                    break;
+                case "special_recipe":
+                    getSpecialRecipe(slug,preferenceHelper.getUserFood().getId());//
+                    break;
+
+
+
+
+            }
+
+
+        }
 
     }
 

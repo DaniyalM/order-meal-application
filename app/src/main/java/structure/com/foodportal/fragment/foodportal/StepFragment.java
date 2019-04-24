@@ -242,12 +242,13 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
         player = ExoPlayerFactory.newSimpleInstance(
                 new DefaultRenderersFactory(mainActivity),
                 new DefaultTrackSelector(), new DefaultLoadControl());
+        player.setVolume(0f);
         binding.videoView.setPlayer(player);
         player.setPlayWhenReady(true);
         player.seekTo(startTime.get(value), endTime.get(value));
         player.addListener(this);
         player.setRepeatMode(SimpleExoPlayer.DISCONTINUITY_REASON_SEEK);
-        Uri uri = Uri.parse(foodDetailModel.getVideo_path().replace("1080.mp4", "720.mp4"));
+        Uri uri = Uri.parse(foodDetailModel.getVideo_path().replace("1080.mp4", "320.mp4"));
 
         mediaSource = buildMediaSource(uri);
         player.prepare(mediaSource, true, true);
@@ -267,7 +268,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
 
         playvideo();
 
-        timerCounter(value);
+
 
 
         //timerCounter(positon);
@@ -368,11 +369,14 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
 
 
         //EventBus.getDefault().post(new HelloWorldEvent(mediaplayer.getCurrentPosition()));
-        timer.cancel();
-        timer.purge();
-        task.cancel();
-        player.stop();
-        player.stop(true);
+      if(timer!=null){
+
+          timer.cancel();
+          timer.purge();
+          task.cancel();
+          player.stop();
+          player.stop(true);
+      }
 
     }
 
@@ -540,7 +544,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onPause() {
         super.onPause();
-   //     player.stop();
+        pausePlayer();
 
 
     }
@@ -548,30 +552,24 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onStop() {
         super.onStop();
-//        if (timer != null) {
-//            task.cancel();
-//            task = null;
-//            timer.cancel();
-//            timer.purge();
-//            timer = null;
-//        }
-    //    player.stop();
-//       player.stop(true);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResume() {
         super.onResume();
+       // timerCounter(value);
+        startPlayer();
 
-
-//        if (player != null && mediaSource != null) {
-//
-//            player.prepare(mediaSource, true, true);
-//            //player.seekTo(startTime.get(value), endTime.get(value));
-//
-//        }
-//        playvideo();
+        player.seekTo((startTime.get(value)) * 1000);
     }
-
+    private void pausePlayer(){
+        player.setPlayWhenReady(false);
+        player.getPlaybackState();
+    }
+    private void startPlayer(){
+        player.setPlayWhenReady(true);
+        player.getPlaybackState();
+    }
 }

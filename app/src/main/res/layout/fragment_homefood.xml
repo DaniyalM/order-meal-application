@@ -167,6 +167,7 @@
 
                             <android.support.v7.widget.CardView
                                 android:visibility="gone"
+                                android:id="@+id/popularCardView"
                                 android:layout_width="match_parent"
                                 android:layout_height="340dp"
                                 android:layout_marginEnd="@dimen/dp10"
@@ -229,6 +230,7 @@
                                 app:letterDuration="100" />
 
                             <android.support.v7.widget.CardView
+                                android:id="@+id/featureCardView"
                                 android:visibility="gone"
                                 android:layout_width="match_parent"
                                 android:layout_height="340dp"

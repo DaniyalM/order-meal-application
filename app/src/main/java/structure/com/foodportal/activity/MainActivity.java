@@ -3,34 +3,25 @@ package structure.com.foodportal.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -61,28 +52,21 @@ import structure.com.foodportal.fragment.NotificationsFragment;
 import structure.com.foodportal.fragment.OrdersHistoryFragment;
 import structure.com.foodportal.fragment.SideMenuFragment;
 import structure.com.foodportal.fragment.UserAccountFragment;
-import structure.com.foodportal.fragment.foodportal.FoodDetailFragment;
 import structure.com.foodportal.fragment.foodportal.FoodHomeFragment;
 import structure.com.foodportal.global.SideMenuChooser;
 import structure.com.foodportal.global.SideMenuDirection;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.GooglePlaceHelper;
-import structure.com.foodportal.helper.JsonHelpers;
-
 import structure.com.foodportal.helper.ServiceHelper;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.DataLoadedListener;
 import structure.com.foodportal.interfaces.MediaTypePicker;
 import structure.com.foodportal.interfaces.OnActivityResultInterface;
-import structure.com.foodportal.interfaces.foodInterfaces.NetworkListner;
 import structure.com.foodportal.interfaces.webServiceResponseLisener;
 import structure.com.foodportal.models.Category;
 import structure.com.foodportal.models.FCMPayload;
-import structure.com.foodportal.models.ProductModelAPI;
-import structure.com.foodportal.models.foodModels.FoodHomeModelWrapper;
 import structure.com.foodportal.models.foodModels.HeaderWrapper;
-import structure.com.foodportal.models.foodModels.MainHeaderWrapper;
 import structure.com.foodportal.webservice.WebServiceFactory;
 import structure.com.foodportal.webservice.webservice;
 
@@ -119,22 +103,41 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
     Bundle bundle;
     protected PowerManager.WakeLock mWakeLock;
 
-    public void keepScreenAwake(){
+    public void keepScreenAwake() {
         final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
         this.mWakeLock.acquire();
 
     }
+
+    String action_type;
+    int ref_id;
+    String slug;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         keepScreenAwake();
-        webService = WebServiceFactory.getInstance(AppConstant.BASE_URL,prefHelper);
+        webService = WebServiceFactory.getInstance(AppConstant.BASE_URL, prefHelper);
         serviceHelper = new ServiceHelper(this, this);
         if (getIntent().getExtras() != null) {
             bundle = new Bundle();
             bundle = getIntent().getExtras();
+            if (bundle != null) {
+                if(bundle.get("action_type")!=null){
+
+                    action_type = bundle.get("action_type").toString();
+                    ref_id = Integer.valueOf(bundle.get("ref_id").toString());
+                    slug = bundle.get("slug").toString();
+                }
+
+
+
+
+
+            }
+
 
 //            if (bundle != null) {
 //                FCMPayload fcmPayload = (FCMPayload) bundle.getSerializable(AppConstant.FcmHelper.FCM_DATA_PAYLOAD);
@@ -153,9 +156,6 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 //                    }
 //                }
 //            }
-
-
-
 
 
 //            for (String key : getIntent().getExtras().keySet()) {
@@ -324,12 +324,75 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 
             FragmentTransaction transaction = getSupportFragmentManager()
                     .beginTransaction();
-            transaction.replace(framelayout.getId(), new MultiLeftSideMenu(headerWrapper)).commit();
+            transaction.replace(framelayout.getId(), new MultiLeftSideMenu(headerWrapper,action_type)).commit();
             setDrawerListeners();
             // drawerLayout.closeDrawers();
 
 
-            addFragment(new FoodHomeFragment(), true, true);
+
+
+
+
+            if (action_type != null){
+
+                switch (action_type) {
+
+                    case "recipe":
+
+                        clearBackStack();
+                        closeDrawer();
+                        FoodHomeFragment foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES);
+                        foodHomeFragment.setTypeandSlug(action_type,slug);
+                        addFragment(foodHomeFragment, true, false);
+
+                        break;
+                    case "cleaning":
+                        clearBackStack();
+                        closeDrawer();
+                         foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING);
+                        foodHomeFragment.setTypeandSlug(action_type,slug);
+                        addFragment(foodHomeFragment, true, false);
+
+                     //   addFragment(new FoodHomeFragment(action_type,slug), true, true);
+                        break;
+                    case "tutorial":
+                        clearBackStack();
+                        closeDrawer();
+                         foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS);
+                        foodHomeFragment.setTypeandSlug(action_type,slug);
+                        addFragment(foodHomeFragment, true, false);
+
+                      ///  addFragment(new FoodHomeFragment(action_type,slug), true, true);
+                        break;
+                    case "blog":
+                        clearBackStack();
+                        closeDrawer();
+                        foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG);
+                        foodHomeFragment.setTypeandSlug(action_type,slug);
+                        addFragment(foodHomeFragment, true, false);
+                        break;
+                    case "special_recipe":
+                        clearBackStack();
+                        closeDrawer();
+                        foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES);
+                        foodHomeFragment.setTypeandSlug(action_type,slug);
+                        addFragment(foodHomeFragment, true, false);
+                        break;
+
+
+
+                }
+
+
+            }else{
+                closeDrawer();
+                addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES), true, true);
+
+            }
+
+
+
+
         }
     }
 
@@ -743,8 +806,6 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 
         }
     }
-
-
 
 
     @Override

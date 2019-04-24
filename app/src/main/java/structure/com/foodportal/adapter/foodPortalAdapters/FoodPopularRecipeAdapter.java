@@ -4,8 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -133,7 +135,7 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
         });
 
 
-        //    setAnimation(holder.itemView, position);
+        setScaleAnimation(holder.itemView,position);
     }
 
     private void setAnimation(View viewToAnimate, int position) {
@@ -145,12 +147,24 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
         }
     }
 
-
+    private void setFadeAnimation(View view) {
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
+    }
     @Override
     public int getItemCount() {
         return sections.size();
     }
-
+    private final static int FADE_DURATION = 1000; //FADE_DURATION in milliseconds
+    private void setScaleAnimation(View view,int position) {
+        if (position > 0) {
+        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
+            lastPosition = position;
+        }
+    }
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView text, tvPopularRecipeServes, tvPopularRecipeCookingTime;

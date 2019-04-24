@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,6 +43,14 @@ public class FoodSavedRecipeAdapter  extends RecyclerView.Adapter<FoodSavedRecip
 
 
 
+    private void setScaleAnimation(View view,int position) {
+        if (position > 0) {
+            ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            anim.setDuration(FADE_DURATION);
+            view.startAnimation(anim);
+            lastPosition = position;
+        }
+    }    private final static int FADE_DURATION = 1000; //FADE_DURATION in milliseconds
 
     @Override
     public void onBindViewHolder(FoodSavedRecipeAdapter.PlanetViewHolder holder, int position) {
@@ -98,7 +107,7 @@ public class FoodSavedRecipeAdapter  extends RecyclerView.Adapter<FoodSavedRecip
 
 
 
-            // setAnimation(holder.itemView, position);
+             setScaleAnimation(holder.itemView, position);
 
 
 

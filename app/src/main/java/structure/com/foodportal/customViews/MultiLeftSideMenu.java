@@ -45,14 +45,16 @@ public class MultiLeftSideMenu extends BaseFragment {
     private DrawerAdapter drawerAdapter;
     ArrayList<DrawerItem> drawerItems;
     ArrayList<HeaderWrapper> headerWrapper;
+    String type;
 
     public static MultiLeftSideMenu newInstance() {
 
         return new MultiLeftSideMenu();
     }
 
-    public MultiLeftSideMenu(ArrayList<HeaderWrapper> headerWrapper) {
+    public MultiLeftSideMenu(ArrayList<HeaderWrapper> headerWrapper, String type) {
         this.headerWrapper = headerWrapper;
+        this.type = type;
 
 
     }
@@ -291,7 +293,7 @@ public class MultiLeftSideMenu extends BaseFragment {
 
             } else {
                 mainActivity.clearBackStack();
-                SavedRecipesFragment savedRecipesFragment =new SavedRecipesFragment();
+                SavedRecipesFragment savedRecipesFragment = new SavedRecipesFragment();
                 savedRecipesFragment.setSavedRecipes(true);
                 mainActivity.addFragment(savedRecipesFragment, true, false);
                 // updateLeftDrawer("logout");
@@ -307,7 +309,7 @@ public class MultiLeftSideMenu extends BaseFragment {
             } else {
 
                 mainActivity.clearBackStack();
-                SavedRecipesFragment savedRecipesFragment =new SavedRecipesFragment();
+                SavedRecipesFragment savedRecipesFragment = new SavedRecipesFragment();
                 savedRecipesFragment.setSavedRecipes(false);
                 mainActivity.addFragment(savedRecipesFragment, true, false);
                 // updateLeftDrawer("logout");
