@@ -124,6 +124,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         if (getIntent().getExtras() != null) {
             bundle = new Bundle();
             bundle = getIntent().getExtras();
+          FCMPayload fcmPayload= (FCMPayload) bundle.getSerializable(AppConstant.FcmHelper.FCM_DATA_PAYLOAD);
             if (bundle != null) {
                 if(bundle.get("action_type")!=null){
 

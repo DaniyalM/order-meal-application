@@ -23,6 +23,8 @@ import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.interfaces.DataLoadedListener;
 import structure.com.foodportal.models.FCMPayload;
 
+import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static int NOTIFICATION_ID = 1;
     DataLoadedListener dataLoadedListener;
@@ -48,25 +50,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void makepush(RemoteMessage message) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.mirchiblack)
-                .setContentTitle(message.getNotification().getTitle())
-                .setContentText(message.getNotification().getBody())
-                .setContentIntent(pendingIntent)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
-
+        //intent.add(FLAG_ACTIVITY_SINGLE_TOP );
         FCMPayload fcmPayload =new FCMPayload();
 //        fcmPayload =(FCMPayload) message.getData() ;
 
         if(message.getData() != null){
             if(message.getData().get("action_type") != null){
-              //  builder.setContentTitle(message.getData().get("action_type"));
+                //  builder.setContentTitle(message.getData().get("action_type"));
                 fcmPayload.setAction_type(message.getData().get("action_type"));
             }
             if(message.getData().get("ref_id") != null){
-              //  builder.setContentText(message.getData().get("ref_id"));
+                //  builder.setContentText(message.getData().get("ref_id"));
                 fcmPayload.setRef_id(Integer.valueOf(message.getData().get("ref_id")));
             }
             if(message.getData().get("slug") != null){
@@ -79,6 +73,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.FcmHelper.FCM_DATA_PAYLOAD, fcmPayload);
         intent.putExtras(bundle);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                .setSmallIcon(R.drawable.mirchiblack)
+                .setContentTitle(message.getNotification().getTitle())
+                .setContentText(message.getNotification().getBody())
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.foodtribune);
