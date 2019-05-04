@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:background="@color/colorFbWhiteBg">
+        android:background="@color/colorWhiteBack">
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -57,14 +57,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="360dp"
                         android:layout_marginEnd="@dimen/dp20"
-                        android:layout_marginStart="@dimen/dp20">
+                        android:layout_marginStart="@dimen/dp20"
+                        android:background="@color/lightGray">
 
                         <LinearLayout
                             android:layout_width="200dp"
                             android:layout_height="30dp"
                             android:layout_gravity="bottom|end"
                             android:layout_margin="@dimen/dp5"
-                            android:background="@color/lightGray"
+                            android:background="@color/uvv_light_gray"
                             android:fontFamily="@font/poppinsbold"
                             android:gravity="end|bottom"
                             android:padding="@dimen/dp5" />
@@ -152,27 +153,29 @@
                             android:orientation="vertical">
 
                             <believe.cht.fadeintextview.TextView
-                                android:layout_marginTop="@dimen/dp5"
                                 android:id="@+id/tvPopularRecipe"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp5"
                                 android:fontFamily="@font/poppinsbold"
                                 android:gravity="start"
                                 android:padding="@dimen/dp5"
                                 android:text=""
                                 android:textAllCaps="true"
-                                android:textColor="@color/colorAccent"
+                                android:textColor="@color/colorAccentTextColor"
                                 app:letterDuration="100" />
 
                             <android.support.v7.widget.CardView
-                                android:visibility="gone"
                                 android:id="@+id/popularCardView"
                                 android:layout_width="match_parent"
                                 android:layout_height="340dp"
                                 android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:clickable="true"
+                                android:visibility="gone"
                                 app:cardCornerRadius="@dimen/dp10"
                                 app:cardUseCompatPadding="true">
 
@@ -187,8 +190,7 @@
                                         android:id="@+id/bannerPopular"
                                         layout="@layout/item_home_banner"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        />
+                                        android:layout_height="match_parent" />
                                 </FrameLayout>
 
                             </android.support.v7.widget.CardView>
@@ -204,6 +206,68 @@
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
 
+                    <android.support.v7.widget.CardView
+                        android:visibility="gone"
+                        android:id="@+id/cvRecommendedSection"
+                        app:cardUseCompatPadding="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp10"
+                                android:fontFamily="@font/poppinsbold"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccentTextColor"
+                                android:text="Recommended for you"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ImageView
+                                android:layout_marginTop="@dimen/dp30"
+                                android:visibility="visible"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/img_recommaned_for_you" />
+
+
+                            <TextView
+                                android:layout_marginTop="@dimen/dp30"
+                                android:layout_width="200dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:minLines="2"
+                                android:text="Save More. get more. Inspiration just for you."
+                                android:textColor="@color/colorAccentBlue"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_marginTop="@dimen/dp10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:minLines="2"
+                                android:layout_marginBottom="30dp"
+                                android:maxEms="15"
+                                android:fontFamily="@font/poppinslight"
+                                android:text="For every recipe you will save, we'll suggest similar recipes we think you'll enjoy."
+                                android:textColor="@color/colorTextGray"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/cvSectionTwo"
@@ -218,25 +282,27 @@
                             android:orientation="vertical">
 
                             <believe.cht.fadeintextview.TextView
-                                android:layout_marginTop="@dimen/dp5"
                                 android:id="@+id/tvFeaturedRecipes"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp5"
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
                                 android:text=""
                                 android:textAllCaps="true"
-                                android:textColor="@color/colorAccent"
+                                android:textColor="@color/colorAccentTextColor"
                                 app:letterDuration="100" />
 
                             <android.support.v7.widget.CardView
                                 android:id="@+id/featureCardView"
-                                android:visibility="gone"
                                 android:layout_width="match_parent"
                                 android:layout_height="340dp"
                                 android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:clickable="true"
+                                android:visibility="gone"
                                 app:cardCornerRadius="@dimen/dp10"
                                 app:cardUseCompatPadding="true">
 
@@ -251,8 +317,7 @@
                                         android:id="@+id/bannerFeatured"
                                         layout="@layout/item_home_banner"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                         />
+                                        android:layout_height="match_parent" />
                                 </FrameLayout>
                             </android.support.v7.widget.CardView>
 
@@ -285,9 +350,9 @@
                                 xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/content"
                                 android:layout_width="80dp"
-                                android:layout_marginTop="@dimen/dp5"
                                 android:layout_height="80dp"
                                 android:layout_gravity="top"
+                                android:layout_marginTop="@dimen/dp5"
                                 android:gravity="top"
                                 app:rb_color="@color/white"
                                 app:rb_duration="2000"
@@ -354,12 +419,14 @@
                             <believe.cht.fadeintextview.TextView
                                 android:id="@+id/tvBetterforBites"
                                 android:layout_width="wrap_content"
+
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp10"
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
                                 android:text=""
                                 android:textAllCaps="true"
-                                android:textColor="@color/colorAccent" />
+                                android:textColor="@color/colorAccentTextColor" />
 
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/rvBetterforBites"
@@ -383,11 +450,12 @@
                                 android:id="@+id/tvtechniques"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp10"
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
                                 android:text="Tutorials"
                                 android:textAllCaps="true"
-                                android:textColor="@color/colorAccent" />
+                                android:textColor="@color/colorAccentTextColor" />
 
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/rvtechniques"

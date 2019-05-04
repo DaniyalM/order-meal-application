@@ -58,10 +58,10 @@ public class FoodMealTypeAdapter extends RecyclerView.Adapter<FoodMealTypeAdapte
     int maxColor = 6;
     @Override
     public void onBindViewHolder(FoodMealTypeAdapter.FoodSearchViewHolder holder, int position) {
-        Random r = new Random();
-
-        int R = r.nextInt(maxColor-minColor) + minColor;
-        holder.chip.setTextColor(colors[R]);
+//        Random r = new Random();
+//
+//        int R = r.nextInt(maxColor-minColor) + minColor;
+//        holder.chip.setTextColor(colors[R]);
         holder.chip.setText(steps.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

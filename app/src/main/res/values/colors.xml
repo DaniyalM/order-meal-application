@@ -9,6 +9,7 @@
     <color name="colorRed">#CD2D36</color>
     <color name="colorRedLight">#F5D6D6</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhiteBack">#f1f1f1</color>
     <color name="colorBlackButton">#222222</color>
     <color name="colorBlackShade">#353535</color>
     <color name="colorBlackText">#7A7A7A</color>
@@ -32,5 +33,6 @@
     <color name="colorFbWhiteBg">#f1f1f1</color>
     <color name="colorYellow">#f2ee00</color>
     <color name="colorAccent">#2e9caf</color>
+    <color name="colorAccentTextColor">#0077a1</color>
     <color name="colorAccentBlue">#0078a1</color>
 </resources>

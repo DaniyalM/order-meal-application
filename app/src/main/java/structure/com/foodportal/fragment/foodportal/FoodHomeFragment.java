@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,7 +102,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     TextView tvf;
 
     CardView featurecv, popularcv;
-
+    FrameLayout pframe,fframe;
     View vp;
     View vf;
 
@@ -114,6 +115,10 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         setListners();
         vp = binding.getRoot().findViewById(R.id.bannerPopular);
         vf = binding.getRoot().findViewById(R.id.bannerFeatured);
+
+        pframe = vp.findViewById(R.id.homeBanner);
+        fframe = vf.findViewById(R.id.homeBanner);
+
 
         popularcv = binding.getRoot().findViewById(R.id.popularCardView);
         featurecv = binding.getRoot().findViewById(R.id.featureCardView);
@@ -413,14 +418,16 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 featurecv.setVisibility(View.VISIBLE);
                 popularslug = foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getSlug();
                 featuredslug = foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getSlug();
-                tvp.setOnClickListener(new View.OnClickListener() {
+
+
+                pframe.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
                         next(popularslug);
                     }
                 });
-                tvf.setOnClickListener(new View.OnClickListener() {
+                fframe.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 

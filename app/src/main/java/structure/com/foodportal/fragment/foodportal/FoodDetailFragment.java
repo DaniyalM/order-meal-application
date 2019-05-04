@@ -139,7 +139,8 @@ public class FoodDetailFragment extends BaseFragment implements
     ArrayList<Sections> related;
     ArrayList<Comments> comments;
     HashMap<String, ArrayList<Ingredient>> subingrdeints;
-
+    Button sa;
+    TextView tv;
 
     View mBottomLayout;
     View mVideoLayout;
