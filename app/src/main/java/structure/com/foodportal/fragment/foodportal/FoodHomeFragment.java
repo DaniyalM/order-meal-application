@@ -101,7 +101,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     TextView tvp;
     TextView tvf;
 
-    CardView featurecv, popularcv;
+    CardView featurecv, popularcv,cvRecommendedSection;
     FrameLayout pframe,fframe;
     View vp;
     View vf;
@@ -122,6 +122,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
         popularcv = binding.getRoot().findViewById(R.id.popularCardView);
         featurecv = binding.getRoot().findViewById(R.id.featureCardView);
+        cvRecommendedSection = binding.getRoot().findViewById(R.id.cvRecommendedSection);
 
 
         ksp = vp.findViewById(R.id.ivBanner);
@@ -413,11 +414,12 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
             case AppConstant.FOODPORTAL_FOOD_DETAILS.HOME:
             case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
-
+               // cvRecommendedSection.setVisibility(View.VISIBLE);
                 popularcv.setVisibility(View.VISIBLE);
                 featurecv.setVisibility(View.VISIBLE);
                 popularslug = foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getSlug();
                 featuredslug = foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getSlug();
+
 
 
                 pframe.setOnClickListener(new View.OnClickListener() {

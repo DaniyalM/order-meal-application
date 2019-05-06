@@ -58,16 +58,16 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
 
         if(sections.get(position).getFeature_type_id()==1){
 
-        //  holder.tvPopularRecipeServes.setVisibility(View.VISIBLE);
-      //      holder.tvPopularRecipeCookingTime.setVisibility(View.VISIBLE);
+         holder.tvPopularRecipeServes.setVisibility(View.VISIBLE);
+            holder.tvPopularRecipeCookingTime.setVisibility(View.VISIBLE);
             holder.tvPopularRecipeServes.setText(sections.get(position).getServing_for()+" person(s)");
             holder.tvPopularRecipeCookingTime.setText(sections.get(position).getCook_time());
 
 
         }else{
 
-       //     holder.tvPopularRecipeServes.setVisibility(View.GONE);
-       //     holder.tvPopularRecipeCookingTime.setVisibility(View.GONE);
+           holder.tvPopularRecipeServes.setVisibility(View.GONE);
+            holder.tvPopularRecipeCookingTime.setVisibility(View.GONE);
 
         }
 

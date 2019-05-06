@@ -292,7 +292,7 @@ public interface webservice {
     Call<Api_Response<SavedStoriesWrapper>> getSavedRecipes(@Query("id") int id);
 
   @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECENTLYVIEWED_RECIPES)
-    Call<Api_Response<SavedStoriesWrapper>> getRecentlyViewedRecipes(@Query("id") int id);
+    Call<Api_Response<SavedStoriesWrapper>> getRecentlyViewedRecipes(@Query("id") int id,@Query("feature_type_id") int featured_type_id);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_POPULAR)
     Call<Api_Response<Section>> getPopularRecipes(@Query("page") int page, @Query("limit") int limit);
