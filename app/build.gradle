@@ -11,7 +11,7 @@ android {
         applicationId "structure.com.foodportal"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 19
+        versionCode 22
         versionName "1.1.6"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -158,6 +158,7 @@ dependencies {
     implementation 'me.grantland:autofittextview:0.2.0'
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
     implementation 'com.github.pchmn:MaterialChipsInput:1.0.8'
+    implementation "com.mlsdev.animatedrv:library:2.0.0"
 
 
 

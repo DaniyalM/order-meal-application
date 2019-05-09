@@ -485,6 +485,11 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
     }
 
     @Override
+    public void recommendedrecipe(int pos) {
+
+    }
+
+    @Override
     public void featuredrecipe(int pos) {
 
     }

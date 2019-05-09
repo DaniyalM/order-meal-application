@@ -24,6 +24,11 @@ public class SplashActivity extends AppCompatActivity implements StoriesProgress
         preferenceHelper = new BasePreferenceHelper(this);
         mProgress = (ProgressBar) findViewById(R.id.splash_screen_progress_bar);
 
+
+
+
+
+
         // storiesProgressView = findViewById(R.id.stories);
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE

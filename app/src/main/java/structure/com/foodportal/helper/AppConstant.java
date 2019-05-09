@@ -13,7 +13,7 @@ public class AppConstant {
     public static final int G_REQ_CODE = 103;
 
     //  public static final String BASE_URL = "http://renting.stagingic.com/api/";
-  //  public static final String BASE_URL = "http://renting.stagingic.com/api/";
+    //  public static final String BASE_URL = "http://renting.stagingic.com/api/";
 
     // public static final String BASE_URL = "http://renting.localapp.com/api/";
     //   public static final String ALL_CATEGORYS = "category/allcategories";
@@ -164,7 +164,7 @@ public class AppConstant {
         public static final String COMPLETED = "Completed";
     }
 
-    public class CategoriesIds{
+    public class CategoriesIds {
         public static final int AUTOMOBILES = 40;
         public static final int ELECTRONICS = 41;
         public static final int PROPERTIES = 43;
@@ -206,9 +206,11 @@ public class AppConstant {
         public static final int PETS = 128;
         public static final int OTHER = 129;
     }
+
     public static final String BASE_URL = "https://food.tribune.com.pk/api/";
+    // public static final String BASE_URL = "https://staging-food.tribune.com.pk/api/";
     public static final String BASE_URL_IMAGE = "https://cdn.recipesofpakistan.com/";
-   // public static final String VIDEO_URL = "https://cdn.recipesofpakistan.com/";
+    // public static final String VIDEO_URL = "https://cdn.recipesofpakistan.com/";
     public static final String VIDEO_URL = "https://cdn-food.tribune.com.pk/";
 
     public class FOODPORTAL_FOOD_DETAILS {
@@ -246,8 +248,9 @@ public class AppConstant {
 
 
     }
-    public class DrawerItemType{
-        public static final String  ITEM = "item";
-        public static final String  GROUP = "group";
+
+    public class DrawerItemType {
+        public static final String ITEM = "item";
+        public static final String GROUP = "group";
     }
 }

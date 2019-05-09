@@ -30,6 +30,7 @@ import structure.com.foodportal.adapter.foodPortalAdapters.FoodFeaturedAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodMasterTechniquesAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPopularRecipeAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodRecentlyViewedAdapter;
+import structure.com.foodportal.adapter.foodPortalAdapters.FoodRecommendedRecipeAdapter;
 import structure.com.foodportal.databinding.FragmentHomefoodBinding;
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.helper.AppConstant;
@@ -54,6 +55,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     FragmentHomefoodBinding binding;
     FoodCategoryAdapter foodCategoryAdapter;
     FoodPopularRecipeAdapter foodPopularRecipeAdapter;
+    FoodRecommendedRecipeAdapter foodRecommendedRecipeAdapter;
     FoodFeaturedAdapter foodFeaturedAdapter;
     FoodMasterTechniquesAdapter foodMasterTechniquesAdapter;
     FoodRecentlyViewedAdapter foodRecenltyViewedAdapter;
@@ -62,6 +64,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     ArrayList<CategorySlider> categorySliders;
     ArrayList<Banner> banners;
     ArrayList<Sections> sectionsPopular;
+    ArrayList<Sections> sectionsRecommended;
     ArrayList<Sections> sectionsFeatured;
     ArrayList<Sections> masterTechniques;
     ArrayList<Sections> recentlyViewed;
@@ -163,6 +166,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         binding.tvFeaturedRecipes.setOnClickListener(this);
         categorySliders = new ArrayList<>();
         sectionsPopular = new ArrayList<>();
+        sectionsRecommended = new ArrayList<>();
         sectionsFeatured = new ArrayList<>();
         masterTechniques = new ArrayList<>();
         recentlyViewed = new ArrayList<>();
@@ -172,12 +176,15 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         foodCategoryAdapter = new FoodCategoryAdapter(categorySliders, mainActivity, this);
         foodBannerAdapter = new FoodBannerAdapter(banners, mainActivity, this);
         foodPopularRecipeAdapter = new FoodPopularRecipeAdapter(sectionsPopular, mainActivity, this);
+        foodRecommendedRecipeAdapter = new FoodRecommendedRecipeAdapter(sectionsRecommended, mainActivity, this);
         foodFeaturedAdapter = new FoodFeaturedAdapter(sectionsFeatured, mainActivity, this);
         foodMasterTechniquesAdapter = new FoodMasterTechniquesAdapter(masterTechniques, mainActivity, this);
         foodBetterForBitesAdapter = new FoodBetterForBitesAdapter(sectionsBetterForBites, mainActivity, this);
 
 
+        binding.rvRecommendedRecipe.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
         binding.rvCategoryslider.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
+
         binding.rvPopularRecipe.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
         binding.rvFeaturedRecipes.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
         binding.rvtechniques.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
@@ -185,6 +192,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         binding.rvBetterforBites.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
 
 
+        binding.rvRecommendedRecipe.setAdapter(foodRecommendedRecipeAdapter);
         binding.rvtechniques.setAdapter(foodMasterTechniquesAdapter);
         binding.rvCategoryslider.setAdapter(foodCategoryAdapter);
         binding.rvPopularRecipe.setAdapter(foodPopularRecipeAdapter);
@@ -417,6 +425,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                // cvRecommendedSection.setVisibility(View.VISIBLE);
                 popularcv.setVisibility(View.VISIBLE);
                 featurecv.setVisibility(View.VISIBLE);
+               // cvRecommendedSection.setVisibility(View.VISIBLE);
                 popularslug = foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getSlug();
                 featuredslug = foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getSlug();
 
@@ -454,6 +463,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 sectionsFeatured.addAll(foodHomeModelWrapper.getSection().get(1).getSection_list());
                 sectionsBetterForBites.addAll(foodHomeModelWrapper.getSection().get(3).getSection_list());
                 masterTechniques.addAll(foodHomeModelWrapper.getSection().get(4).getSection_list());
+                sectionsRecommended.addAll(foodHomeModelWrapper.getSection().get(5).getSection_list());
                 categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
                 banners.addAll(foodHomeModelWrapper.getBanner());
 
@@ -518,6 +528,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         foodFeaturedAdapter.notifyDataSetChanged();
         foodBetterForBitesAdapter.notifyDataSetChanged();
         foodMasterTechniquesAdapter.notifyDataSetChanged();
+        foodRecommendedRecipeAdapter.notifyDataSetChanged();
 
 
         if (type != null){
@@ -555,11 +566,12 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onBannerClick(int positon) {
 
-
-        next(banners.get(positon).getSlug());
-
-
-    }
+        if(banners.get(positon).getSpecial_recipes_id()>0){
+            getSpecialRecipe(banners.get(positon).getSpecial_recipes_slug(), preferenceHelper.getUserFood().getId());
+        }else{
+            next(banners.get(positon).getSlug());
+            }
+        }
 
     @Override
     public void popularrecipe(int pos) {
@@ -572,7 +584,13 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     }
 
     @Override
+    public void recommendedrecipe(int pos) {
+        next(sectionsRecommended.get(pos).getSlug());
+    }
+
+    @Override
     public void featuredrecipe(int pos) {
+
         next(sectionsFeatured.get(pos).getSlug());
     }
 

@@ -4,6 +4,7 @@ public interface FoodHomeListner {
 
 
     void popularrecipe(int pos);
+    void recommendedrecipe(int pos);
     void featuredrecipe(int pos);
     void betterforurbites(int pos);
     void recentlyViewed(int pos);

@@ -65,6 +65,25 @@ public class Banner
 
     private String feature_type_id;
 
+    public int getSpecial_recipes_id() {
+        return special_recipes_id;
+    }
+
+    public void setSpecial_recipes_id(int special_recipes_id) {
+        this.special_recipes_id = special_recipes_id;
+    }
+
+    public String getSpecial_recipes_slug() {
+        return special_recipes_slug;
+    }
+
+    public void setSpecial_recipes_slug(String special_recipes_slug) {
+        this.special_recipes_slug = special_recipes_slug;
+    }
+
+    private int special_recipes_id;
+    private String special_recipes_slug;
+
 
     private String preparation_time;
 

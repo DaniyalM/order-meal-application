@@ -934,6 +934,11 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
     }
 
     @Override
+    public void recommendedrecipe(int pos) {
+
+    }
+
+    @Override
     public void featuredrecipe(int pos) {
 
     }

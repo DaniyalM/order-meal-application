@@ -943,6 +943,11 @@ public class FoodDetailFragment extends BaseFragment implements
     }
 
     @Override
+    public void recommendedrecipe(int pos) {
+        next(related.get(pos).getSlug());
+    }
+
+    @Override
     public void featuredrecipe(int pos) {
 
     }
