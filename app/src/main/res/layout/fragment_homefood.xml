@@ -145,6 +145,7 @@
                     <android.support.v7.widget.CardView
                         android:layout_marginTop="@dimen/dp10"
                         android:id="@+id/cvSectionOne"
+                        app:cardBackgroundColor="@color/colorFbWhiteBg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardUseCompatPadding="true">
@@ -210,9 +211,9 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
+                        android:id="@+id/cvRecommendedImageCard"
                         android:visibility="gone"
-                        android:layout_marginTop="@dimen/dp10"
-                        android:id="@+id/cvRecommendedSection"
+                        android:layout_marginTop="@dimen/dp15"
                         app:cardUseCompatPadding="true"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -222,15 +223,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginTop="@dimen/dp10"
-                                android:fontFamily="@font/poppinsbold"
-                                android:textAllCaps="true"
-                                android:textColor="@color/colorAccentTextColor"
-                                android:text="Recommended for you"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+
 
                             <ImageView
                                 android:layout_marginTop="@dimen/dp30"
@@ -268,21 +261,15 @@
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/rvRecommendedRecipe"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dp10"
-                                android:nestedScrollingEnabled="true">
 
-                            </android.support.v7.widget.RecyclerView>
 
                         </LinearLayout>
 
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp15"
+                        app:cardBackgroundColor="@color/colorFbWhiteBg"
                         android:id="@+id/cvSectionTwo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -360,7 +347,7 @@
                             android:gravity="top"
                             android:orientation="horizontal">
 
-                            <com.skyfishjy.library.RippleBackground xmlns:android="http://schemas.android.com/apk/res/android"
+                          <!--  <com.skyfishjy.library.RippleBackground xmlns:android="http://schemas.android.com/apk/res/android"
                                 xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/content"
                                 android:layout_width="80dp"
@@ -373,7 +360,7 @@
                                 app:rb_radius="20dp"
                                 app:rb_rippleAmount="4"
                                 app:rb_scale="2"
-                                app:rb_type="fillRipple">
+                                app:rb_type="fillRipple">-->
 
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/ivTipOftheDay"
@@ -385,7 +372,7 @@
                                     android:layout_marginStart="@dimen/dp5"
                                     android:padding="@dimen/dp2"
                                     android:src="@drawable/chefimage" />
-                            </com.skyfishjy.library.RippleBackground>
+                           <!-- </com.skyfishjy.library.RippleBackground>-->
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -480,7 +467,50 @@
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:id="@+id/cvRecommendedSection"
+                        app:cardUseCompatPadding="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp10"
+                                android:fontFamily="@font/poppinsbold"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccentTextColor"
+                                android:text="Recommended for you"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+
+
+                            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                                android:id="@+id/rvRecommendedRecipe"
+                                android:background="@color/colorFbWhiteBg"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:shimmer_demo_child_count="8"
+                                app:shimmer_demo_grid_child_count="2"
+                                app:shimmer_demo_layout="@layout/layout_demo_grid"
+                                app:shimmer_demo_layout_manager_type="grid"
+                                app:shimmer_demo_angle="30"
+                                app:shimmer_demo_duration="700"
+                                android:layout_marginTop="@dimen/dp10"
+                                android:nestedScrollingEnabled="true">
+
+                            </com.cooltechworks.views.shimmer.ShimmerRecyclerView>
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
                 </LinearLayout>
             </LinearLayout>
 

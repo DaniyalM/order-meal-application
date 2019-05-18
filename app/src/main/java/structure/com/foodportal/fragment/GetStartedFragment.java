@@ -1,66 +1,55 @@
 package structure.com.foodportal.fragment;
 
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.databinding.DataBindingUtil;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.view.WindowManager;
 import android.widget.Toast;
+import android.widget.VideoView;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
-import io.reactivex.annotations.NonNull;
-import okhttp3.RequestBody;
 import structure.com.foodportal.R;
-import structure.com.foodportal.activity.FacebookBaseFragment;
 import structure.com.foodportal.databinding.FragmentGetstartedBinding;
-import structure.com.foodportal.fragment.foodportal.FoodHomeFragment;
 import structure.com.foodportal.fragment.foodportal.FoodLoginFragment;
-import structure.com.foodportal.fragment.foodportal.FoodSignUpFragment;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.Titlebar;
-import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.DataListner;
 import structure.com.foodportal.models.foodModels.User;
 
 public class GetStartedFragment extends BaseFragment implements View.OnClickListener, DataListner {
 
     FragmentGetstartedBinding binding;
-
+    VideoView videoView;
+    SimpleExoPlayer player;
+    MediaSource mediaSource;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_getstarted, container, false);
+        videoView = (VideoView) binding.getRoot().findViewById(R.id.videoView);
+        registrationActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         init();
         getVersionInfo();
         registrationActivity.setcontent(this);
@@ -83,8 +72,72 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         binding.versionapp.setText(String.format("v" + versionName));
     }
 
+    private MediaSource buildMediaSource(Uri uri) {
+        return new ExtractorMediaSource.Factory(
+                new DefaultHttpDataSourceFactory("exoplayer-codelab")).
+                createMediaSource(uri);
+    }
+
     public void init() {
 
+
+        try {
+            Uri video = Uri.parse("android.resource://" + registrationActivity.getPackageName() + "/" + R.raw.gotvideo);
+           videoView.setVideoURI(video);
+
+          videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+              @Override
+              public void onPrepared(MediaPlayer mediaPlayer) {
+
+                  mediaPlayer.setLooping(true);
+              }
+          });
+            videoView.requestFocus();
+            videoView.start();
+        } catch (Exception ex) {
+            //  jump();
+            Log.d("VideoPlayer PSlash", " " + ex);
+        }
+
+
+        // HttpProxyCacheServer proxy = MyApplication.getProxy(mainActivity);
+//        MediaController mediaController = new MediaController(registrationActivity);
+//        mediaController.setAnchorView(videoView);
+//        videoView.setMediaController(mediaController);
+
+//        player = ExoPlayerFactory.newSimpleInstance(
+//                new DefaultRenderersFactory(registrationActivity),
+//                new DefaultTrackSelector(), new DefaultLoadControl());
+//        player.setVolume(0f);
+//        videoView.setPlayer(player);
+//        videoView.setFitsSystemWindows(true);
+//        player.setPlayWhenReady(true);
+//
+//
+//
+//        //  player.seekTo(startTime.get(value), endTime.get(value));
+//     //   player.addListener(this);
+//        Uri path = Uri.parse("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4");
+//        player.setRepeatMode(SimpleExoPlayer.DISCONTINUITY_REASON_SEEK);
+//        mediaSource = buildMediaSource(path);
+//        player.prepare(mediaSource, true, true);
+
+
+        // videoView.set(Uri.parse(path));
+
+
+//        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            @Override
+//            public void onPrepared(MediaPlayer mediaPlayer) {
+//                mediaPlayer.setLooping(true);
+//            }
+//        });
+////        videoView.setOnPreparedListener(mediaPlayer -> {
+////            //mediaPlayer.seekTo(syncStatusMessage.getSyncStatusMessage());
+////            mediaPlayer.setLooping(true);
+////
+////        });
+//        videoView.start();
 
 
         try {
@@ -110,6 +163,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         binding.tvWithEmail.setOnClickListener(this);
         binding.tvWithFacebok.setOnClickListener(this);
         binding.tvWithGoogle.setOnClickListener(this);
+
 
     }
 

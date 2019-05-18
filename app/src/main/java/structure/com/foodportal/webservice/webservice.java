@@ -300,6 +300,9 @@ public interface webservice {
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_FEATURED)
     Call<Api_Response<Section>> getFeaturedRecipes(@Query("page") int page, @Query("limit") int limit);
 
+  @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECOMMENDED)
+    Call<Api_Response<Section>> getRecommendedRecipes(@Query("page") int page, @Query("limit") int limit);
+
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME_SEARCH)
     Call<Api_Array_Response<FoodDetailModel>> getSearchResult(@Query("search") String search);
 }

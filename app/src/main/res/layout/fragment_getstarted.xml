@@ -2,14 +2,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.flaviofaria.kenburnsview.KenBurnsView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/img_bg" />
+
+        <VideoView
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/videoView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="@dimen/dp250"
+            android:layout_height="@dimen/dp92"
+            android:layout_gravity="center"
+            android:background="@drawable/title_logo"
+            android:backgroundTint="@color/white"
+            android:gravity="center" />
 
 
         <LinearLayout
@@ -17,110 +31,119 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/dp20"
             android:layout_marginStart="@dimen/dp20"
-            android:gravity="center"
+            android:gravity="bottom|center"
             android:orientation="vertical">
 
 
-            <TextView
-                android:backgroundTint="@color/white"
-                android:layout_width="@dimen/dp250"
-                android:layout_height="@dimen/dp92"
-                android:layout_gravity="center"
-                android:background="@drawable/title_logo"
-                android:gravity="center" />
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/dp10"
-                android:fontFamily="@font/poppinsbold"
-                android:gravity="center"
-                android:padding="@dimen/dp10"
-                android:text="@string/your_recipe_are_waiting"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp20" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/dp10"
-                android:gravity="center"
-                android:padding="@dimen/dp10"
-                android:text="@string/unlock_cooking_food_recipes_and_your_personal_recipe_box_with_a_free_trial"
-                android:textColor="@color/white" />
 
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_marginStart="@dimen/dp10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dp10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_marginStart="@dimen/dp10"
+                android:orientation="vertical">
 
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/tvWithFacebok"
-                android:layout_margin="@dimen/dp10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/white" />
-
-
-            <TextView
-                android:id="@+id/tvWithGoogle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/dp10"
-                android:background="@drawable/google"
-                android:gravity="center"
-                android:padding="@dimen/dp10"
-                android:textColor="@color/white" />
-
-
-            <TextView
-                android:id="@+id/tvWithEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/dp10"
-                android:gravity="center"
-                android:padding="@dimen/dp10"
-                android:background="@drawable/img_email"
-                android:textColor="@color/white" />
-        <android.support.design.circularreveal.cardview.CircularRevealCardView
-            app:cardCornerRadius="@dimen/dp30"
-            android:background="@color/colorAccentPink"
-            android:layout_width="match_parent"
-            android:layout_margin="@dimen/dp10"
-            android:layout_height="wrap_content"
-             >
-            <TextView
-                android:id="@+id/loginAsGuest"
-                android:padding="@dimen/dp10"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:background="@color/colorAccentPink"
-                android:textColor="@color/white"
-                android:text="Login as guest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </android.support.design.circularreveal.cardview.CircularRevealCardView>
                 <TextView
-                    android:id="@+id/versionapp"
-                    android:text="V1.0.0"
-                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/dp10"
                     android:gravity="center"
+                    android:fontFamily="@font/proximaextrabold"
                     android:padding="@dimen/dp10"
+                    android:textSize="@dimen/sp18"
+                    android:text="@string/unlock_cooking_food_recipes_and_your_personal_recipe_box_with_a_free_trial"
+                    android:textColor="@color/white" />
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <android.support.v7.widget.CardView
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    app:cardElevation="@dimen/dp2"
+                    app:cardCornerRadius="@dimen/dp5"
+                    app:cardUseCompatPadding="true">
+
+
+                    <TextView
+                        android:textSize="@dimen/sp16"
+                        android:id="@+id/tvWithFacebok"
+                        android:fontFamily="@font/proximaextrabold"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:text="@string/facebook"
+                        android:textColor="@color/com_facebook_blue" />
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="60dp"
+                    app:cardCornerRadius="@dimen/dp5"
+                    app:cardElevation="@dimen/dp2"
+                    app:cardUseCompatPadding="true">
+
+                    <TextView
+                        android:id="@+id/tvWithEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/sp16"
+                        android:gravity="center"
+                        android:fontFamily="@font/proximaextrabold"
+                        android:text="@string/email"
+                        android:textColor="@color/colorAccentBlue" />
+                </android.support.v7.widget.CardView>
+
+
+                </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvWithGoogle"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/google"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
+
+
+
+
+
+                <TextView
+                    android:id="@+id/loginAsGuest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/proximaextrabold"
+                    android:gravity="center"
+                    android:padding="@dimen/dp5"
+                    android:text="@string/maybe_later"
+                    android:textColor="@color/white" />
+
+
+                <TextView
+                    android:id="@+id/versionapp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/dp10"
+                    android:gravity="center"
+                    android:fontFamily="@font/proximaextrabold"
+                    android:padding="@dimen/dp5"
+                    android:text="V1.0.0"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 

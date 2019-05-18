@@ -9,6 +9,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ import structure.com.foodportal.models.foodModels.Banner;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.FoodHomeModelWrapper;
+import structure.com.foodportal.models.foodModels.Section;
 import structure.com.foodportal.models.foodModels.Sections;
 
 @SuppressLint("ValidFragment")
@@ -69,17 +71,19 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     ArrayList<Sections> masterTechniques;
     ArrayList<Sections> recentlyViewed;
     ArrayList<Sections> sectionsBetterForBites;
+    ArrayList<Sections> dummysection = new ArrayList<>();
+
     String story_slug = "";
     String type, slug;
     DataLoadedListener dataLoadedListener;
     String navSection = "Home";
-
+    GridLayoutManager mLayoutManager;
     public void setDataLoadedListener(DataLoadedListener dataLoadedListener) {
         this.dataLoadedListener = dataLoadedListener;
     }
 
 
-    public void setTypeandSlug(String type, String slug){
+    public void setTypeandSlug(String type, String slug) {
         this.type = type;
         this.slug = slug;
 
@@ -104,8 +108,8 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     TextView tvp;
     TextView tvf;
 
-    CardView featurecv, popularcv,cvRecommendedSection;
-    FrameLayout pframe,fframe;
+    CardView featurecv, popularcv, cvRecommendedSection,cvRecommendedImageCard;
+    FrameLayout pframe, fframe;
     View vp;
     View vf;
 
@@ -126,6 +130,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         popularcv = binding.getRoot().findViewById(R.id.popularCardView);
         featurecv = binding.getRoot().findViewById(R.id.featureCardView);
         cvRecommendedSection = binding.getRoot().findViewById(R.id.cvRecommendedSection);
+        cvRecommendedImageCard = binding.getRoot().findViewById(R.id.cvRecommendedImageCard);
 
 
         ksp = vp.findViewById(R.id.ivBanner);
@@ -136,14 +141,13 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         tvf = vf.findViewById(R.id.tvRecipename);
 
         mainActivity.hideBottombar();
-        binding.content.startRippleAnimation();
+       // binding.content.startRippleAnimation();
         if (dataLoadedListener != null) {
             dataLoadedListener.onDataLoaded();
         }
 
 
         gethomeDetails();
-
 
 
         return binding.getRoot();
@@ -181,8 +185,8 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         foodMasterTechniquesAdapter = new FoodMasterTechniquesAdapter(masterTechniques, mainActivity, this);
         foodBetterForBitesAdapter = new FoodBetterForBitesAdapter(sectionsBetterForBites, mainActivity, this);
 
-
-        binding.rvRecommendedRecipe.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
+        mLayoutManager = new GridLayoutManager(mainActivity,2);
+        binding.rvRecommendedRecipe.setLayoutManager(mLayoutManager);
         binding.rvCategoryslider.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
 
         binding.rvPopularRecipe.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
@@ -293,14 +297,44 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 //        }
 
 
-
     }
 
     FoodHomeModelWrapper foodhomeModel;
 
     @Override
     public void ResponseSuccess(Object result, String Tag) {
+        String forNUM = Tag;
+        if(forNUM.matches(".*\\d.*")){
+            total_pages = Integer.valueOf(forNUM.replaceAll("\\D+", ""));
+            Tag = Tag.replaceAll("[0-9]", "");
+
+        }else{
+
+        }
+
+
+
         switch (Tag) {
+
+
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECOMMENDED:
+
+                dummysection.addAll(((Section) result).getSection_list());
+                for (int i = 0; i < dummysection.size(); i++) {
+
+                    sectionsRecommended.add(dummysection.get(i));
+                    //seeAllRecipesAdapter.notifyItemInserted(sections.size() - 1);
+                    // seeAllRecipesAdapter.notifyItemInserted(seeAllRecipesAdapter.getItemCount()+1);
+                }
+                foodRecommendedRecipeAdapter.notifyItemRangeChanged(sectionsRecommended.size()>15?sectionsRecommended.size()-15:sectionsRecommended.size()-1,15);
+                dummysection.clear();
+
+
+
+                if (mLayoutManager != null)
+                    mLayoutManager.scrollToPositionWithOffset(scroll_to, 0);
+
+                break;
 
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY:
 
@@ -422,13 +456,13 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
             case AppConstant.FOODPORTAL_FOOD_DETAILS.HOME:
             case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
-               // cvRecommendedSection.setVisibility(View.VISIBLE);
+                // cvRecommendedSection.setVisibility(View.VISIBLE);
                 popularcv.setVisibility(View.VISIBLE);
                 featurecv.setVisibility(View.VISIBLE);
-               // cvRecommendedSection.setVisibility(View.VISIBLE);
+                cvRecommendedSection.setVisibility(View.VISIBLE);
+                cvRecommendedImageCard.setVisibility(View.VISIBLE);
                 popularslug = foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getSlug();
                 featuredslug = foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getSlug();
-
 
 
                 pframe.setOnClickListener(new View.OnClickListener() {
@@ -438,6 +472,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                         next(popularslug);
                     }
                 });
+
                 fframe.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -463,10 +498,11 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 sectionsFeatured.addAll(foodHomeModelWrapper.getSection().get(1).getSection_list());
                 sectionsBetterForBites.addAll(foodHomeModelWrapper.getSection().get(3).getSection_list());
                 masterTechniques.addAll(foodHomeModelWrapper.getSection().get(4).getSection_list());
-                sectionsRecommended.addAll(foodHomeModelWrapper.getSection().get(5).getSection_list());
+               // sectionsRecommended.addAll(foodHomeModelWrapper.getSection().get(5).getSection_list());
                 categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
                 banners.addAll(foodHomeModelWrapper.getBanner());
-
+                setPagination(mLayoutManager, foodRecommendedRecipeAdapter.getItemCount() - 1);
+                getRecommendedRecipes(0, null);
 
                 break;
 
@@ -528,20 +564,18 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         foodFeaturedAdapter.notifyDataSetChanged();
         foodBetterForBitesAdapter.notifyDataSetChanged();
         foodMasterTechniquesAdapter.notifyDataSetChanged();
-        foodRecommendedRecipeAdapter.notifyDataSetChanged();
+      //  foodRecommendedRecipeAdapter.notifyDataSetChanged();
 
 
-        if (type != null){
+        if (type != null) {
 
             switch (type) {
 
                 case "recipe":
                     next(slug);
-
                     break;
                 case "cleaning":
                     next(slug);
-
                     break;
                 case "tutorial":
                     next(slug);
@@ -550,10 +584,8 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                     next(slug);
                     break;
                 case "special_recipe":
-                    getSpecialRecipe(slug,preferenceHelper.getUserFood().getId());//
+                    getSpecialRecipe(slug, preferenceHelper.getUserFood().getId());//
                     break;
-
-
 
 
             }
@@ -562,16 +594,24 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         }
 
     }
+    int page_my = 1;
+    int scroll_to = 0;
+    int total_pages;
+    private synchronized void getRecommendedRecipes(int i, LinearLayoutManager layoutmanager) {
+        scroll_to= i;
+        serviceHelper.enqueueCall(webService.getRecommendedRecipes(page_my, 10),AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECOMMENDED);
+
+    }
 
     @Override
     public void onBannerClick(int positon) {
 
-        if(banners.get(positon).getSpecial_recipes_id()>0){
+        if (banners.get(positon).getSpecial_recipes_id() > 0) {
             getSpecialRecipe(banners.get(positon).getSpecial_recipes_slug(), preferenceHelper.getUserFood().getId());
-        }else{
+        } else {
             next(banners.get(positon).getSlug());
-            }
         }
+    }
 
     @Override
     public void popularrecipe(int pos) {
@@ -590,32 +630,22 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void featuredrecipe(int pos) {
-
         next(sectionsFeatured.get(pos).getSlug());
     }
 
     @Override
     public void betterforurbites(int pos) {
-
-
         if (AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES.equals(navSection) ||
                 AppConstant.FOODPORTAL_FOOD_DETAILS.HOME.equals(navSection)) {
-
             getSpecialRecipe(sectionsBetterForBites.get(pos).getSlug(), preferenceHelper.getUserFood().getId());
-
         } else {
-
             next(sectionsBetterForBites.get(pos).getSlug());
         }
-
-
     }
 
     @Override
     public void recentlyViewed(int pos) {
-
         next(banners.get(pos).getSlug());
-
     }
     //next(sectionsBetterForBites.get(pos).getSlug());
 
@@ -629,34 +659,26 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void masterTechniquesClick(int position) {
-
         serviceHelper.enqueueCall(webService.getfoodtutorialdetail(masterTechniques.get(position).getSlug()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
-
     }
 
     @Override
     public void onSaveRecipe(int slug) {
         if (preferenceHelper.getUserFood().getAcct_type() == 4) {
             Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
-
         } else {
-
             serviceHelper.enqueueCall(webService.sacvestory(String.valueOf(preferenceHelper.getUserFood().getId()), "story", "1", String.valueOf(slug)), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY);
         }
-
     }
 
 
     public void next(String slug) {
-
         if (NetworkUtils.isNetworkAvailable(mainActivity))
             switch (navSection) {
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.HOME:
-
                     serviceHelper.enqueueCall(webService.getfooddetail(slug, String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
                     break;
-
 
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
                     serviceHelper.enqueueCall(webService.getfoodtutorialdetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
@@ -669,8 +691,6 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
                     serviceHelper.enqueueCall(webService.getfoodblog(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_BLOG_DETAILS);
                     break;
-
-
             }
 
 
@@ -681,7 +701,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 //
 //        } else {
 //            Gson g = new Gson();
-//            FoodDetailModelWrapper foodDetailModel = g.fromJson(LocalDataHelper.readFromFile(mainActivity, "Detail"), FoodDetailModelWrapper.class);
+//            FoodDetailModelWrapper foodDetailModelii = g.fromJson(LocalDataHelper.readFromFile(mainActivity, "Detail"), FoodDetailModelWrapper.class);
 //            FoodDetailFragment detailFragment = new FoodDetailFragment();
 //            detailFragment.setFoodDetailModel(foodDetailModel);
 //            mainActivity.addFragment(detailFragment, true, true);
@@ -692,10 +712,30 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     }
 
     public void getSpecialRecipe(String slug, String user_id) {
-
         serviceHelper.enqueueCall(webService.getfoodSpecialblog(slug, user_id), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SPECIAL_RECIPE);
+    }
 
 
+    private void setPagination(final GridLayoutManager layoutmanager, final int i) {
+        binding.rvRecommendedRecipe.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (layoutmanager != null && layoutmanager.findLastCompletelyVisibleItemPosition() == foodRecommendedRecipeAdapter.getItemCount() - 1) {
+
+                    if (total_pages > page_my) {
+                        page_my++;
+                            getRecommendedRecipes(layoutmanager.findLastCompletelyVisibleItemPosition() - 2, layoutmanager);
+
+
+                    }
+                }
+
+
+            }
+
+
+        });
     }
 
 }

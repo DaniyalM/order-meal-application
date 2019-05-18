@@ -535,11 +535,12 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
                     Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
 
                 }else {
-                    serviceHelper.enqueueCall(webService.sacvestory(String.valueOf(preferenceHelper.getUserFood().getId()), "story", String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getFeature_type_id()), String.valueOf(foodDetailModelSpecial.getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY);
+                    serviceHelper.enqueueCall(webService.sacvestory(String.valueOf(preferenceHelper.getUserFood().getId()), "special_story", String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getFeature_type_id()), String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY);
                 }
                 break;
 
-            case R.id.lkFav:  if(preferenceHelper.getUserFood().getAcct_type()==4){
+            case R.id.lkFav:
+                if(preferenceHelper.getUserFood().getAcct_type()==4){
                 Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
 
             }else {

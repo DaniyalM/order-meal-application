@@ -65,14 +65,18 @@ public class ServiceHelper<T> {
                         }
                         if(tag.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_POPULAR)){
 
-                            serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag);
+                            serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag+response.body().getPages());
 
 
                         }else if(tag.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_FEATURED)){
-                            serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag);
+                            serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag+response.body().getPages());
 
 
-                        }else{
+                        }else if(tag.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECOMMENDED)){
+                            serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag+response.body().getPages());
+
+
+                        }else {
                         serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag);
 
                         }

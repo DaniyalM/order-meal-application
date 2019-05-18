@@ -172,6 +172,7 @@
             android:focusable="true"
             android:visibility="gone">
 
+
             <pl.droidsonroids.gif.GifImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -181,7 +182,7 @@
                 android:tint="@color/colorAccent"
                 app:indicatorColor="@color/colorWhite"
                 app:indicatorName="BallClipRotateMultipleIndicator" />
-
+-->
         </FrameLayout>
 
     </RelativeLayout>

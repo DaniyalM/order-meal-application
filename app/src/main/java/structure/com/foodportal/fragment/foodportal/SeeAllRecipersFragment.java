@@ -1,6 +1,5 @@
 package structure.com.foodportal.fragment.foodportal;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,8 +12,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -33,26 +30,27 @@ import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.Section;
 import structure.com.foodportal.models.foodModels.Sections;
 
-public  class SeeAllRecipersFragment extends BaseFragment implements View.OnClickListener,SubCategoryListner {
-
+public class SeeAllRecipersFragment extends BaseFragment implements View.OnClickListener, SubCategoryListner {
 
 
     Unbinder unbinder;
     int total_pages;
-    int page_my=1;
+    int page_my = 1;
     @BindView(R.id.rvAllRecipes)
     ShimmerRecyclerView rvSeeAll;
-    LinearLayoutManager mlayoutManager;
+    GridLayoutManager mLayoutManager;
     SeeAllRecipesAdapter seeAllRecipesAdapter;
-    ArrayList<Sections> sections =new ArrayList<>();
+    ArrayList<Sections> sections = new ArrayList<>();
+    ArrayList<Sections> dummysection = new ArrayList<>();
     Titlebar titlebar;
-    boolean popular =true;
+    boolean popular = true;
 
-    public void setbool(Boolean popular){
+    public void setbool(Boolean popular) {
 
-        this.popular= popular;
+        this.popular = popular;
 
     }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -70,23 +68,23 @@ public  class SeeAllRecipersFragment extends BaseFragment implements View.OnClic
     private void setListner() {
 
 
-        seeAllRecipesAdapter= new SeeAllRecipesAdapter(sections,mainActivity,this);
-        mlayoutManager = new LinearLayoutManager(mainActivity);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(mainActivity, 2);
+        seeAllRecipesAdapter = new SeeAllRecipesAdapter(sections, mainActivity, this);
+        // mlayoutManager = new LinearLayoutManager(mainActivity);
+         mLayoutManager = new GridLayoutManager(mainActivity,2);
         rvSeeAll.setLayoutManager(mLayoutManager);
         rvSeeAll.setAdapter(seeAllRecipesAdapter);
-        rvSeeAll.setHasFixedSize(true);
+     //   rvSeeAll.setHasFixedSize(true);
         rvSeeAll.showShimmerAdapter();
-       // setPagination(mlayoutManager, seeAllRecipesAdapter.getItemCount() - 1);
-        rvSeeAll.getViewTreeObserver().addOnPreDrawListener(
+        setPagination(mLayoutManager, seeAllRecipesAdapter.getItemCount() - 1);
+      /*  rvSeeAll.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
 
                     @Override
                     public boolean onPreDraw() {
                         rvSeeAll.getViewTreeObserver().removeOnPreDrawListener(this);
 
-                        for (int i = 0; i <rvSeeAll.getChildCount(); i++) {
-                            View v =rvSeeAll.getChildAt(i);
+                        for (int i = 0; i < rvSeeAll.getChildCount(); i++) {
+                            View v = rvSeeAll.getChildAt(i);
                             v.setAlpha(0.0f);
                             v.animate().alpha(1.0f)
                                     .setDuration(300)
@@ -97,12 +95,12 @@ public  class SeeAllRecipersFragment extends BaseFragment implements View.OnClic
                         return true;
                     }
                 });
+*/
 
-
-        if(popular){
-            getAllRecipes(0,null);
-        }else{
-            getAllFeatured(0,null);
+        if (popular) {
+            getAllRecipes(0, null);
+        } else {
+            getAllFeatured(0, null);
         }
     }
 
@@ -110,16 +108,14 @@ public  class SeeAllRecipersFragment extends BaseFragment implements View.OnClic
     public void onClick(View view) {
 
 
-
     }
-
 
 
     @Override
     protected void setTitle(Titlebar titlebar) {
 
         titlebar.showBackButton(mainActivity);
-        this.titlebar=titlebar;
+        this.titlebar = titlebar;
     }
 
     @Override
@@ -131,17 +127,24 @@ public  class SeeAllRecipersFragment extends BaseFragment implements View.OnClic
     }
 
 
-
-    private void setPagination(final LinearLayoutManager layoutmanager, final int i) {
+    private void setPagination(final GridLayoutManager layoutmanager, final int i) {
         rvSeeAll.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (layoutmanager != null && layoutmanager.findLastCompletelyVisibleItemPosition() == seeAllRecipesAdapter.getItemCount() - 1) {
+                    if (layoutmanager != null && layoutmanager.findLastCompletelyVisibleItemPosition() == seeAllRecipesAdapter.getItemCount() - 1) {
 
                     if (total_pages > page_my) {
                         page_my++;
-                      //  getAllRecipes(layoutmanager.findLastCompletelyVisibleItemPosition() - 4, layoutmanager);
+
+
+                        if (popular) {
+                            getAllRecipes(layoutmanager.findLastCompletelyVisibleItemPosition() - 2, layoutmanager);
+
+                        } else {
+                            getAllFeatured(layoutmanager.findLastCompletelyVisibleItemPosition() - 2, layoutmanager);
+
+                        }
                     }
                 }
 
@@ -155,22 +158,60 @@ public  class SeeAllRecipersFragment extends BaseFragment implements View.OnClic
 
     @Override
     public void ResponseSuccess(Object result, String Tag) {
+
+        String forNUM = Tag;
+        if(forNUM.matches(".*\\d.*")){
+            total_pages = Integer.valueOf(forNUM.replaceAll("\\D+", ""));
+            Tag = Tag.replaceAll("[0-9]", "");
+
+        }else{
+
+        }
+
+
         switch (Tag) {
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_POPULAR:
 
 
+//
 
-//                if (mlayoutManager != null)
-//                    mlayoutManager.scrollToPositionWithOffset(mlayoutManager.findLastCompletelyVisibleItemPosition() - 4, 0);
-                sections.addAll(((Section) result).getSection_list());
+
+                dummysection.addAll(((Section) result).getSection_list());
                 rvSeeAll.hideShimmerAdapter();
-                seeAllRecipesAdapter.notifyDataSetChanged();
+                for (int i = 0; i < dummysection.size(); i++) {
+
+                    sections.add(dummysection.get(i));
+                    //seeAllRecipesAdapter.notifyItemInserted(sections.size() - 1);
+                    // seeAllRecipesAdapter.notifyItemInserted(seeAllRecipesAdapter.getItemCount()+1);
+                }
+                seeAllRecipesAdapter.notifyItemRangeChanged(sections.size()>15?sections.size()-15:sections.size()-1,15);
+                dummysection.clear();
+
+
+
+                if (mLayoutManager != null)
+                    mLayoutManager.scrollToPositionWithOffset(scroll_to, 0);
+
+
                 break;
 
-                case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_FEATURED:
-                    sections.addAll(((Section) result).getSection_list());
-                    rvSeeAll.hideShimmerAdapter();
-                    seeAllRecipesAdapter.notifyDataSetChanged();
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_FEATURED:
+
+                dummysection.addAll(((Section) result).getSection_list());
+                rvSeeAll.hideShimmerAdapter();
+                for (int i = 0; i < dummysection.size(); i++) {
+
+                    sections.add(dummysection.get(i));
+                    //seeAllRecipesAdapter.notifyItemInserted(sections.size() - 1);
+                    // seeAllRecipesAdapter.notifyItemInserted(seeAllRecipesAdapter.getItemCount()+1);
+                }
+                seeAllRecipesAdapter.notifyItemRangeChanged(sections.size()>15?sections.size()-15:sections.size()-1,15);
+                dummysection.clear();
+
+
+
+                if (mLayoutManager != null)
+                    mLayoutManager.scrollToPositionWithOffset(scroll_to, 0);
 
                 break;
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS:
@@ -185,18 +226,20 @@ public  class SeeAllRecipersFragment extends BaseFragment implements View.OnClic
     }
 
 
+    int scroll_to = 0;
 
     private void getAllRecipes(int i, LinearLayoutManager layoutmanager) {
-
+        scroll_to= i;
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getPopularRecipes(page_my,25), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_POPULAR);
+            serviceHelper.enqueueCall(webService.getPopularRecipes(page_my, 15), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_POPULAR);
 
 
     }
- private void getAllFeatured(int i, LinearLayoutManager layoutmanager) {
 
+    private void getAllFeatured(int i, LinearLayoutManager layoutmanager) {
+        scroll_to= i;
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getPopularRecipes(page_my,25), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_POPULAR);
+            serviceHelper.enqueueCall(webService.getFeaturedRecipes(page_my, 15), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_FEATURED);
 
 
     }
@@ -205,7 +248,7 @@ public  class SeeAllRecipersFragment extends BaseFragment implements View.OnClic
     @Override
     public void onSubCategoryClick(int position) {
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getfooddetail(sections.get(position).getSlug(),String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+            serviceHelper.enqueueCall(webService.getfooddetail(sections.get(position).getSlug(), String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
 
     }
 }

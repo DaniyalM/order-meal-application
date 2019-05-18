@@ -157,7 +157,7 @@
     <string name="yes_return">Pay on return available on this item</string>
     <string name="cash_on_collection">Cash on collection of item</string>
     <string name="cash_on_collection_not">Cash on collection of item is not available</string>
-    <string name="email">Email</string>
+
     <string name="sms">SMS</string>
     <string name="call">Call</string>
     <string name="rentnow">Rent Now</string>
@@ -558,5 +558,8 @@
     <string name="foodtribune">Food Tribune</string>
     <string name="foodDescription">Food Tribune Description</string>
     <string name="server_client_id">964728012300-aq7aopoe0jdvc1v738f8l6g58sbic3u8.apps.googleusercontent.com</string>
+    <string name="maybe_later"><u>Maybe later</u></string>
+    <string name="email"><u>Email</u></string>
+    <string name="facebook"><u>Facebook</u></string>
 
 </resources>

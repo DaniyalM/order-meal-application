@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.like.LikeButton;
 
@@ -48,9 +49,8 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
     @Override
     public void onBindViewHolder(FoodRecommendedRecipeAdapter.PlanetViewHolder holder, int position) {
 
-
         if (sections.get(position).getFeature_type_id() == 1) {
-            holder.checkbox.setVisibility(View.VISIBLE);
+            holder.likeButton.setVisibility(View.VISIBLE);
             holder.tvPopularRecipeServes.setVisibility(View.VISIBLE);
             holder.tvPopularRecipeCookingTime.setVisibility(View.VISIBLE);
             holder.tvPopularRecipeServes.setText(sections.get(position).getServing_for() + " person(s)");
@@ -58,7 +58,7 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
 
 
         } else {
-            holder.checkbox.setVisibility(View.GONE);
+            holder.likeButton.setVisibility(View.GONE);
             holder.tvPopularRecipeServes.setVisibility(View.GONE);
             holder.tvPopularRecipeCookingTime.setVisibility(View.GONE);
 
@@ -88,7 +88,7 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
                 foodHomeListner.recommendedrecipe(position);
             }
         });
-        if (sections.get(position).getIs_favorite() == 1) {
+        if (sections.get(position).getIs_save()== 1) {
             holder.likeButton.setLiked(true);
 
         } else {
@@ -97,12 +97,12 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
         }
 
 
-        if (sections.get(position).getIs_save() == 1) {
+  /*      if (sections.get(position).getIs_save() == 1) {
             holder.checkbox.setChecked(true);
         } else {
             holder.checkbox.setChecked(false);
-        }
-        if (context.prefHelper.getLoginStatus() == false) {
+        }*/
+      /*  if (context.prefHelper.getLoginStatus() == false) {
 
             holder.checkbox.setEnabled(false);
             holder.checkbox.setClickable(false);
@@ -111,12 +111,48 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
             holder.checkbox.setClickable(true);
 
 
-        }
-        holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        }*/
+
+
+
+        holder.likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (context.prefHelper.getLoginStatus() == false) {
+
+                    Toast.makeText(context, "Please Login to proceed", Toast.LENGTH_SHORT).show();
+
+                }else{
+
+                    if (sections.get(position).getIs_save()  == 1) {
+                        foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                        holder.likeButton.setLiked(true);
+
+                    } else {
+                        foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                        holder.likeButton.setLiked(false);
+
+                    }
+
+                }
+
+
+
+
+
+            }
+        });
+  /*      holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
 
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
+
+
+
+
+*//*
 
                 if (b) {
 
@@ -129,10 +165,11 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
                     holder.checkbox.setChecked(false);
 
                 }
+*//*
 
 
             }
-        });
+        });*/
 
 
         setScaleAnimation(holder.itemView,position);
@@ -157,7 +194,7 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
         return sections.size();
     }
     private final static int FADE_DURATION = 1000; //FADE_DURATION in milliseconds
-    private void setScaleAnimation(View view,int position) {
+    private void setScaleAnimation(View view, int position) {
         if (position > 0) {
             ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             anim.setDuration(FADE_DURATION);
@@ -165,6 +202,7 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
             lastPosition = position;
         }
     }
+
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView text, tvPopularRecipeServes, tvPopularRecipeCookingTime;

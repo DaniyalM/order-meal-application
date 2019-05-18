@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,8 +60,19 @@ public class SeeAllRecipesAdapter  extends RecyclerView.Adapter<SeeAllRecipesAda
             }
         });
 
-
+     //   setAnimation(holder.itemView,position);
     }
+
+
+    private void setScaleAnimation(View view,int position) {
+        if (position > 0) {
+            ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            anim.setDuration(FADE_DURATION);
+            view.startAnimation(anim);
+            lastPosition = position;
+        }
+    }    private final static int FADE_DURATION = 1000; //FADE_DURATION in milliseconds
+
     private void setAnimation(View viewToAnimate, int position)
     {
         // If the bound view wasn't previously displayed on screen, it's animated

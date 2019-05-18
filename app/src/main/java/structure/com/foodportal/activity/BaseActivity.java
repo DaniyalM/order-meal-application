@@ -204,6 +204,7 @@ public class BaseActivity extends AppCompatActivity {
         if (animate) {
 
             transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+           // transaction.setCustomAnimations(R.anim.fadein,R.anim.fadein);
         }
         transaction.add(mainFrame, frag, frag.getClass().getSimpleName());
 

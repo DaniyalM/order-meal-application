@@ -1,5 +1,6 @@
 package structure.com.foodportal.adapter.foodPortalAdapters;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.like.LikeButton;
 
@@ -50,17 +51,19 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
 
 
         if (sections.get(position).getFeature_type_id() == 1) {
-            holder.checkbox.setVisibility(View.VISIBLE);
-           holder.tvPopularRecipeServes.setVisibility(View.VISIBLE);
+            holder.cardView.setVisibility(View.VISIBLE);
+            holder.likeButton.setVisibility(View.VISIBLE);
+            holder.tvPopularRecipeServes.setVisibility(View.VISIBLE);
             holder.tvPopularRecipeCookingTime.setVisibility(View.VISIBLE);
             holder.tvPopularRecipeServes.setText(sections.get(position).getServing_for() + " person(s)");
             holder.tvPopularRecipeCookingTime.setText(sections.get(position).getCook_time());
 
 
         } else {
-          holder.checkbox.setVisibility(View.GONE);
-         holder.tvPopularRecipeServes.setVisibility(View.GONE);
-         holder.tvPopularRecipeCookingTime.setVisibility(View.GONE);
+            holder.cardView.setVisibility(View.GONE);
+            holder.likeButton.setVisibility(View.GONE);
+            holder.tvPopularRecipeServes.setVisibility(View.GONE);
+            holder.tvPopularRecipeCookingTime.setVisibility(View.GONE);
 
         }
         //  holder.image.setImageResource(R.drawable.planetimage);
@@ -88,7 +91,7 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
                 foodHomeListner.popularrecipe(position);
             }
         });
-        if (sections.get(position).getIs_favorite() == 1) {
+        if (sections.get(position).getIs_save() == 1) {
             holder.likeButton.setLiked(true);
 
         } else {
@@ -97,12 +100,12 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
         }
 
 
-        if (sections.get(position).getIs_save() == 1) {
+  /*      if (sections.get(position).getIs_save() == 1) {
             holder.checkbox.setChecked(true);
         } else {
             holder.checkbox.setChecked(false);
-        }
-        if (context.prefHelper.getLoginStatus() == false) {
+        }*/
+      /*  if (context.prefHelper.getLoginStatus() == false) {
 
             holder.checkbox.setEnabled(false);
             holder.checkbox.setClickable(false);
@@ -111,12 +114,44 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
             holder.checkbox.setClickable(true);
 
 
-        }
-        holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        }*/
+
+
+        holder.likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (context.prefHelper.getLoginStatus() == false) {
+
+                    Toast.makeText(context, "Please Login to proceed", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    if (sections.get(position).getIs_save() == 0) {
+                        foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                        holder.likeButton.setLiked(true);
+
+                    } else {
+                        foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                        holder.likeButton.setLiked(false);
+
+                    }
+
+                }
+
+
+            }
+        });
+  /*      holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
 
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
+
+
+
+
+*//*
 
                 if (b) {
 
@@ -129,13 +164,14 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
                     holder.checkbox.setChecked(false);
 
                 }
+*//*
 
 
             }
-        });
+        });*/
 
 
-        setScaleAnimation(holder.itemView,position);
+        setScaleAnimation(holder.itemView, position);
     }
 
     private void setAnimation(View viewToAnimate, int position) {
@@ -152,26 +188,30 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
         anim.setDuration(FADE_DURATION);
         view.startAnimation(anim);
     }
+
     @Override
     public int getItemCount() {
         return sections.size();
     }
+
     private final static int FADE_DURATION = 1000; //FADE_DURATION in milliseconds
-    private void setScaleAnimation(View view,int position) {
+
+    private void setScaleAnimation(View view, int position) {
         if (position > 0) {
-        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        anim.setDuration(FADE_DURATION);
-        view.startAnimation(anim);
+            ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            anim.setDuration(FADE_DURATION);
+            view.startAnimation(anim);
             lastPosition = position;
         }
     }
+
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView text, tvPopularRecipeServes, tvPopularRecipeCookingTime;
         ImageView circleImageView;
         LikeButton likeButton;
         CheckBox checkbox;
-
+        CardView cardView;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
@@ -182,6 +222,7 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
             tvPopularRecipeCookingTime = (TextView) itemView.findViewById(R.id.tvPopularRecipeCookingTime);
             circleImageView = (ImageView) itemView.findViewById(R.id.ivPopularRecipe);
             likeButton = (LikeButton) itemView.findViewById(R.id.lkFav);
+            cardView = (CardView) itemView.findViewById(R.id.cardViewBAck);
         }
     }
 }
