@@ -45,10 +45,7 @@ import droidninja.filepicker.utils.Orientation;
 import id.zelory.compressor.Compressor;
 import structure.com.foodportal.R;
 import structure.com.foodportal.customViews.MultiLeftSideMenu;
-import structure.com.foodportal.fragment.CartFragment;
-import structure.com.foodportal.fragment.FragmentCategory;
-import structure.com.foodportal.fragment.HomeFragment;
-import structure.com.foodportal.fragment.NotificationsFragment;
+
 import structure.com.foodportal.fragment.OrdersHistoryFragment;
 import structure.com.foodportal.fragment.SideMenuFragment;
 import structure.com.foodportal.fragment.UserAccountFragment;
@@ -260,9 +257,9 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
             FCMPayload fcmPayload = (FCMPayload) bundle.getSerializable(AppConstant.FcmHelper.FCM_DATA_PAYLOAD);
             if (fcmPayload != null) {
                 if (fcmPayload.getAction_type().equals(AppConstant.FcmHelper.ACTION_TYPE_JOB) || fcmPayload.getAction_type().equals(AppConstant.FcmHelper.COMPLETED)) {
-                    CartFragment cartFragment = new CartFragment();
-                    cartFragment.setFromNotification(true);
-                    replaceFragment(cartFragment, true, true);
+                 //   CartFragment cartFragment = new CartFragment();
+                  //  cartFragment.setFromNotification(true);
+                 //   replaceFragment(cartFragment, true, true);
                     bundle = null;
                 } else if (fcmPayload.getAction_type().equals(AppConstant.FcmHelper.ACCEPTED) || fcmPayload.getAction_type().equals(AppConstant.FcmHelper.CANCELLED)) {
                     OrdersHistoryFragment ordersHistoryFragment = new OrdersHistoryFragment();
@@ -471,13 +468,13 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
             case R.id.rbHome:
                 rgTabEnd.clearCheck();
                 if (rbHome.isChecked())
-                    replaceFragmentWithClearBackStack(new HomeFragment(), true, false);
+                  //  replaceFragmentWithClearBackStack(new HomeFragment(), true, false);
                 break;
             case R.id.rbSearch:
                 rgTabEnd.clearCheck();
                 if (rbSearch.isChecked()) {
 //                    willbeimplementedinfuture();
-                    replaceFragmentWithClearBackStack(new FragmentCategory(true), true, false);
+                   // replaceFragmentWithClearBackStack(new FragmentCategory(true), true, false);
                 }
                 break;
             case R.id.rbNotification:
@@ -485,7 +482,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
                 if (rbNotification.isChecked()) {
 
                     if (prefHelper.getLoginStatus()) {
-                        replaceFragmentWithClearBackStack(new NotificationsFragment(), true, false);
+                        //replaceFragmentWithClearBackStack(new NotificationsFragment(), true, false);
                     } else {
 
                         UIHelper.showToast(this, getString(R.string.please_login_viewnotifications));

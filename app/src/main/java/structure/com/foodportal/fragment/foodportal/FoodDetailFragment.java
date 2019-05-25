@@ -696,7 +696,13 @@ public class FoodDetailFragment extends BaseFragment implements
                     new DefaultTrackSelector(), new DefaultLoadControl());
 
             videoView.setPlayer(player);
-            player.setPlayWhenReady(true);
+            if(preferenceHelper.getAutoPlay()){
+                player.setPlayWhenReady(true);
+            }else{
+                player.setPlayWhenReady(false);
+
+            }
+          //  player.setPlayWhenReady(true);
             player.getPlaybackLooper();
             player.addListener(this);
             player.setRepeatMode(SimpleExoPlayer.DISCONTINUITY_REASON_SEEK);

@@ -291,8 +291,8 @@ public interface webservice {
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVED_RECIPES)
     Call<Api_Response<SavedStoriesWrapper>> getSavedRecipes(@Query("id") int id);
 
-  @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECENTLYVIEWED_RECIPES)
-    Call<Api_Response<SavedStoriesWrapper>> getRecentlyViewedRecipes(@Query("id") int id,@Query("feature_type_id") int featured_type_id);
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECENTLYVIEWED_RECIPES)
+    Call<Api_Response<SavedStoriesWrapper>> getRecentlyViewedRecipes(@Query("id") int id, @Query("feature_type_id") int featured_type_id);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_POPULAR)
     Call<Api_Response<Section>> getPopularRecipes(@Query("page") int page, @Query("limit") int limit);
@@ -300,11 +300,17 @@ public interface webservice {
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_FEATURED)
     Call<Api_Response<Section>> getFeaturedRecipes(@Query("page") int page, @Query("limit") int limit);
 
-  @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECOMMENDED)
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECOMMENDED)
     Call<Api_Response<Section>> getRecommendedRecipes(@Query("page") int page, @Query("limit") int limit);
 
     @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME_SEARCH)
     Call<Api_Array_Response<FoodDetailModel>> getSearchResult(@Query("search") String search);
+
+
+    @POST(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_NOTIFICATION)
+    Call<Api_Array_Response> notificationSwitch(@Query("notification_status ") int notification_status);
+
+
 }
 
 

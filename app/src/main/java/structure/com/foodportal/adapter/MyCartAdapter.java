@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import structure.com.foodportal.fragment.CartFragment;
+
 import structure.com.foodportal.fragment.OrderHistoryFragment;
 
 public class MyCartAdapter extends FragmentPagerAdapter {
@@ -19,7 +19,7 @@ public class MyCartAdapter extends FragmentPagerAdapter {
         switch (index) {
             case 0:
                 // Top Rated fragment activity
-                return  new CartFragment();
+               // return  new CartFragment();
             case 1:
                 // Games fragment activity
                 return new OrderHistoryFragment();

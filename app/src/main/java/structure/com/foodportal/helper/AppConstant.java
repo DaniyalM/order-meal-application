@@ -207,7 +207,7 @@ public class AppConstant {
         public static final int OTHER = 129;
     }
 
-    //public static final String BASE_URL = "https://food.tribune.com.pk/api/";
+  //  public static final String BASE_URL = "https://food.tribune.com.pk/api/";
      public static final String BASE_URL = "https://staging-food.tribune.com.pk/api/";
     public static final String BASE_URL_IMAGE = "https://cdn.recipesofpakistan.com/";
     // public static final String VIDEO_URL = "https://cdn.recipesofpakistan.com/";
@@ -215,6 +215,8 @@ public class AppConstant {
 
     public class FOODPORTAL_FOOD_DETAILS {
 
+        public static final String FOOD_NOTIFICATION = "user/notification-on-off";
+        public static final String FOOD_SUPPORT_EMAIL = "food@tribune.com.pk";
         public static final String FOOD_HOME_SEARCH = "home/search";
         public static final String FOOD_SEND_REVIEW = "story/submit-review";
         public static final String FOOD_SEND_REPLY = "story/submit-review";

@@ -126,9 +126,9 @@ public class UserAccountFragment extends BaseFragment implements View.OnClickLis
             binding.rvMyProducts.setVisibility(View.GONE);
         } else {
             int spacingInPixels = mainActivity.getResources().getDimensionPixelSize(R.dimen.dp8);
-            HomeFragment.SpacesItemDecorationAllSideEqual spacesItemDecorationHome = new HomeFragment.SpacesItemDecorationAllSideEqual(spacingInPixels);
+           // HomeFragment.SpacesItemDecorationAllSideEqual spacesItemDecorationHome = new HomeFragment.SpacesItemDecorationAllSideEqual(spacingInPixels);
 
-            binding.rvMyProducts.addItemDecoration(spacesItemDecorationHome);
+           // binding.rvMyProducts.addItemDecoration(spacesItemDecorationHome);
             binding.rvMyProducts.bindRecyclerView(new ProductItemBinder(mainActivity, mProductItemClickListener, true), result, new GridLayoutManager(getContext(), 2), new DefaultItemAnimator());
             binding.rvMyProducts.setNestedScrollingEnabled(false);
             binding.rvMyProducts.setHasFixedSize(true);
@@ -146,7 +146,7 @@ public class UserAccountFragment extends BaseFragment implements View.OnClickLis
                 AppConstant.selectedDays.clear();
                 AppConstant.checkedDays = AppConstant.clearCheckedDays;
                 ProductCreation.getInstance().reset();
-                replaceFragment(new AddProductFragment(), true, true);
+               // replaceFragment(new AddProductFragment(), true, true);
                 break;
 
 

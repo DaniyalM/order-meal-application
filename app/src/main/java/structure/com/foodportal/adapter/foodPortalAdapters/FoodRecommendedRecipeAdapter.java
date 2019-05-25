@@ -40,7 +40,7 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
 
     @Override
     public FoodRecommendedRecipeAdapter.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_popular, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_recommended, parent, false);
         FoodRecommendedRecipeAdapter.PlanetViewHolder viewHolder = new FoodRecommendedRecipeAdapter.PlanetViewHolder(v);
         return viewHolder;
     }
@@ -171,10 +171,13 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
             }
         });*/
 
-
-        setScaleAnimation(holder.itemView,position);
+        setFadeAnimation(holder.itemView);
+       // setScaleAnimation(holder.itemView,position);
     }
-
+    public void insert(int position, Sections data) {
+        this.sections.add(position, data);
+        notifyItemInserted(position);
+    }
     private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > 0) {

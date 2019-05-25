@@ -121,7 +121,7 @@ public class InvoiceFragment extends BaseFragment {
     @OnClick(R.id.btnCheckout)
     public void onViewClicked() {
 
-        mainActivity.replaceFragmentWithClearBackStack(new HomeFragment(), true, false);
+       // mainActivity.replaceFragmentWithClearBackStack(new HomeFragment(), true, false);
 
     }
 

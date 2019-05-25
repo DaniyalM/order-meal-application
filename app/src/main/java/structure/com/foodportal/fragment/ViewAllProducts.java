@@ -250,9 +250,9 @@ public class ViewAllProducts extends BaseFragment implements TextWatcher {
             txtNoData.setVisibility(View.GONE);
 
             int spacingInPixels = mainActivity.getResources().getDimensionPixelSize(R.dimen.dp8);
-            HomeFragment.SpacesItemDecorationAllSideEqual spacesItemDecorationHome = new HomeFragment.SpacesItemDecorationAllSideEqual(spacingInPixels);
+           // HomeFragment.SpacesItemDecorationAllSideEqual spacesItemDecorationHome = new HomeFragment.SpacesItemDecorationAllSideEqual(spacingInPixels);
 
-            rvProducts.addItemDecoration(spacesItemDecorationHome);
+          //  rvProducts.addItemDecoration(spacesItemDecorationHome);
 
             rvProducts.bindRecyclerView(new ProductItemBinder(mainActivity, mProductItemClickListener), result, new GridLayoutManager(getContext(), 2), new DefaultItemAnimator());
             rvProducts.setNestedScrollingEnabled(false);

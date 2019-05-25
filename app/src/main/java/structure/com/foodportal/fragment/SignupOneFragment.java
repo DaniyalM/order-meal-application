@@ -60,7 +60,7 @@ public class SignupOneFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 registrationActivity.onBackPressed();
-                registrationActivity.replaceFragment(new LoginFragment(),true,false);
+               // registrationActivity.replaceFragment(new LoginFragment(),true,false);
             }
         });
 

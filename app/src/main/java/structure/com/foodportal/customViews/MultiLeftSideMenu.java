@@ -30,6 +30,7 @@ import structure.com.foodportal.databinding.FragmentSidemenuBinding;
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.fragment.foodportal.FoodHomeFragment;
 import structure.com.foodportal.fragment.foodportal.SavedRecipesFragment;
+import structure.com.foodportal.fragment.foodportal.SettingsFragment;
 import structure.com.foodportal.fragment.foodportal.SubCategoryFragment;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.Titlebar;
@@ -185,6 +186,16 @@ public class MultiLeftSideMenu extends BaseFragment {
             }
         });
 
+
+        binder.txtUseraddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity.closeDrawer();
+                mainActivity.addFragment(new SettingsFragment(),true,true);
+
+
+            }
+        });
         // Listview on child click listener
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 

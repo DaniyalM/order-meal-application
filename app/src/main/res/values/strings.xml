@@ -561,5 +561,6 @@
     <string name="maybe_later"><u>Maybe later</u></string>
     <string name="email"><u>Email</u></string>
     <string name="facebook"><u>Facebook</u></string>
+    <string name="auto_play">Auto Play</string>
 
 </resources>

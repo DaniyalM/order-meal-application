@@ -674,7 +674,7 @@ public class ProductDetailFragment extends BaseFragment implements View.OnClickL
             case AppConstant.ADD_TO_CART:
 
 
-                mainActivity.replaceFragment(new CartFragment(), true, true);
+              //  mainActivity.replaceFragment(new CartFragment(), true, true);
 
 
                 break;
@@ -685,7 +685,7 @@ public class ProductDetailFragment extends BaseFragment implements View.OnClickL
         ProductCreation.getInstance().reset();
         ProductCreation.getInstance().setEditing(true);
         ProductCreation.getInstance().setCurrentProduct(productDetail);
-        replaceFragment(new AddProductFragment(), true, true);
+      //  replaceFragment(new AddProductFragment(), true, true);
     }
 
     public void openMap(double latitude, double longitude, String title, String label) {

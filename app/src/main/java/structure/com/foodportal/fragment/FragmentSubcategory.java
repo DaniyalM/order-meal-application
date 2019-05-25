@@ -69,7 +69,7 @@ public class FragmentSubcategory extends BaseFragment implements View.OnClickLis
         subcategoryAdapter = new SubCategoryAdapter(mainActivity, categoriesList, this);
         subcategoryAdapter.setItemClickListener((ent, position, id) -> {
             AllCategory category = (AllCategory) ent;
-            mainActivity.replaceFragment(ViewAllProducts.newInstance(category.getTitle(), category.getParentId(), category.getId()), true, true);
+            //mainActivity.replaceFragment(ViewAllProducts.newInstance(category.getTitle(), category.getParentId(), category.getId()), true, true);
         });
         rvSubCategory.setAdapter(subcategoryAdapter);
     }
@@ -118,15 +118,15 @@ public class FragmentSubcategory extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onCategoryClicked(ArrayList<AllCategory> category, int position) {
-            AllCategory ent = category.get(position);
-            ViewAllProducts viewAllProducts =new ViewAllProducts();
-            viewAllProducts.setCategoryTypeID(ent.getParentId());
-           viewAllProducts.setCategoryID(ent.getParentId());
-            viewAllProducts.setBrandID(ent.getId());
-          //  viewAllProducts.setSubCategory(ent.getId());
-            viewAllProducts.setTitle(ent.getTitle());
-            viewAllProducts.setFromCatogories(true);
-          //  mainActivity.replaceFragment(ViewAllProducts.newInstance(ent.getTitle(), ent.getParentId(), ent.getId()), true, true);
-            mainActivity.replaceFragment(viewAllProducts, true, true);
+//            AllCategory ent = category.get(position);
+//            ViewAllProducts viewAllProducts =new ViewAllProducts();
+//            viewAllProducts.setCategoryTypeID(ent.getParentId());
+//           viewAllProducts.setCategoryID(ent.getParentId());
+//            viewAllProducts.setBrandID(ent.getId());
+//          //  viewAllProducts.setSubCategory(ent.getId());
+//            viewAllProducts.setTitle(ent.getTitle());
+//            viewAllProducts.setFromCatogories(true);
+//          //  mainActivity.replaceFragment(ViewAllProducts.newInstance(ent.getTitle(), ent.getParentId(), ent.getId()), true, true);
+//            mainActivity.replaceFragment(viewAllProducts, true, true);
     }
 }

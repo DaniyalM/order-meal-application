@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import structure.com.foodportal.R;
-import structure.com.foodportal.adapter.NotificationAdapter;
+
 import structure.com.foodportal.databinding.FragmentNotificationsBinding;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.Titlebar;
@@ -23,7 +23,7 @@ public class NotificationsFragment extends BaseFragment {
     FragmentNotificationsBinding binding;
     ArrayList<Notification> arrayList = new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
-    NotificationAdapter adapter;
+  //  NotificationAdapter adapter;
 
     public NotificationsFragment() {
     }
@@ -41,10 +41,10 @@ public class NotificationsFragment extends BaseFragment {
 
 //        mainActivity.hideBottombar();
 
-        adapter = new NotificationAdapter(mainActivity);
+      //  adapter = new NotificationAdapter(mainActivity);
         linearLayoutManager = new LinearLayoutManager(mainActivity);
         binding.recyclerview.setLayoutManager(linearLayoutManager);
-        binding.recyclerview.setAdapter(adapter);
+       // binding.recyclerview.setAdapter(adapter);
 
         getNotifications();
     }
@@ -78,8 +78,8 @@ public class NotificationsFragment extends BaseFragment {
         } else {
             this.arrayList.addAll(arrayList);
             Collections.reverse(this.arrayList);
-            adapter.addAll(this.arrayList);
-            adapter.notifyDataSetChanged();
+          //  adapter.addAll(this.arrayList);
+          //  adapter.notifyDataSetChanged();
             binding.tvNoDataFound.setVisibility(View.GONE);
             binding.recyclerview.setVisibility(View.VISIBLE);
         }

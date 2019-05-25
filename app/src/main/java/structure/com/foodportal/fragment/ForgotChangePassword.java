@@ -104,7 +104,7 @@ public class ForgotChangePassword extends BaseFragment {
     public void ResponseSuccess(Object result, String Tag) {
         switch (Tag) {
             case AppConstant.UPDATE_PASSWORD:
-                registrationActivity.replaceFragmentWithClearBackStack(new LoginFragment(), true, true);
+               // registrationActivity.replaceFragmentWithClearBackStack(new LoginFragment(), true, true);
                 break;
         }
     }

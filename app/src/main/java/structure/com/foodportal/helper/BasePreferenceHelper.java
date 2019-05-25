@@ -24,6 +24,8 @@ public class BasePreferenceHelper extends PreferenceHelper {
     public static final String KEY_POST= "postList";
     public static final String image_path = "image_path";
     protected static final String KEY_LOGIN_STATUS = "islogin";
+    protected static final String KEY_AUTO_PLAY = "isAutoPlayActive";
+    protected static final String KEY_NOTIFICATION = "isNotificationActive";
     protected static final String KEY_USER = "user";
     public static final String KEY_DEVICE_TOKEN = "device_token";
     public static final String AUTHENTICATE_USER_TOKEN = "user_token";
@@ -106,9 +108,6 @@ public class BasePreferenceHelper extends PreferenceHelper {
     }
 
 
-    public void setLoginStatus( boolean isLogin ) {
-        putBooleanPreference( context, FILENAME, KEY_LOGIN_STATUS, isLogin );
-    }
 
 
     public void setStringPrefrence(String key, String value) {
@@ -137,10 +136,29 @@ public class BasePreferenceHelper extends PreferenceHelper {
         return getBooleanPreference(context, FILENAME, Key);
     }
 
+    public void setLoginStatus( boolean isLogin ) {
+        putBooleanPreference( context, FILENAME, KEY_LOGIN_STATUS, isLogin );
+    }
 
     public boolean getLoginStatus() {
         return getBooleanPreference(context, FILENAME, KEY_LOGIN_STATUS);
     }
+
+  public void setAutoPlay( boolean autoPlay ) {
+        putBooleanPreference( context, FILENAME, KEY_AUTO_PLAY, autoPlay );
+    }
+
+    public boolean getAutoPlay() {
+        return getBooleanPreference(context, FILENAME, KEY_AUTO_PLAY);
+    }
+    public void setNotification( boolean notification ) {
+        putBooleanPreference( context, FILENAME, KEY_NOTIFICATION, notification );
+    }
+
+    public boolean getNotification() {
+        return getBooleanPreference(context, FILENAME, KEY_NOTIFICATION);
+    }
+
 
     public void putDeviceToken(String token) {
         putStringPreference(context, FILENAME, KEY_DEVICE_TOKEN, token);

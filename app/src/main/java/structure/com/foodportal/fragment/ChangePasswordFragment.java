@@ -71,7 +71,7 @@ public class ChangePasswordFragment extends BaseFragment {
         switch (Tag) {
             case AppConstant.USER_CHANGE_PASSWORD:
                 UIHelper.hideSoftKeyboards(mainActivity);
-                mainActivity.replaceFragmentWithClearBackStack(new HomeFragment(), true, true);
+               // mainActivity.replaceFragmentWithClearBackStack(new HomeFragment(), true, true);
                 break;
         }
     }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.databinding.LayoutNotificationItemBinding;
-import structure.com.foodportal.fragment.CartFragment;
+
 import structure.com.foodportal.fragment.OrdersHistoryFragment;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.UIHelper;
@@ -47,9 +47,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public void onClick(View v) {
                 if (arrayList.get(position).getActionType().equals(AppConstant.FcmHelper.ACTION_TYPE_JOB) || arrayList.get(position).getActionType().equals(AppConstant.FcmHelper.COMPLETED)) {
-                    CartFragment cartFragment = new CartFragment();
-                    cartFragment.setFromNotification(true);
-                    mainActivity.replaceFragment(cartFragment, true, true);
+                 
                 } else if (arrayList.get(position).getActionType().equals(AppConstant.FcmHelper.ACCEPTED) || arrayList.get(position).getActionType().equals(AppConstant.FcmHelper.CANCELLED)) {
                     OrdersHistoryFragment ordersHistoryFragment = new OrdersHistoryFragment();
                     ordersHistoryFragment.setFromNotification(true);

@@ -23,7 +23,6 @@ import structure.com.foodportal.databinding.FragmentSignupThreeBinding;
 
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.fragment.GetStartedFragment;
-import structure.com.foodportal.fragment.LoginFragment;
 import structure.com.foodportal.global.WebServiceConstants;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.CustomValidation;

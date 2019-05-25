@@ -49,7 +49,6 @@ import droidninja.filepicker.utils.Orientation;
 import id.zelory.compressor.Compressor;
 import structure.com.foodportal.R;
 import structure.com.foodportal.fragment.GetStartedFragment;
-import structure.com.foodportal.fragment.LoginFragment;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.GooglePlaceHelper;
 import structure.com.foodportal.helper.Titlebar;
@@ -221,7 +220,7 @@ public class RegistrationActivity extends FacebookBaseFragment {
                                         // popBackStackTillEntry(0);
                                         setSignupPager(null);
                                         replaceFragmentWithClearBackStack(new GetStartedFragment(), true, false);
-                                        replaceFragment(new LoginFragment(), true, false);
+                                        //replaceFragment(new LoginFragment(), true, false);
                                         dialog.dismiss();
                                     } else {
                                         dialog.dismiss();

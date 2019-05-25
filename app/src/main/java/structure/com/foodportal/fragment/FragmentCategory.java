@@ -128,9 +128,9 @@ public class FragmentCategory extends BaseFragment implements View.OnClickListen
     @Override
     public void onCategoryClicked(ArrayList<AllCategory> category, int position) {
 
-        FragmentSubcategory fragmentSubcategory = new FragmentSubcategory();
-        fragmentSubcategory.setCategory(category.get(position));
-        mainActivity.replaceFragment(fragmentSubcategory, true, true);
+//        FragmentSubcategory fragmentSubcategory = new FragmentSubcategory();
+//        fragmentSubcategory.setCategory(category.get(position));
+//        mainActivity.replaceFragment(fragmentSubcategory, true, true);
 
     }
 }

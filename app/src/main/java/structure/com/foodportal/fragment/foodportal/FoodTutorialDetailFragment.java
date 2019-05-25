@@ -366,7 +366,13 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 
                 }
             });
-            binding.videoView.start();
+            if(preferenceHelper.getAutoPlay()){
+                binding.videoView.start();
+            }else{
+
+
+            }
+            //binding.videoView.start();
 
         }
 

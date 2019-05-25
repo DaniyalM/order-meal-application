@@ -61,6 +61,6 @@ public class NearbyFragment extends BaseFragment implements ResturantClickInterf
 
     @Override
     public void onResturant_Click() {
-        replaceFragment(new ResturantMenu(), true, true);
+       // replaceFragment(new ResturantMenu(), true, true);
     }
 }

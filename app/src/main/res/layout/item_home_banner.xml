@@ -29,16 +29,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start|bottom"
-        android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/dp30"
         android:layout_marginStart="@dimen/dp10"
-        android:fontFamily="@font/poppinsbold"
-        android:textStyle="bold"
+        android:fontFamily="@font/proximaextrabold"
         android:gravity="start|bottom"
-        android:text="Hara Masala Cholay"
         android:textColor="@color/white"
         android:textSize="@dimen/sp20"
-        app:letterDuration="200" />
+        app:letterDuration="250" />
 
 </FrameLayout>
 

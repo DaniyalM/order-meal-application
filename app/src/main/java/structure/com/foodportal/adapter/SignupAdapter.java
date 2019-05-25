@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import me.relex.circleindicator.CircleIndicator;
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.RegistrationActivity;
-import structure.com.foodportal.fragment.Locationfragment;
+
 import structure.com.foodportal.fragment.PinFragment;
 import structure.com.foodportal.fragment.SignupFinalFragment;
 import structure.com.foodportal.fragment.SignupOneFragment;
@@ -43,7 +43,7 @@ public class SignupAdapter extends FragmentStatePagerAdapter {
                 return new SignupTwoFragment();
 
             case 2:
-                return new Locationfragment();
+                return new SignupThreeFragment();
 
             case 3:
                 return new SignupThreeFragment();

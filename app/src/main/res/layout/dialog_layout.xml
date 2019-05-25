@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/uvv_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/image_placeholder"
+                android:padding="@dimen/dp2"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="@dimen/dp1" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dp15"
+                android:fontFamily="@font/proximaextrabold"
+                android:gravity="start"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="Syed Usama Ghazanfar"
+                android:textSize="@dimen/dp18" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginBottom="@dimen/dp10"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginEnd="@dimen/dp5"
+                android:layout_weight="1"
+                android:background="@color/colorAccentTextColor"
+                android:fontFamily="@font/proximaextrabold"
+                android:text="Cancel"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp12" />
+
+            <Button
+                android:id="@+id/btnlogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp5"
+                android:layout_marginEnd="@dimen/dp20"
+                android:layout_weight="1"
+                android:background="@color/colorRed"
+                android:fontFamily="@font/proximaextrabold"
+                android:text="Log Out"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp12" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.design.card.MaterialCardView>

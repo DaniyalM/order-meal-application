@@ -31,7 +31,6 @@ import structure.com.foodportal.adapter.foodPortalAdapters.FoodSavedRecipeAdapte
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodSubCategory;
 import structure.com.foodportal.databinding.FragmentSubcategoryBinding;
 import structure.com.foodportal.fragment.BaseFragment;
-import structure.com.foodportal.fragment.FragmentSubcategory;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.LocalDataHelper;

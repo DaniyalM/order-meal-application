@@ -51,7 +51,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         registrationActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         init();
-        getVersionInfo();
+       // getVersionInfo();
         registrationActivity.setcontent(this);
         registrationActivity.setcontentFB(this);
         return binding.getRoot();
@@ -82,16 +82,16 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
 
 
         try {
-            Uri video = Uri.parse("android.resource://" + registrationActivity.getPackageName() + "/" + R.raw.gotvideo);
-           videoView.setVideoURI(video);
+            Uri video = Uri.parse("android.resource://" + registrationActivity.getPackageName() + "/" + R.raw.mobile_app);
+            videoView.setVideoURI(video);
 
-          videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-              @Override
-              public void onPrepared(MediaPlayer mediaPlayer) {
+            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
 
-                  mediaPlayer.setLooping(true);
-              }
-          });
+                    mediaPlayer.setLooping(true);
+                }
+            });
             videoView.requestFocus();
             videoView.start();
         } catch (Exception ex) {
@@ -239,9 +239,15 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         titlebar.setVisibility(View.GONE);
     }
 
+    int i= 0;
+
     @Override
     public void getdata(JSONObject jsonObject) throws JSONException {
+        i++;
 
+
+        if(i==1){
+            Log.v("Facebook Login", "Login attempt" + i);
 
         String fname = jsonObject.getString("first_name");
         String lname = jsonObject.getString("last_name");
@@ -254,6 +260,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         user.setEmail(email);
         user.setProfile_picture("https://graph.facebook.com/" + id + "/picture?type=large");
         facebooklogin(user);
+        }
 //        preferenceHelper.putUserFood(user);
 //        preferenceHelper.setLoginStatus(true);
 //        registrationActivity.showMainActivity();
@@ -273,8 +280,6 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
 
     public void facebooklogin(User user) {
         serviceHelper.enqueueCall(webService.LoginFACEBOOK(user.getEmail(), String.valueOf(user.getId()), user.getName_en(), "facebook", "android", preferenceHelper.getDeviceToken()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK);
-
-
     }
 
     public void googlelogin(User user) {

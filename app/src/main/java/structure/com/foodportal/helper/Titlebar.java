@@ -13,7 +13,7 @@ import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.activity.RegistrationActivity;
 import structure.com.foodportal.databinding.TitlebarBinding;
-import structure.com.foodportal.fragment.LoginFragment;
+
 
 public class Titlebar extends RelativeLayout {
     private TitlebarBinding binding;
@@ -85,10 +85,10 @@ public class Titlebar extends RelativeLayout {
         binding.imgBack.setVisibility(VISIBLE);
         binding.imgBack.setImageResource((R.drawable.cross));
         binding.imgBack.setOnClickListener(view -> {
-            if (activity instanceof MainActivity)
-                ((MainActivity) activity).replaceFragmentWithClearBackStack(new LoginFragment(), true, true);
-            else
-                ((RegistrationActivity) activity).replaceFragmentWithClearBackStack(new LoginFragment(), true, true);
+           // if (activity instanceof MainActivity)
+               // ((MainActivity) activity).replaceFragmentWithClearBackStack(new LoginFragment(), true, true);
+         //   else
+             //   ((RegistrationActivity) activity).replaceFragmentWithClearBackStack(new LoginFragment(), true, true);
         });
 
 
