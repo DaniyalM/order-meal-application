@@ -537,7 +537,7 @@
     <string name="login_with_google">Login with Google</string>
     <string name="login_with_email">Login with Email</string>
     <string name="your_recipe_are_waiting">Your recipes are waiting</string>
-    <string name="unlock_cooking_food_recipes_and_your_personal_recipe_box_with_a_free_trial">Unlock Cooking Food recipes and your personal recipe box with a free trial</string>
+    <string name="unlock_cooking_food_recipes_and_your_personal_recipe_box_with_a_free_trial">Sign up or log in to unlock hundreds of recipes, tips and tutorials; and save your favorites to revisit.</string>
     <string name="ingredients">Ingredients</string>
     <string name="cooking_food">Cooking Food</string>
     <string name="cleaning">Cleaning</string>
@@ -562,5 +562,10 @@
     <string name="email"><u>Email</u></string>
     <string name="facebook"><u>Facebook</u></string>
     <string name="auto_play">Auto Play</string>
+    <string name="email_support"><u>Email Support</u></string>
+    <string name="legal_privacy_policy"><u>Legal-Privacy Policy</u></string>
+    <string name="about_us"><u>About Us</u></string>
+    <string name="user_agreements"><u>User Agreements</u></string>
+    <string name="account_log_in"><u>Account-Log In</u></string>
 
 </resources>

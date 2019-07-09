@@ -1,17 +1,21 @@
 package structure.com.foodportal.fragment.foodportal;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.SwitchCompat;
+import android.telephony.TelephonyManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -171,9 +175,9 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         }
 
     }
-
+    String versionName;
     private void getVersionInfo() {
-        String versionName = "";
+         versionName = "";
         int versionCode = -1;
         try {
             PackageInfo packageInfo = mainActivity.getPackageManager().getPackageInfo(mainActivity.getPackageName(), 0);
@@ -184,7 +188,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         }
 
         // TextView textViewVersionInfo = (TextView) findViewById(R.id.textview_version_info);
-        tvVersion.setText(String.format("v" + versionName));
+        tvVersion.setText(String.format("App Version V" + versionName));
     }
 
     void setlistner() {
@@ -226,18 +230,44 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
 
     }
 
+    @SuppressLint("IntentReset")
     void sendEmail() {
+        TelephonyManager manager = (TelephonyManager)mainActivity.getSystemService(Context.TELEPHONY_SERVICE);
+        String carrierName = manager.getNetworkOperatorName();
+        String locale = mainActivity.getResources().getConfiguration().locale.getCountry();
 
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-
-        emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SUPPORT_EMAIL);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setType("message/rfc822");
         emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SUPPORT_EMAIL});
+       // emailIntent.putExtra(Intent.EXTRA_CC, cc);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Food Tribune Android "+versionName);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "-How can we make Food Tribune Better?-" +"\n"+
+                "Device "+android.os.Build.MANUFACTURER +"\n"+
+                "Android Version: Android"+Build.VERSION.SDK_INT+" ("+Build.VERSION.CODENAME+")"+"\n"+
+                "Carrier" +carrierName+"\n"+
+                "Network Status : Wifi"+"\n"+
+                "Language : en"+"\n"+
+                "Country "+ locale+"\n"+
+                "Device token"+preferenceHelper.getDeviceToken()
+                        );
+
+
+     //   startActivity(Intent.createChooser(emailIntent, "Email "));
+
+
+
+//       // Intent emailIntent = new Intent(Intent.ACTION_SEND);
+//
+//
+//        emailIntent.setType("text/plain");
+//        emailIntent.putExtra(Intent.EXTRA_EMAIL, AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SUPPORT_EMAIL);
+//        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
+//        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
+//        emailIntent.setData(Uri.parse("mailto:"));
         try {
-            startActivity(emailIntent);
+            startActivity(Intent.createChooser(emailIntent, "Email "));
+        //    startActivity(emailIntent);
         } catch (ActivityNotFoundException e) {
             //TODO: Handle case where no email app is available
             Toast.makeText(mainActivity, "No email client found", Toast.LENGTH_SHORT).show();

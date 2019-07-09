@@ -2,6 +2,7 @@ package structure.com.foodportal.adapter.foodPortalAdapters;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import com.like.LikeButton;
 
 import java.util.ArrayList;
 
+import info.androidhive.fontawesome.FontTextView;
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.helper.AppConstant;
@@ -45,10 +49,27 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
         return viewHolder;
     }
 
-
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
     @Override
     public void onBindViewHolder(FoodPopularRecipeAdapter.PlanetViewHolder holder, int position) {
 
+
+        if(width==0){
+
+
+        }else{
+            ViewGroup.LayoutParams params = holder.circleImageView.getLayoutParams();
+// Changes the height and width to the specified *pixels*
+            params.height =    dpToPx(195);
+            params.width =    dpToPx(291);
+
+            holder.circleImageView.setLayoutParams(params);
+
+
+        }
 
         if (sections.get(position).getFeature_type_id() == 1) {
             holder.cardView.setVisibility(View.VISIBLE);
@@ -60,7 +81,7 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
 
 
         } else {
-            holder.cardView.setVisibility(View.GONE);
+           holder.cardView.setVisibility(View.GONE);
             holder.likeButton.setVisibility(View.GONE);
             holder.tvPopularRecipeServes.setVisibility(View.GONE);
             holder.tvPopularRecipeCookingTime.setVisibility(View.GONE);
@@ -92,10 +113,11 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
             }
         });
         if (sections.get(position).getIs_save() == 1) {
-            holder.likeButton.setLiked(true);
+            holder.likeButton.setTextColor(context.getResources().getColor(R.color.colorRed));
 
         } else {
-            holder.likeButton.setLiked(false);
+            holder.likeButton.setTextColor(context.getResources().getColor(R.color.white));
+            //holder.likeButton.setLiked(false);
 
         }
 
@@ -121,19 +143,21 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
             @Override
             public void onClick(View view) {
 
-                if (context.prefHelper.getLoginStatus() == false) {
+                if (context.prefHelper.getUserFood().getId().equals("293")) {
 
                     Toast.makeText(context, "Please Login to proceed", Toast.LENGTH_SHORT).show();
 
                 } else {
 
-                    if (sections.get(position).getIs_save() == 0) {
+                    if (holder.likeButton.getCurrentTextColor()== context.getResources().getColor(R.color.white)) {
                         foodHomeListner.onSaveRecipe(sections.get(position).getId());
-                        holder.likeButton.setLiked(true);
+                        holder.likeButton.setTextColor(context.getResources().getColor(R.color.colorRed));
+                        // holder.likeButton.setLiked(true);
 
                     } else {
                         foodHomeListner.onSaveRecipe(sections.get(position).getId());
-                        holder.likeButton.setLiked(false);
+                        holder.likeButton.setTextColor(context.getResources().getColor(R.color.white));
+                        //   holder.likeButton.setLiked(false);
 
                     }
 
@@ -204,14 +228,21 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
             lastPosition = position;
         }
     }
+     int width=0;
+    public void setWidth(int width) {
+
+        this.width=width;
+
+    }
 
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView text, tvPopularRecipeServes, tvPopularRecipeCookingTime;
         ImageView circleImageView;
-        LikeButton likeButton;
+        FontTextView likeButton;
         CheckBox checkbox;
-        CardView cardView;
+        FrameLayout cardView;
+        LinearLayout linearSize;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
@@ -221,8 +252,12 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
             tvPopularRecipeServes = (TextView) itemView.findViewById(R.id.tvPopularRecipeServes);
             tvPopularRecipeCookingTime = (TextView) itemView.findViewById(R.id.tvPopularRecipeCookingTime);
             circleImageView = (ImageView) itemView.findViewById(R.id.ivPopularRecipe);
-            likeButton = (LikeButton) itemView.findViewById(R.id.lkFav);
-            cardView = (CardView) itemView.findViewById(R.id.cardViewBAck);
+            likeButton = (FontTextView) itemView.findViewById(R.id.lkFav);
+            cardView = (FrameLayout) itemView.findViewById(R.id.cardViewBAck);
+            linearSize = (LinearLayout) itemView.findViewById(R.id.linearSize);
+
+
+
         }
     }
 }

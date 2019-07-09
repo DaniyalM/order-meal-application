@@ -70,8 +70,9 @@
             android:gravity="start"
             android:paddingStart="@dimen/dp5"
             android:text="Popular Recipe"
+            android:textAlignment="center"
             android:textColor="@color/uvv_black"
-            android:textSize="@dimen/dp12" />
+            android:textSize="@dimen/dp15" />
 
 
     </RelativeLayout>

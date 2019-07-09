@@ -5,6 +5,10 @@ import java.io.Serializable;
 public class FCMPayload implements Serializable {
     private int id, action_id;
     private String title, message, action_type;
+    private int ref_id;
+    private String slug;
+
+
 
     public int getRef_id() {
         return ref_id;
@@ -22,8 +26,7 @@ public class FCMPayload implements Serializable {
         this.slug = slug;
     }
 
-    private int ref_id;
-    private String slug;
+
     public int getId() {
         return id;
     }

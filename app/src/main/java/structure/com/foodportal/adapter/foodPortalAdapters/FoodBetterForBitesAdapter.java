@@ -2,6 +2,7 @@ package structure.com.foodportal.adapter.foodPortalAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +40,37 @@ public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterF
         return viewHolder;
     }
 
+    int width=0;
+    public void setWidth(int width) {
 
+        this.width=width;
 
+    }
 
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
     @Override
     public void onBindViewHolder(FoodBetterForBitesAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
+
+
+        if(width==0){
+
+
+        }else{
+            ViewGroup.LayoutParams params = holder.circleImageView.getLayoutParams();
+// Changes the height and width to the specified *pixels*
+            params.height =    dpToPx(195);
+            params.width =    dpToPx(291);
+
+            holder.circleImageView.setLayoutParams(params);
+
+
+        }
+
+
         holder.text.setText(""+sections.get(position).getTitle());
         if(sections.get(position).getFeatured_image_path()!=null){
 

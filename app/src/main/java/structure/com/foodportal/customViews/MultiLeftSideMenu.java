@@ -274,7 +274,11 @@ public class MultiLeftSideMenu extends BaseFragment {
         //Footer View
         View footerView = inflater.inflate(R.layout.logout, null, false);
         TextView footerTitle = (TextView) footerView.findViewById(R.id.logout);
-        footerTitle.setText(getActivity().getResources().getString(R.string.logout));//set the text to Footer View
+        if(preferenceHelper.getLoginStatus() &&(!preferenceHelper.getUserFood().getId().equals("293")))
+        footerTitle.setText(getActivity().getResources().getString(R.string.logout));
+        else
+            footerTitle.setText(getActivity().getResources().getString(R.string.login));
+            //set the text to Footer View
 
         TextView footersave = (TextView) footerView.findViewById(R.id.savedrecipes);//set the text to Footer View
         expandableListView.addFooterView(footerView);//Add view to list view as footer view

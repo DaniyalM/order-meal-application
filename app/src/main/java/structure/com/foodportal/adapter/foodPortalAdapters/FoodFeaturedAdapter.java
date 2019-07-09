@@ -3,6 +3,7 @@ package structure.com.foodportal.adapter.foodPortalAdapters;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 
 import butterknife.internal.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
+import info.androidhive.fontawesome.FontTextView;
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.helper.AppConstant;
@@ -101,10 +104,10 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
             }
         });
         if (sections.get(position).getIs_save()== 1) {
-            holder.likeButton.setLiked(true);
+            holder.likeButton.setTextColor(context.getResources().getColor(R.color.colorRed));
 
         } else {
-            holder.likeButton.setLiked(false);
+            holder.likeButton.setTextColor(context.getResources().getColor(R.color.white));
 
         }
 
@@ -131,19 +134,19 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
             @Override
             public void onClick(View view) {
 
-                if (context.prefHelper.getLoginStatus() == false) {
+                if (context.prefHelper.getUserFood().getId().equals("293")) {
 
                     Toast.makeText(context, "Please Login to proceed", Toast.LENGTH_SHORT).show();
 
                 }else{
 
-                    if (sections.get(position).getIs_save()  == 1) {
+                    if (holder.likeButton.getCurrentTextColor()== context.getResources().getColor(R.color.white)) {
                         foodHomeListner.onSaveRecipe(sections.get(position).getId());
-                        holder.likeButton.setLiked(true);
+                        holder.likeButton.setTextColor(context.getResources().getColor(R.color.colorRed));
 
                     } else {
                         foodHomeListner.onSaveRecipe(sections.get(position).getId());
-                        holder.likeButton.setLiked(false);
+                        holder.likeButton.setTextColor(context.getResources().getColor(R.color.white));
 
                     }
 
@@ -187,6 +190,10 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
        // setScaleAnimation(holder.itemView,position);
 
     }
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
     private void setAnimation(View viewToAnimate, int position)
     {
         // If the bound view wasn't previously displayed on screen, it's animated
@@ -205,11 +212,11 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
     }
 
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
-        LikeButton likeButton;
+        FontTextView likeButton;
         protected TextView text,tvPopularRecipeServes,tvPopularRecipeCookingTime;
         ImageView circleImageView;
         CheckBox checkbox;
-        CardView cardView;
+        FrameLayout cardView;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
@@ -218,8 +225,8 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
             tvPopularRecipeCookingTime = (TextView) itemView.findViewById(R.id.tvPopularRecipeCookingTime);
             text = (TextView) itemView.findViewById(R.id.tvPopularRecipe);
             circleImageView = (ImageView) itemView.findViewById(R.id.ivPopularRecipe);
-            likeButton = (LikeButton) itemView.findViewById(R.id.lkFav);
-            cardView = (CardView) itemView.findViewById(R.id.cardView);
+            likeButton = (FontTextView) itemView.findViewById(R.id.lkFav);
+            cardView = (FrameLayout) itemView.findViewById(R.id.cardViewBAck);
 
         }
     }

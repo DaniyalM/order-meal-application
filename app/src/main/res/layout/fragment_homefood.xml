@@ -5,18 +5,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:background="@color/colorWhiteBack">
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScroll"
+            android:overScrollMode="never"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+        >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical">
 
@@ -156,7 +158,7 @@
                             android:animateLayoutChanges="true"
                             android:orientation="vertical">
 
-                            <believe.cht.fadeintextview.TextView
+                            <TextView
                                 android:id="@+id/tvPopularRecipe"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -167,10 +169,10 @@
                                 android:gravity="start"
                                 android:padding="@dimen/dp5"
                                 android:text=""
-                                android:textSize="@dimen/sp12"
+                                android:textSize="@dimen/sp14"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccentTextColor"
-                                app:letterDuration="250" />
+                                 />
 
                             <android.support.v7.widget.CardView
                                 android:id="@+id/popularCardView"
@@ -281,7 +283,7 @@
                             android:animateLayoutChanges="true"
                             android:orientation="vertical">
 
-                            <believe.cht.fadeintextview.TextView
+                            <TextView
                                 android:id="@+id/tvFeaturedRecipes"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -290,10 +292,10 @@
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
                                 android:text=""
-                                android:textSize="12sp"
+                                android:textSize="@dimen/sp14"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccentTextColor"
-                                app:letterDuration="250" />
+                              />
 
                             <android.support.v7.widget.CardView
                                 android:id="@+id/featureCardView"
@@ -389,7 +391,7 @@
                                     android:text="Tip of the day..."
                                     android:textColor="@color/colorBlack" />
 
-                                <believe.cht.fadeintextview.TextView
+                                <TextView
                                     android:id="@+id/tvtipDay"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -398,7 +400,7 @@
                                     android:padding="@dimen/dp5"
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/sp12"
-                                    app:letterDuration="250" />
+                                     />
                             </LinearLayout>
 
                             <android.support.v7.widget.RecyclerView
@@ -420,7 +422,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <believe.cht.fadeintextview.TextView
+                            <TextView
                                 android:id="@+id/tvBetterforBites"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -428,6 +430,7 @@
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
                                 android:text=""
+                                android:textSize="@dimen/sp14"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccentTextColor" />
 
@@ -450,13 +453,14 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <believe.cht.fadeintextview.TextView
+                            <TextView
                                 android:id="@+id/tvtechniques"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp10"
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
+                                android:textSize="@dimen/sp14"
                                 android:text="Tutorials"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccentTextColor" />
@@ -467,6 +471,7 @@
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
+
                     <android.support.v7.widget.CardView
                         android:visibility="gone"
                         android:background="@color/colorFbWhiteBg"
@@ -474,7 +479,7 @@
                         android:id="@+id/cvRecommendedSection"
                         app:cardUseCompatPadding="true"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -493,12 +498,14 @@
 
 
 
-                            <android.support.v7.widget.RecyclerView
+                            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                                 android:id="@+id/rvRecommendedRecipe"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:nestedScrollingEnabled="false"
                                 android:layout_marginTop="@dimen/dp5"
-                                android:nestedScrollingEnabled="true"/>
+                               />
 
 
 

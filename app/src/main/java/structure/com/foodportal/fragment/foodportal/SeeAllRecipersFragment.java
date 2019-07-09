@@ -70,7 +70,7 @@ public class SeeAllRecipersFragment extends BaseFragment implements View.OnClick
 
         seeAllRecipesAdapter = new SeeAllRecipesAdapter(sections, mainActivity, this);
         // mlayoutManager = new LinearLayoutManager(mainActivity);
-         mLayoutManager = new GridLayoutManager(mainActivity,2);
+        mLayoutManager = new GridLayoutManager(mainActivity,2);
         rvSeeAll.setLayoutManager(mLayoutManager);
         rvSeeAll.setAdapter(seeAllRecipesAdapter);
      //   rvSeeAll.setHasFixedSize(true);

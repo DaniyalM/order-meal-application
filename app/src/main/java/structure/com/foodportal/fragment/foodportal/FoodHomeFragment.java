@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.FrameLayout;
@@ -124,6 +126,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_homefood, container, false);
         setListners();
+
         vp = binding.getRoot().findViewById(R.id.bannerPopular);
         vf = binding.getRoot().findViewById(R.id.bannerFeatured);
 
@@ -190,11 +193,13 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         foodBetterForBitesAdapter = new FoodBetterForBitesAdapter(sectionsBetterForBites, mainActivity, this);
 
         mLayoutManager = new GridLayoutManager(mainActivity,2);
-        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-        itemAnimator.setAddDuration(1000);
-        binding.rvRecommendedRecipe.setItemAnimator(itemAnimator);
+       /* RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+        itemAnimator.setAddDuration(1000);*/
+      //  binding.rvRecommendedRecipe.setItemAnimator(itemAnimator);
         binding.rvRecommendedRecipe.setLayoutManager(mLayoutManager);
         binding.rvRecommendedRecipe.setAdapter(foodRecommendedRecipeAdapter);
+
+       // ViewCompat.setNestedScrollingEnabled(binding.rvRecommendedRecipe, true);
         setPagination(mLayoutManager, foodRecommendedRecipeAdapter.getItemCount() - 1);
         //binding.rvRecommendedRecipe.showShimmerAdapter();
         binding.rvCategoryslider.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
@@ -478,7 +483,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 popularcv.setVisibility(View.VISIBLE);
                 featurecv.setVisibility(View.VISIBLE);
                 cvRecommendedSection.setVisibility(View.VISIBLE);
-                cvRecommendedImageCard.setVisibility(View.VISIBLE);
+               // cvRecommendedImageCard.setVisibility(View.VISIBLE);
                 popularslug = foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getSlug();
                 featuredslug = foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getSlug();
 
@@ -530,7 +535,12 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 binding.cvSectionFive.setVisibility(View.GONE);
 
                 binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
-                binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
+                if(foodHomeModelWrapper.getSection().get(1).getSection_list().size()>0){
+
+                    binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
+                }else{
+                    binding.tvFeaturedRecipes.setVisibility(View.GONE);
+                }
                 binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(2).getSection_name_en().replaceAll("_", " "));
 
                 sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
@@ -538,6 +548,8 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 sectionsBetterForBites.addAll(foodHomeModelWrapper.getSection().get(2).getSection_list());
                 categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
                 banners.add(foodHomeModelWrapper.getFeature_type());
+                foodPopularRecipeAdapter.setWidth(291);
+                foodBetterForBitesAdapter.setWidth(291);
 
                 break;
 
@@ -555,6 +567,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
                 categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
                 banners.addAll(foodHomeModelWrapper.getBanner());
+                foodPopularRecipeAdapter.setWidth(291);
 
 
                 break;
@@ -570,6 +583,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
                 sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
                 banners.add(foodHomeModelWrapper.getFeature_type());
+                foodPopularRecipeAdapter.setWidth(291);
 
 
                 break;
@@ -617,7 +631,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     int total_pages;
     private synchronized void getRecommendedRecipes(int i, LinearLayoutManager layoutmanager) {
         scroll_to= i;
-        serviceHelper.enqueueCall(webService.getRecommendedRecipes(page_my, 10),AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECOMMENDED);
+        serviceHelper.enqueueCall(webService.getRecommendedRecipes(page_my, 20),AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECOMMENDED);
 
     }
 
@@ -734,7 +748,36 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     }
 
 
-    private void setPagination(final GridLayoutManager layoutmanager, final int i) {
+    private void setPagination( GridLayoutManager layoutmanager, final int i) {
+
+        binding.nestedScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged()
+            {
+                View view = (View) binding.nestedScroll.getChildAt( binding.nestedScroll.getChildCount() - 1);
+
+                int diff = (view.getBottom() - ( binding.nestedScroll.getHeight() +  binding.nestedScroll
+                        .getScrollY()));
+
+                if (diff == 0) {
+
+                    if (layoutmanager != null && layoutmanager.findLastCompletelyVisibleItemPosition()  == foodRecommendedRecipeAdapter.getItemCount() - 1) {
+
+                        if (total_pages > page_my) {
+                            page_my++;
+                            getRecommendedRecipes(layoutmanager.findLastCompletelyVisibleItemPosition() - 1, layoutmanager);
+
+
+                        }
+                    }
+
+                    // your pagination code
+                }
+            }
+        });
+
+
+
 //        binding.rvRecommendedRecipe.addOnScrollListener(new RecyclerView.OnScrollListener() {
 //            @Override
 //            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -776,15 +819,15 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
 
 
-        binding.rvRecommendedRecipe.addOnScrollListener(new RecyclerView.OnScrollListener() {
+     /*   binding.rvRecommendedRecipe.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (layoutmanager != null && layoutmanager.findLastCompletelyVisibleItemPosition() == foodRecommendedRecipeAdapter.getItemCount() - 1) {
+                if (layoutmanager != null && layoutmanager.findLastCompletelyVisibleItemPosition()  == foodRecommendedRecipeAdapter.getItemCount() - 5) {
 
                     if (total_pages > page_my) {
                         page_my++;
-                            getRecommendedRecipes(layoutmanager.findLastCompletelyVisibleItemPosition() - 2, layoutmanager);
+                            getRecommendedRecipes(layoutmanager.findLastCompletelyVisibleItemPosition() - 1, layoutmanager);
 
 
                     }
@@ -794,7 +837,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
             }
 
 
-        });
+        });*/
     }
 
 }

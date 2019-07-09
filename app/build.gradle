@@ -11,8 +11,8 @@ android {
         applicationId "structure.com.foodportal"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 26
-        versionName "1.1.7"
+        versionCode 32
+        versionName "1.1.8"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -151,7 +151,7 @@ dependencies {
         exclude module: 'app'
     }
     implementation 'com.borjabravo:readmoretextview:2.1.0'
-
+    implementation 'info.androidhive:fontawesome:0.0.5'
     implementation 'com.danikula:videocache:2.7.1'
     implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'

@@ -45,7 +45,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         makepush(remoteMessage);
        // sendPushNotification(remoteMessage);
-        Log.i("testing", "onMessageReceived");
+        Log.i("testing", "onMessageReceived"+remoteMessage.getData());
     }
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
     private void makepush(RemoteMessage message) {
