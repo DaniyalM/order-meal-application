@@ -89,7 +89,12 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
         }
         //  holder.image.setImageResource(R.drawable.planetimage);
         holder.text.setText("" + sections.get(position).getTitle());
-        if (sections.get(position).getFeatured_image_path() != null) {
+
+        // For blog
+        if (sections.get(position).getFeature_type_id() == 4 && sections.get(position).getBlog_thumb_image_path() != null) {
+            UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getBlog_thumb_image_path());
+        }
+        else if (sections.get(position).getFeatured_image_path() != null) {
 
             UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getFeatured_image_path());
 

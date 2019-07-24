@@ -18,6 +18,16 @@ public class Sections {
 
     String blog_thumb_image_path_size;
 
+    String blog_thumb_image_path;
+
+    public String getBlog_thumb_image_path() {
+        return blog_thumb_image_path;
+    }
+
+    public void setBlog_thumb_image_path(String blog_thumb_image_path) {
+        this.blog_thumb_image_path = blog_thumb_image_path;
+    }
+
     public int getIs_favorite() {
         return is_favorite;
     }
