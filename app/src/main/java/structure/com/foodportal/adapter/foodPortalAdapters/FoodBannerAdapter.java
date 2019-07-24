@@ -2,6 +2,7 @@ package structure.com.foodportal.adapter.foodPortalAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,12 @@ public class FoodBannerAdapter extends RecyclerView.Adapter<FoodBannerAdapter.Pl
         holder.text.clearAnimation();
         holder.text.setText(""+ingredientList.get(position).getTitle_en());
         if(ingredientList.get(position).getBanner_image_path()!=null){
-            UIHelper.setImageWithGlide(context,holder.circleImageView, ingredientList.get(position).getBanner_image_path());
+            if(ingredientList.get(position).getId()==4) {
+                UIHelper.setImageWithGlide(context, holder.circleImageView, R.drawable.ic_blog_banner);
+            }
+            else {
+                UIHelper.setImageWithGlide(context, holder.circleImageView, ingredientList.get(position).getBanner_image_path());
+            }
         }else{
 
 

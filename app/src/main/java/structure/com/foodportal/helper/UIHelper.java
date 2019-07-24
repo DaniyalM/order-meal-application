@@ -90,6 +90,25 @@ public  class UIHelper {
                 .into(view);
     }
 
+    public static void setImageWithGlide(Context context, ImageView view, int drawableResId) {
+        Glide.with(context).clear(view);
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(context);
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.setColorSchemeColors(context.getResources().getColor(R.color.colorAccentPink));
+        circularProgressDrawable.setColorFilter(context.getResources().getColor(R.color.colorAccentPink),android.graphics.PorterDuff.Mode.MULTIPLY);
+        circularProgressDrawable.start();
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.dontAnimate().placeholder(circularProgressDrawable);
+
+
+
+        Glide.with(context)
+                .load(drawableResId)
+                .apply(requestOptions)
+                .into(view);
+    }
+
     public static void setImagewithGlide(Activity activity, ImageView imageView, String path) {
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.dontAnimate().placeholder(R.drawable.placeholder);
