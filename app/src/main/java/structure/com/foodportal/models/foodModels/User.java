@@ -24,6 +24,16 @@ public  class User {
     int acct_type;
     String name_en;
 
+    String profile_picture_path;
+
+    public String getProfile_picture_path() {
+        return profile_picture_path;
+    }
+
+    public void setProfile_picture_path(String profile_picture_path) {
+        this.profile_picture_path = profile_picture_path;
+    }
+
     public String getContact_no() {
         return contact_no;
     }

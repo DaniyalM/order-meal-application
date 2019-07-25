@@ -339,18 +339,24 @@ public class MultiLeftSideMenu extends BaseFragment {
     private int lastPosition = -1;
 
     private void confMenu() {
-
+        String defaultProfilePicUrl = "http://kbae.com.au/images/no_user_image.png";
         setMenu();
         binder.txtUsername.setText(preferenceHelper.getUserFood().getName_en());
         switch (preferenceHelper.getUserFood().getAcct_type()) {
             case 1:
-                UIHelper.setImageWithGlide(mainActivity, binder.imgBackground, AppConstant.BASE_URL_IMAGE + preferenceHelper.getUserFood().getProfile_picture());
-
-                break;
             case 2:
-                UIHelper.setImageWithGlide(mainActivity, binder.imgBackground, preferenceHelper.getUserFood().getProfile_picture());
+                if (preferenceHelper.getUserFood().getProfile_picture_path() != null) {
+                    UIHelper.setImageWithGlide(mainActivity, binder.imgBackground, preferenceHelper.getUserFood().getProfile_picture_path());
+                }
+                else {
+                    UIHelper.setImageWithGlide(mainActivity, binder.imgBackground, defaultProfilePicUrl);
+                }
 
                 break;
+//            case 2:
+//                UIHelper.setImageWithGlide(mainActivity, binder.imgBackground, preferenceHelper.getUserFood().getProfile_picture());
+//
+//                break;
             case 3:
                 UIHelper.setImageWithGlide(mainActivity, binder.imgBackground,
                         "https://graph.facebook.com/" + preferenceHelper.getUserFood().getProfile_picture() + "/picture?type=large");
