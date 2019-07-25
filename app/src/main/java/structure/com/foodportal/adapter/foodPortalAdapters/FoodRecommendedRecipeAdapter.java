@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +56,7 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
     public void onBindViewHolder(FoodRecommendedRecipeAdapter.PlanetViewHolder holder, int position) {
 
         if (sections.get(position).getFeature_type_id() == 1) {
+            holder.cardView.setVisibility(View.VISIBLE);
             holder.likeButton.setVisibility(View.VISIBLE);
             holder.tvPopularRecipeServes.setVisibility(View.VISIBLE);
             holder.tvPopularRecipeCookingTime.setVisibility(View.VISIBLE);
@@ -63,6 +65,7 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
 
 
         } else {
+            holder.cardView.setVisibility(View.GONE);
             holder.likeButton.setVisibility(View.GONE);
             holder.tvPopularRecipeServes.setVisibility(View.GONE);
             holder.tvPopularRecipeCookingTime.setVisibility(View.GONE);
@@ -70,7 +73,12 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
         }
         //  holder.image.setImageResource(R.drawable.planetimage);
         holder.text.setText("" + sections.get(position).getTitle());
-        if (sections.get(position).getFeatured_image_path() != null) {
+
+        // For blog
+        if (sections.get(position).getFeature_type_id() == 4 && sections.get(position).getBlog_thumb_image_path() != null) {
+            UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getBlog_thumb_image_path());
+        }
+        else if (sections.get(position).getFeatured_image_path() != null) {
 
             UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getFeatured_image_path());
 
@@ -219,7 +227,7 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
         ImageView circleImageView;
         FontTextView likeButton;
         CheckBox checkbox;
-
+        FrameLayout cardView;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
@@ -229,6 +237,7 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
             tvPopularRecipeServes = (TextView) itemView.findViewById(R.id.tvPopularRecipeServes);
             tvPopularRecipeCookingTime = (TextView) itemView.findViewById(R.id.tvPopularRecipeCookingTime);
             circleImageView = (ImageView) itemView.findViewById(R.id.ivPopularRecipe);
+            cardView = (FrameLayout) itemView.findViewById(R.id.cardViewBAck);
             likeButton = (FontTextView) itemView.findViewById(R.id.lkFav);
         }
     }

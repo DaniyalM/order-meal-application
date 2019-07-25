@@ -510,6 +510,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 tvf.setText(foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getTitle_en());
                 //  binding.cvSectionFive.setVisibility(View.GONE);
 
+                binding.tvRecommended.setText("Recommended for you");
                 binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
                 binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
                 binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_en().replaceAll("_", " "));
@@ -573,18 +574,31 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 break;
 
             case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
+//                binding.lltipoftheday.setVisibility(View.GONE);
+//                binding.cvSectionTwo.setVisibility(View.GONE);
+//                binding.cvSectionThree.setVisibility(View.GONE);
+//                binding.cvSectionFour.setVisibility(View.GONE);
+//                binding.cvSectionFive.setVisibility(View.GONE);
+//                binding.rvCategoryslider.setVisibility(View.GONE);
+//
+//                binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
+//                sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
+//                banners.add(foodHomeModelWrapper.getFeature_type());
+//                foodPopularRecipeAdapter.setWidth(291);
+
                 binding.lltipoftheday.setVisibility(View.GONE);
+                binding.cvSectionOne.setVisibility(View.GONE);
                 binding.cvSectionTwo.setVisibility(View.GONE);
                 binding.cvSectionThree.setVisibility(View.GONE);
                 binding.cvSectionFour.setVisibility(View.GONE);
                 binding.cvSectionFive.setVisibility(View.GONE);
                 binding.rvCategoryslider.setVisibility(View.GONE);
+                cvRecommendedSection.setVisibility(View.VISIBLE);
 
-                binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
-                sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
+                binding.tvRecommended.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
+                sectionsRecommended.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
                 banners.add(foodHomeModelWrapper.getFeature_type());
-                foodPopularRecipeAdapter.setWidth(291);
-
+                foodRecommendedRecipeAdapter.notifyDataSetChanged();
 
                 break;
 
@@ -648,16 +662,23 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void popularrecipe(int pos) {
 
-        if (navSection.equalsIgnoreCase(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG)) {
-            next(foodhomeModel.getSection().get(0).getSection_list().get(pos).getSlug());
-        } else {
-            next(sectionsPopular.get(pos).getSlug());
-        }
+//        if (navSection.equalsIgnoreCase(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG)) {
+//            next(foodhomeModel.getSection().get(0).getSection_list().get(pos).getSlug());
+//        } else {
+//            next(sectionsPopular.get(pos).getSlug());
+//        }
+        next(sectionsPopular.get(pos).getSlug());
+
     }
 
     @Override
     public void recommendedrecipe(int pos) {
-        next(sectionsRecommended.get(pos).getSlug());
+        if (navSection.equalsIgnoreCase(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG)) {
+            next(foodhomeModel.getSection().get(0).getSection_list().get(pos).getSlug());
+        } else {
+            next(sectionsRecommended.get(pos).getSlug());
+        }
+//        next(sectionsRecommended.get(pos).getSlug());
     }
 
     @Override

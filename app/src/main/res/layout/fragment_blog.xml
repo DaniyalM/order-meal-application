@@ -180,6 +180,7 @@
                     <TextView
                         android:fontFamily="@font/poppinsbold"
                         android:text="Related Blogs"
+                        android:layout_marginStart="@dimen/dp10"
                         android:textAllCaps="true"
                         android:textSize="@dimen/dp20"
                         android:textColor="@color/colorAccent"
@@ -210,6 +211,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
+                            android:paddingTop="@dimen/dp10"
                             android:paddingEnd="@dimen/dp10"
                             android:paddingStart="@dimen/dp10">
 
