@@ -28,7 +28,6 @@
         android:id="@+id/tvDishName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="@dimen/dp72"
         android:layout_gravity="top|center"
         android:layout_marginTop="@dimen/dp3"
         android:fontFamily="@font/poppinsmedium"
@@ -37,4 +36,6 @@
         android:textAllCaps="true"
         android:textColor="@color/colorBlack"
         android:textSize="10sp" />
+<!--    android:maxWidth="@dimen/dp72"-->
+
 </LinearLayout>
