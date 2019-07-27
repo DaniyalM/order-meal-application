@@ -171,7 +171,8 @@
             android:clickable="true"
             android:focusable="true"
             android:visibility="gone">
-
+<!--            android:background="@android:color/black"-->
+<!--            android:alpha="0.7"-->
 
             <pl.droidsonroids.gif.GifImageView
                 android:layout_width="80dp"

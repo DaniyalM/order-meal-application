@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -12,6 +16,7 @@ import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.activity.RegistrationActivity;
 import structure.com.foodportal.global.WebServiceConstants;
 import structure.com.foodportal.interfaces.webServiceResponseLisener;
+import structure.com.foodportal.models.foodModels.Section;
 import structure.com.foodportal.webservice.Api_Array_Response;
 import structure.com.foodportal.webservice.Api_Response;
 
@@ -74,6 +79,19 @@ public class ServiceHelper<T> {
 
                         }else if(tag.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECOMMENDED)){
                             serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag+response.body().getPages());
+
+
+                        }
+                        else if(tag.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME)){
+                            try {
+                                JSONObject resultObject = new JSONObject(response.body().getResult().toString());
+                                JSONArray sectionArray = resultObject.getJSONArray("section");
+                                int sectionPages = sectionArray.getJSONObject(0).getInt("section_pages");
+                                serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag+sectionPages);
+                            } catch (JSONException e) {
+                                Log.d("JsonException", e.getMessage());
+                                serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag);
+                            }
 
 
                         }else {

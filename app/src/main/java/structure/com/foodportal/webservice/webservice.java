@@ -278,6 +278,9 @@ public interface webservice {
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME)
     Call<Api_Response<JsonObject>> gettutorial(@Query("slug") String slug);
 
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_HOME)
+    Call<Api_Response<JsonObject>> gettutorial(@Query("slug") String slug, @Query("page") int page);
+
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HEADER)
     Call<Api_Array_Response<HeaderWrapper>> getHeader();
 

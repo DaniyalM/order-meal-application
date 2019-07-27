@@ -272,6 +272,11 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     }
 
     @Override
+    public void onBlogClick(int pos) {
+
+    }
+
+    @Override
     public void popularrecipe(int pos) {
 
         next(related.get(pos).getSlug());

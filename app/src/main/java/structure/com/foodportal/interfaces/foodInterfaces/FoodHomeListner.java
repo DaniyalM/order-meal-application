@@ -3,6 +3,7 @@ package structure.com.foodportal.interfaces.foodInterfaces;
 public interface FoodHomeListner {
 
 
+    void onBlogClick(int pos);
     void popularrecipe(int pos);
     void recommendedrecipe(int pos);
     void featuredrecipe(int pos);
