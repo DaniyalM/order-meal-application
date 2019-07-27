@@ -9,6 +9,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,10 @@ import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import structure.com.foodportal.R;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodBannerAdapter;
@@ -282,7 +286,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.HOME:
                     binding.cvSectionThree.setVisibility(View.VISIBLE);
-                    serviceHelper.enqueueCall(webService.gethome(String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME);
+                    serviceHelper.enqueueCall(webService.gethome(String.valueOf(preferenceHelper.getUserFood().getId()), 16), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME);
                     break;
 
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
@@ -547,6 +551,10 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 tvf.setText(foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getTitle_en());
                 //  binding.cvSectionFive.setVisibility(View.GONE);
 
+
+                printList("ListPopularBefore", foodHomeModelWrapper.getSection().get(0).getSection_list());
+                printList("ListFeaturedBefore", foodHomeModelWrapper.getSection().get(1).getSection_list());
+
                 binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
                 binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
                 binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_en().replaceAll("_", " "));
@@ -563,6 +571,9 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 banners.addAll(foodHomeModelWrapper.getBanner());
 
                 getRecommendedRecipes(0);
+
+                printList("ListPopularAfter", sectionsPopular);
+                printList("ListFeaturedAfter", sectionsFeatured);
 
                 break;
 
@@ -682,6 +693,13 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
         }
 
+    }
+
+    private List<Sections> printList(String tag, List<Sections> sectionsList) {
+        for (int i = 0; i < sectionsList.size(); i++) {
+            Log.d(tag, i + " -- " + sectionsList.get(i).getTitle_en());
+        }
+        return sectionsList;
     }
 
     int currentPageRecommended = 1, totalPagesRecommended, currentPageLatest = 1, totalPagesLatest;
