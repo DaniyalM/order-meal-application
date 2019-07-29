@@ -79,7 +79,7 @@ import structure.com.foodportal.singleton.CarelessSingleton;
 
 import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
-public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeListner,CommentClickListner,View.OnClickListener {
+public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeListner, CommentClickListner, View.OnClickListener {
 
 
     FoodPopularRecipeAdapter foodRelatedAdapter;
@@ -88,6 +88,7 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     FoodDetailModelWrapper foodDetailModel;
     ArrayList<Comments> comments;
     FoodCommentsAdapter foodCommentsAdapter;
+
     public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel) {
         this.foodDetailModel = foodDetailModel;
     }
@@ -101,11 +102,13 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
         setListners();
         return binding.getRoot();
     }
+
     private void initAdapters() {
 
         binding.rvRelatedRecipes.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
         related = new ArrayList<>();
     }
+
     private void setListners() {
         mainActivity.hideBottombar();
         initAdapters();
@@ -130,46 +133,30 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
             }
 
-
-           // String htmlStart =  "<HTML><HEAD><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\"> \(jsTag)  </HEAD><BODY>" ;
-          //  String htmlEnd = "</BODY></HTML>" ;
-         //   String htmlString = htmlStart + foodDetailModel.getData().getContent_en() + htmlEnd;
-
-
-
-
-
-
             WebSettings settings = binding.myWebView.getSettings();
             settings.setMinimumFontSize(18);
             settings.setLoadWithOverviewMode(true);
             settings.setUseWideViewPort(true);
             settings.setBuiltInZoomControls(false);
             settings.setDisplayZoomControls(false);
-            binding.myWebView.setWebChromeClient(new WebChromeClient());
-            String changeFontHtml = changedHeaderHtml(foodDetailModel.getData().getContent_en());
-            binding.myWebView.loadDataWithBaseURL(null, changeFontHtml,
-                    "text/html", "UTF-8", null);
-          //  binding.myWebView.loadDataWithBaseURL("", foodDetailModel.getData().getContent_en(), "text/html", "UTF-8", "");
-            binding.myWebView.getSettings().setSupportMultipleWindows(true);
+            settings.setSupportMultipleWindows(true);
 
-           // binding.myWebView.setInitialScale(getScale());
+            binding.myWebView.setHorizontalScrollBarEnabled(false);
+            binding.myWebView.setWebChromeClient(new WebChromeClient());
+
+            String content = getTransformedBlogContent(foodDetailModel.getData().getContent_en());
+            binding.myWebView.loadDataWithBaseURL(null, content, "text/html", "UTF-8", null);
         }
 
     }
-    public static String changedHeaderHtml(String htmlText) {
-        String jsTag2 = "<style> p  {font-family:Arial; font-size:18} </style>";
-        String jsTag = "<style> .easyimage img { width:80%; height:258; align-content: center;} </style>";
-       // String head = "<head><meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" /></head>";
-        String head = "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=yes\">" + jsTag2+jsTag + "</head>";
 
-        String closedTag = "</body></html>";
-        String changeFontHtml = head + htmlText + closedTag;
-        return changeFontHtml;
+    public static String getTransformedBlogContent(String htmlText) {
+        String styleTag = "<style>  p img { width:100%; height:auto;} </style>";
+        String htmlStart = "<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">" + styleTag + "</head><body> ";
+        String htmlEnd = "</body></html>";
+        String transformedHtml = htmlStart + htmlText + htmlEnd;
+        return transformedHtml;
     }
-
-
-
 
     @Override
     protected void setTitle(Titlebar titlebar) {
@@ -209,20 +196,17 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
         linearLayoutManagerComment = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
         binding.rvCommentsSection.setLayoutManager(linearLayoutManagerComment);
 
-        if(this.foodDetailModel.getAllReviews().size()>0){
+        if (this.foodDetailModel.getAllReviews().size() > 0) {
 
             comments.addAll(this.foodDetailModel.getAllReviews());
-            foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this,true,false);
+            foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true, false);
             binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
             foodCommentsAdapter.notifyDataSetChanged();
 
-        }else{
-
+        } else {
 
 
         }
-
-
 
 
     }
@@ -248,11 +232,6 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 //
 //
 //    }
-
-
-
-
-
 
 
     @Override
@@ -347,21 +326,22 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 
             case R.id.tvShowall:
-             //   player.stop();
+                //   player.stop();
                 //player.stop(true);
                 //  stopPosition = binding.videoView.getCurrentPosition();
-              //  EventBus.getDefault().register(this);
+                //  EventBus.getDefault().register(this);
 
-                if(preferenceHelper.getUserFood().getAcct_type()==4){
+                if (preferenceHelper.getUserFood().getAcct_type() == 4) {
                     Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
 
-                }else{
-                CommentsFragment commentsFragment= new CommentsFragment();
-                commentsFragment.setArrayComments(foodDetailModel,false);
-                mainActivity.addFragment(commentsFragment,true,true);}
+                } else {
+                    CommentsFragment commentsFragment = new CommentsFragment();
+                    commentsFragment.setArrayComments(foodDetailModel, false);
+                    mainActivity.addFragment(commentsFragment, true, true);
+                }
                 break;
 
         }
