@@ -42,6 +42,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
     VideoView videoView;
     SimpleExoPlayer player;
     MediaSource mediaSource;
+    int stopPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +77,22 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         return new ExtractorMediaSource.Factory(
                 new DefaultHttpDataSourceFactory("exoplayer-codelab")).
                 createMediaSource(uri);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (videoView != null)
+            stopPosition = videoView.getCurrentPosition();
+            videoView.pause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (videoView != null)
+            videoView.seekTo(stopPosition);
+            videoView.start();
     }
 
     public void init() {
