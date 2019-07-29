@@ -57,13 +57,12 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
         if(sections.size()>0){
         switch (sections.get(position).getUser().getAcct_type()) {
 
-            case 1:
-                UIHelper.setImageWithGlide(context, holder.userimage, AppConstant.BASE_URL_IMAGE + sections.get(position).getUser().getProfile_picture());
+            case 1: // email
+            case 2: // gmail
+                UIHelper.setImageWithGlide(context, holder.userimage,
+                        sections.get(position).getUser().getProfile_picture_path() != null ? sections.get(position).getUser().getProfile_picture_path() : "http://kbae.com.au/images/no_user_image.png");
                 break;
-            case 2://gmail
-                UIHelper.setImageWithGlide(context, holder.userimage, AppConstant.BASE_URL_IMAGE + sections.get(position).getUser().getProfile_picture());
-                break;
-            case 3://facebook
+            case 3:// facebook
                 UIHelper.setImageWithGlide(context, holder.userimage, "https://graph.facebook.com/" + sections.get(position).getUser().getProfile_picture() + "/picture?type=large");
                 break;
 
