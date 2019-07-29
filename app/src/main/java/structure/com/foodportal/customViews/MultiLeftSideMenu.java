@@ -191,7 +191,7 @@ public class MultiLeftSideMenu extends BaseFragment {
             @Override
             public void onClick(View view) {
                 mainActivity.closeDrawer();
-                mainActivity.addFragment(new SettingsFragment(),true,true);
+                mainActivity.addFragment(new SettingsFragment(), true, true);
 
 
             }
@@ -266,21 +266,25 @@ public class MultiLeftSideMenu extends BaseFragment {
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         //Header View
-        View headerView = inflater.inflate(R.layout.home, null, false);
+        View headerView = inflater.inflate(R.layout.nav_header_item_layout, null, false);
         TextView headerTitle = (TextView) headerView.findViewById(R.id.home);
         headerTitle.setText(getActivity().getResources().getString(R.string.home));//set the text to Header View
         expandableListView.addHeaderView(headerView);//Add view to list view as header view
 
         //Footer View
-        View footerView = inflater.inflate(R.layout.logout, null, false);
+        View footerView = inflater.inflate(R.layout.nav_footer_items_layout, null, false);
         TextView footerTitle = (TextView) footerView.findViewById(R.id.logout);
-        if(preferenceHelper.getLoginStatus() &&(!preferenceHelper.getUserFood().getId().equals("293")))
-        footerTitle.setText(getActivity().getResources().getString(R.string.logout));
-        else
+        //set the text to Footer View
+        if (preferenceHelper.getLoginStatus() && (!preferenceHelper.getUserFood().getId().equals("293"))) {
+            footerTitle.setText(getActivity().getResources().getString(R.string.logout));
+        } else {
+            footerView.getRootView().findViewById(R.id.savedrecipes).setVisibility(View.GONE);
+            footerView.getRootView().findViewById(R.id.cookingGuides).setVisibility(View.GONE);
+            footerView.getRootView().findViewById(R.id.recentlyViewed).setVisibility(View.GONE);
+            footerView.getRootView().findViewById(R.id.myFavoriteRecipes).setVisibility(View.GONE);
+            footerView.getRootView().findViewById(R.id.myReviews).setVisibility(View.GONE);
             footerTitle.setText(getActivity().getResources().getString(R.string.login));
-            //set the text to Footer View
-
-        TextView footersave = (TextView) footerView.findViewById(R.id.savedrecipes);//set the text to Footer View
+        }
         expandableListView.addFooterView(footerView);//Add view to list view as footer view
 
 
@@ -301,6 +305,7 @@ public class MultiLeftSideMenu extends BaseFragment {
             // updateLeftDrawer("logout");
 
         });
+
         footerView.getRootView().findViewById(R.id.savedrecipes).setOnClickListener(view -> {
 
             if (preferenceHelper.getUserFood().getAcct_type() == 4) {
@@ -316,6 +321,18 @@ public class MultiLeftSideMenu extends BaseFragment {
             }
 
         });
+
+        footerView.getRootView().findViewById(R.id.cookingGuides).setOnClickListener(view -> {
+
+            if (preferenceHelper.getUserFood().getAcct_type() == 4) {
+                Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
+            } else {
+//                Toast.makeText(mainActivity, "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+
         footerView.getRootView().findViewById(R.id.recentlyViewed).setOnClickListener(view -> {
 
             if (preferenceHelper.getUserFood().getAcct_type() == 4) {
@@ -333,7 +350,25 @@ public class MultiLeftSideMenu extends BaseFragment {
 
         });
 
+        footerView.getRootView().findViewById(R.id.myFavoriteRecipes).setOnClickListener(view -> {
 
+            if (preferenceHelper.getUserFood().getAcct_type() == 4) {
+                Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
+            } else {
+//                Toast.makeText(mainActivity, "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        footerView.getRootView().findViewById(R.id.myReviews).setOnClickListener(view -> {
+
+            if (preferenceHelper.getUserFood().getAcct_type() == 4) {
+                Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
+            } else {
+//                Toast.makeText(mainActivity, "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 
     private int lastPosition = -1;
@@ -347,8 +382,7 @@ public class MultiLeftSideMenu extends BaseFragment {
             case 2:
                 if (preferenceHelper.getUserFood().getProfile_picture_path() != null) {
                     UIHelper.setImageWithGlide(mainActivity, binder.imgBackground, preferenceHelper.getUserFood().getProfile_picture_path());
-                }
-                else {
+                } else {
                     UIHelper.setImageWithGlide(mainActivity, binder.imgBackground, defaultProfilePicUrl);
                 }
 

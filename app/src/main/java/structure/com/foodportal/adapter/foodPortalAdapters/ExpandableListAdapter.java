@@ -113,7 +113,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             lblListHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_menu_tutorial,0,0,0);
         }  if(headerTitle.equals("Blog")){
 
-            lblListHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_menu_my_saved_recipe,0,0,0);
+            lblListHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_menu_cleaning,0,0,0);
         }
 
 

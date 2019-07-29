@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/savedrecipes"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="center"
+        android:drawableStart="@drawable/icon_menu_my_saved_recipe"
+        android:drawablePadding="@dimen/dp15"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center|start"
+        android:paddingStart="@dimen/dp20"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:text="My Saved Recipes"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/cookingGuides"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="center"
+        android:drawableStart="@drawable/icon_menu_cooking_guide"
+        android:drawablePadding="@dimen/dp15"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center|start"
+        android:paddingStart="@dimen/dp20"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:text="Cooking Guides"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/recentlyViewed"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="center"
+        android:drawableStart="@drawable/icon_menu_recently_view"
+        android:drawablePadding="@dimen/dp15"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center|start"
+        android:paddingStart="@dimen/dp20"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:text="Recently Viewed"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/myFavoriteRecipes"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="center"
+        android:drawableStart="@drawable/icon_menu_my_favorite_recipes"
+        android:drawablePadding="@dimen/dp15"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center|start"
+        android:paddingStart="@dimen/dp20"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:text="My Favorite Recipes"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/myReviews"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="center"
+        android:drawableStart="@drawable/icon_menu_my_reviews"
+        android:drawablePadding="@dimen/dp15"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center|start"
+        android:paddingStart="@dimen/dp20"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:text="My Reviews"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="center"
+        android:drawableStart="@drawable/icon_menu_logout"
+        android:drawablePadding="@dimen/dp15"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center|start"
+        android:paddingStart="@dimen/dp20"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:text="Logout"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="17dp" />
+
+</LinearLayout>

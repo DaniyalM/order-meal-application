@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:drawableStart="@drawable/home"
+        android:drawableStart="@drawable/home_menu_icon"
         android:drawableTint="@color/white"
         android:drawablePadding="@dimen/dp15"
         android:paddingStart="@dimen/dp20"
