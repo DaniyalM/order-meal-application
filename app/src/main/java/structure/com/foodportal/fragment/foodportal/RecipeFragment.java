@@ -138,7 +138,7 @@ public class RecipeFragment extends BaseFragment implements SubCategoryListner {
 
     public void setData(ArrayList<CategorySlider> categorySliderWrapper) {
 
-        // categorySliders.addAll(categorySliderWrapper);
+        // categorySliders.addAllToAdapter(categorySliderWrapper);
 
 
         mainActivity.runOnUiThread(new Runnable() {

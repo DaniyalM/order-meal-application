@@ -317,7 +317,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
 //            if (foodDetailModelSpecial.getRelated().size() > 0) {
 //
-//                related.addAll(foodDetailModel.getRelated());
+//                related.addAllToAdapter(foodDetailModel.getRelated());
 //
 //                foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this);
 //                binding.rvRelatedRecipes.setAdapter(foodRelatedAdapter);
@@ -332,7 +332,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 //
 //            if (foodDetailModel.getAllReviews().size() > 0) {
 //
-//                comments.addAll(foodDetailModel.getAllReviews());
+//                comments.addAllToAdapter(foodDetailModel.getAllReviews());
 //                foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true,false);
 //                binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
 //                foodCommentsAdapter.notifyDataSetChanged();

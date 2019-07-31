@@ -259,7 +259,7 @@ public class BaseActivity extends AppCompatActivity {
             case FilePickerConst.REQUEST_CODE_PHOTO:
                 if (resultCode == Activity.RESULT_OK && data != null) {
                  //   photoPaths = new ArrayList<>();
-                 //   photoPaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
+                 //   photoPaths.addAllToAdapter(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
                   //  new BaseActivity().AsyncTaskRunner().execute(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
 
                 }

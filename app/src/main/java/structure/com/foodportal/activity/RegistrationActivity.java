@@ -383,7 +383,7 @@ public class RegistrationActivity extends FacebookBaseFragment {
                     File file = new File(data.getExtras().getStringArrayList(FilePickerConst.KEY_SELECTED_MEDIA).get(0));
                     doCrop(Uri.fromFile(file), minWindowWidth, minWindowHeight, aspectRatioX, aspectRatioY);
 //                    photoPaths = new ArrayList<>();
-//                    photoPaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
+//                    photoPaths.addAllToAdapter(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
 //                    new AsyncTaskRunner().execute(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
 
                 }

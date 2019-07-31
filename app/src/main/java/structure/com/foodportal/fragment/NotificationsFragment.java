@@ -78,7 +78,7 @@ public class NotificationsFragment extends BaseFragment {
         } else {
             this.arrayList.addAll(arrayList);
             Collections.reverse(this.arrayList);
-          //  adapter.addAll(this.arrayList);
+          //  adapter.addAllToAdapter(this.arrayList);
           //  adapter.notifyDataSetChanged();
             binding.tvNoDataFound.setVisibility(View.GONE);
             binding.recyclerview.setVisibility(View.VISIBLE);

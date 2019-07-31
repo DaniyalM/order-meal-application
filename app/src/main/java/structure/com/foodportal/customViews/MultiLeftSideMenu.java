@@ -433,7 +433,7 @@ public class MultiLeftSideMenu extends BaseFragment {
                     listDataChild.put(sourceString, cleaning);
                 } else if (headerWrapper.get(1).getSlug().equalsIgnoreCase("blog")) {
 
-                    // blog.addAll(headerWrapper.get(1).getCategories());
+                    // blog.addAllToAdapter(headerWrapper.get(1).getCategories());
 
                     sourceString = headerWrapper.get(1).getTitle_en();
                     listDataHeader.add(sourceString);
@@ -463,7 +463,7 @@ public class MultiLeftSideMenu extends BaseFragment {
                     listDataChild.put(sourceString, cleaning);
                 } else if (headerWrapper.get(2).getSlug().equalsIgnoreCase("blog")) {
 
-                    // blog.addAll(headerWrapper.get(2).getCategories());
+                    // blog.addAllToAdapter(headerWrapper.get(2).getCategories());
 
                     sourceString = headerWrapper.get(2).getTitle_en();
                     listDataHeader.add(sourceString);
@@ -491,7 +491,7 @@ public class MultiLeftSideMenu extends BaseFragment {
                     listDataChild.put(sourceString, cleaning);
                 } else if (headerWrapper.get(3).getSlug().equalsIgnoreCase("blog")) {
 
-                    // blog.addAll(headerWrapper.get(3).getCategories());
+                    // blog.addAllToAdapter(headerWrapper.get(3).getCategories());
 
                     sourceString = headerWrapper.get(3).getTitle_en();
                     listDataHeader.add(sourceString);

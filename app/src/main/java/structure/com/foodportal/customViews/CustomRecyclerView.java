@@ -36,7 +36,7 @@ public class CustomRecyclerView<T> extends RecyclerView {
     public void bindRecyclerView(RecyclerViewBinder<T> viewBinder,
                                  ArrayList<T> dataCollection, LayoutManager layoutManager, ItemAnimator animator) {
 //        this.userCollection = new ArrayList<>();
-//        this.userCollection.addAll(dataCollection);
+//        this.userCollection.addAllToAdapter(dataCollection);
         mRecyclerViewAdapter = new RecyclerViewAdapter<>
                 (dataCollection, viewBinder, getContext());
         this.viewBinder = viewBinder;

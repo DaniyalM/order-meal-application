@@ -123,7 +123,7 @@ public class SignupProfileFragment extends BaseFragment implements View.OnClickL
 //            case FilePickerConst.REQUEST_CODE_PHOTO:
 //                if (resultCode == Activity.RESULT_OK && data != null) {
 //                    photoPaths.clear();
-//                    photoPaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
+//                    photoPaths.addAllToAdapter(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
 //                    UIHelper.setImagewithGlide(registrationActivity, binding.ivPhoto, photoPaths.get(0));
 //                    binding.tvText.setText(getResources().getString(R.string.looking_good));
 //                    binding.tvRetake.setVisibility(View.VISIBLE);
@@ -163,7 +163,7 @@ public class SignupProfileFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onPhotoClicked(ArrayList<File> file) {
-        // this.files.addAll(file);
+        // this.files.addAllToAdapter(file);
         binding.tvText.setText(getResources().getString(R.string.looking_good));
         binding.tvRetake.setVisibility(View.VISIBLE);
         binding.btnPhoto.setVisibility(View.GONE);

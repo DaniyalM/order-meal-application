@@ -51,7 +51,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.VH> {
     public void addAll(ArrayList<Order> list) {
         this.Order.clear();
         this.Order.addAll(list);
-        // this.OrderCopy.addAll(list);
+        // this.OrderCopy.addAllToAdapter(list);
 
     }
 
@@ -130,7 +130,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.VH> {
 //    public void setOrderListType(int orderType) {
 //        this.orderType = orderType;
 //         this.Order.clear();
-//        this.Order.addAll(OrderCopy);
+//        this.Order.addAllToAdapter(OrderCopy);
 //        notifyDataSetChanged();
 //
 //    }

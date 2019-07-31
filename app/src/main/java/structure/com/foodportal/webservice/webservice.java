@@ -34,8 +34,8 @@ import structure.com.foodportal.models.foodModels.CommentsWrapper;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.HeaderWrapper;
+import structure.com.foodportal.models.foodModels.Recipe;
 import structure.com.foodportal.models.foodModels.RecipeWrapper;
-import structure.com.foodportal.models.foodModels.SavedStoriesWrapper;
 import structure.com.foodportal.models.foodModels.Section;
 import structure.com.foodportal.models.foodModels.User;
 
@@ -292,10 +292,10 @@ public interface webservice {
     Call<Api_Response<RecipeWrapper>> getRecipeCategory(@Query("category_slug") String category_slug);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVED_RECIPES)
-    Call<Api_Response<SavedStoriesWrapper>> getSavedRecipes(@Query("id") int id);
+    Call<Api_Array_Response<Recipe>> getSavedRecipes(@Query("id") int id);
 
-    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECENTLYVIEWED_RECIPES)
-    Call<Api_Response<SavedStoriesWrapper>> getRecentlyViewedRecipes(@Query("id") int id, @Query("feature_type_id") int featured_type_id);
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECENTLY_VIEWED_RECIPES)
+    Call<Api_Array_Response<Recipe>> getRecentlyViewedRecipes(@Query("id") int id, @Query("feature_type_id") int featured_type_id);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_POPULAR)
     Call<Api_Response<Section>> getPopularRecipes(@Query("page") int page, @Query("limit") int limit);

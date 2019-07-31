@@ -147,7 +147,7 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
 
     public void setData(ArrayList<CategorySlider> categorySliderWrapper) {
 
-        // categorySliders.addAll(categorySliderWrapper);
+        // categorySliders.addAllToAdapter(categorySliderWrapper);
 
 
         mainActivity.runOnUiThread(new Runnable() {

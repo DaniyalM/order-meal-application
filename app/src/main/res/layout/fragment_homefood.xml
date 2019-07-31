@@ -259,7 +259,7 @@
                                 android:layout_marginBottom="30dp"
                                 android:maxEms="15"
                                 android:fontFamily="@font/poppinslight"
-                                android:text="For every recipe you will save, we'll suggest similar recipes we think you'll enjoy."
+                                android:text="For every recipe you will save, we'll suggest similar sections we think you'll enjoy."
                                 android:textColor="@color/colorTextGray"
                                 android:textStyle="bold" />
 

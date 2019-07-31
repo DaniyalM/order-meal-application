@@ -566,7 +566,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 sectionsFeatured.addAll(foodHomeModelWrapper.getSection().get(1).getSection_list());
                 sectionsBetterForBites.addAll(foodHomeModelWrapper.getSection().get(3).getSection_list());
                 masterTechniques.addAll(foodHomeModelWrapper.getSection().get(4).getSection_list());
-                // sectionsRecommended.addAll(foodHomeModelWrapper.getSection().get(5).getSection_list());
+                // sectionsRecommended.addAllToAdapter(foodHomeModelWrapper.getSection().get(5).getSection_list());
                 categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
                 banners.addAll(foodHomeModelWrapper.getBanner());
 
@@ -629,7 +629,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 //                binding.rvCategoryslider.setVisibility(View.GONE);
 //
 //                binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
-//                sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
+//                sectionsPopular.addAllToAdapter(foodHomeModelWrapper.getSection().get(0).getSection_list());
 //                banners.add(foodHomeModelWrapper.getFeature_type());
 //                foodPopularRecipeAdapter.setWidth(291);
 
@@ -646,7 +646,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 cvLatestSection.setVisibility(View.VISIBLE);
 
                 binding.tvLatest.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
-//                sectionsLatest.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
+//                sectionsLatest.addAllToAdapter(foodHomeModelWrapper.getSection().get(0).getSection_list());
                 banners.add(foodHomeModelWrapper.getFeature_type());
 
                 isFirst = false;

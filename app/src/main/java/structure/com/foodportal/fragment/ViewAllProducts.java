@@ -338,7 +338,7 @@ public class ViewAllProducts extends BaseFragment implements TextWatcher {
             rvProducts.clearList();
             rvProducts.addAll(allProducts);
             rvProducts.notifyDataSetChanged();
-//            adapter.addAll(arrayList);
+//            adapter.addAllToAdapter(arrayList);
 //            adapter.notifyDataSetChanged();
         } else {
             ArrayList<ProductModelAPI> filteredList = new ArrayList<>();
