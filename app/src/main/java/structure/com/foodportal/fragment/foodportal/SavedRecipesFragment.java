@@ -16,6 +16,7 @@ import android.view.ViewTreeObserver;
 import java.util.ArrayList;
 
 import structure.com.foodportal.R;
+import structure.com.foodportal.adapter.foodPortalAdapters.FoodCookingGuidesAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodRecipeAdapter;
 import structure.com.foodportal.databinding.FragmentSubcategoryBinding;
 import structure.com.foodportal.fragment.BaseFragment;
@@ -24,24 +25,32 @@ import structure.com.foodportal.helper.JsonHelpers;
 
 import structure.com.foodportal.helper.NetworkUtils;
 import structure.com.foodportal.helper.Titlebar;
+import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.interfaces.foodInterfaces.SubCategoryListner;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.Recipe;
+import structure.com.foodportal.models.foodModels.Sections;
 
-public class SavedRecipesFragment extends BaseFragment implements View.OnClickListener, SubCategoryListner {
+public class SavedRecipesFragment extends BaseFragment implements View.OnClickListener, SubCategoryListner, FoodHomeListner {
 
     FoodRecipeAdapter foodRecipeAdapter;
+    FoodCookingGuidesAdapter foodCookingGuidesAdapter;
     FragmentSubcategoryBinding binding;
     CategorySlider categorySlider;
     ArrayList<Recipe> recipes;
+    ArrayList<Sections> tutorials;
     ConnectionService service;
     String mode = "Home";
     Boolean savedRecipes = true;
 
-    public void setSavedRecipes(boolean savedRecipes) {
-        this.savedRecipes = savedRecipes;
+    private int mType;
+
+    public void setType(int type) {
+        mType = type;
     }
+
+    public static final int TYPE_SAVED = 0, TYPE_RECENT = 1, TYPE_COOKING_GUIDES = 2;
 
     @Nullable
     @Override
@@ -50,12 +59,20 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
         setListners();
         mainActivity.hideBottombar();
 
-        if (savedRecipes) {
+        if (mType == TYPE_SAVED) {
             getSavedRecipes();
-        } else {
+        } else if (mType == TYPE_RECENT) {
             getRecentlyViewed();
         }
+        else if (mType == TYPE_COOKING_GUIDES) {
+            getCookingGuides();
+        }
         return binding.getRoot();
+    }
+
+    private void getCookingGuides() {
+        if (NetworkUtils.isNetworkAvailable(mainActivity))
+            serviceHelper.enqueueArrayCall(webService.getCookingGuides(Integer.valueOf(preferenceHelper.getUserFood().getId().replace(".0", ""))), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_COOKING_GUIDES);
     }
 
     private void getRecentlyViewed() {
@@ -66,9 +83,12 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
     private void setListners() {
         recipes = new ArrayList<>();
         foodRecipeAdapter = new FoodRecipeAdapter(recipes, mainActivity, this);
+
+        tutorials = new ArrayList<>();
+        foodCookingGuidesAdapter = new FoodCookingGuidesAdapter(tutorials, getContext(), this);
+
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(mainActivity, 2);
         binding.rvSubCategory.setLayoutManager(layoutManager);
-        binding.rvSubCategory.setAdapter(foodRecipeAdapter);
         binding.rvSubCategory.showShimmerAdapter();
     }
 
@@ -123,18 +143,27 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
 //        }
     }
 
-    public void setData(ArrayList<Recipe> recipes) {
-
-        // categorySliders.addAllToAdapter(categorySliderWrapper);
+    public void setData() {
 
         mainActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                foodRecipeAdapter.addAllToAdapter(recipes);
+                if (mType != TYPE_COOKING_GUIDES) {
+                    binding.rvSubCategory.setAdapter(foodRecipeAdapter);
+                    foodRecipeAdapter.addAllToAdapter(recipes);
+                }
+                else if (mType == TYPE_COOKING_GUIDES) {
+                    binding.rvSubCategory.setAdapter(foodCookingGuidesAdapter);
+                    foodCookingGuidesAdapter.addAllToAdapter(tutorials);
+                }
                 binding.rvSubCategory.hideShimmerAdapter();
             }
         });
 
+        animateRecyclerView();
+    }
+
+    private void animateRecyclerView() {
         binding.rvSubCategory.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
                     @Override
@@ -153,7 +182,6 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
                         return true;
                     }
                 });
-
     }
 
     @Override
@@ -188,7 +216,7 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
                         @Override
                         public void run() {
                             //LocalDataHelper.writeToFile(result.toString(), mainActivity, "SubCategory");
-                            setData(recipes);
+                            setData();
                         }
                     });
                 } else {
@@ -215,7 +243,7 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
                         @Override
                         public void run() {
                             //LocalDataHelper.writeToFile(result.toString(), mainActivity, "SubCategory");
-                            setData(recipes);
+                            setData();
                         }
                     });
                 } else {
@@ -224,6 +252,40 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
                     binding.rvSubCategory.hideShimmerAdapter();
                 }
 
+                break;
+
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_COOKING_GUIDES:
+
+                tutorials.addAll((ArrayList<Sections>) result);
+
+                if (tutorials != null && tutorials.size() > 0) {
+
+                    mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //LocalDataHelper.writeToFile(result.toString(), mainActivity, "SubCategory");
+                            setData();
+                        }
+                    });
+                } else {
+                    binding.rvSubCategory.setVisibility(View.GONE);
+                    binding.nodatafound.setVisibility(View.VISIBLE);
+                    binding.rvSubCategory.hideShimmerAdapter();
+                }
+
+                break;
+
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS:
+                FoodDetailModelWrapper foodDetailModeltwo = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
+                if (foodDetailModeltwo != null) {
+
+                    //     LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
+                    FoodTutorialDetailFragment detailFragment = new FoodTutorialDetailFragment();
+                    detailFragment.setFoodDetailModel(foodDetailModeltwo);
+                    mainActivity.addFragment(detailFragment, true, true);
+                    //    setData(foodDetailModel.getData());
+
+                }
                 break;
 
 
@@ -267,4 +329,49 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
     }
 
 
+    @Override
+    public void onBlogClick(int pos) {
+
+    }
+
+    @Override
+    public void popularrecipe(int pos) {
+
+    }
+
+    @Override
+    public void recommendedrecipe(int pos) {
+
+    }
+
+    @Override
+    public void featuredrecipe(int pos) {
+
+    }
+
+    @Override
+    public void betterforurbites(int pos) {
+
+    }
+
+    @Override
+    public void recentlyViewed(int pos) {
+
+    }
+
+    @Override
+    public void categorySliderClick(int position) {
+
+    }
+
+    @Override
+    public void masterTechniquesClick(int position) {
+        if (NetworkUtils.isNetworkAvailable(mainActivity))
+            serviceHelper.enqueueCall(webService.getfoodtutorialdetail(tutorials.get(position).getSlug()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
+    }
+
+    @Override
+    public void onSaveRecipe(int slug) {
+
+    }
 }

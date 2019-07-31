@@ -51,7 +51,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinsbold"
-                            android:lineSpacingExtra="-5dp"
+                            android:lineSpacingExtra="2dp"
                             android:text="Berbere Spice Chicken Wings"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/sp25"
@@ -267,7 +267,7 @@
                             android:layout_height="wrap_content">
                             <TextView
                                 android:fontFamily="@font/poppinsbold"
-                                android:text="Related Recipes"
+                                android:text="Related Tutorials"
                                 android:textAllCaps="true"
                                 android:textSize="@dimen/dp20"
                                 android:textColor="@color/colorAccent"

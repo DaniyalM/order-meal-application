@@ -343,7 +343,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 //                for (int i = 0; i < dummysection.size(); i++) {
 //
 //                    foodRecommendedRecipeAdapter.insert(sectionsRecommended.size(),dummysection.get(i));
-//                    //seeAllRecipesAdapter.notifyItemInserted(sections.size() - 1);
+//                    //seeAllRecipesAdapter.notifyItemInserted(tutorials.size() - 1);
 //                    // seeAllRecipesAdapter.notifyItemInserted(seeAllRecipesAdapter.getItemCount()+1);
 //                }
 //               // foodRecommendedRecipeAdapter.notifyItemRangeChanged(sectionsRecommended.size()>15?sectionsRecommended.size()-15:sectionsRecommended.size()-1,15);
@@ -351,7 +351,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 for (int i = 0; i < dummysection.size(); i++) {
 
                     sectionsRecommended.add(dummysection.get(i));
-                    //seeAllRecipesAdapter.notifyItemInserted(sections.size() - 1);
+                    //seeAllRecipesAdapter.notifyItemInserted(tutorials.size() - 1);
                     // seeAllRecipesAdapter.notifyItemInserted(seeAllRecipesAdapter.getItemCount()+1);
                 }
                 foodRecommendedRecipeAdapter.notifyItemRangeChanged(sectionsRecommended.size() > 15 ? sectionsRecommended.size() - 15 : sectionsRecommended.size() - 1, 15);

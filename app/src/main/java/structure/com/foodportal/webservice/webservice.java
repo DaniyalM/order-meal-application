@@ -37,6 +37,7 @@ import structure.com.foodportal.models.foodModels.HeaderWrapper;
 import structure.com.foodportal.models.foodModels.Recipe;
 import structure.com.foodportal.models.foodModels.RecipeWrapper;
 import structure.com.foodportal.models.foodModels.Section;
+import structure.com.foodportal.models.foodModels.Sections;
 import structure.com.foodportal.models.foodModels.User;
 
 /**
@@ -296,6 +297,9 @@ public interface webservice {
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECENTLY_VIEWED_RECIPES)
     Call<Api_Array_Response<Recipe>> getRecentlyViewedRecipes(@Query("id") int id, @Query("feature_type_id") int featured_type_id);
+
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_COOKING_GUIDES)
+    Call<Api_Array_Response<Sections>> getCookingGuides(@Query("id") int id);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_POPULAR)
     Call<Api_Response<Section>> getPopularRecipes(@Query("page") int page, @Query("limit") int limit);

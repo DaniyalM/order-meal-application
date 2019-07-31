@@ -314,7 +314,7 @@ public class MultiLeftSideMenu extends BaseFragment {
             } else {
                 mainActivity.clearBackStack();
                 SavedRecipesFragment savedRecipesFragment = new SavedRecipesFragment();
-                savedRecipesFragment.setSavedRecipes(true);
+                savedRecipesFragment.setType(SavedRecipesFragment.TYPE_SAVED);
                 mainActivity.addFragment(savedRecipesFragment, true, false);
                 // updateLeftDrawer("logout");
                 //
@@ -328,6 +328,10 @@ public class MultiLeftSideMenu extends BaseFragment {
                 Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
             } else {
 //                Toast.makeText(mainActivity, "Not implemented yet", Toast.LENGTH_SHORT).show();
+                mainActivity.clearBackStack();
+                SavedRecipesFragment savedRecipesFragment = new SavedRecipesFragment();
+                savedRecipesFragment.setType(SavedRecipesFragment.TYPE_COOKING_GUIDES);
+                mainActivity.addFragment(savedRecipesFragment, true, false);
             }
 
         });
@@ -342,7 +346,7 @@ public class MultiLeftSideMenu extends BaseFragment {
 
                 mainActivity.clearBackStack();
                 SavedRecipesFragment savedRecipesFragment = new SavedRecipesFragment();
-                savedRecipesFragment.setSavedRecipes(false);
+                savedRecipesFragment.setType(SavedRecipesFragment.TYPE_RECENT);
                 mainActivity.addFragment(savedRecipesFragment, true, false);
                 // updateLeftDrawer("logout");
                 //

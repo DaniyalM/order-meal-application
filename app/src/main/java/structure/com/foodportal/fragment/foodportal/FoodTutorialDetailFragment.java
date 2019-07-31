@@ -169,7 +169,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
         //  getDetails();
     }
     public static String changedHeaderHtml(String htmlText) {
-        String jsTag = "<style> p img { width:80%;} </style>";
+        String jsTag = "<style> p img { width:100%; height:auto;} </style>";
         // String head = "<head><meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" /></head>";
         String head = "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">" + jsTag + "</head>";
 

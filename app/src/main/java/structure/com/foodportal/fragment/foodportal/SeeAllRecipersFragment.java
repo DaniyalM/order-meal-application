@@ -181,7 +181,7 @@ public class SeeAllRecipersFragment extends BaseFragment implements View.OnClick
                 for (int i = 0; i < dummysection.size(); i++) {
 
                     sections.add(dummysection.get(i));
-                    //seeAllRecipesAdapter.notifyItemInserted(sections.size() - 1);
+                    //seeAllRecipesAdapter.notifyItemInserted(tutorials.size() - 1);
                     // seeAllRecipesAdapter.notifyItemInserted(seeAllRecipesAdapter.getItemCount()+1);
                 }
                 seeAllRecipesAdapter.notifyItemRangeChanged(sections.size()>15?sections.size()-15:sections.size()-1,15);
@@ -202,7 +202,7 @@ public class SeeAllRecipersFragment extends BaseFragment implements View.OnClick
                 for (int i = 0; i < dummysection.size(); i++) {
 
                     sections.add(dummysection.get(i));
-                    //seeAllRecipesAdapter.notifyItemInserted(sections.size() - 1);
+                    //seeAllRecipesAdapter.notifyItemInserted(tutorials.size() - 1);
                     // seeAllRecipesAdapter.notifyItemInserted(seeAllRecipesAdapter.getItemCount()+1);
                 }
                 seeAllRecipesAdapter.notifyItemRangeChanged(sections.size()>15?sections.size()-15:sections.size()-1,15);
