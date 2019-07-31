@@ -35,7 +35,7 @@ public class FoodCookingGuidesAdapter extends RecyclerView.Adapter<FoodCookingGu
 
     @Override
     public FoodCookingGuidesAdapter.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sub_category, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cooking_guides, parent, false);
         PlanetViewHolder viewHolder = new PlanetViewHolder(v);
         return viewHolder;
     }

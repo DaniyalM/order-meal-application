@@ -89,6 +89,14 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(mainActivity, 2);
         binding.rvSubCategory.setLayoutManager(layoutManager);
+
+        if (mType == TYPE_COOKING_GUIDES) {
+            binding.rvSubCategory.setDemoLayoutReference(R.layout.layout_demo_grid_cooking_guide);
+        }
+        else {
+            binding.rvSubCategory.setDemoLayoutReference(R.layout.layout_demo_grid);
+        }
+
         binding.rvSubCategory.showShimmerAdapter();
     }
 
