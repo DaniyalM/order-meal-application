@@ -60,7 +60,7 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
            // holder.text.setBackgroundColor(context.getResources().getColor(R.color.white));
 
 
-           // holder.tvQuantity.setText("  "/*ingredientList.get(position).getMainquantity()!=null ?ingredientList.get(position).getMainquantity(): " "*/);
+           // holder.tvQuantity.setText("  "/*categories.get(position).getMainquantity()!=null ?categories.get(position).getMainquantity(): " "*/);
 
         }else{
             k++;
@@ -75,9 +75,9 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
         }
 /*
 
-  if(ingredientList.get(position).getIsHeader()==1){
+  if(categories.get(position).getIsHeader()==1){
             k=0;
-            String sourceString = "* " + ingredientList.get(position).getName()!=null ? ingredientList.get(position).getName():" " + " *";
+            String sourceString = "* " + categories.get(position).getName()!=null ? categories.get(position).getName():" " + " *";
             holder.text.setText(Html.fromHtml(sourceString));
             holder.text.setTypeface(null, Typeface.BOLD);
             holder.text.setTextColor(Color.BLACK);
@@ -85,16 +85,16 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
 
 
             holder.tvQuantity.setText("  "*/
-/*ingredientList.get(position).getMainquantity()!=null ?ingredientList.get(position).getMainquantity(): " "*//*
+/*categories.get(position).getMainquantity()!=null ?categories.get(position).getMainquantity(): " "*//*
 );
 
         }else{
             k++;
             Spanny spanny=new Spanny();
             spanny.append(k+".  ",new ForegroundColorSpan(context.getResources().getColor(R.color.colorAccentPink)),new StyleSpan(Typeface.BOLD)
-            ).append(ingredientList.get(position).getName() !=null ? ingredientList.get(position).getName() : " ");
+            ).append(categories.get(position).getName() !=null ? categories.get(position).getName() : " ");
             holder.text.setText( spanny);
-            holder.tvQuantity.setText(ingredientList.get(position).getSubquantity() !=null ?ingredientList.get(position).getSubquantity() :" sasasa");
+            holder.tvQuantity.setText(categories.get(position).getSubquantity() !=null ?categories.get(position).getSubquantity() :" sasasa");
         }
 
 */

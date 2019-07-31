@@ -56,7 +56,7 @@ public class FoodSpecialIngredientAdapter extends RecyclerView.Adapter<FoodSpeci
             @Override
             public void onClick(View view) {
                 holder.radioButton.setChecked(position == lastCheckedPosition);
-              //  specialStepListener.specialClick(ingredientList.get(position).getIngredient_en());
+              //  specialStepListener.specialClick(categories.get(position).getIngredient_en());
 
 
             }

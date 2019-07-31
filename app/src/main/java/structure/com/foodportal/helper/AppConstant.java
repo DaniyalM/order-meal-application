@@ -221,6 +221,7 @@ public class AppConstant {
         public static final String FOOD_SEND_REVIEW = "story/submit-review";
         public static final String FOOD_SEND_REPLY = "story/submit-review";
         public static final String FOOD_ALL_REVIEW = "story/all-review";
+        public static final String FOOD_MY_REVIEWS = "get-user-reviews";
         public static final String FOOD_SAVED_RECIPES = "get-user-saved-stories";
         public static final String FOOD_RECENTLY_VIEWED_RECIPES = "get-user-recently-view-stories";
         public static final String FOOD_COOKING_GUIDES = "get-user-saved-cooking-guide";

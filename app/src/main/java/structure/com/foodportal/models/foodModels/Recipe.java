@@ -1,5 +1,9 @@
 package structure.com.foodportal.models.foodModels;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+
 public class Recipe {
 
     private String id;
@@ -27,6 +31,15 @@ public class Recipe {
     private String blog_thumb_image_path;
 
     private String featured_image_path;
+
+    private int avgRating;
+
+    private String reviews;
+
+    private String created_at;
+
+    @SerializedName("categories")
+    private ArrayList<CategorySlider> category_slider;
 
     public String getId() {
         return id;
@@ -130,5 +143,37 @@ public class Recipe {
 
     public void setFeatured_image_path(String featured_image_path) {
         this.featured_image_path = featured_image_path;
+    }
+
+    public int getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(int avgRating) {
+        this.avgRating = avgRating;
+    }
+
+    public String getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(String reviews) {
+        this.reviews = reviews;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public ArrayList<CategorySlider> getCategory_slider() {
+        return category_slider;
+    }
+
+    public void setCategory_slider(ArrayList<CategorySlider> category_slider) {
+        this.category_slider = category_slider;
     }
 }

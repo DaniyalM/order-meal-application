@@ -20,6 +20,7 @@ import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
@@ -212,5 +213,16 @@ public class Utils {
 
     }
 
+    public static CharSequence convertTime(String createdat) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        long time = sdf.parse(createdat).getTime();
+        long now = System.currentTimeMillis();
 
+        CharSequence ago =
+                DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
+
+
+        return ago;
+    }
 }

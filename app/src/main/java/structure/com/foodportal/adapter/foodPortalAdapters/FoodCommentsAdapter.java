@@ -24,6 +24,7 @@ import structure.com.foodportal.customViews.CustomRatingBar;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.ItemTouchHelperAdapter;
 import structure.com.foodportal.helper.UIHelper;
+import structure.com.foodportal.helper.Utils;
 import structure.com.foodportal.interfaces.foodInterfaces.CommentClickListner;
 import structure.com.foodportal.models.foodModels.Comments;
 
@@ -76,7 +77,7 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
         holder.username.setText(sections.get(position).getUser().getName_en());
         holder.comment.setText(sections.get(position).getReviews());
             try {
-                holder.time.setText( convertime(sections.get(position).getCreated_at()));
+                holder.time.setText( Utils.convertTime(sections.get(position).getCreated_at()));
             } catch (ParseException e) {
 
 
@@ -101,7 +102,7 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
                         sub_user_name.setText(sections.get(position).getChild_reviews().get(i).getUser().getName_en());
                         sub_comment.setText(sections.get(position).getChild_reviews().get(i).getReviews());
                         try {
-                            sub_user_time.setText( convertime(sections.get(position).getChild_reviews().get(i).getCreated_at()));
+                            sub_user_time.setText( Utils.convertTime(sections.get(position).getChild_reviews().get(i).getCreated_at()));
                         } catch (ParseException e) {
 
 
@@ -129,7 +130,7 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
                         sub_user_name.setText(sections.get(position).getChild_reviews().get(i).getUser().getName_en());
                         sub_comment.setText(sections.get(position).getChild_reviews().get(i).getReviews());
                         try {
-                            sub_user_time.setText( convertime(sections.get(position).getChild_reviews().get(i).getCreated_at()));
+                            sub_user_time.setText( Utils.convertTime(sections.get(position).getChild_reviews().get(i).getCreated_at()));
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -169,7 +170,7 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
                 sub_comment.setText(sections.get(position).getChild_reviews().get(0).getReviews());
                 try {
                     sub_user_time.setText(
-                            convertime(
+                            Utils.convertTime(
                             sections.get(position).getChild_reviews().get(0).getCreated_at()));
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -328,17 +329,6 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
         }
     }
 
-   public CharSequence convertime(String createdat) throws ParseException {
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-       sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-       long time = sdf.parse(createdat).getTime();
-       long now = System.currentTimeMillis();
 
-       CharSequence ago =
-               DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
-
-
-       return ago;
-    }
 
 }

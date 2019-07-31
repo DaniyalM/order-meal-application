@@ -292,6 +292,9 @@ public interface webservice {
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY_RECIPE)
     Call<Api_Response<RecipeWrapper>> getRecipeCategory(@Query("category_slug") String category_slug);
 
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MY_REVIEWS)
+    Call<Api_Array_Response<Recipe>> getMyReviews(@Query("id") int id);
+
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVED_RECIPES)
     Call<Api_Array_Response<Recipe>> getSavedRecipes(@Query("id") int id);
 

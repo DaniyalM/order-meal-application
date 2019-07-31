@@ -315,7 +315,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 //            FoodHomeModelWrapper p = g.fromJson(LocalDataHelper.readFromFile(mainActivity, "Home"), FoodHomeModelWrapper.class);
 //            setData(p);
 //
-//        }
+//        }`
 
 
     }

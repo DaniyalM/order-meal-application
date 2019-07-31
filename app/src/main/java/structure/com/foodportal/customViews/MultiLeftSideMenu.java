@@ -29,6 +29,7 @@ import structure.com.foodportal.adapter.foodPortalAdapters.ExpandableListAdapter
 import structure.com.foodportal.databinding.FragmentSidemenuBinding;
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.fragment.foodportal.FoodHomeFragment;
+import structure.com.foodportal.fragment.foodportal.FoodMyReviewsFragment;
 import structure.com.foodportal.fragment.foodportal.SavedRecipesFragment;
 import structure.com.foodportal.fragment.foodportal.SettingsFragment;
 import structure.com.foodportal.fragment.foodportal.SubCategoryFragment;
@@ -370,6 +371,9 @@ public class MultiLeftSideMenu extends BaseFragment {
                 Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
             } else {
 //                Toast.makeText(mainActivity, "Not implemented yet", Toast.LENGTH_SHORT).show();
+                mainActivity.clearBackStack();
+                FoodMyReviewsFragment foodMyReviewsFragment = new FoodMyReviewsFragment();
+                mainActivity.addFragment(foodMyReviewsFragment, true, false);
             }
 
         });
