@@ -361,6 +361,10 @@ public class MultiLeftSideMenu extends BaseFragment {
                 Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
             } else {
 //                Toast.makeText(mainActivity, "Not implemented yet", Toast.LENGTH_SHORT).show();
+                mainActivity.clearBackStack();
+                SavedRecipesFragment savedRecipesFragment = new SavedRecipesFragment();
+                savedRecipesFragment.setType(SavedRecipesFragment.TYPE_FAVORITE);
+                mainActivity.addFragment(savedRecipesFragment, true, false);
             }
 
         });

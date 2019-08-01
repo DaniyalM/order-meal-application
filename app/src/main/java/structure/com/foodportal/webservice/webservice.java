@@ -298,6 +298,9 @@ public interface webservice {
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVED_RECIPES)
     Call<Api_Array_Response<Recipe>> getSavedRecipes(@Query("id") int id);
 
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_FAVORITE_RECIPES)
+    Call<Api_Array_Response<Recipe>> getFavoriteRecipes(@Query("id") int id);
+
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECENTLY_VIEWED_RECIPES)
     Call<Api_Array_Response<Recipe>> getRecentlyViewedRecipes(@Query("id") int id, @Query("feature_type_id") int featured_type_id);
 

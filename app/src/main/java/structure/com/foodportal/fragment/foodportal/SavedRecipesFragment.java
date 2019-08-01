@@ -50,7 +50,7 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
         mType = type;
     }
 
-    public static final int TYPE_SAVED = 0, TYPE_RECENT = 1, TYPE_COOKING_GUIDES = 2;
+    public static final int TYPE_SAVED = 0, TYPE_RECENT = 1, TYPE_COOKING_GUIDES = 2, TYPE_FAVORITE = 3;
 
     @Nullable
     @Override
@@ -67,6 +67,9 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
         else if (mType == TYPE_COOKING_GUIDES) {
             getCookingGuides();
         }
+        else if (mType == TYPE_FAVORITE) {
+            getFavoriteRecipes();
+        }
         return binding.getRoot();
     }
 
@@ -78,6 +81,11 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
     private void getRecentlyViewed() {
         if (NetworkUtils.isNetworkAvailable(mainActivity))
             serviceHelper.enqueueArrayCall(webService.getRecentlyViewedRecipes(Integer.valueOf(preferenceHelper.getUserFood().getId().replace(".0", "")), 1), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECENTLY_VIEWED_RECIPES);
+    }
+
+    private void getFavoriteRecipes() {
+        if (NetworkUtils.isNetworkAvailable(mainActivity))
+            serviceHelper.enqueueArrayCall(webService.getFavoriteRecipes(Integer.valueOf(preferenceHelper.getUserFood().getId().replace(".0", ""))), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_FAVORITE_RECIPES);
     }
 
     private void setListners() {
@@ -215,33 +223,8 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
 //                break;
 
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVED_RECIPES:
-
-                recipes.addAll((ArrayList<Recipe>) result);
-
-                if (recipes != null && recipes.size() > 0) {
-
-                    mainActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //LocalDataHelper.writeToFile(result.toString(), mainActivity, "SubCategory");
-                            setData();
-                        }
-                    });
-                } else {
-                    binding.rvSubCategory.setVisibility(View.GONE);
-                    binding.nodatafound.setVisibility(View.VISIBLE);
-                    binding.rvSubCategory.hideShimmerAdapter();
-                }
-                break;
-
-            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS:
-                FoodDetailModelWrapper foodDetailModel = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
-                FoodDetailFragment recipeFragment = new FoodDetailFragment();
-                recipeFragment.setFoodDetailModel(foodDetailModel);
-                mainActivity.addFragment(recipeFragment, true, true);
-                break;
-
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_RECENTLY_VIEWED_RECIPES:
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_FAVORITE_RECIPES:
 
                 recipes.addAll((ArrayList<Recipe>) result);
 
@@ -259,7 +242,6 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
                     binding.nodatafound.setVisibility(View.VISIBLE);
                     binding.rvSubCategory.hideShimmerAdapter();
                 }
-
                 break;
 
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_COOKING_GUIDES:
@@ -280,7 +262,13 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
                     binding.nodatafound.setVisibility(View.VISIBLE);
                     binding.rvSubCategory.hideShimmerAdapter();
                 }
+                break;
 
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS:
+                FoodDetailModelWrapper foodDetailModel = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
+                FoodDetailFragment recipeFragment = new FoodDetailFragment();
+                recipeFragment.setFoodDetailModel(foodDetailModel);
+                mainActivity.addFragment(recipeFragment, true, true);
                 break;
 
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS:
