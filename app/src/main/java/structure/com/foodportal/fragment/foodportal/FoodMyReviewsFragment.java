@@ -39,6 +39,7 @@ public class FoodMyReviewsFragment extends BaseFragment implements FoodMyReviews
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_reviews, container, false);
         setListners();
         mainActivity.hideBottombar();
+        binding.tvReviewCount.setText("My Reviews");
         getMyReviews();
         return binding.getRoot();
     }
@@ -69,6 +70,11 @@ public class FoodMyReviewsFragment extends BaseFragment implements FoodMyReviews
                 foodMyReviewsAdapter.addAllToAdapter(reviews);
             }
         });
+        if (foodMyReviewsAdapter.getItemCount() == 1) {
+            binding.tvReviewCount.setText("My Reviews (" + foodMyReviewsAdapter.getItemCount() + " Review)");
+        } else {
+            binding.tvReviewCount.setText("My Reviews (" + foodMyReviewsAdapter.getItemCount() + " Reviews)");
+        }
     }
 
     @Override

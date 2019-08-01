@@ -76,7 +76,7 @@
                             android:gravity="start"
                             android:text="Chicken Karhai"
                             android:textColor="@color/colorAccent"
-                            android:textSize="@dimen/dp12" />
+                            android:textSize="@dimen/dp14" />
 
                         <TextView
                             android:id="@+id/tvCreatedAt"
@@ -96,6 +96,7 @@
                         android:layout_gravity="end|top"
                         android:clickable="false"
                         android:gravity="end|top"
+                        android:layout_marginRight="@dimen/dp4"
                         android:paddingStart="2dp"
                         app:starMargin="3dp"
                         app:stars="3" />
@@ -107,6 +108,7 @@
                     android:layout_marginStart="@dimen/dp10"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dp2"
+                    android:paddingRight="4dp"
                     android:fontFamily="@font/regularfont"
                     android:lineSpacingExtra="@dimen/dp3"
                     android:textColor="@color/colorBlackShade"
