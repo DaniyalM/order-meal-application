@@ -536,6 +536,7 @@
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="login_with_google">Login with Google</string>
     <string name="login_with_email">Login with Email</string>
+    <string name="main_screen_slogan">Log in or create an account to save your favorite recipes</string>
     <string name="your_recipe_are_waiting">Your sections are waiting</string>
     <string name="unlock_cooking_food_recipes_and_your_personal_recipe_box_with_a_free_trial">Sign up or log in to unlock hundreds of sections, tips and tutorials; and save your favorites to revisit.</string>
     <string name="ingredients">Ingredients</string>
