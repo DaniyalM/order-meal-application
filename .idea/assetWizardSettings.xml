@@ -72,7 +72,7 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
-                                      <entry key="foregroundImage">
+                                      <entry key="foregroundClipArt">
                                         <value>
                                           <PersistentState>
                                             <option name="values">
@@ -83,6 +83,26 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                      <entry key="foregroundImage">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="color" value="000000" />
+                                                <entry key="scalingPercent" value="55" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="002744" />
+                                      <entry key="foregroundImage" value="D:\AndroidProjects\androidapp\app\src\main\res\mipmap-xxxhdpi\app_logo.png" />
+                                      <entry key="generateLegacyIcon" value="false" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -130,11 +150,6 @@
                                 </PersistentState>
                               </value>
                             </entry>
-                          </map>
-                        </option>
-                        <option name="values">
-                          <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>
