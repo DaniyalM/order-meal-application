@@ -320,30 +320,49 @@
                         android:paddingStart="@dimen/dp10"
                         android:paddingTop="@dimen/dp10">
 
-                        <TextView
+                        <RelativeLayout
                             android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/proximaextrabold"
                             android:text="@string/ingredients"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/sp18"
                             android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/servings"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinslight"
                             android:text="for 6 servings"
+                            android:layout_alignParentRight="true"
                             android:textColor="@color/colorAccent"
                             android:textSize="@dimen/sp13"
                             android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/dp4"
+                            android:background="@color/lightergray" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@color/lightergray" />
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rvIngredients"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_marginBottom="@dimen/dp5"
-                            android:layout_marginTop="@dimen/dp10"
+                            android:layout_marginTop="@dimen/dp5"
                             android:layout_weight="1"
                             android:nestedScrollingEnabled="true"
                             android:scrollbars="none"
