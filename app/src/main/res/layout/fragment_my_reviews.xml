@@ -19,6 +19,7 @@
             android:layout_marginTop="@dimen/dp8"
             android:fontFamily="@font/semiboldfont"
             android:text="My Reviews (1 Review)"
+            android:visibility="gone"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/dp14" />
 

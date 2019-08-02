@@ -64,6 +64,7 @@ public class FoodMyReviewsFragment extends BaseFragment implements FoodMyReviews
     }
 
     public void setData() {
+        binding.tvReviewCount.setVisibility(View.VISIBLE);
         mainActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -90,6 +91,7 @@ public class FoodMyReviewsFragment extends BaseFragment implements FoodMyReviews
                         }
                     });
                 } else {
+                    binding.tvReviewCount.setVisibility(View.GONE);
                     binding.rvMyReviews.setVisibility(View.GONE);
                     binding.tvEmptyView.setVisibility(View.VISIBLE);
                 }
