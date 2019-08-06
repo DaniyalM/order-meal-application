@@ -149,15 +149,27 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
 
                 } else {
 
+//                    if (holder.likeButton.getCurrentTextColor()== context.getResources().getColor(R.color.white)) {
+//                        foodHomeListner.onSaveRecipe(sections.get(position).getId());
+//                        holder.likeButton.setTextColor(context.getResources().getColor(R.color.colorRed));
+//                        // holder.likeButton.setLiked(true);
+//
+//                    } else {
+//                        foodHomeListner.onSaveRecipe(sections.get(position).getId());
+//                        holder.likeButton.setTextColor(context.getResources().getColor(R.color.white));
+//                        //   holder.likeButton.setLiked(false);
+//
+//                    }
+
                     if (holder.likeButton.getCurrentTextColor()== context.getResources().getColor(R.color.white)) {
-                        foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                        // foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                        foodHomeListner.onFavoriteRecipe(sections.get(position).getId());
                         holder.likeButton.setTextColor(context.getResources().getColor(R.color.colorRed));
-                        // holder.likeButton.setLiked(true);
 
                     } else {
-                        foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                        // foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                        foodHomeListner.onFavoriteRecipe(sections.get(position).getId());
                         holder.likeButton.setTextColor(context.getResources().getColor(R.color.white));
-                        //   holder.likeButton.setLiked(false);
 
                     }
 

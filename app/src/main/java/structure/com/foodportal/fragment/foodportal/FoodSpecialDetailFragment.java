@@ -974,6 +974,11 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
     }
 
+    @Override
+    public void onFavoriteRecipe(int slug) {
+
+    }
+
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))

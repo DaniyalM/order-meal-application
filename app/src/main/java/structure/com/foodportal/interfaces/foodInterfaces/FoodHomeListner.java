@@ -12,4 +12,5 @@ public interface FoodHomeListner {
     void categorySliderClick(int position);
     void masterTechniquesClick(int position);
     void onSaveRecipe(int slug);
+    void onFavoriteRecipe(int slug);
 }

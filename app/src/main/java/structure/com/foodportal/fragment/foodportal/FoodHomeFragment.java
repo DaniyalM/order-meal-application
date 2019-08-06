@@ -784,6 +784,15 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
+    @Override
+    public void onFavoriteRecipe(int slug) {
+        if (preferenceHelper.getUserFood().getAcct_type() == 4) {
+            Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
+        } else {
+            serviceHelper.enqueueCall(webService.markfavorite(String.valueOf(preferenceHelper.getUserFood().getId()), "story", "1", String.valueOf(slug)), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE);
+        }
+    }
+
     public void next(String slug) {
         if (NetworkUtils.isNetworkAvailable(mainActivity))
             switch (navSection) {

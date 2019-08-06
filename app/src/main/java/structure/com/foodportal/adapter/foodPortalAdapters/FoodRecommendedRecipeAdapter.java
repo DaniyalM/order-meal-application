@@ -140,12 +140,24 @@ public class FoodRecommendedRecipeAdapter extends RecyclerView.Adapter<FoodRecom
 
                 }else{
 
+//                    if (holder.likeButton.getCurrentTextColor()== context.getResources().getColor(R.color.white)) {
+//                        foodHomeListner.onSaveRecipe(sections.get(position).getId());
+//                        holder.likeButton.setTextColor(context.getResources().getColor(R.color.colorRed));
+//
+//                    } else {
+//                        foodHomeListner.onSaveRecipe(sections.get(position).getId());
+//                        holder.likeButton.setTextColor(context.getResources().getColor(R.color.white));
+//
+//                    }
+
                     if (holder.likeButton.getCurrentTextColor()== context.getResources().getColor(R.color.white)) {
-                        foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                        // foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                        foodHomeListner.onFavoriteRecipe(sections.get(position).getId());
                         holder.likeButton.setTextColor(context.getResources().getColor(R.color.colorRed));
 
                     } else {
-                        foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                        // foodHomeListner.onSaveRecipe(sections.get(position).getId());
+                        foodHomeListner.onFavoriteRecipe(sections.get(position).getId());
                         holder.likeButton.setTextColor(context.getResources().getColor(R.color.white));
 
                     }

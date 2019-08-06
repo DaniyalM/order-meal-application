@@ -22,7 +22,7 @@ import structure.com.foodportal.webservice.webservice;
 abstract public class BaseFragment extends Fragment implements webServiceResponseLisener {
     protected ServiceHelper serviceHelper;
     protected webservice webService;
-   public RegistrationActivity registrationActivity;
+    public RegistrationActivity registrationActivity;
     public MainActivity mainActivity;
     public BasePreferenceHelper preferenceHelper;
 
@@ -32,16 +32,13 @@ abstract public class BaseFragment extends Fragment implements webServiceRespons
     protected abstract void setTitle(Titlebar titlebar);
 
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(registrationActivity!=null){
-            webService = WebServiceFactory.getInstance(AppConstant.BASE_URL);
-        }
-        else{
-
-            webService = WebServiceFactory.getInstance(AppConstant.BASE_URL);
+        if (registrationActivity != null) {
+            webService = WebServiceFactory.getInstance(getRegistrationActivity());
+        } else {
+            webService = WebServiceFactory.getInstance(getMainActivity());
         }
         serviceHelper = new ServiceHelper(this, getActivity());
 

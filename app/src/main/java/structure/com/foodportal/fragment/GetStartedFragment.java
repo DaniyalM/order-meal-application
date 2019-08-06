@@ -296,7 +296,12 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
 
 
     public void facebooklogin(User user) {
-        serviceHelper.enqueueCall(webService.LoginFACEBOOK(user.getEmail(), String.valueOf(user.getId()), user.getName_en(), "facebook", "android", preferenceHelper.getDeviceToken()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK);
+        String deviceToken = preferenceHelper.getDeviceToken();
+        Log.d("DeviceToken", " - facebooklogin: " + deviceToken);
+        serviceHelper.enqueueCall(webService.LoginFACEBOOK(user.getEmail(),
+                String.valueOf(user.getId()), user.getName_en(), "facebook",
+                "android", deviceToken),
+                AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SOCIAL_LOGIN_FACEBOOK);
     }
 
     public void googlelogin(User user) {

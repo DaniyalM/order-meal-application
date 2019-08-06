@@ -14,6 +14,7 @@ import retrofit2.Response;
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.activity.RegistrationActivity;
+import structure.com.foodportal.activity.SplashActivity;
 import structure.com.foodportal.global.WebServiceConstants;
 import structure.com.foodportal.interfaces.webServiceResponseLisener;
 import structure.com.foodportal.models.foodModels.Section;
@@ -63,11 +64,20 @@ public class ServiceHelper<T> {
 
                 if (response.body() != null) {
                     if (response.body().getCode() == (WebServiceConstants.SUCCESS_RESPONSE_CODE)) {
-                        if(response.body().getToken()!=null&& !response.body().getToken().equalsIgnoreCase("")){
-                            BasePreferenceHelper preferenceHelper= new BasePreferenceHelper(currentActivity);
-                            preferenceHelper.putUserToken(response.body().getToken());
-
+                        BasePreferenceHelper preferenceHelper= new BasePreferenceHelper(currentActivity);
+                        Log.d("ServiceResponseToken", "!!! " + preferenceHelper.getUserToken());
+                        if (preferenceHelper.getUserToken() == null || preferenceHelper.getUserToken().equals("")) {
+                            if (response.body().getToken() != null && !response.body().getToken().equalsIgnoreCase("")) {
+                                Log.d("ServiceResponseToken", tag + ": " + response.body().getToken());
+                                preferenceHelper.putUserToken(response.body().getToken());
+                            } else {
+                                Log.d("ServiceResponseToken", tag + ": --------NULL");
+                            }
                         }
+                        else {
+                            Log.d("ServiceResponseToken", tag + ": --------ALREADY SAVED");
+                        }
+
                         if(tag.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_POPULAR)){
 
                             serviceResponseLisener.ResponseSuccess(response.body().getResult(), tag+response.body().getPages());

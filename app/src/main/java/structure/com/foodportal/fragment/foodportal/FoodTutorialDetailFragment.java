@@ -530,6 +530,11 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 
     }
 
+    @Override
+    public void onFavoriteRecipe(int slug) {
+
+    }
+
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))

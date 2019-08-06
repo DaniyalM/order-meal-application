@@ -297,6 +297,11 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
     }
 
+    @Override
+    public void onFavoriteRecipe(int slug) {
+
+    }
+
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
