@@ -100,7 +100,7 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                foodHomeListner.popularrecipe(position);
+                foodHomeListner.featuredrecipe(position);
             }
         });
         if (sections.get(position).getIs_save()== 1) {
