@@ -67,39 +67,39 @@ public class SignupTwoFragment extends BaseFragment {
 //            if (CustomValidation.validateLength(binding.etPassword, binding.ctPassword, "Length must be greater than 4", "5", "15"))
 //                if (CustomValidation.validateNewConfirmPassword(binding.etPassword, binding.etConfirmPassword, binding.ctConfirmPassword, registrationActivity))
         if (binding.etEmail.getText().toString().trim().length() == 0) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.repuired_email));
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.email_required_en));
             return;
         }
 
         if (binding.etEmail.getText().toString().trim().length() > 0) {
             if (!CustomValidation.isValidEmail(binding.etEmail.getText().toString())) {
-                UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.err_email));
+                UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.invalid_email_en));
                 return;
             }
         }
 
         if (binding.etPassword.getText().toString().length() == 0) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.password_required));
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.password_required_en));
             return;
         }
 
         if (binding.etPassword.getText().toString().length() < 6) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.password_characters));
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.password_characters_en));
             return;
         }
 
         if (binding.etConfirmPassword.getText().toString().length() == 0) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.confirm_password_required));
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.confirm_password_required_en));
             return;
         }
 
         if (binding.etConfirmPassword.getText().toString().length() < 6) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.password_characters));
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.password_characters_en));
             return;
         }
 
         if (!binding.etPassword.getText().toString().equals(binding.etConfirmPassword.getText().toString())) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.samepass_error));
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.pass_do_not_match_en));
             return;
         }
 

@@ -341,7 +341,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             return;
         }
 
-        if (!CustomValidation.validateEmail(binding.etEmailAddress, binding.ctEmailAddress, mainActivity.getResources().getString(R.string.err_email))) {
+        if (!CustomValidation.validateEmail(binding.etEmailAddress, binding.ctEmailAddress, mainActivity.getResources().getString(R.string.invalid_email_en))) {
             return;
         }
 

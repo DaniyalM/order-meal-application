@@ -88,7 +88,7 @@
                     app:cardCornerRadius="@dimen/dp15">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/etfname"
+                        android:id="@+id/et_fname"
                         android:imeOptions="actionNext"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -118,7 +118,7 @@
                     app:cardCornerRadius="@dimen/dp15">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/etlname"
+                        android:id="@+id/et_lname"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:imeOptions="actionNext"
@@ -147,7 +147,7 @@
                     app:cardCornerRadius="@dimen/dp15">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/etemail"
+                        android:id="@+id/etEmail"
                         android:imeOptions="actionNext"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -171,7 +171,7 @@
                     app:cardCornerRadius="@dimen/dp15">
 
                     <EditText
-                        android:id="@+id/etnumber"
+                        android:id="@+id/et_number"
                         android:imeOptions="actionNext"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -184,7 +184,7 @@
                 <TextView
                     android:fontFamily="@font/poppinsbold"
                     android:textColor="@color/white"
-                    android:text="@string/password"
+                    android:text="@string/password_en"
                     android:layout_marginTop="@dimen/dp10"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
@@ -195,7 +195,7 @@
                     app:cardCornerRadius="@dimen/dp15">
 
                     <EditText
-                        android:id="@+id/etpassword"
+                        android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/transparent"
@@ -219,7 +219,7 @@
                     app:cardCornerRadius="@dimen/dp15">
 
                     <EditText
-                        android:id="@+id/etconfirmpassword"
+                        android:id="@+id/et_confirm_password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/transparent"

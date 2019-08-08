@@ -92,17 +92,17 @@ public class ChangePasswordFragment extends BaseFragment {
         }
 
         if (etPassword.getText().toString().length() < 6) {
-            UIHelper.showToast(mainActivity, mainActivity.getResources().getString(R.string.password_characters));
+            UIHelper.showToast(mainActivity, mainActivity.getResources().getString(R.string.password_characters_en));
             return;
         }
 
         if (etConfirmPassword.getText().toString().length() < 6) {
-            UIHelper.showToast(mainActivity, mainActivity.getResources().getString(R.string.password_characters));
+            UIHelper.showToast(mainActivity, mainActivity.getResources().getString(R.string.password_characters_en));
             return;
         }
 
         if (!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
-            UIHelper.showToast(mainActivity, mainActivity.getResources().getString(R.string.samepass_error));
+            UIHelper.showToast(mainActivity, mainActivity.getResources().getString(R.string.pass_do_not_match_en));
             return;
         }
 

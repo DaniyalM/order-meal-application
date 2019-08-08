@@ -53,13 +53,17 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         videoView = (VideoView) binding.getRoot().findViewById(R.id.videoView);
         registrationActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setValuesByLanguage(preferenceHelper.getSelectedLanguageIndex());
-
         init();
         // getVersionInfo();
         registrationActivity.setcontent(this);
         registrationActivity.setcontentFB(this);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setValuesByLanguage(preferenceHelper.getSelectedLanguageIndex());
     }
 
     private void setValuesByLanguage(int language) {

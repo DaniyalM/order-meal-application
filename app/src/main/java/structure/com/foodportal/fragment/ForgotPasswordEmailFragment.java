@@ -76,13 +76,13 @@ public class ForgotPasswordEmailFragment extends BaseFragment implements View.On
 
     private boolean isValidated() {
         if (binding.etEmail.getText().toString().trim().length() == 0) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.repuired_email));
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.email_required_en));
             return false;
         }
 
         if (binding.etEmail.getText().toString().trim().length() > 0) {
             if (!CustomValidation.isValidEmail(binding.etEmail.getText().toString())) {
-                UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.err_email));
+                UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.invalid_email_en));
                 return false;
             }
         }

@@ -102,7 +102,7 @@ public class SignupThreeFragment extends BaseFragment implements View.OnClickLis
         UIHelper.hideSoftKeyboards(registrationActivity);
 
         if (binding.etNumber.getText().toString().equals("")) {
-            UIHelper.showToast(registrationActivity, getString(R.string.phone_number_reqired));
+            UIHelper.showToast(registrationActivity, getString(R.string.phone_number_required_en));
             return;
         }
 

@@ -3,8 +3,6 @@ package structure.com.foodportal.fragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +16,6 @@ import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import pl.openrnd.multilevellistview.MultiLevelListView;
 import structure.com.foodportal.R;
-import structure.com.foodportal.customViews.CustomRecyclerView;
-import structure.com.foodportal.customViews.MultiLeftSideMenu;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.DialogFactory;
@@ -27,7 +23,6 @@ import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.RecyclerItemClickListener;
 import structure.com.foodportal.models.foodModels.HeaderWrapper;
-import structure.com.foodportal.viewbinders.SideMenuBinder;
 
 public class SideMenuFragment extends BaseFragment {
     @BindView(R.id.img_background)
@@ -86,9 +81,9 @@ public class SideMenuFragment extends BaseFragment {
             termsAndConditon.setkey("Privacy Policy");
             replaceFragment(termsAndConditon, true, true);
 
-        } else if ((ent).equals(getString(R.string.login)) || (ent).equals(getString(R.string.logout))) {
+        } else if ((ent).equals(getString(R.string.login_en)) || (ent).equals(getString(R.string.logout))) {
 
-            if ((ent).equals(getString(R.string.login))) {
+            if ((ent).equals(getString(R.string.login_en))) {
 
 
                 logout();
@@ -187,7 +182,7 @@ public class SideMenuFragment extends BaseFragment {
             sideMenuOptions.add(getString(R.string.logout));
         } else {
 
-            sideMenuOptions.add(getString(R.string.login));
+            sideMenuOptions.add(getString(R.string.login_en));
 
         }
 

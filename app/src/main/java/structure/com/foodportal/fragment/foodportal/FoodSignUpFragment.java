@@ -2,39 +2,23 @@ package structure.com.foodportal.fragment.foodportal;
 
 
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mukesh.countrypicker.Country;
-import com.mukesh.countrypicker.OnCountryPickerListener;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import io.reactivex.annotations.NonNull;
-import okhttp3.RequestBody;
 import structure.com.foodportal.R;
-import structure.com.foodportal.activity.UserSignUp;
 import structure.com.foodportal.databinding.FragmentFoodSignupBinding;
-import structure.com.foodportal.databinding.FragmentSignupThreeBinding;
 
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.fragment.GetStartedFragment;
-import structure.com.foodportal.global.WebServiceConstants;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.CustomValidation;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
-import structure.com.foodportal.helper.Utils;
-import structure.com.foodportal.models.UserModel;
-import structure.com.foodportal.models.UserSignUpModel;
-import structure.com.foodportal.models.foodModels.User;
 
 
-public class  FoodSignUpFragment extends BaseFragment implements View.OnClickListener {
+public class FoodSignUpFragment extends BaseFragment implements View.OnClickListener {
 
     FragmentFoodSignupBinding binding;
 
@@ -77,56 +61,58 @@ public class  FoodSignUpFragment extends BaseFragment implements View.OnClickLis
 
     private void validate() {
 
-        if (binding.etfname.getText().toString().trim().equalsIgnoreCase("")) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.fname_require));
-            return; }
-        if (binding.etlname.getText().toString().trim().equalsIgnoreCase("")) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.lname_require));
-            return; }
-        if (binding.etemail.getText().toString().trim().length() == 0) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.repuired_email));
-            return; }
-
-        if (binding.etemail.getText().toString().trim().length() > 0) {
-            if (!CustomValidation.isValidEmail(binding.etemail.getText().toString())) {
-                UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.err_email));
-                return; } }
-
-        if (binding.etnumber.getText().toString().equals("")) {
-            UIHelper.showToast(registrationActivity, getString(R.string.phone_number_reqired));
-            return; }
-
-        if (binding.etpassword.getText().toString().length() == 0) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.password_required));
-            return; }
-
-        if (binding.etpassword.getText().toString().length() < 6) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.password_characters));
-            return; }
-
-        if (binding.etconfirmpassword.getText().toString().length() == 0) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.confirm_password_required));
-            return; }
-
-        if (binding.etconfirmpassword.getText().toString().length() < 6) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.password_characters));
-            return; }
-
-        if (!binding.etpassword.getText().toString().equals(binding.etconfirmpassword.getText().toString())) {
-            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.samepass_error));
-            return; }
+        if (binding.etFname.getText().toString().trim().equalsIgnoreCase("")) {
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.fname_required_en));
+            return;
+        }
+        if (binding.etLname.getText().toString().trim().equalsIgnoreCase("")) {
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.lname_required_en));
+            return;
+        }
+        if (binding.etEmail.getText().toString().trim().length() == 0) {
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.email_required_en));
+            return;
+        }
+        if (binding.etEmail.getText().toString().trim().length() > 0) {
+            if (!CustomValidation.isValidEmail(binding.etEmail.getText().toString())) {
+                UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.invalid_email_en));
+                return;
+            }
+        }
+        if (binding.etNumber.getText().toString().equals("")) {
+            UIHelper.showToast(registrationActivity, getString(R.string.phone_number_required_en));
+            return;
+        }
+        if (binding.etPassword.getText().toString().length() == 0) {
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.password_required_en));
+            return;
+        }
+        if (binding.etPassword.getText().toString().length() < 6) {
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.password_characters_en));
+            return;
+        }
+        if (binding.etConfirmPassword.getText().toString().length() == 0) {
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.confirm_password_required_en));
+            return;
+        }
+//        if (binding.etConfirmPassword.getText().toString().length() < 6) {
+//            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.password_characters_en));
+//            return;
+//        }
+        if (!binding.etPassword.getText().toString().equals(binding.etConfirmPassword.getText().toString())) {
+            UIHelper.showToast(registrationActivity, registrationActivity.getResources().getString(R.string.pass_do_not_match_en));
+            return;
+        }
 
         register();
-
-
     }
 
 
     public void register() {
-        serviceHelper.enqueueCall(webService.userSignUp(binding.etfname.getText().toString() + binding.etlname.getText().toString(),
-                binding.etemail.getText().toString(),
-                binding.etnumber.getText().toString(),
-                binding.etpassword.getText().toString(),
+        serviceHelper.enqueueCall(webService.userSignUp(binding.etFname.getText().toString() + binding.etLname.getText().toString(),
+                binding.etEmail.getText().toString(),
+                binding.etNumber.getText().toString(),
+                binding.etPassword.getText().toString(),
                 1), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SIGNUP);
 
     }
@@ -137,14 +123,14 @@ public class  FoodSignUpFragment extends BaseFragment implements View.OnClickLis
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_USER_SIGNUP:
 
                 registrationActivity.clearBackStack();
-                registrationActivity.replaceFragment(new GetStartedFragment(),true,true);
-                registrationActivity.replaceFragment(new FoodLoginFragment(),true,true);
-               // User user =(User) result;
-            //    user.setAcct_type(1);
-             //   preferenceHelper.putUserFood(user);
-             //   preferenceHelper.setLoginStatus(true);
-             //   registrationActivity.finish();
-               // registrationActivity.showMainActivity();
+                registrationActivity.replaceFragment(new GetStartedFragment(), true, true);
+                registrationActivity.replaceFragment(new FoodLoginFragment(), true, true);
+                // User user =(User) result;
+                //    user.setAcct_type(1);
+                //   preferenceHelper.putUserFood(user);
+                //   preferenceHelper.setLoginStatus(true);
+                //   registrationActivity.finish();
+                // registrationActivity.showMainActivity();
 
 
                 break;

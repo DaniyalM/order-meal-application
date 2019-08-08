@@ -284,7 +284,7 @@ public class MultiLeftSideMenu extends BaseFragment {
             footerView.getRootView().findViewById(R.id.recentlyViewed).setVisibility(View.GONE);
             footerView.getRootView().findViewById(R.id.myFavoriteRecipes).setVisibility(View.GONE);
             footerView.getRootView().findViewById(R.id.myReviews).setVisibility(View.GONE);
-            footerTitle.setText(getActivity().getResources().getString(R.string.login));
+            footerTitle.setText(getActivity().getResources().getString(R.string.login_en));
         }
         expandableListView.addFooterView(footerView);//Add view to list view as footer view
 
