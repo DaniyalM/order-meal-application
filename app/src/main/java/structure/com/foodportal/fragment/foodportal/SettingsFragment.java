@@ -1,9 +1,10 @@
 package structure.com.foodportal.fragment.foodportal;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -12,16 +13,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.SwitchCompat;
 import android.telephony.TelephonyManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -43,6 +40,12 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
 
     @BindView(R.id.swAutoPlay)
     SwitchCompat autoplay;
+
+    @BindView(R.id.llLanguage)
+    LinearLayout linearLayoutLanguage;
+
+    @BindView(R.id.tvSelectedLanguage)
+    TextView textViewSelectedLanguage;
 
     @BindView(R.id.swNotifications)
     SwitchCompat notification;
@@ -75,10 +78,15 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
     @BindView(R.id.tvWithFacebok)
     TextView tvWithFacebok;
 
+    String[] mLanguages;
 
     Unbinder unbinder;
     Titlebar titlebar;
 
+    private int mSelectedItemIndex;
+    private int mPreferenceSelectedItemIndex;
+    private int mLanguagePreviousSelectedItemIndex = 0;
+    private boolean mIsChangeApplied = false;
 
 //    @BindView(R.id.bottom_sheet)
 //    LinearLayout layoutBottomSheet;
@@ -94,8 +102,12 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
 
         // bind view using butter knife
         unbinder = ButterKnife.bind(this, view);
-       // sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
-     //   sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
+
+        mLanguages = mainActivity.getResources().getStringArray(R.array.languages_array);
+        initLanguageVariables();
+
+        // sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
+        //   sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
         setlistner();
         checkAutoPlayandNotification();
         getVersionInfo();
@@ -175,9 +187,11 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         }
 
     }
+
     String versionName;
+
     private void getVersionInfo() {
-         versionName = "";
+        versionName = "";
         int versionCode = -1;
         try {
             PackageInfo packageInfo = mainActivity.getPackageManager().getPackageInfo(mainActivity.getPackageName(), 0);
@@ -194,6 +208,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
     void setlistner() {
 
         autoplay.setOnCheckedChangeListener(this);
+        linearLayoutLanguage.setOnClickListener(this);
         notification.setOnClickListener(this);
         llEmailSupport.setOnClickListener(this);
         tvLegalPrivacyPolicy.setOnClickListener(this);
@@ -232,7 +247,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
 
     @SuppressLint("IntentReset")
     void sendEmail() {
-        TelephonyManager manager = (TelephonyManager)mainActivity.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager manager = (TelephonyManager) mainActivity.getSystemService(Context.TELEPHONY_SERVICE);
         String carrierName = manager.getNetworkOperatorName();
         String locale = mainActivity.getResources().getConfiguration().locale.getCountry();
 
@@ -240,21 +255,20 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         emailIntent.setType("message/rfc822");
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SUPPORT_EMAIL});
-       // emailIntent.putExtra(Intent.EXTRA_CC, cc);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Food Tribune Android "+versionName);
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "-How can we make Food Tribune Better?-" +"\n"+
-                "Device "+android.os.Build.MANUFACTURER +"\n"+
-                "Android Version: Android"+Build.VERSION.SDK_INT+" ("+Build.VERSION.CODENAME+")"+"\n"+
-                "Carrier" +carrierName+"\n"+
-                "Network Status : Wifi"+"\n"+
-                "Language : en"+"\n"+
-                "Country "+ locale+"\n"+
-                "Device token"+preferenceHelper.getDeviceToken()
-                        );
+        // emailIntent.putExtra(Intent.EXTRA_CC, cc);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Food Tribune Android " + versionName);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "-How can we make Food Tribune Better?-" + "\n" +
+                "Device " + android.os.Build.MANUFACTURER + "\n" +
+                "Android Version: Android" + Build.VERSION.SDK_INT + " (" + Build.VERSION.CODENAME + ")" + "\n" +
+                "Carrier" + carrierName + "\n" +
+                "Network Status : Wifi" + "\n" +
+                "Language : en" + "\n" +
+                "Country " + locale + "\n" +
+                "Device token" + preferenceHelper.getDeviceToken()
+        );
 
 
-     //   startActivity(Intent.createChooser(emailIntent, "Email "));
-
+        //   startActivity(Intent.createChooser(emailIntent, "Email "));
 
 
 //       // Intent emailIntent = new Intent(Intent.ACTION_SEND);
@@ -267,7 +281,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
 //        emailIntent.setData(Uri.parse("mailto:"));
         try {
             startActivity(Intent.createChooser(emailIntent, "Email "));
-        //    startActivity(emailIntent);
+            //    startActivity(emailIntent);
         } catch (ActivityNotFoundException e) {
             //TODO: Handle case where no email app is available
             Toast.makeText(mainActivity, "No email client found", Toast.LENGTH_SHORT).show();
@@ -287,7 +301,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
 
 
                 break;
-                case R.id.tvWithFacebok:
+            case R.id.tvWithFacebok:
                 mBottomSheetDialog.dismiss();
                 mainActivity.prefHelper.putUserFood(null);
                 mainActivity.prefHelper.setLoginStatus(false);
@@ -303,6 +317,9 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                 mainActivity.prefHelper.setLoginStatus(false);
                 mainActivity.finish();
                 mainActivity.showRegistrationActivity();
+                break;
+            case R.id.llLanguage:
+                onClickLanguage();
                 break;
             case R.id.llEmailSupport:
                 sendEmail();
@@ -334,6 +351,65 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         }
     }
 
+    private void initLanguageVariables() {
+        mPreferenceSelectedItemIndex = mainActivity.prefHelper.getSelectedLanguageIndex();
+        mSelectedItemIndex = mPreferenceSelectedItemIndex;
+        mLanguagePreviousSelectedItemIndex = mPreferenceSelectedItemIndex;
+
+        textViewSelectedLanguage.setText(mLanguages[mPreferenceSelectedItemIndex]);
+    }
+
+    private void onClickLanguage() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setNegativeButton("Cancel", null);
+        builder.setPositiveButton("OK", null);
+
+        initLanguageVariables();
+
+        builder.setSingleChoiceItems(mLanguages, mSelectedItemIndex, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int position) {
+                mIsChangeApplied = false;
+                mSelectedItemIndex = position;
+            }
+        });
+
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setTitle(mainActivity.getString(R.string.language));
+        alertDialog.setCancelable(true);
+        alertDialog.show();
+
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIsChangeApplied = false;
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIsChangeApplied = true;
+                mLanguagePreviousSelectedItemIndex = mSelectedItemIndex;
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (mIsChangeApplied == false) {
+                    mLanguagePreviousSelectedItemIndex = mPreferenceSelectedItemIndex;
+                    mainActivity.prefHelper.putSelectedLanguageIndex(mLanguagePreviousSelectedItemIndex);
+                } else {
+                    mainActivity.prefHelper.putSelectedLanguageIndex(mSelectedItemIndex);
+                }
+                initLanguageVariables();
+            }
+        });
+    }
+
     private void openPrivacyPolicy() {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://food.tribune.com.pk/en/static/privacy-policy"));
         startActivity(browserIntent);
@@ -346,11 +422,13 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         serviceHelper.enqueueCall(webService.notificationSwitch(i), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_NOTIFICATION);
 
     }
+
     BottomSheetDialog mBottomSheetDialog;
+
     @OnClick(R.id.tvAccountLogin)
     public void toggleBottomSheet() {
 
-        if(preferenceHelper.getUserFood().getId().equals("293")){
+        if (preferenceHelper.getUserFood().getId().equals("293")) {
 //            if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
 //                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 //                // btnBottomSheet.setText("Close sheet");
@@ -368,10 +446,10 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
             btnEmail.setOnClickListener(this);
             btnFacebook.setOnClickListener(this);
             mBottomSheetDialog.show();
-        }else{
+        } else {
 
 
-             mBottomSheetDialog = new BottomSheetDialog(mainActivity);
+            mBottomSheetDialog = new BottomSheetDialog(mainActivity);
             View sheetView = mainActivity.getLayoutInflater().inflate(R.layout.dialog_layout, null);
             mBottomSheetDialog.setContentView(sheetView);
             //mBottomSheetDialog.show();

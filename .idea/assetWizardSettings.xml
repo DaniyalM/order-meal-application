@@ -89,7 +89,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="scalingPercent" value="55" />
+                                                <entry key="scalingPercent" value="110" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -100,9 +101,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="002744" />
-                                      <entry key="foregroundImage" value="D:\AndroidProjects\androidapp\app\src\main\res\mipmap-xxxhdpi\app_logo.png" />
-                                      <entry key="generateLegacyIcon" value="false" />
+                                      <entry key="foregroundImage" value="D:\Icons\New Tribune App Logos\Resized Logos\Logo1 (512x512).jpg" />
                                     </map>
                                   </option>
                                 </PersistentState>

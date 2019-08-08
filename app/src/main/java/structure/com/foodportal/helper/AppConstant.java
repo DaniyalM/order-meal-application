@@ -243,7 +243,7 @@ public class AppConstant {
         public static final String FOOD_MARK_FAVORITE = "user/story-favorite-status";
         public static final String FOOD_POPULAR = "home/popular";
         public static final String FOOD_FEATURED = "home/featured";
-        public static final String FOOD_RECOMMENDED= "home/recommended";
+        public static final String FOOD_RECOMMENDED = "home/recommended";
 
 
         public static final String HOME = "Home";
@@ -258,5 +258,10 @@ public class AppConstant {
     public class DrawerItemType {
         public static final String ITEM = "item";
         public static final String GROUP = "group";
+    }
+
+    public class Language {
+        public static final int ENGLISH = 0;
+        public static final int URDU = 1;
     }
 }

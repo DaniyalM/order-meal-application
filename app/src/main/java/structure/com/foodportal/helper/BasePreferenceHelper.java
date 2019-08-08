@@ -30,7 +30,7 @@ public class BasePreferenceHelper extends PreferenceHelper {
     public static final String KEY_DEVICE_TOKEN = "device_token";
     public static final String AUTHENTICATE_USER_TOKEN = "user_token";
     public static final String is_verified = "is_verified";
-    public static final String LANGUAGE = "language";
+    public static final String KEY_LANGUAGE = "language";
 
     private Context context;
     private static final String FILENAME = "preferences";
@@ -169,6 +169,13 @@ public class BasePreferenceHelper extends PreferenceHelper {
         return getStringPreference(context, FILENAME, KEY_DEVICE_TOKEN);
     }
 
+    public void putSelectedLanguageIndex(int selectedLanguageIndex) {
+        putIntegerPreference(context, FILENAME, KEY_LANGUAGE, selectedLanguageIndex);
+    }
+
+    public int getSelectedLanguageIndex() {
+        return getIntegerPrefrence(KEY_LANGUAGE) == -1 ? 0 : getIntegerPrefrence(KEY_LANGUAGE);
+    }
 
     public void putUserToken(String token) {
         putStringPreference(context, FILENAME, AUTHENTICATE_USER_TOKEN, token);
@@ -217,4 +224,6 @@ public class BasePreferenceHelper extends PreferenceHelper {
         BasePreferenceHelper preferenceHelper = new BasePreferenceHelper(context);
         preferenceHelper.putDeviceToken(token);
     }
+
+
 }

@@ -534,7 +534,6 @@
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="login_with_google">Login with Google</string>
     <string name="login_with_email">Login with Email</string>
-    <string name="main_screen_slogan">Log in or create an account to save your favorite recipes</string>
     <string name="your_recipe_are_waiting">Your sections are waiting</string>
     <string name="unlock_cooking_food_recipes_and_your_personal_recipe_box_with_a_free_trial">Sign up or log in to unlock hundreds of sections, tips and tutorials; and save your favorites to revisit.</string>
     <string name="ingredients">Ingredients</string>
@@ -557,14 +556,25 @@
     <string name="foodtribune">Food Tribune</string>
     <string name="foodDescription">Food Tribune Description</string>
     <string name="server_client_id">964728012300-aq7aopoe0jdvc1v738f8l6g58sbic3u8.apps.googleusercontent.com</string>
-    <string name="maybe_later"><u>Maybe later</u></string>
-    <string name="email"><u>Email</u></string>
-    <string name="facebook"><u>Facebook</u></string>
     <string name="auto_play">Auto Play</string>
     <string name="email_support"><u>Email Support</u></string>
+    <string name="language">Language</string>
+    <string name="english_language">English</string>
+    <string name="urdu_language">اردو</string>
+    <string name="default_language">@string/english_language</string>
     <string name="legal_privacy_policy"><u>Legal-Privacy Policy</u></string>
     <string name="about_us"><u>About Us</u></string>
     <string name="user_agreements"><u>User Agreements</u></string>
     <string name="account_log_in"><u>Account-Log In</u></string>
 
+    <!-- Language strings -->
+
+    <string name="main_screen_slogan_en">Log in or create an account to save your favorite recipes</string>
+    <string name="main_screen_slogan_ur">لاگ ان کریں یا اپنی پسندیدہ ترکیبیں محفوظ کرنے کیلئے ایک اکاؤنٹ بنائیں</string>
+    <string name="email_en">Email</string>
+    <string name="email_ur">ای میل</string>
+    <string name="facebook_en">Facebook</string>
+    <string name="facebook_ur">فیس بک</string>
+    <string name="maybe_later_en">Maybe later</string>
+    <string name="maybe_later_ur">شاید بعد میں</string>
 </resources>

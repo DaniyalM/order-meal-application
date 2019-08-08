@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<FrameLayout
-    android:id="@+id/homeBanner"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="340dp">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-
-
-
-    <com.flaviofaria.kenburnsview.KenBurnsView
-        android:id="@+id/ivBanner"
-        android:visibility="visible"
-        android:layout_gravity="center"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/homeBanner"
         android:layout_width="match_parent"
         android:layout_height="340dp"
-        android:scaleType="fitXY" />
-    <View
-        android:layout_gravity="bottom"
-        android:background="@drawable/gradient_view"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-    <believe.cht.fadeintextview.TextView
-        android:id="@+id/tvRecipename"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start|bottom"
-        android:layout_marginBottom="@dimen/dp30"
-        android:layout_marginStart="@dimen/dp10"
-        android:fontFamily="@font/proximaextrabold"
-        android:gravity="start|bottom"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sp20"
-        app:letterDuration="250" />
+        android:orientation="vertical">
 
-</FrameLayout>
+
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:id="@+id/ivBanner"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:visibility="visible" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/gradient_view" />
+
+        <believe.cht.fadeintextview.TextView
+            android:id="@+id/tvRecipename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|bottom"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp10"
+            android:layout_marginBottom="@dimen/dp20"
+            android:fontFamily="@font/proximaextrabold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp20"
+            app:letterDuration="250"
+            tools:text="Makhni Daal Karhai" />
+<!--        android:textAlignment="textEnd"-->
+
+    </FrameLayout>
 
 </android.support.v7.widget.CardView>

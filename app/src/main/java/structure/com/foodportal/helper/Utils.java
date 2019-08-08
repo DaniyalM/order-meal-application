@@ -225,4 +225,8 @@ public class Utils {
 
         return ago;
     }
+
+    public static Spanned loadUnderlineHtmlText(String str) {
+        return Html.fromHtml("<u>" + str + "</u>");
+    }
 }

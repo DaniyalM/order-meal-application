@@ -78,7 +78,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/proximaextrabold"
                     android:gravity="center"
-                    android:text="@string/facebook"
+                    android:text="@string/facebook_en"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp16" />
             </android.support.v7.widget.CardView>
@@ -100,7 +100,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/proximaextrabold"
                     android:gravity="center"
-                    android:text="@string/email"
+                    android:text="@string/email_en"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp16" />
             </android.support.v7.widget.CardView>

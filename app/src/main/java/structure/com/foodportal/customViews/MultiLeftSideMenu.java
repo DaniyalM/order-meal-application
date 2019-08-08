@@ -298,6 +298,9 @@ public class MultiLeftSideMenu extends BaseFragment {
         });
         footerTitle.setOnClickListener(view -> {
 
+//            if (footerTitle.getText().toString().equals(getActivity().getResources().getString(R.string.logout))) {
+//                mainActivity.prefHelper.putSelectedLanguageIndex(-1);
+//            }
             mainActivity.prefHelper.putUserToken(null);
             mainActivity.prefHelper.putUserFood(null);
             mainActivity.prefHelper.setLoginStatus(false);

@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ import structure.com.foodportal.fragment.foodportal.FoodLoginFragment;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.Titlebar;
+import structure.com.foodportal.helper.Utils;
 import structure.com.foodportal.interfaces.foodInterfaces.DataListner;
 import structure.com.foodportal.models.foodModels.User;
 
@@ -51,11 +53,31 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         videoView = (VideoView) binding.getRoot().findViewById(R.id.videoView);
         registrationActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        setValuesByLanguage(preferenceHelper.getSelectedLanguageIndex());
+
         init();
-       // getVersionInfo();
+        // getVersionInfo();
         registrationActivity.setcontent(this);
         registrationActivity.setcontentFB(this);
         return binding.getRoot();
+    }
+
+    private void setValuesByLanguage(int language) {
+        switch (language) {
+            case AppConstant.Language.ENGLISH:
+                binding.tvSlogan.setText(registrationActivity.getString(R.string.main_screen_slogan_en));
+                binding.tvWithEmail.setText(Utils.loadUnderlineHtmlText(registrationActivity.getString(R.string.email_en)));
+                binding.tvWithFacebok.setText(Utils.loadUnderlineHtmlText(registrationActivity.getString(R.string.facebook_en)));
+                binding.tvMaybeLater.setText(Utils.loadUnderlineHtmlText(registrationActivity.getString(R.string.maybe_later_en)));
+                break;
+
+            case AppConstant.Language.URDU:
+                binding.tvSlogan.setText(registrationActivity.getString(R.string.main_screen_slogan_ur));
+                binding.tvWithEmail.setText(Utils.loadUnderlineHtmlText(registrationActivity.getString(R.string.email_ur)));
+                binding.tvWithFacebok.setText(Utils.loadUnderlineHtmlText(registrationActivity.getString(R.string.facebook_ur)));
+                binding.tvMaybeLater.setText(Utils.loadUnderlineHtmlText(registrationActivity.getString(R.string.maybe_later_ur)));
+                break;
+        }
     }
 
     private void getVersionInfo() {
@@ -84,7 +106,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         super.onPause();
         if (videoView != null)
             stopPosition = videoView.getCurrentPosition();
-            videoView.pause();
+        videoView.pause();
     }
 
     @Override
@@ -92,7 +114,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         super.onResume();
         if (videoView != null)
             videoView.seekTo(stopPosition);
-            videoView.start();
+        videoView.start();
     }
 
     public void init() {
@@ -173,7 +195,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         } catch (NoSuchAlgorithmException e) {
 
         }
-        binding.loginAsGuest.setOnClickListener(this);
+        binding.tvMaybeLater.setOnClickListener(this);
         binding.getStarted.setOnClickListener(this);
         binding.proceedAsGuest.setOnClickListener(this);
         binding.signIn.setOnClickListener(this);
@@ -224,7 +246,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
 
                 break;
 
-            case R.id.loginAsGuest:
+            case R.id.tv_maybe_later:
 
                 String fname = "Anonymous";
                 String lname = "user";
@@ -256,27 +278,27 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
         titlebar.setVisibility(View.GONE);
     }
 
-    int i= 0;
+    int i = 0;
 
     @Override
     public void getdata(JSONObject jsonObject) throws JSONException {
         i++;
 
 
-        if(i==1){
+        if (i == 1) {
             Log.v("Facebook Login", "Login attempt" + i);
 
-        String fname = jsonObject.getString("first_name");
-        String lname = jsonObject.getString("last_name");
-        String email = jsonObject.getString("email");
-        long id = jsonObject.getLong("id");
-        User user = new User();
-        user.setId(String.valueOf(id));
-        user.setName_en(fname + " " + lname);
-        user.setAcct_type(3);
-        user.setEmail(email);
-        user.setProfile_picture("https://graph.facebook.com/" + id + "/picture?type=large");
-        facebooklogin(user);
+            String fname = jsonObject.getString("first_name");
+            String lname = jsonObject.getString("last_name");
+            String email = jsonObject.getString("email");
+            long id = jsonObject.getLong("id");
+            User user = new User();
+            user.setId(String.valueOf(id));
+            user.setName_en(fname + " " + lname);
+            user.setAcct_type(3);
+            user.setEmail(email);
+            user.setProfile_picture("https://graph.facebook.com/" + id + "/picture?type=large");
+            facebooklogin(user);
         }
 //        preferenceHelper.putUserFood(user);
 //        preferenceHelper.setLoginStatus(true);

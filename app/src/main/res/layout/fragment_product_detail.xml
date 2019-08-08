@@ -515,7 +515,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/border_item_rounded"
-                            android:text="@string/email"
+                            android:text="@string/email_en"
                             android:textAllCaps="true"
                             android:textColor="@color/colorBlackButton"
                             android:textStyle="bold" />
