@@ -28,7 +28,7 @@
                 style="@style/edittextstyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/first_name_en"
+                android:hint="@string/fname_en"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:digits="@string/name_digits"/>
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp18"
-                android:hint="@string/last_name_en"
+                android:hint="@string/lname_en"
                 android:imeOptions="actionDone"
                 android:inputType="textEmailAddress"
                 android:digits="@string/name_digits"/>

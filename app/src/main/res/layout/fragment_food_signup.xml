@@ -41,16 +41,17 @@
 
 
                 <TextView
+                    android:id="@+id/tvCreateYourAccount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginLeft="@dimen/dp30"
                     android:layout_marginTop="@dimen/dp20"
-                    android:layout_marginRight="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp30"
                     android:layout_marginBottom="@dimen/dp10"
                     android:fontFamily="@font/poppinsbold"
                     android:gravity="center"
-                    android:text="Create your account"
+                    android:text="@string/create_your_account_en"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textColor="@color/white" />
 
@@ -79,22 +80,25 @@
                     <!--                    android:paddingBottom="@dimen/dp30"-->
 
                     <LinearLayout
+                        android:id="@+id/linearLayoutName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/linearLayoutFirstName"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvFname"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp8"
-                                android:text="First name"
+                                android:text="@string/fname_en"
                                 android:textColor="@color/white" />
 
                             <android.support.v7.widget.CardView
@@ -116,19 +120,25 @@
                             </android.support.v7.widget.CardView>
                         </LinearLayout>
 
+                        <View
+                            android:id="@+id/viewSpace"
+                            android:layout_width="20dp"
+                            android:layout_height="0dp" />
+
                         <LinearLayout
+                            android:id="@+id/linearLayoutLastName"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp10"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvLname"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp8"
-                                android:text="Last name"
+                                android:text="@string/lname_en"
                                 android:textColor="@color/white" />
 
                             <android.support.v7.widget.CardView
@@ -154,6 +164,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tvEmail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/dp10"
@@ -181,12 +192,13 @@
                     </android.support.v7.widget.CardView>
 
                     <TextView
+                        android:id="@+id/tvPhoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/dp10"
                         android:fontFamily="@font/poppinsbold"
                         android:padding="@dimen/dp8"
-                        android:text="Phone number"
+                        android:text="@string/phone_number_en"
                         android:textColor="@color/white" />
 
                     <android.support.v7.widget.CardView
@@ -196,18 +208,20 @@
                         app:cardCornerRadius="@dimen/dp15">
 
                         <EditText
-                            android:id="@+id/et_number"
+                            android:id="@+id/et_phone_number"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/transparent"
                             android:imeOptions="actionNext"
-                            android:inputType="numberDecimal"
+                            android:inputType="number"
+                            android:maxLength="11"
                             android:padding="@dimen/dp8"
                             android:textColorHint="@color/colorBlackShade"
                             android:textSize="@dimen/sp14" />
                     </android.support.v7.widget.CardView>
 
                     <TextView
+                        android:id="@+id/tvPassword"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/dp10"
@@ -235,6 +249,7 @@
                     </android.support.v7.widget.CardView>
 
                     <TextView
+                        android:id="@+id/tvConfirmPassword"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/dp10"
@@ -263,7 +278,7 @@
 
 
                     <Button
-                        android:id="@+id/tvWithEmail"
+                        android:id="@+id/btnCreateAccount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -272,7 +287,7 @@
                         android:backgroundTint="@color/colorAccent"
                         android:fontFamily="@font/poppinsbold"
                         android:gravity="center"
-                        android:text="Create account"
+                        android:text="@string/create_account_en"
                         android:textColor="@color/white" />
                     <!--                    android:layout_marginBottom="@dimen/dp20"-->
                 </LinearLayout>
