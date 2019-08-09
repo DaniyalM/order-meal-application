@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp18"
-                android:hint="@string/confim_password"
+                android:hint="@string/confirm_password_en"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:singleLine="true"

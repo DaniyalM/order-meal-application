@@ -2,18 +2,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img_bg"
-    android:orientation="vertical">
+    android:background="@drawable/img_bg">
 
     <TextView
         android:id="@+id/txtAppname"
-        android:layout_width="240dp"
-        android:layout_height="120dp"
+        android:layout_width="@dimen/dp200"
+        android:layout_height="@dimen/dp100"
         android:layout_gravity="center"
+        android:background="@drawable/logoapp"
         android:gravity="center"
         android:text=""
-        android:layout_margin="@dimen/dp40"
-        android:background="@drawable/logoapp"
         android:textColor="@color/colorBlue"
         android:textSize="35sp"
         android:textStyle="bold"
@@ -37,9 +35,9 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/dp20"
-        android:layout_marginEnd="@dimen/dp50"
         android:layout_marginStart="@dimen/dp50"
+        android:layout_marginEnd="@dimen/dp50"
+        android:layout_marginBottom="@dimen/dp30"
         android:background="@color/lightGray"
         android:gravity="bottom"
         android:orientation="vertical">
