@@ -76,6 +76,8 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
 
         categorySliders = new ArrayList<>();
         foodCategoryAdapter = new FoodSubCategory(categorySliders, mainActivity, this);
+        foodCategoryAdapter.setPreferenceHelper(preferenceHelper);
+
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(mainActivity, 2);
         binding.rvSubCategory.setLayoutManager(mLayoutManager);
         binding.rvSubCategory.setAdapter(foodCategoryAdapter);

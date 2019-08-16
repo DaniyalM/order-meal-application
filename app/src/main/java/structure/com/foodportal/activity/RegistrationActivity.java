@@ -17,16 +17,12 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInApi;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -196,7 +192,7 @@ public class RegistrationActivity extends FacebookBaseFragment {
                 if (getSupportFragmentManager().getBackStackEntryCount() > 1 && !isLoading) {
                     getSupportFragmentManager().popBackStack();
                 } else {
-                    UIHelper.openExitPopUp(this);
+                    UIHelper.openExitPopUp(this, prefHelper);
                 }
 
             } else if (signupPager.getCurrentItem() >= 4) {
@@ -212,7 +208,7 @@ public class RegistrationActivity extends FacebookBaseFragment {
                                 this.getResources().getString(R.string.verification),
                                 this.getResources().getString(R.string.confirmation_witoutpin),
                                 this.getResources().getString(R.string.skip),
-                                this.getResources().getString(R.string.cancel),
+                                this.getResources().getString(R.string.cancel_en),
                                 false,
                                 false,
                                 (dialog, which, positive, logout) -> {
@@ -237,7 +233,7 @@ public class RegistrationActivity extends FacebookBaseFragment {
                                 this.getResources().getString(R.string.without_picture),
                                 this.getResources().getString(R.string.confirmation_profile_picture),
                                 this.getResources().getString(R.string.skip),
-                                this.getResources().getString(R.string.cancel),
+                                this.getResources().getString(R.string.cancel_en),
                                 false,
                                 false,
                                 (dialog, which, positive, logout) -> {
@@ -255,7 +251,7 @@ public class RegistrationActivity extends FacebookBaseFragment {
 
                     case 6:
 
-                        UIHelper.openExitPopUp(this);
+                        UIHelper.openExitPopUp(this, prefHelper);
                         break;
 
 
@@ -274,7 +270,7 @@ public class RegistrationActivity extends FacebookBaseFragment {
             if (getSupportFragmentManager().getBackStackEntryCount() > 1 && !isLoading) {
                 getSupportFragmentManager().popBackStack();
             } else {
-                UIHelper.openExitPopUp(this);
+                UIHelper.openExitPopUp(this, prefHelper);
             }
 
 

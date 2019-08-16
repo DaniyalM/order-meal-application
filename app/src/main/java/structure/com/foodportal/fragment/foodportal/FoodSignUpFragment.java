@@ -49,7 +49,7 @@ public class FoodSignUpFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onStart() {
         super.onStart();
-        mLang = preferenceHelper.getSelectedLanguageIndex();
+        mLang = preferenceHelper.getSelectedLanguage();
         setValuesByLanguage(mLang);
     }
 

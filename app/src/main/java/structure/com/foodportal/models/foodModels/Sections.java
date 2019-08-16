@@ -4,6 +4,7 @@ public class Sections {
 
     int id;
     String title_en;
+    String title_ur;
     String slug;
     String video_path;
     int is_favorite;
@@ -93,7 +94,15 @@ public class Sections {
     }
 
     String content_en;
+    String content_ur;
 
+    public String getContent_ur() {
+        return content_ur;
+    }
+
+    public void setContent_ur(String content_ur) {
+        this.content_ur = content_ur;
+    }
 
     public int getId() {
         return id;
@@ -109,6 +118,15 @@ public class Sections {
 
     public void setTitle(String title_en) {
         this.title_en = title_en;
+    }
+
+    public void setTitle_ur(String title_ur) {
+        this.title_ur = title_ur;
+    }
+
+
+    public String getTitle_ur() {
+        return title_ur;
     }
 
     public String getSlug() {

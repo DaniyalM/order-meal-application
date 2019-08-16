@@ -97,9 +97,6 @@
     <string name="cash_on_delivery">Cash On Delivery</string>
     <string name="apple_pay">Apple Pay</string>
     <string name="payment">Payment</string>
-    <string name="are_you_sure_exit">Are you sure you want to exit the App?</string>
-    <string name="yes">Yes</string>
-    <string name="cancel">Cancel</string>
     <string name="back_to_resturants">Back To Restaurants</string>
     <string name="you_haven_t_added_anything_n_to_your_cart">You haven\'t added anything \n to your cart</string>
     <string name="your_cart">Your Cart</string>
@@ -607,4 +604,14 @@
     <string name="confirm_password_ur">تصدیق پاس ورڈ</string>
     <string name="create_account_en">Create account</string>
     <string name="create_account_ur">اکاؤنٹ  بنائیں</string>
+    <string name="tutorials_en">Tutorials</string>
+    <string name="tutorials_ur">ٹیوٹوریل</string>
+    <string name="persons_en">person(s)</string>
+    <string name="persons_ur">افراد</string>
+    <string name="are_you_sure_exit_en">Are you sure you want to exit the app?</string>
+    <string name="are_you_sure_exit_ur">کیا آپ واقعی ایپ سے باہر نکلنا چاہتے ہیں؟</string>
+    <string name="yes_en">Yes</string>
+    <string name="yes_ur">جی ہاں</string>
+    <string name="cancel_en">Cancel</string>
+    <string name="cancel_ur">منسوخ کریں</string>
 </resources>

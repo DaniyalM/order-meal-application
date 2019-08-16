@@ -21,9 +21,13 @@ import info.androidhive.fontawesome.FontTextView;
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.foodModels.Sections;
+
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
 
 public class FoodBlogAdapter extends RecyclerView.Adapter<FoodBlogAdapter.PlanetViewHolder> {
 
@@ -53,8 +57,18 @@ public class FoodBlogAdapter extends RecyclerView.Adapter<FoodBlogAdapter.Planet
             holder.likeButton.setVisibility(View.VISIBLE);
             holder.tvPopularRecipeServes.setVisibility(View.VISIBLE);
             holder.tvPopularRecipeCookingTime.setVisibility(View.VISIBLE);
-            holder.tvPopularRecipeServes.setText(sections.get(position).getServing_for() + " person(s)");
             holder.tvPopularRecipeCookingTime.setText(sections.get(position).getCook_time());
+            if (preferenceHelper != null) {
+                switch (preferenceHelper.getSelectedLanguage()) {
+                    case ENGLISH:
+                    default:
+                        holder.tvPopularRecipeServes.setText(sections.get(position).getServing_for() + " " + context.getString(R.string.persons_en));
+                        break;
+                    case URDU:
+                        holder.tvPopularRecipeServes.setText(sections.get(position).getServing_for() + " " + context.getString(R.string.persons_ur));
+                        break;
+                }
+            }
         } else {
             holder.cardView.setVisibility(View.GONE);
             holder.likeButton.setVisibility(View.GONE);
@@ -62,7 +76,7 @@ public class FoodBlogAdapter extends RecyclerView.Adapter<FoodBlogAdapter.Planet
             holder.tvPopularRecipeCookingTime.setVisibility(View.GONE);
         }
 
-        holder.text.setText("" + sections.get(position).getTitle());
+        holder.text.setText("" + getTitleBySelectedLanguage(position));
 
         // For blog
         if (sections.get(position).getFeature_type_id() == 4 && sections.get(position).getBlog_thumb_image_path() != null) {
@@ -117,6 +131,24 @@ public class FoodBlogAdapter extends RecyclerView.Adapter<FoodBlogAdapter.Planet
 
         setFadeAnimation(holder.itemView);
         // setScaleAnimation(holder.itemView,position);
+    }
+
+    private BasePreferenceHelper preferenceHelper;
+
+    private String getTitleBySelectedLanguage(int position) {
+        String title = sections.get(position).getTitle();
+        if (preferenceHelper != null) {
+            if (preferenceHelper.getSelectedLanguage() == ENGLISH) {
+                title = sections.get(position).getTitle();
+            } else if (preferenceHelper.getSelectedLanguage() == URDU) {
+                title = sections.get(position).getTitle_ur();
+            }
+        }
+        return title;
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        this.preferenceHelper = preferenceHelper;
     }
 
     private void setFadeAnimation(View view) {

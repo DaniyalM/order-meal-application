@@ -2,30 +2,25 @@ package structure.com.foodportal.adapter.foodPortalAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
 import java.util.ArrayList;
 
-import butterknife.internal.Utils;
-import de.hdodenhof.circleimageview.CircleImageView;
 import structure.com.foodportal.R;
-import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodBannerListner;
-import structure.com.foodportal.models.Category;
 import structure.com.foodportal.models.foodModels.Banner;
-import structure.com.foodportal.models.foodModels.CategorySlider;
-import structure.com.foodportal.models.foodModels.Ingredient;
+
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
 
 public class FoodBannerAdapter extends RecyclerView.Adapter<FoodBannerAdapter.PlanetViewHolder> {
 
@@ -33,7 +28,8 @@ public class FoodBannerAdapter extends RecyclerView.Adapter<FoodBannerAdapter.Pl
     ArrayList<Banner> ingredientList;
     Context context;
     private int lastPosition = -1;
-    public FoodBannerAdapter(ArrayList<Banner> ingredientList, Context context,FoodBannerListner foodBannerListner) {
+
+    public FoodBannerAdapter(ArrayList<Banner> ingredientList, Context context, FoodBannerListner foodBannerListner) {
         this.ingredientList = ingredientList;
         this.foodBannerListner = foodBannerListner;
         this.context = context;
@@ -46,55 +42,71 @@ public class FoodBannerAdapter extends RecyclerView.Adapter<FoodBannerAdapter.Pl
         return viewHolder;
     }
 
-
-
-
     @Override
     public void onBindViewHolder(FoodBannerAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
 
         holder.text.clearAnimation();
-        holder.text.setText(""+ingredientList.get(position).getTitle_en());
-        if(ingredientList.get(position).getBanner_image_path()!=null){
-            if(ingredientList.get(position).getId()==4) {
+        holder.text.setText("" + getTitleBySelectedLanguage(position));
+        if (ingredientList.get(position).getBanner_image_path() != null) {
+            if (ingredientList.get(position).getId() == 4) {
                 UIHelper.setImageWithGlide(context, holder.circleImageView, R.drawable.ic_blog_banner);
-            }
-            else {
+            } else {
                 UIHelper.setImageWithGlide(context, holder.circleImageView, ingredientList.get(position).getBanner_image_path());
             }
-        }else{
+        } else {
 
 
-            UIHelper.setImageWithGlide(context,holder.circleImageView,ingredientList.get(position).getGallery().getPhotos().get(0).getImage_path());
+            UIHelper.setImageWithGlide(context, holder.circleImageView, ingredientList.get(position).getGallery().getPhotos().get(0).getImage_path());
         }
         // setAnimation(holder.itemView, position);
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(ingredientList.get(position).getBanner_image_path()!=null){
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ingredientList.get(position).getBanner_image_path() != null) {
 
 
-                    }else {
+                } else {
 
-                        foodBannerListner.onBannerClick(position);
-                    }
-
+                    foodBannerListner.onBannerClick(position);
                 }
-            });
+
+            }
+        });
 
     }
-    private void setAnimation(View viewToAnimate, int position)
-    {
+
+    private BasePreferenceHelper preferenceHelper;
+
+    private String getTitleBySelectedLanguage(int position) {
+        String title = ingredientList.get(position).getTitle_en();
+        if (preferenceHelper != null) {
+            if (preferenceHelper.getSelectedLanguage() == ENGLISH) {
+                title = ingredientList.get(position).getTitle_en();
+            } else if (preferenceHelper.getSelectedLanguage() == URDU) {
+                if (ingredientList.get(position).getId() == 2) {
+                    title = context.getString(R.string.tutorials_ur);
+                } else {
+                    title = ingredientList.get(position).getTitle_ur();
+                }
+            }
+        }
+        return title;
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        this.preferenceHelper = preferenceHelper;
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > 0)
-        {
+        if (position > 0) {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
     }
-
 
     @Override
     public int getItemCount() {

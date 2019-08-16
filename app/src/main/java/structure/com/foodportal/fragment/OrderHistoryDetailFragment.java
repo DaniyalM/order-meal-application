@@ -18,7 +18,6 @@ import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.databinding.LayoutOrderHistoryBinding;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.InputHelper;
-import structure.com.foodportal.helper.ServiceHelper;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.SimpleDialogActionListener;
@@ -249,7 +248,7 @@ public class OrderHistoryDetailFragment extends BaseFragment implements View.OnC
                     0,
                     mainActivity.getResources().getString(R.string.receive_confirmation),
                     mainActivity.getResources().getString(R.string.receive_confirmation_message),
-                    mainActivity.getResources().getString(R.string.yes),
+                    mainActivity.getResources().getString(R.string.yes_en),
                     mainActivity.getResources().getString(R.string.no),
                     false,
                     false,

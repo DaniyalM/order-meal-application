@@ -74,6 +74,8 @@ public class RecipeFragment extends BaseFragment implements SubCategoryListner {
 
         categorySliders = new ArrayList<>();
         foodCategoryAdapter = new FoodSubCategory(categorySliders, mainActivity, this);
+        foodCategoryAdapter.setPreferenceHelper(preferenceHelper);
+
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(mainActivity, 2);
         binding.rvSubCategoryRecipe.setLayoutManager(mLayoutManager);
         binding.rvSubCategoryRecipe.setAdapter(foodCategoryAdapter);

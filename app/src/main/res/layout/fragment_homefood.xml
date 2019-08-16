@@ -160,10 +160,11 @@
 
                             <TextView
                                 android:id="@+id/tvPopularRecipe"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
                                 android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp5"
                                 android:fontFamily="@font/poppinsbold"
                                 android:gravity="start"
@@ -177,7 +178,7 @@
                             <android.support.v7.widget.CardView
                                 android:id="@+id/popularCardView"
                                 android:layout_width="match_parent"
-                                android:layout_height="340dp"
+                                android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp5"
@@ -285,9 +286,10 @@
 
                             <TextView
                                 android:id="@+id/tvFeaturedRecipes"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp5"
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
@@ -300,7 +302,7 @@
                             <android.support.v7.widget.CardView
                                 android:id="@+id/featureCardView"
                                 android:layout_width="match_parent"
-                                android:layout_height="340dp"
+                                android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp5"
@@ -371,19 +373,21 @@
                                 android:layout_height="65dp"
                                 android:layout_centerInParent="true"
                                 android:layout_gravity="start|top"
-                                android:layout_marginEnd="@dimen/dp5"
-                                android:layout_marginStart="@dimen/dp5"
-                                android:padding="@dimen/dp2"
+                                android:layout_marginTop="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp10"
+                                android:layout_marginStart="@dimen/dp10"
                                 android:src="@drawable/chefimage" />
                             <!-- </com.skyfishjy.library.RippleBackground>-->
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:padding="@dimen/dp5"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:id="@+id/tvTipTitle"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/poppinsbold"
                                     android:padding="@dimen/dp5"
@@ -393,7 +397,7 @@
 
                                 <TextView
                                     android:id="@+id/tvtipDay"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/poppinsmedium"
                                     android:minLines="2"
@@ -403,10 +407,10 @@
                                      />
                             </LinearLayout>
 
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/rvtipDay"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+<!--                            <android.support.v7.widget.RecyclerView-->
+<!--                                android:id="@+id/rvtipDay"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content" />-->
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
 
@@ -424,8 +428,9 @@
 
                             <TextView
                                 android:id="@+id/tvBetterforBites"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
@@ -455,8 +460,9 @@
 
                             <TextView
                                 android:id="@+id/tvtechniques"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
@@ -489,12 +495,13 @@
                             <TextView
                                 android:id="@+id/tvRecommended"
                                 android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp10"
                                 android:fontFamily="@font/poppinsbold"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccentTextColor"
-                                android:text="Recommended for you"
-                                android:layout_width="wrap_content"
+                                android:text=""
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
 
@@ -531,12 +538,13 @@
                             <TextView
                                 android:id="@+id/tvLatest"
                                 android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp10"
                                 android:fontFamily="@font/poppinsbold"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccentTextColor"
                                 android:text="Latest"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
 

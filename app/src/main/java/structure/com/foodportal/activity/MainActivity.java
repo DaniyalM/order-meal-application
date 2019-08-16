@@ -457,7 +457,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         if (getSupportFragmentManager().getBackStackEntryCount() > 1 && !isLoading) {
             getSupportFragmentManager().popBackStack();
         } else {
-            UIHelper.openExitPopUp(this);
+            UIHelper.openExitPopUp(this, prefHelper);
         }
     }
 

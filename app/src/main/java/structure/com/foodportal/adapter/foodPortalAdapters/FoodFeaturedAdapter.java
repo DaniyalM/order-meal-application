@@ -27,6 +27,7 @@ import info.androidhive.fontawesome.FontTextView;
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.Category;
@@ -35,13 +36,17 @@ import structure.com.foodportal.models.foodModels.Ingredient;
 import structure.com.foodportal.models.foodModels.Section;
 import structure.com.foodportal.models.foodModels.Sections;
 
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
+
 public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapter.PlanetViewHolder> {
 
     ArrayList<Sections> sections;
     MainActivity context;
     private int lastPosition = -1;
     FoodHomeListner foodHomeListner;
-    public FoodFeaturedAdapter(ArrayList<Sections> sections, MainActivity context,FoodHomeListner foodHomeListner) {
+
+    public FoodFeaturedAdapter(ArrayList<Sections> sections, MainActivity context, FoodHomeListner foodHomeListner) {
         this.sections = sections;
         this.context = context;
         this.foodHomeListner = foodHomeListner;
@@ -55,8 +60,6 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
     }
 
 
-
-
     @Override
     public void onBindViewHolder(FoodFeaturedAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
@@ -67,8 +70,18 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
             holder.cardView.setVisibility(View.VISIBLE);
             holder.tvPopularRecipeServes.setVisibility(View.VISIBLE);
             holder.tvPopularRecipeCookingTime.setVisibility(View.VISIBLE);
-            holder.tvPopularRecipeServes.setText(sections.get(position).getServing_for() + " person(s)");
             holder.tvPopularRecipeCookingTime.setText(sections.get(position).getCook_time());
+            if (preferenceHelper != null) {
+                switch (preferenceHelper.getSelectedLanguage()) {
+                    case ENGLISH:
+                    default:
+                        holder.tvPopularRecipeServes.setText(sections.get(position).getServing_for() + " " + context.getString(R.string.persons_en));
+                        break;
+                    case URDU:
+                        holder.tvPopularRecipeServes.setText(sections.get(position).getServing_for() + " " + context.getString(R.string.persons_ur));
+                        break;
+                }
+            }
 
 
         } else {
@@ -79,7 +92,7 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
 
         }
         //  holder.image.setImageResource(R.drawable.planetimage);
-        holder.text.setText("" + sections.get(position).getTitle());
+        holder.text.setText("" + getTitleBySelectedLanguage(position));
         if (sections.get(position).getFeatured_image_path() != null) {
 
             UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getFeatured_image_path());
@@ -103,7 +116,7 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
                 foodHomeListner.featuredrecipe(position);
             }
         });
-        if (sections.get(position).getIs_save()== 1) {
+        if (sections.get(position).getIs_save() == 1) {
             holder.likeButton.setTextColor(context.getResources().getColor(R.color.colorRed));
 
         } else {
@@ -129,7 +142,6 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
         }*/
 
 
-
         holder.likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,9 +150,9 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
 
                     Toast.makeText(context, "Please Login to proceed", Toast.LENGTH_SHORT).show();
 
-                }else{
+                } else {
 
-                    if (holder.likeButton.getCurrentTextColor()== context.getResources().getColor(R.color.white)) {
+                    if (holder.likeButton.getCurrentTextColor() == context.getResources().getColor(R.color.white)) {
                         // foodHomeListner.onSaveRecipe(sections.get(position).getId());
                         foodHomeListner.onFavoriteRecipe(sections.get(position).getId());
                         holder.likeButton.setTextColor(context.getResources().getColor(R.color.colorRed));
@@ -153,9 +165,6 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
                     }
 
                 }
-
-
-
 
 
             }
@@ -189,18 +198,36 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
         });*/
 
 
-       // setScaleAnimation(holder.itemView,position);
+        // setScaleAnimation(holder.itemView,position);
 
     }
+
+    private BasePreferenceHelper preferenceHelper;
+
+    private String getTitleBySelectedLanguage(int position) {
+        String title = sections.get(position).getTitle();
+        if (preferenceHelper != null) {
+            if (preferenceHelper.getSelectedLanguage() == ENGLISH) {
+                title = sections.get(position).getTitle();
+            } else if (preferenceHelper.getSelectedLanguage() == URDU) {
+                title = sections.get(position).getTitle_ur();
+            }
+        }
+        return title;
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        this.preferenceHelper = preferenceHelper;
+    }
+
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
-    private void setAnimation(View viewToAnimate, int position)
-    {
+
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > 0)
-        {
+        if (position > 0) {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
@@ -215,7 +242,7 @@ public class FoodFeaturedAdapter extends RecyclerView.Adapter<FoodFeaturedAdapte
 
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
         FontTextView likeButton;
-        protected TextView text,tvPopularRecipeServes,tvPopularRecipeCookingTime;
+        protected TextView text, tvPopularRecipeServes, tvPopularRecipeCookingTime;
         ImageView circleImageView;
         CheckBox checkbox;
         FrameLayout cardView;

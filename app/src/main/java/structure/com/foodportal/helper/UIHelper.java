@@ -9,8 +9,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.ColorFilter;
-import android.graphics.ColorSpace;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.widget.CircularProgressDrawable;
@@ -36,10 +34,13 @@ import structure.com.foodportal.activity.BaseActivity;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.interfaces.SimpleDialogActionListener;
 
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
+
 /**
  * Created by Addi.
  */
-public  class UIHelper {
+public class UIHelper {
 
     public interface Utilinterface {
         public void dialogPositive_Click(DialogInterface dialog);
@@ -77,11 +78,10 @@ public  class UIHelper {
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(30f);
         circularProgressDrawable.setColorSchemeColors(context.getResources().getColor(R.color.colorAccentPink));
-        circularProgressDrawable.setColorFilter(context.getResources().getColor(R.color.colorAccentPink),android.graphics.PorterDuff.Mode.MULTIPLY);
+        circularProgressDrawable.setColorFilter(context.getResources().getColor(R.color.colorAccentPink), android.graphics.PorterDuff.Mode.MULTIPLY);
         circularProgressDrawable.start();
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.dontAnimate().placeholder(circularProgressDrawable);
-
 
 
         Glide.with(context)
@@ -96,11 +96,10 @@ public  class UIHelper {
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(30f);
         circularProgressDrawable.setColorSchemeColors(context.getResources().getColor(R.color.colorAccentPink));
-        circularProgressDrawable.setColorFilter(context.getResources().getColor(R.color.colorAccentPink),android.graphics.PorterDuff.Mode.MULTIPLY);
+        circularProgressDrawable.setColorFilter(context.getResources().getColor(R.color.colorAccentPink), android.graphics.PorterDuff.Mode.MULTIPLY);
         circularProgressDrawable.start();
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.dontAnimate().placeholder(circularProgressDrawable);
-
 
 
         Glide.with(context)
@@ -129,30 +128,44 @@ public  class UIHelper {
         }
     }
 
-    public static void openExitPopUp(final Activity activity) {
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
-            builder1.setMessage(activity.getString(R.string.are_you_sure_exit));
-            builder1.setCancelable(true);
+    public static void openExitPopUp(final Activity activity, BasePreferenceHelper prefHelper) {
+        String msg, positiveButtonText, negativeButtonText;
+        switch (prefHelper.getSelectedLanguage()) {
+            case ENGLISH:
+            default:
+                msg = activity.getString(R.string.are_you_sure_exit_en);
+                positiveButtonText = activity.getString(R.string.yes_en);
+                negativeButtonText = activity.getString(R.string.cancel_en);
+                break;
+            case URDU:
+                msg = activity.getString(R.string.are_you_sure_exit_ur);
+                positiveButtonText = activity.getString(R.string.yes_ur);
+                negativeButtonText = activity.getString(R.string.cancel_ur);
+                break;
+        }
 
-            builder1.setPositiveButton(
-                    activity.getString(R.string.yes),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                            activity.finish();
-                        }
-                    });
 
-            builder1.setNegativeButton(
-                    activity.getString(R.string.cancel),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
+        builder1.setMessage(msg);
+        builder1.setCancelable(true);
 
-            AlertDialog alert11 = builder1.create();
-            alert11.show();
+        builder1.setPositiveButton(positiveButtonText,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        activity.finish();
+                    }
+                });
+
+        builder1.setNegativeButton(negativeButtonText,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     public static void showSimpleDialog(final Context context, int icon, String title, String
@@ -188,7 +201,7 @@ public  class UIHelper {
         String moments = null;
         String dateDate = null, dateTime = null, thatDay = null, thatMonth = null, thatYear = null, thatHour, thatMinute, thatSeconds;
 
-        if(date != null){
+        if (date != null) {
             dateDate = date.split(" ")[0];
             thatDay = dateDate.split("-")[2];
             thatMonth = dateDate.split("-")[1];
@@ -201,8 +214,8 @@ public  class UIHelper {
         return moments;
     }
 
-    public static String getFormattedDate(String date, String oldFormat, String newFormat){
-        String formattedDate= "";
+    public static String getFormattedDate(String date, String oldFormat, String newFormat) {
+        String formattedDate = "";
         SimpleDateFormat input = new SimpleDateFormat(oldFormat);
         SimpleDateFormat output = new SimpleDateFormat(newFormat);
         try {
@@ -214,7 +227,7 @@ public  class UIHelper {
         return formattedDate;
     }
 
-    public static void share(BaseActivity activityContext, final String title, final String fileUrl){
+    public static void share(BaseActivity activityContext, final String title, final String fileUrl) {
         if (!NetworkUtils.isNetworkAvailable(activityContext)) {
             UIHelper.showToast(activityContext, activityContext.getResources().getString(R.string.no_connection));
             return;

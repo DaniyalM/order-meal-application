@@ -17,17 +17,22 @@ import java.util.ArrayList;
 
 import structure.com.foodportal.R;
 import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.foodModels.Sections;
 
-public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterForBitesAdapter.PlanetViewHolder> {
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
+
+public class FoodBetterForBitesAdapter extends RecyclerView.Adapter<FoodBetterForBitesAdapter.PlanetViewHolder> {
 
     ArrayList<Sections> sections;
     Context context;
     private int lastPosition = -1;
     FoodHomeListner foodHomeListner;
-    public FoodBetterForBitesAdapter(ArrayList<Sections> sections, Context context,FoodHomeListner foodHomeListner) {
+
+    public FoodBetterForBitesAdapter(ArrayList<Sections> sections, Context context, FoodHomeListner foodHomeListner) {
         this.sections = sections;
         this.context = context;
         this.foodHomeListner = foodHomeListner;
@@ -40,10 +45,11 @@ public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterF
         return viewHolder;
     }
 
-    int width=0;
+    int width = 0;
+
     public void setWidth(int width) {
 
-        this.width=width;
+        this.width = width;
 
     }
 
@@ -51,19 +57,20 @@ public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterF
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
+
     @Override
     public void onBindViewHolder(FoodBetterForBitesAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
 
 
-        if(width==0){
+        if (width == 0) {
 
 
-        }else{
+        } else {
             ViewGroup.LayoutParams params = holder.circleImageView.getLayoutParams();
 // Changes the height and width to the specified *pixels*
-            params.height =    dpToPx(195);
-            params.width =    dpToPx(291);
+            params.height = dpToPx(195);
+            params.width = dpToPx(291);
 
             holder.circleImageView.setLayoutParams(params);
 
@@ -71,18 +78,17 @@ public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterF
         }
 
 
-        holder.text.setText(""+sections.get(position).getTitle());
-        if(sections.get(position).getFeatured_image_path()!=null){
+        holder.text.setText("" + getTitleBySelectedLanguage(position));
+        if (sections.get(position).getFeatured_image_path() != null) {
 
-            UIHelper.setImageWithGlide(context,holder.circleImageView, sections.get(position).getFeatured_image_path());
+            UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getFeatured_image_path());
 
-        }else
-        if(sections.get(position).getBlog_thumb_image()!=null ||sections.get(position).getVideo_thumb()!=null){
+        } else if (sections.get(position).getBlog_thumb_image() != null || sections.get(position).getVideo_thumb() != null) {
 
-            UIHelper.setImageWithGlide(context,holder.circleImageView, sections.get(position).getBlog_thumb_image()!=null? AppConstant.BASE_URL_IMAGE+sections.get(position).getBlog_thumb_image(): AppConstant.BASE_URL_IMAGE+sections.get(position).getVideo_thumb());
+            UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getBlog_thumb_image() != null ? AppConstant.BASE_URL_IMAGE + sections.get(position).getBlog_thumb_image() : AppConstant.BASE_URL_IMAGE + sections.get(position).getVideo_thumb());
 
-        }else{
-            UIHelper.setImageWithGlide(context,holder.circleImageView,sections.get(position).getGallery().getPhotos().get(0).getImage_path());
+        } else {
+            UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getGallery().getPhotos().get(0).getImage_path());
 
         }
 
@@ -95,10 +101,10 @@ public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterF
                 foodHomeListner.betterforurbites(position);
             }
         });
-        if(sections.get(position).getIs_favorite()==1){
+        if (sections.get(position).getIs_favorite() == 1) {
             holder.likeButton.setLiked(true);
 
-        }else{
+        } else {
             holder.likeButton.setLiked(false);
 
         }
@@ -106,11 +112,28 @@ public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterF
 
 
     }
-    private void setAnimation(View viewToAnimate, int position)
-    {
+
+    private BasePreferenceHelper preferenceHelper;
+
+    private String getTitleBySelectedLanguage(int position) {
+        String title = sections.get(position).getTitle();
+        if (preferenceHelper != null) {
+            if (preferenceHelper.getSelectedLanguage() == ENGLISH) {
+                title = sections.get(position).getTitle();
+            } else if (preferenceHelper.getSelectedLanguage() == URDU) {
+                title = sections.get(position).getTitle_ur();
+            }
+        }
+        return title;
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        this.preferenceHelper = preferenceHelper;
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > 0)
-        {
+        if (position > 0) {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
@@ -128,6 +151,7 @@ public class FoodBetterForBitesAdapter  extends RecyclerView.Adapter<FoodBetterF
         protected TextView text;
         ImageView circleImageView;
         LikeButton likeButton;
+
         public PlanetViewHolder(View itemView) {
             super(itemView);
 

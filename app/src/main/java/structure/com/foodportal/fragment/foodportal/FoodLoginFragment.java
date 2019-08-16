@@ -30,7 +30,6 @@ import structure.com.foodportal.helper.CustomValidation;
 import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
-import structure.com.foodportal.helper.Utils;
 import structure.com.foodportal.models.foodModels.LoginBody;
 import structure.com.foodportal.models.foodModels.User;
 
@@ -62,7 +61,7 @@ public class FoodLoginFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onStart() {
         super.onStart();
-        mLang = preferenceHelper.getSelectedLanguageIndex();
+        mLang = preferenceHelper.getSelectedLanguage();
         setValuesByLanguage(mLang);
     }
 

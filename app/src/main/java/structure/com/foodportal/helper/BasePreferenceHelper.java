@@ -169,11 +169,11 @@ public class BasePreferenceHelper extends PreferenceHelper {
         return getStringPreference(context, FILENAME, KEY_DEVICE_TOKEN);
     }
 
-    public void putSelectedLanguageIndex(int selectedLanguageIndex) {
-        putIntegerPreference(context, FILENAME, KEY_LANGUAGE, selectedLanguageIndex);
+    public void putSelectedLanguage(int index) {
+        putIntegerPreference(context, FILENAME, KEY_LANGUAGE, index);
     }
 
-    public int getSelectedLanguageIndex() {
+    public int getSelectedLanguage() {
         return getIntegerPrefrence(KEY_LANGUAGE) == -1 ? 0 : getIntegerPrefrence(KEY_LANGUAGE);
     }
 

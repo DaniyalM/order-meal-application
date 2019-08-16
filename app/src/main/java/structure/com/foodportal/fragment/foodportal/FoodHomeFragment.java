@@ -55,6 +55,9 @@ import structure.com.foodportal.models.foodModels.FoodHomeModelWrapper;
 import structure.com.foodportal.models.foodModels.Section;
 import structure.com.foodportal.models.foodModels.Sections;
 
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
+
 @SuppressLint("ValidFragment")
 public class FoodHomeFragment extends BaseFragment implements View.OnClickListener, FoodBannerListner, FoodHomeListner {
 
@@ -196,6 +199,15 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         foodMasterTechniquesAdapter = new FoodMasterTechniquesAdapter(masterTechniques, mainActivity, this);
         foodBetterForBitesAdapter = new FoodBetterForBitesAdapter(sectionsBetterForBites, mainActivity, this);
         foodBlogAdapter = new FoodBlogAdapter(sectionsLatest, mainActivity, this);
+
+        foodBannerAdapter.setPreferenceHelper(preferenceHelper);
+        foodPopularRecipeAdapter.setPreferenceHelper(preferenceHelper);
+        foodFeaturedAdapter.setPreferenceHelper(preferenceHelper);
+        foodRecommendedRecipeAdapter.setPreferenceHelper(preferenceHelper);
+        foodCategoryAdapter.setPreferenceHelper(preferenceHelper);
+        foodBetterForBitesAdapter.setPreferenceHelper(preferenceHelper);
+        foodMasterTechniquesAdapter.setPreferenceHelper(preferenceHelper);
+        foodBlogAdapter.setPreferenceHelper(preferenceHelper);
 
         mLayoutManagerRecommended = new GridLayoutManager(mainActivity, 2);
        /* RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
@@ -397,8 +409,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                             }
                         });
                     }
-                }
-                else if (navSection.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG)) {
+                } else if (navSection.equals(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG)) {
                     if (isFirst) {
                         if (foodhomeModel != null) {
                             mainActivity.runOnUiThread(new Runnable() {
@@ -409,8 +420,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                                 }
                             });
                         }
-                    }
-                    else {
+                    } else {
                         dummySectionLatest.addAll(foodhomeModel.getSection().get(0).getSection_list());
                         for (int i = 0; i < dummySectionLatest.size(); i++) {
                             sectionsLatest.add(dummySectionLatest.get(i));
@@ -547,19 +557,39 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
                 UIHelper.setImageWithGlide(mainActivity, ksp, foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getFeatured_image_path());
                 UIHelper.setImageWithGlide(mainActivity, ksf, foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getFeatured_image_path());
-                tvp.setText(foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getTitle_en());
-                tvf.setText(foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getTitle_en());
+
+                switch (preferenceHelper.getSelectedLanguage()) {
+                    case ENGLISH:
+                    default:
+                        tvp.setText(foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getTitle_en());
+                        tvf.setText(foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getTitle_en());
+                        binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
+                        binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
+                        binding.tvTipTitle.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getTitle_en());
+                        binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_en());
+                        binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_en().replaceAll("_", " "));
+                        binding.tvtechniques.setText(getString(R.string.tutorials_en)); // foodHomeModelWrapper.getSection().get(4).getSection_name_en().replaceAll("_", " ")
+                        binding.tvRecommended.setText(foodHomeModelWrapper.getSection().get(5).getSection_name_en().replaceAll("_", " "));
+                        break;
+                    case URDU:
+                        tvp.setText(foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getTitle_ur());
+                        tvf.setText(foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getTitle_ur());
+                        binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_ur().replaceAll("_", " "));
+                        binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_ur().replaceAll("_", " "));
+                        binding.tvTipTitle.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getTitle_ur());
+                        binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_ur());
+                        binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_ur().replaceAll("_", " "));
+                        binding.tvtechniques.setText(getString(R.string.tutorials_ur)); // foodHomeModelWrapper.getSection().get(4).getSection_name_ur().replaceAll("_", " ")
+                        binding.tvRecommended.setText(foodHomeModelWrapper.getSection().get(5).getSection_name_ur().replaceAll("_", " "));
+                        break;
+                }
+
                 //  binding.cvSectionFive.setVisibility(View.GONE);
 
 
-                printList("ListPopularBefore", foodHomeModelWrapper.getSection().get(0).getSection_list());
-                printList("ListFeaturedBefore", foodHomeModelWrapper.getSection().get(1).getSection_list());
+//                printList("ListPopularBefore", foodHomeModelWrapper.getSection().get(0).getSection_list());
+//                printList("ListFeaturedBefore", foodHomeModelWrapper.getSection().get(1).getSection_list());
 
-                binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
-                binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
-                binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_en().replaceAll("_", " "));
-                binding.tvtechniques.setText(/*foodHomeModelWrapper.getSection().get(4).getSection_name_en().replaceAll("_", " ")*/"Tutorials");
-                binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_en());
                 foodHomeModelWrapper.getSection().get(0).getSection_list().remove(0);
                 sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
                 foodHomeModelWrapper.getSection().get(1).getSection_list().remove(0);
@@ -572,8 +602,8 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
                 getRecommendedRecipes(0);
 
-                printList("ListPopularAfter", sectionsPopular);
-                printList("ListFeaturedAfter", sectionsFeatured);
+//                printList("ListPopularAfter", sectionsPopular);
+//                printList("ListFeaturedAfter", sectionsFeatured);
 
                 break;
 
@@ -582,17 +612,28 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 binding.lltipoftheday.setVisibility(View.GONE);
                 binding.cvSectionFive.setVisibility(View.GONE);
 
-                binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
-                if (foodHomeModelWrapper.getSection().get(1).getSection_list().size() > 0) {
-
-                    binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
-                } else {
-                    binding.tvFeaturedRecipes.setVisibility(View.GONE);
+                switch (preferenceHelper.getSelectedLanguage()) {
+                    case ENGLISH:
+                    default:
+                        binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
+                        binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
+                        binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(2).getSection_name_en().replaceAll("_", " "));
+                        break;
+                    case URDU:
+                        binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_ur().replaceAll("_", " "));
+                        binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_ur().replaceAll("_", " "));
+                        binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(2).getSection_name_ur().replaceAll("_", " "));
+                        break;
                 }
-                binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(2).getSection_name_en().replaceAll("_", " "));
+
+                if (foodHomeModelWrapper.getSection().get(1).getSection_list().size() <= 0) {
+                    binding.tvFeaturedRecipes.setVisibility(View.GONE);
+                    binding.cvSectionTwo.setVisibility(View.GONE);
+                } else {
+                    sectionsFeatured.addAll(foodHomeModelWrapper.getSection().get(1).getSection_list());
+                }
 
                 sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
-                sectionsFeatured.addAll(foodHomeModelWrapper.getSection().get(1).getSection_list());
                 sectionsBetterForBites.addAll(foodHomeModelWrapper.getSection().get(2).getSection_list());
                 categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
                 banners.add(foodHomeModelWrapper.getFeature_type());
@@ -645,7 +686,16 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 cvRecommendedSection.setVisibility(View.GONE);
                 cvLatestSection.setVisibility(View.VISIBLE);
 
-                binding.tvLatest.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
+                switch (preferenceHelper.getSelectedLanguage()) {
+                    case ENGLISH:
+                    default:
+                        binding.tvLatest.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
+                        break;
+                    case URDU:
+                        binding.tvLatest.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_ur().replaceAll("_", " "));
+                        break;
+                }
+
 //                sectionsLatest.addAllToAdapter(foodHomeModelWrapper.getSection().get(0).getSection_list());
                 banners.add(foodHomeModelWrapper.getFeature_type());
 

@@ -211,7 +211,7 @@ public class OrdersHistoryAdapter extends RecyclerView.Adapter<OrdersHistoryAdap
                             0,
                             mainActivity.getResources().getString(R.string.receive_confirmation),
                             mainActivity.getResources().getString(R.string.receive_confirmation_message),
-                            mainActivity.getResources().getString(R.string.yes),
+                            mainActivity.getResources().getString(R.string.yes_en),
                             mainActivity.getResources().getString(R.string.no),
                             false,
                             false,

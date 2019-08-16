@@ -597,7 +597,7 @@
                         android:button="@drawable/selector_button"
                         android:buttonTint="@color/colorRed"
                         android:paddingStart="@dimen/dp10"
-                        android:text="@string/yes"
+                        android:text="@string/yes_en"
                         android:textColor="@color/colorTextGray" />
 
                     <RadioButton
@@ -866,7 +866,7 @@
                         android:button="@drawable/selector_button"
                         android:buttonTint="@color/colorRed"
                         android:paddingStart="@dimen/dp10"
-                        android:text="@string/yes"
+                        android:text="@string/yes_en"
                         android:textColor="@color/colorTextGray" />
 
                     <RadioButton
@@ -916,7 +916,7 @@
                         android:button="@drawable/selector_button"
                         android:buttonTint="@color/colorRed"
                         android:paddingStart="@dimen/dp10"
-                        android:text="@string/yes"
+                        android:text="@string/yes_en"
                         android:textColor="@color/colorTextGray" />
 
                     <RadioButton

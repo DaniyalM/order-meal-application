@@ -17,11 +17,15 @@ import butterknife.internal.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 import structure.com.foodportal.R;
 import structure.com.foodportal.fragment.foodportal.RecipeFragment;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.Category;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.Ingredient;
+
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
 
 public class FoodCategoryAdapter extends RecyclerView.Adapter<FoodCategoryAdapter.PlanetViewHolder> {
 
@@ -29,13 +33,12 @@ public class FoodCategoryAdapter extends RecyclerView.Adapter<FoodCategoryAdapte
     Context context;
     private int lastPosition = -1;
     FoodHomeListner foodHomeListner;
+
     public FoodCategoryAdapter(ArrayList<CategorySlider> ingredientList, Context context, FoodHomeListner foodHomeListner) {
         this.ingredientList = ingredientList;
         this.context = context;
         this.foodHomeListner = foodHomeListner;
     }
-
-
 
 
     @Override
@@ -46,13 +49,11 @@ public class FoodCategoryAdapter extends RecyclerView.Adapter<FoodCategoryAdapte
     }
 
 
-
-
     @Override
     public void onBindViewHolder(FoodCategoryAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
-        holder.text.setText(""+ingredientList.get(position).getCategory_title_en());
-        UIHelper.setImageWithGlide(context,holder.circleImageView,""+ingredientList.get(position).getSlider_path());
+        holder.text.setText("" + getTitleBySelectedLanguage(position, holder.text));
+        UIHelper.setImageWithGlide(context, holder.circleImageView, "" + ingredientList.get(position).getSlider_path());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,11 +64,32 @@ public class FoodCategoryAdapter extends RecyclerView.Adapter<FoodCategoryAdapte
         });
         setAnimation(holder.itemView, position);
     }
-    private void setAnimation(View viewToAnimate, int position)
-    {
+
+    private BasePreferenceHelper preferenceHelper;
+
+    private String getTitleBySelectedLanguage(int position, TextView textView) {
+        String title = ingredientList.get(position).getCategory_title_en();
+        textView.setTextSize(10);
+
+        if (preferenceHelper != null) {
+            if (preferenceHelper.getSelectedLanguage() == ENGLISH) {
+                textView.setTextSize(10);
+                title = ingredientList.get(position).getCategory_title_en();
+            } else if (preferenceHelper.getSelectedLanguage() == URDU) {
+                textView.setTextSize(14);
+                title = ingredientList.get(position).getCategory_title_ur();
+            }
+        }
+        return title;
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        this.preferenceHelper = preferenceHelper;
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > 0)
-        {
+        if (position > 0) {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;

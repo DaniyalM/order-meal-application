@@ -352,7 +352,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
     }
 
     private void initLanguageVariables() {
-        mPreferenceSelectedItemIndex = mainActivity.prefHelper.getSelectedLanguageIndex();
+        mPreferenceSelectedItemIndex = mainActivity.prefHelper.getSelectedLanguage();
         mSelectedItemIndex = mPreferenceSelectedItemIndex;
         mLanguagePreviousSelectedItemIndex = mPreferenceSelectedItemIndex;
 
@@ -401,9 +401,9 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
             public void onDismiss(DialogInterface dialog) {
                 if (mIsChangeApplied == false) {
                     mLanguagePreviousSelectedItemIndex = mPreferenceSelectedItemIndex;
-                    mainActivity.prefHelper.putSelectedLanguageIndex(mLanguagePreviousSelectedItemIndex);
+                    mainActivity.prefHelper.putSelectedLanguage(mLanguagePreviousSelectedItemIndex);
                 } else {
-                    mainActivity.prefHelper.putSelectedLanguageIndex(mSelectedItemIndex);
+                    mainActivity.prefHelper.putSelectedLanguage(mSelectedItemIndex);
                 }
                 initLanguageVariables();
             }

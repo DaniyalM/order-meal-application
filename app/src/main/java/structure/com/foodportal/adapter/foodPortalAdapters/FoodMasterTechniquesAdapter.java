@@ -19,6 +19,7 @@ import butterknife.internal.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 import structure.com.foodportal.R;
 import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.Category;
@@ -27,13 +28,17 @@ import structure.com.foodportal.models.foodModels.Ingredient;
 import structure.com.foodportal.models.foodModels.Section;
 import structure.com.foodportal.models.foodModels.Sections;
 
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
+
 public class FoodMasterTechniquesAdapter extends RecyclerView.Adapter<FoodMasterTechniquesAdapter.PlanetViewHolder> {
 
     ArrayList<Sections> sections;
     Context context;
     private int lastPosition = -1;
     FoodHomeListner foodHomeListner;
-    public FoodMasterTechniquesAdapter(ArrayList<Sections> sections, Context context,FoodHomeListner foodHomeListner) {
+
+    public FoodMasterTechniquesAdapter(ArrayList<Sections> sections, Context context, FoodHomeListner foodHomeListner) {
         this.sections = sections;
         this.context = context;
         this.foodHomeListner = foodHomeListner;
@@ -47,35 +52,49 @@ public class FoodMasterTechniquesAdapter extends RecyclerView.Adapter<FoodMaster
     }
 
 
-
-
     @Override
     public void onBindViewHolder(FoodMasterTechniquesAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
 
 
-        holder.text.setText(""+sections.get(position).getTitle());
-        UIHelper.setImageWithGlide(context,holder.circleImageView,  sections.get(position).getBlog_thumb_image_path_size());
-
+        holder.text.setText("" + getTitleBySelectedLanguage(position));
+        UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getBlog_thumb_image_path_size());
 
 
         // UIHelper.setImageWithGlide(context,holder.circleImageView,sections.size()>0 ? sections.get(position).getGallery().getPhotos().get(0).getImage_path() : null);
         //     setAnimation(holder.itemView, position);
 
         holder.itemView.setOnClickListener(view -> foodHomeListner.masterTechniquesClick(position));
-        if(sections.get(position).getIs_favorite()==1){
+        if (sections.get(position).getIs_favorite() == 1) {
             holder.likeButton.setLiked(true);
 
-        }else{
+        } else {
             holder.likeButton.setLiked(false);
 
         }
     }
-    private void setAnimation(View viewToAnimate, int position)
-    {
+
+    private BasePreferenceHelper preferenceHelper;
+
+    private String getTitleBySelectedLanguage(int position) {
+        String title = sections.get(position).getTitle();
+        if (preferenceHelper != null) {
+            if (preferenceHelper.getSelectedLanguage() == ENGLISH) {
+                title = sections.get(position).getTitle();
+            } else if (preferenceHelper.getSelectedLanguage() == URDU) {
+                title = sections.get(position).getTitle_ur();
+            }
+        }
+        return title;
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        this.preferenceHelper = preferenceHelper;
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > 0)
-        {
+        if (position > 0) {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;

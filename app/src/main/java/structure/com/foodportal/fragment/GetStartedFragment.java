@@ -7,7 +7,6 @@ import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,7 +62,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onStart() {
         super.onStart();
-        setValuesByLanguage(preferenceHelper.getSelectedLanguageIndex());
+        setValuesByLanguage(preferenceHelper.getSelectedLanguage());
     }
 
     private void setValuesByLanguage(int language) {

@@ -13,6 +13,15 @@ public class CategorySlider
     }
 
     String title_en;
+    String title_ur;
+
+    public String getTitle_ur() {
+        return title_ur;
+    }
+
+    public void setTitle_ur(String title_ur) {
+        this.title_ur = title_ur;
+    }
 
     public String getSlug() {
         return slug;

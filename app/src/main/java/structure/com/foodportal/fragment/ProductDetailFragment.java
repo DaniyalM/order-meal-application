@@ -382,7 +382,7 @@ public class ProductDetailFragment extends BaseFragment implements View.OnClickL
                                 mainActivity.getResources().getString(R.string.send_email),
                                 mainActivity.getResources().getString(R.string.email_surety) + " to " + productDetail.getUser_name() + " ?",
                                 mainActivity.getResources().getString(R.string.send_email),
-                                mainActivity.getResources().getString(R.string.cancel),
+                                mainActivity.getResources().getString(R.string.cancel_en),
                                 false,
                                 false,
                                 (dialog, which, positive, logout) -> {
@@ -412,7 +412,7 @@ public class ProductDetailFragment extends BaseFragment implements View.OnClickL
                                 mainActivity.getResources().getString(R.string.send_sms),
                                 mainActivity.getResources().getString(R.string.sms_surety) + " to " + productDetail.getUser_name() + " ?",
                                 mainActivity.getResources().getString(R.string.send_sms),
-                                mainActivity.getResources().getString(R.string.cancel),
+                                mainActivity.getResources().getString(R.string.cancel_en),
                                 false,
                                 false,
                                 (dialog, which, positive, logout) -> {
@@ -441,7 +441,7 @@ public class ProductDetailFragment extends BaseFragment implements View.OnClickL
                         mainActivity.getResources().getString(R.string.call_phone),
                         mainActivity.getResources().getString(R.string.call_phone_surety) + " to " + productDetail.getUser_name() + " ?",
                         mainActivity.getResources().getString(R.string.call),
-                        mainActivity.getResources().getString(R.string.cancel),
+                        mainActivity.getResources().getString(R.string.cancel_en),
                         false,
                         false,
                         (dialog, which, positive, logout) -> {

@@ -14,18 +14,23 @@ import java.util.ArrayList;
 
 import structure.com.foodportal.R;
 import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.SubCategoryListner;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.Ingredient;
 import structure.com.foodportal.models.foodModels.Sections;
 
-public class FoodSubCategory  extends RecyclerView.Adapter<FoodSubCategory.PlanetViewHolder> {
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
+
+public class FoodSubCategory extends RecyclerView.Adapter<FoodSubCategory.PlanetViewHolder> {
 
     ArrayList<CategorySlider> sections;
     Context context;
     SubCategoryListner subCategoryListner;
     private int lastPosition = -1;
+
     public FoodSubCategory(ArrayList<CategorySlider> sections, Context context, SubCategoryListner subCategoryListner) {
         this.sections = sections;
         this.context = context;
@@ -40,36 +45,58 @@ public class FoodSubCategory  extends RecyclerView.Adapter<FoodSubCategory.Plane
     }
 
 
-
-
     @Override
     public void onBindViewHolder(FoodSubCategory.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
 
 
-        holder.text.setText(sections.get(position).getCategory_title_en()== null ? sections.get(position).getTitle_en():sections.get(position).getCategory_title_en());
+        holder.text.setText(getTitleBySelectedLanguage(position));
 
-            UIHelper.setImageWithGlide(context,holder.circleImageView,  sections.get(position).getSlider_path()!=null?sections.get(position).getSlider_image():sections.get(position).getGallery().getPhotos().get(0).getImage_path());
+        if (sections.get(position).getSlider_path() != null) {
+            UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getSlider_path());
+        }
+        else {
+            UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getGallery().getPhotos().get(0).getImage_path());
+        }
+
+//        UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getSlider_path() != null ? sections.get(position).getSlider_image() : sections.get(position).getGallery().getPhotos().get(0).getImage_path());
 
         //UIHelper.setImageWithGlide(context,holder.circleImageView,sections.size()>0 ? sections.get(position).getGallery().getPhotos().get(0).getImage_path() : null);
-             setAnimation(holder.itemView, position);
+        setAnimation(holder.itemView, position);
 
-             holder.itemView.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View view) {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
                 subCategoryListner.onSubCategoryClick(position);
 
-                 }
-             });
+            }
+        });
 
 
     }
-    private void setAnimation(View viewToAnimate, int position)
-    {
+
+    private BasePreferenceHelper preferenceHelper;
+
+    private String getTitleBySelectedLanguage(int position) {
+        String title = sections.get(position).getCategory_title_en() == null ? sections.get(position).getTitle_en() : sections.get(position).getCategory_title_en();
+        if (preferenceHelper != null) {
+            if (preferenceHelper.getSelectedLanguage() == ENGLISH) {
+                title = sections.get(position).getCategory_title_en() == null ? sections.get(position).getTitle_en() : sections.get(position).getCategory_title_en();
+            } else if (preferenceHelper.getSelectedLanguage() == URDU) {
+                title = sections.get(position).getCategory_title_ur() == null ? sections.get(position).getTitle_ur() : sections.get(position).getCategory_title_ur();
+            }
+        }
+        return title;
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        this.preferenceHelper = preferenceHelper;
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > 0)
-        {
+        if (position > 0) {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
@@ -83,14 +110,14 @@ public class FoodSubCategory  extends RecyclerView.Adapter<FoodSubCategory.Plane
     }
 
     public void addAll(ArrayList<CategorySlider> categorySliderWrapper) {
-        this.sections =categorySliderWrapper;
+        this.sections = categorySliderWrapper;
         notifyDataSetChanged();
 
     }
 
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
-         TextView text;
+        TextView text;
         ImageView circleImageView;
 
         public PlanetViewHolder(View itemView) {
