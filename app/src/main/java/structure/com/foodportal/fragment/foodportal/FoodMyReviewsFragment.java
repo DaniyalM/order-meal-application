@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 
 import java.util.ArrayList;
 
@@ -20,9 +19,7 @@ import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.LocalDataHelper;
-import structure.com.foodportal.helper.NetworkUtils;
 import structure.com.foodportal.helper.Titlebar;
-import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodMyReviewsListener;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.Recipe;
@@ -33,15 +30,42 @@ public class FoodMyReviewsFragment extends BaseFragment implements FoodMyReviews
     FragmentMyReviewsBinding binding;
     ArrayList<Recipe> reviews;
 
+    private String myReviews, reviewSingle, reviewsMultiple;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_reviews, container, false);
         setListners();
         mainActivity.hideBottombar();
-        binding.tvReviewCount.setText("My Reviews");
+
+
+        binding.tvReviewCount.setText(myReviews);
         getMyReviews();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setValuesByLanguage(preferenceHelper.getSelectedLanguage());
+    }
+
+    private void setValuesByLanguage(int language) {
+        switch (language) {
+            case AppConstant.Language.ENGLISH:
+            default:
+                myReviews = getString(R.string.my_reviews_en);
+                reviewSingle = getString(R.string.review_single_en);
+                reviewsMultiple = getString(R.string.reviews_multi_en);
+                break;
+
+            case AppConstant.Language.URDU:
+                myReviews = getString(R.string.my_reviews_ur);
+                reviewSingle = getString(R.string.review_single_ur);
+                reviewsMultiple = getString(R.string.reviews_multi_ur);
+                break;
+        }
     }
 
     private void getMyReviews() {
@@ -52,6 +76,8 @@ public class FoodMyReviewsFragment extends BaseFragment implements FoodMyReviews
     private void setListners() {
         reviews = new ArrayList<>();
         foodMyReviewsAdapter = new FoodMyReviewsAdapter(reviews, getContext(), this);
+        foodMyReviewsAdapter.setPreferenceHelper(preferenceHelper);
+
         binding.rvMyReviews.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvMyReviews.setAdapter(foodMyReviewsAdapter);
     }
@@ -72,9 +98,9 @@ public class FoodMyReviewsFragment extends BaseFragment implements FoodMyReviews
             }
         });
         if (foodMyReviewsAdapter.getItemCount() == 1) {
-            binding.tvReviewCount.setText("My Reviews (" + foodMyReviewsAdapter.getItemCount() + " Review)");
+            binding.tvReviewCount.setText(myReviews + " (" + foodMyReviewsAdapter.getItemCount() + " " + reviewSingle +  ")");
         } else {
-            binding.tvReviewCount.setText("My Reviews (" + foodMyReviewsAdapter.getItemCount() + " Reviews)");
+            binding.tvReviewCount.setText(myReviews + " (" + foodMyReviewsAdapter.getItemCount() + " " + reviewsMultiple +  ")");
         }
     }
 

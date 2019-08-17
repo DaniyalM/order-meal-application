@@ -95,6 +95,9 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
         tutorials = new ArrayList<>();
         foodCookingGuidesAdapter = new FoodCookingGuidesAdapter(tutorials, getContext(), this);
 
+        foodRecipeAdapter.setPreferenceHelper(preferenceHelper);
+        foodCookingGuidesAdapter.setPreferenceHelper(preferenceHelper);
+
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(mainActivity, 2);
         binding.rvSubCategory.setLayoutManager(layoutManager);
 

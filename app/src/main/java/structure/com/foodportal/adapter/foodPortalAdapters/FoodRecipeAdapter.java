@@ -14,10 +14,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import structure.com.foodportal.R;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.SubCategoryListner;
 import structure.com.foodportal.models.foodModels.Recipe;
 import structure.com.foodportal.models.foodModels.SavedRecipe;
+
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
 
 public class FoodRecipeAdapter extends RecyclerView.Adapter<FoodRecipeAdapter.PlanetViewHolder> {
 
@@ -61,7 +65,7 @@ public class FoodRecipeAdapter extends RecyclerView.Adapter<FoodRecipeAdapter.Pl
     public void onBindViewHolder(FoodRecipeAdapter.PlanetViewHolder holder, int position) {
         Recipe recipe = recipes.get(position);
         if (recipe != null) {
-            holder.text.setText(recipe.getTitle_en());
+            holder.text.setText(getTitleBySelectedLanguage(position));
 
             UIHelper.setImageWithGlide(context, holder.circleImageView,
                     recipe.getGallery().getPhotos().get(0).getImage_path());
@@ -133,6 +137,24 @@ public class FoodRecipeAdapter extends RecyclerView.Adapter<FoodRecipeAdapter.Pl
 //
 //
 //    }
+
+    private BasePreferenceHelper preferenceHelper;
+
+    private String getTitleBySelectedLanguage(int position) {
+        String title = recipes.get(position).getTitle_en();
+        if (preferenceHelper != null) {
+            if (preferenceHelper.getSelectedLanguage() == ENGLISH) {
+                title = recipes.get(position).getTitle_en();
+            } else if (preferenceHelper.getSelectedLanguage() == URDU) {
+                title = recipes.get(position).getTitle_ur();
+            }
+        }
+        return title;
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        this.preferenceHelper = preferenceHelper;
+    }
 
     private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated

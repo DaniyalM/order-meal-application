@@ -614,4 +614,10 @@
     <string name="yes_ur">جی ہاں</string>
     <string name="cancel_en">Cancel</string>
     <string name="cancel_ur">منسوخ کریں</string>
+    <string name="my_reviews_en">My Reviews</string>
+    <string name="my_reviews_ur">میری رائے</string>
+    <string name="reviews_multi_en">Reviews</string>
+    <string name="reviews_multi_ur">رائے</string>
+    <string name="review_single_en">Review</string>
+    <string name="review_single_ur">راہ</string>
 </resources>

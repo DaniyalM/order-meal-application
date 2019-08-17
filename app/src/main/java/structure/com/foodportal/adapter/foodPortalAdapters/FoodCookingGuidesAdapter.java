@@ -15,10 +15,14 @@ import com.like.LikeButton;
 import java.util.ArrayList;
 
 import structure.com.foodportal.R;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.foodModels.Recipe;
 import structure.com.foodportal.models.foodModels.Sections;
+
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
 
 public class FoodCookingGuidesAdapter extends RecyclerView.Adapter<FoodCookingGuidesAdapter.PlanetViewHolder> {
 
@@ -42,19 +46,36 @@ public class FoodCookingGuidesAdapter extends RecyclerView.Adapter<FoodCookingGu
 
     @Override
     public void onBindViewHolder(FoodCookingGuidesAdapter.PlanetViewHolder holder, int position) {
-        holder.text.setText(sections.get(position).getTitle());
-        UIHelper.setImageWithGlide(context,holder.circleImageView,  sections.get(position).getBlog_thumb_image_path_size());
+        holder.text.setText(getTitleBySelectedLanguage(position));
+        UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getBlog_thumb_image_path_size());
 
         // UIHelper.setImageWithGlide(context,holder.circleImageView,sections.size()>0 ? sections.get(position).getGallery().getPhotos().get(0).getImage_path() : null);
         //     setAnimation(holder.itemView, position);
 
         holder.itemView.setOnClickListener(view -> foodHomeListner.masterTechniquesClick(position));
     }
-    private void setAnimation(View viewToAnimate, int position)
-    {
+
+    private BasePreferenceHelper preferenceHelper;
+
+    private String getTitleBySelectedLanguage(int position) {
+        String title = sections.get(position).getTitle();
+        if (preferenceHelper != null) {
+            if (preferenceHelper.getSelectedLanguage() == ENGLISH) {
+                title = sections.get(position).getTitle();
+            } else if (preferenceHelper.getSelectedLanguage() == URDU) {
+                title = sections.get(position).getTitle_ur();
+            }
+        }
+        return title;
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        this.preferenceHelper = preferenceHelper;
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > 0)
-        {
+        if (position > 0) {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;

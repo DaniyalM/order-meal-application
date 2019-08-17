@@ -68,6 +68,7 @@ public class GetStartedFragment extends BaseFragment implements View.OnClickList
     private void setValuesByLanguage(int language) {
         switch (language) {
             case AppConstant.Language.ENGLISH:
+            default:
                 binding.tvSlogan.setText(registrationActivity.getString(R.string.main_screen_slogan_en));
                 binding.tvWithEmail.setText(Utils.loadUnderlineHtmlText(registrationActivity.getString(R.string.email_en)));
                 binding.tvWithFacebok.setText(Utils.loadUnderlineHtmlText(registrationActivity.getString(R.string.facebook_en)));
