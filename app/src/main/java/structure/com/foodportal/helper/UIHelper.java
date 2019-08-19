@@ -3,18 +3,22 @@ package structure.com.foodportal.helper;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
+//import android.app.AlertDialog;
+//import android.support.v7.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.widget.CircularProgressDrawable;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -34,6 +38,7 @@ import structure.com.foodportal.activity.BaseActivity;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.interfaces.SimpleDialogActionListener;
 
+import static android.view.Gravity.END;
 import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 import static structure.com.foodportal.helper.AppConstant.Language.URDU;
 
@@ -195,6 +200,11 @@ public class UIHelper {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+
+        if (title.equals(context.getString(R.string.restart_required_en)) || title.equals(context.getString(R.string.restart_required_ur))) {
+            TextView textViewTitle = (TextView) dialog.findViewById(R.id.alertTitle);
+            textViewTitle.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+        }
     }
 
     public static String getMomentsAgo(String date) {

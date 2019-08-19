@@ -620,4 +620,8 @@
     <string name="reviews_multi_ur">رائے</string>
     <string name="review_single_en">Review</string>
     <string name="review_single_ur">راہ</string>
+    <string name="restart_required_en">Restart required</string>
+    <string name="restart_required_ur">دوبارہ شروع کرنا ضروری ہے</string>
+    <string name="restart_required_desc_en">This requires restarting the application. Are you sure you want to restart the app?</string>
+    <string name="restart_required_desc_ur">اس کے لئے ایپ کو دوبارہ شروع کرنا ضروری ہے۔ کیا آپ واقعی میں ایپ کو دوبارہ شروع کرنا چاہتے ہیں؟</string>
 </resources>

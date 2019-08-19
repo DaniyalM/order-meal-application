@@ -2,9 +2,12 @@ package structure.com.foodportal.adapter.foodPortalAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,6 +19,8 @@ import structure.com.foodportal.interfaces.foodInterfaces.FoodMyReviewsListener;
 import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.Recipe;
 
+import static android.view.Gravity.END;
+import static android.view.Gravity.START;
 import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 import static structure.com.foodportal.helper.AppConstant.Language.URDU;
 
@@ -50,21 +55,37 @@ public class FoodMyReviewsCategoriesAdapter extends RecyclerView.Adapter<FoodMyR
                 foodMyReviewsListener.onCategoryClick(reviewPosition, position);
             }
         });
+
+//        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) holder.mFrameLayoutChip.getLayoutParams();
+//
+//        if (preferenceHelper != null) {
+//            switch (preferenceHelper.getSelectedLanguage()) {
+//                case ENGLISH:
+//                default:
+//                    params.gravity = START;
+//                    break;
+//
+//                case URDU:
+//                    params.gravity = END;
+//                    break;
+//            }
+//            holder.mFrameLayoutChip.setLayoutParams(params);
+//        }
     }
 
     private BasePreferenceHelper preferenceHelper;
 
     private String getTitleBySelectedLanguage(int position, TextView textView) {
         String title = categories.get(position).getCategory_title_en();
-        textView.setTextSize(10);
+        textView.setTextSize(12);
 
         if (preferenceHelper != null) {
             if (preferenceHelper.getSelectedLanguage() == ENGLISH) {
-                textView.setTextSize(10);
                 title = categories.get(position).getCategory_title_en();
+                textView.setTextSize(12);
             } else if (preferenceHelper.getSelectedLanguage() == URDU) {
-                textView.setTextSize(14);
                 title = categories.get(position).getCategory_title_ur();
+                textView.setTextSize(14);
             }
         }
         return title;
@@ -81,10 +102,12 @@ public class FoodMyReviewsCategoriesAdapter extends RecyclerView.Adapter<FoodMyR
 
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
+        private FrameLayout mFrameLayoutChip;
         private TextView chip;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
+            mFrameLayoutChip = (FrameLayout) itemView.findViewById(R.id.frameLayoutChip);
             chip = (TextView) itemView.findViewById(R.id.chip);
         }
     }

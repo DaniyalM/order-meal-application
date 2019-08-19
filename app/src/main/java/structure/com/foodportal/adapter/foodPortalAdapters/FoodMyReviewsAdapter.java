@@ -2,12 +2,14 @@ package structure.com.foodportal.adapter.foodPortalAdapters;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
@@ -79,26 +81,32 @@ public class FoodMyReviewsAdapter extends RecyclerView.Adapter<FoodMyReviewsAdap
                     }
                 });
 
-//                if (preferenceHelper != null) {
-//                    switch (preferenceHelper.getSelectedLanguage()) {
-//                        case ENGLISH:
-//                        default:
-//                            holder.tvCreatedAt.setGravity(START);
-//                            holder.rtvReview.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                                holder.rvCategories.setForegroundGravity(START);
-//                            }
-//                            break;
-//
-//                        case URDU:
-//                            holder.tvCreatedAt.setGravity(END);
-//                            holder.rtvReview.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                                holder.rvCategories.setForegroundGravity(END);
-//                            }
-//                            break;
-//                    }
-//                }
+                if (preferenceHelper != null) {
+                    holder.mLayoutReview.removeAllViews();
+
+                    switch (preferenceHelper.getSelectedLanguage()) {
+                        case ENGLISH:
+                        default:
+                            holder.tvCreatedAt.setGravity(START);
+                            holder.rtvReview.setGravity(START);
+                            holder.mLayoutReview.addView(holder.civRecipe, 0);
+                            holder.mLayoutReview.addView(holder.mViewSpaceStart, 1);
+                            holder.mLayoutReview.addView(holder.mLayoutReviewContent, 2);
+                            holder.mLayoutReview.addView(holder.mViewSpaceEnd, 3);
+                            holder.mLayoutReview.addView(holder.ratingBar, 4);
+                            break;
+
+                        case URDU:
+                            holder.tvCreatedAt.setGravity(END);
+                            holder.rtvReview.setGravity(END);
+                            holder.mLayoutReview.addView(holder.ratingBar, 0);
+                            holder.mLayoutReview.addView(holder.mViewSpaceStart, 1);
+                            holder.mLayoutReview.addView(holder.mLayoutReviewContent, 2);
+                            holder.mLayoutReview.addView(holder.mViewSpaceEnd, 3);
+                            holder.mLayoutReview.addView(holder.civRecipe, 4);
+                            break;
+                    }
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -141,6 +149,8 @@ public class FoodMyReviewsAdapter extends RecyclerView.Adapter<FoodMyReviewsAdap
         private ReadMoreTextView rtvReview;
         private CustomRatingBar ratingBar;
         private RecyclerView rvCategories;
+        private LinearLayout mLayoutReview, mLayoutReviewContent;
+        private View mViewSpaceStart, mViewSpaceEnd;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
@@ -151,6 +161,10 @@ public class FoodMyReviewsAdapter extends RecyclerView.Adapter<FoodMyReviewsAdap
             rtvReview = (ReadMoreTextView) itemView.findViewById(R.id.tvReview);
             ratingBar = (CustomRatingBar) itemView.findViewById(R.id.ratingBar);
             rvCategories = (RecyclerView) itemView.findViewById(R.id.rvCategories);
+            mLayoutReview = (LinearLayout) itemView.findViewById(R.id.linearLayoutReview);
+            mLayoutReviewContent = (LinearLayout) itemView.findViewById(R.id.linearLayoutReviewContent);
+            mViewSpaceStart = (View) itemView.findViewById(R.id.viewSpaceStart);
+            mViewSpaceEnd = (View) itemView.findViewById(R.id.viewSpaceEnd);
         }
     }
 }

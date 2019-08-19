@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frameLayoutChip"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/dp48"
     android:layout_margin="@dimen/dp5"
@@ -16,4 +17,3 @@
         android:text="Chip my biryani"
         android:textColor="@color/white" />
 </FrameLayout>
-

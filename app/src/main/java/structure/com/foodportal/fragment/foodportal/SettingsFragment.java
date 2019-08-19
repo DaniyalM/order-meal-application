@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
@@ -31,10 +32,14 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import structure.com.foodportal.R;
+import structure.com.foodportal.activity.MainActivity;
+import structure.com.foodportal.activity.SplashActivity;
 import structure.com.foodportal.fragment.BaseFragment;
+import structure.com.foodportal.fragment.GetStartedFragment;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
+import structure.com.foodportal.interfaces.SimpleDialogActionListener;
 
 public class SettingsFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
@@ -87,6 +92,9 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
     private int mPreferenceSelectedItemIndex;
     private int mLanguagePreviousSelectedItemIndex = 0;
     private boolean mIsChangeApplied = false;
+
+    private String mTitle, mMessage;
+    private String mPositiveButtonText, mNegativeButtonText;
 
 //    @BindView(R.id.bottom_sheet)
 //    LinearLayout layoutBottomSheet;
@@ -357,6 +365,23 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         mLanguagePreviousSelectedItemIndex = mPreferenceSelectedItemIndex;
 
         textViewSelectedLanguage.setText(mLanguages[mPreferenceSelectedItemIndex]);
+
+        switch (mPreferenceSelectedItemIndex) {
+            case AppConstant.Language.ENGLISH:
+            default:
+                mTitle = getString(R.string.restart_required_en);
+                mMessage = getString(R.string.restart_required_desc_en);
+                mPositiveButtonText = getString(R.string.yes_en);
+                mNegativeButtonText = getString(R.string.cancel_en);
+                break;
+
+            case AppConstant.Language.URDU:
+                mTitle = getString(R.string.restart_required_ur);
+                mMessage = getString(R.string.restart_required_desc_ur);
+                mPositiveButtonText = getString(R.string.yes_ur);
+                mNegativeButtonText = getString(R.string.cancel_ur);
+                break;
+        }
     }
 
     private void onClickLanguage() {
@@ -402,10 +427,35 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                 if (mIsChangeApplied == false) {
                     mLanguagePreviousSelectedItemIndex = mPreferenceSelectedItemIndex;
                     mainActivity.prefHelper.putSelectedLanguage(mLanguagePreviousSelectedItemIndex);
+                    initLanguageVariables();
                 } else {
-                    mainActivity.prefHelper.putSelectedLanguage(mSelectedItemIndex);
+                    // Here show restart app dialog
+                    UIHelper.showSimpleDialog(
+                            mainActivity,
+                            0,
+                            mTitle,
+                            mMessage,
+                            mPositiveButtonText,
+                            mNegativeButtonText,
+                            true,
+                            false,
+                            new SimpleDialogActionListener() {
+                                @Override
+                                public void onDialogActionListener(DialogInterface dialog, int which, boolean positive, boolean logout) {
+                                    if (positive) {
+                                        mainActivity.prefHelper.putSelectedLanguage(mSelectedItemIndex);
+                                        initLanguageVariables();
+                                        dialog.dismiss();
+                                        ActivityCompat.finishAffinity(mainActivity);
+                                        startActivity(new Intent(mainActivity, SplashActivity.class));
+                                    }
+                                    else {
+                                        dialog.dismiss();
+                                    }
+                                }
+                            }
+                    );
                 }
-                initLanguageVariables();
             }
         });
     }
