@@ -14,6 +14,15 @@ public class Banner
 
     ArrayList<CountFavorite> count_favorites;
 
+    private String featured_image_path;
+
+    public String getFeatured_image_path() {
+        return featured_image_path;
+    }
+
+    public void setFeatured_image_path(String featured_image_path) {
+        this.featured_image_path = featured_image_path;
+    }
 
     private String serving_for;
     private String banner_image_path;

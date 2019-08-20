@@ -48,17 +48,23 @@ public class FoodBannerAdapter extends RecyclerView.Adapter<FoodBannerAdapter.Pl
 
         holder.text.clearAnimation();
         holder.text.setText("" + getTitleBySelectedLanguage(position));
-        if (ingredientList.get(position).getBanner_image_path() != null) {
+        if (ingredientList.get(position).getFeatured_image_path() != null) {
+            UIHelper.setImageWithGlide(context, holder.circleImageView, ingredientList.get(position).getFeatured_image_path());
+        } else {
+            // For blog
             if (ingredientList.get(position).getId() == 4) {
                 UIHelper.setImageWithGlide(context, holder.circleImageView, R.drawable.ic_blog_banner);
-            } else {
+            }
+            // For tutorial
+            else if (ingredientList.get(position).getId() == 2) {
                 UIHelper.setImageWithGlide(context, holder.circleImageView, ingredientList.get(position).getBanner_image_path());
             }
-        } else {
-
-
-            UIHelper.setImageWithGlide(context, holder.circleImageView, ingredientList.get(position).getGallery().getPhotos().get(0).getImage_path());
+            // For other feature types
+            else {
+                UIHelper.setImageWithGlide(context, holder.circleImageView, ingredientList.get(position).getGallery().getPhotos().get(0).getImage_path());
+            }
         }
+
         // setAnimation(holder.itemView, position);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
