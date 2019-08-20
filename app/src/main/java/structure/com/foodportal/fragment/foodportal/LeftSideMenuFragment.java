@@ -6,13 +6,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,12 +18,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import butterknife.internal.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.adapter.foodPortalAdapters.NavItemBinderLeft;
@@ -141,7 +135,7 @@ public class LeftSideMenuFragment extends BaseFragment {
         arrayNavOptions.add(R.string.submit_your_recipe);
         arrayNavOptions.add(R.string.my_reviews);
         arrayNavOptions.add(R.string.my_saved_recipes);
-        arrayNavOptions.add(R.string.logout);
+        arrayNavOptions.add(R.string.log_out_en);
 
 
 

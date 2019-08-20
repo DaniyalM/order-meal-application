@@ -40,6 +40,8 @@ import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.helper.Utils;
 import structure.com.foodportal.interfaces.SimpleDialogActionListener;
 
+import static android.view.View.LAYOUT_DIRECTION_LTR;
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 import static structure.com.foodportal.helper.AppConstant.Language.URDU;
 
 public class SettingsFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
@@ -89,21 +91,32 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
     @BindView(R.id.tvEmailSupportDesc)
     TextView tvEmailSupportDesc;
 
+    @BindView(R.id.tvLegal)
+    TextView tvLegal;
+
     @BindView(R.id.tvLegalPrivacyPolicy)
     TextView tvLegalPrivacyPolicy;
+
+    @BindView(R.id.tvLegalDesc)
+    TextView tvLegalDesc;
 
     @BindView(R.id.tvAboutUs)
     TextView tvAboutUs;
 
+    @BindView(R.id.tvAboutUsDesc)
+    TextView tvAboutUsDesc;
+
     @BindView(R.id.tvUserAgreements)
     TextView tvUserAgreements;
+
+    @BindView(R.id.tvUserAgreementsDesc)
+    TextView tvUserAgreementsDesc;
 
     @BindView(R.id.tvAccountLogin)
     TextView tvAccountLogin;
 
     @BindView(R.id.tvVersion)
     TextView tvVersion;
-
 
     @BindView(R.id.tvWithEmail)
     TextView tvWithEmail;
@@ -121,8 +134,9 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
     private int mLanguagePreviousSelectedItemIndex = 0;
     private boolean mIsChangeApplied = false;
 
-    private String mTitle, mMessage;
+    private String mTitle, mMessage, mAppVersionStr;
     private String mPositiveButtonText, mNegativeButtonText, mOK;
+    private String mLogout;
 
 //    @BindView(R.id.bottom_sheet)
 //    LinearLayout layoutBottomSheet;
@@ -238,7 +252,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         }
 
         // TextView textViewVersionInfo = (TextView) findViewById(R.id.textview_version_info);
-        tvVersion.setText(String.format("App Version V" + versionName));
+        tvVersion.setText(String.format(mAppVersionStr + versionName));
     }
 
     void setlistner() {
@@ -370,7 +384,6 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                 openPrivacyPolicy();
                 break;
             case R.id.tvAccountLogin:
-
                 toggleBottomSheet();
                 break;
             case R.id.swNotifications:
@@ -399,30 +412,42 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
             default:
                 mTitle = getString(R.string.restart_required_en);
                 mMessage = getString(R.string.restart_required_desc_en);
+                mAppVersionStr = getString(R.string.app_version_en);
                 mPositiveButtonText = getString(R.string.yes_en);
                 mNegativeButtonText = getString(R.string.cancel_en);
                 mOK = getString(R.string.ok_en);
+                mLogout = getString(R.string.log_out_en);
 
                 tvSettings.setText(getString(R.string.settings_en));
                 tvGeneral.setText(getString(R.string.general_en));
-                linearLayoutAutoPlay.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                linearLayoutAutoPlay.setLayoutDirection(LAYOUT_DIRECTION_LTR);
                 tvAutoPlay.setText(getString(R.string.auto_play_en));
                 swAutoPlay.setText(getString(R.string.auto_play_desc_en));
-                linearLayoutNotification.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                linearLayoutNotification.setLayoutDirection(LAYOUT_DIRECTION_LTR);
                 tvNotifications.setText(getString(R.string.notifications_en));
                 swNotifications.setText(getString(R.string.notifications_desc_en));
                 tvLanguage.setText(getString(R.string.language_en));
                 tvFeedback.setText(getString(R.string.feedback_en));
                 tvEmailSupport.setText(Utils.loadUnderlineHtmlText(getString(R.string.email_support_en)));
                 tvEmailSupportDesc.setText(getString(R.string.email_support_desc_en));
+                tvLegal.setText(getString(R.string.legal_en));
+                tvLegalPrivacyPolicy.setText(Utils.loadUnderlineHtmlText(getString(R.string.legal_privacy_policy_en)));
+                tvLegalDesc.setText(getString(R.string.legal_desc_en));
+                tvAboutUs.setText(Utils.loadUnderlineHtmlText(getString(R.string.about_us_en)));
+                tvAboutUsDesc.setText(getString(R.string.about_us_desc_en));
+                tvUserAgreements.setText(Utils.loadUnderlineHtmlText(getString(R.string.user_agreements_en)));
+                tvUserAgreementsDesc.setText(getString(R.string.user_agreements_desc_en));
+                tvAccountLogin.setText(Utils.loadUnderlineHtmlText(getString(R.string.account_log_in_en)));
                 break;
 
             case AppConstant.Language.URDU:
                 mTitle = getString(R.string.restart_required_ur);
                 mMessage = getString(R.string.restart_required_desc_ur);
+                mAppVersionStr = getString(R.string.app_version_ur);
                 mPositiveButtonText = getString(R.string.yes_ur);
                 mNegativeButtonText = getString(R.string.cancel_ur);
                 mOK = getString(R.string.ok_ur);
+                mLogout = getString(R.string.log_out_ur);
 
                 tvSettings.setText(getString(R.string.settings_ur));
                 tvGeneral.setText(getString(R.string.general_ur));
@@ -436,6 +461,14 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                 tvFeedback.setText(getString(R.string.feedback_ur));
                 tvEmailSupport.setText(Utils.loadUnderlineHtmlText(getString(R.string.email_support_ur)));
                 tvEmailSupportDesc.setText(getString(R.string.email_support_desc_ur));
+                tvLegal.setText(getString(R.string.legal_ur));
+                tvLegalPrivacyPolicy.setText(Utils.loadUnderlineHtmlText(getString(R.string.legal_privacy_policy_ur)));
+                tvLegalDesc.setText(getString(R.string.legal_desc_ur));
+                tvAboutUs.setText(Utils.loadUnderlineHtmlText(getString(R.string.about_us_ur)));
+                tvAboutUsDesc.setText(getString(R.string.about_us_desc_ur));
+                tvUserAgreements.setText(Utils.loadUnderlineHtmlText(getString(R.string.user_agreements_ur)));
+                tvUserAgreementsDesc.setText(getString(R.string.user_agreements_desc_ur));
+                tvAccountLogin.setText(Utils.loadUnderlineHtmlText(getString(R.string.account_log_in_ur)));
                 break;
         }
     }
@@ -551,8 +584,29 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
             mBottomSheetDialog = new BottomSheetDialog(mainActivity);
             View sheetView = mainActivity.getLayoutInflater().inflate(R.layout.bottom_sheet, null);
             mBottomSheetDialog.setContentView(sheetView);
+
+            LinearLayout linearLayoutUnlockCookingFood = (LinearLayout) sheetView.findViewById(R.id.linearLayoutUnlockCookingFood);
+            TextView tvUnlockCookingFood = (TextView) sheetView.findViewById(R.id.tvUnlockCookingFood);
             TextView btnFacebook = (TextView) sheetView.findViewById(R.id.tvWithFacebok);
             TextView btnEmail = (TextView) sheetView.findViewById(R.id.tvWithEmail);
+
+            switch (preferenceHelper.getSelectedLanguage()) {
+                case ENGLISH:
+                default:
+                    linearLayoutUnlockCookingFood.setLayoutDirection(LAYOUT_DIRECTION_LTR);
+                    tvUnlockCookingFood.setText(getString(R.string.unlock_cooking_food_recipes_en));
+                    btnFacebook.setText(getString(R.string.facebook_en));
+                    btnEmail.setText(getString(R.string.email_en));
+                    break;
+
+                case URDU:
+                    linearLayoutUnlockCookingFood.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                    tvUnlockCookingFood.setText(getString(R.string.unlock_cooking_food_recipes_ur));
+                    btnFacebook.setText(getString(R.string.facebook_ur));
+                    btnEmail.setText(getString(R.string.email_ur));
+                    break;
+            }
+
             btnEmail.setOnClickListener(this);
             btnFacebook.setOnClickListener(this);
             mBottomSheetDialog.show();
@@ -576,11 +630,28 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
 //            //wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
 //            window.setAttributes(wlp);
 
-
+            LinearLayout linearLayoutUser = (LinearLayout) sheetView.findViewById(R.id.linearLayoutUser);
             Button btnCancel = (Button) sheetView.findViewById(R.id.btnCancel);
             CircleImageView userImage = (CircleImageView) sheetView.findViewById(R.id.userImage);
             TextView userName = (TextView) sheetView.findViewById(R.id.userName);
-            userName.setText(preferenceHelper.getUserFood().getName_en());
+            Button btnlogout = (Button) sheetView.findViewById(R.id.btnlogout);
+
+            btnCancel.setText(mNegativeButtonText);
+            btnlogout.setText(mLogout);
+
+            switch (preferenceHelper.getSelectedLanguage()) {
+                case ENGLISH:
+                default:
+                    linearLayoutUser.setLayoutDirection(LAYOUT_DIRECTION_LTR);
+                    userName.setText(preferenceHelper.getUserFood().getName_en());
+                    break;
+
+                case URDU:
+                    linearLayoutUser.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                    userName.setText(preferenceHelper.getUserFood().getName_ur());
+                    break;
+            }
+
             switch (preferenceHelper.getUserFood().getAcct_type()) {
                 case 1:
                     UIHelper.setImageWithGlide(mainActivity, userImage, AppConstant.BASE_URL_IMAGE + preferenceHelper.getUserFood().getProfile_picture());
@@ -600,6 +671,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                     break;
 
             }
+
             btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -607,13 +679,10 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                 }
             });
 
-            Button btnlogout = (Button) sheetView.findViewById(R.id.btnlogout);
             btnlogout.setOnClickListener(this);
 
             mBottomSheetDialog.show();
         }
-
-
     }
 
     @Override

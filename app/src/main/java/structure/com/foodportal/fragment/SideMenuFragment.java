@@ -81,7 +81,7 @@ public class SideMenuFragment extends BaseFragment {
             termsAndConditon.setkey("Privacy Policy");
             replaceFragment(termsAndConditon, true, true);
 
-        } else if ((ent).equals(getString(R.string.login_en)) || (ent).equals(getString(R.string.logout))) {
+        } else if ((ent).equals(getString(R.string.login_en)) || (ent).equals(getString(R.string.log_out_en))) {
 
             if ((ent).equals(getString(R.string.login_en))) {
 
@@ -162,7 +162,7 @@ public class SideMenuFragment extends BaseFragment {
         sideMenuOptions.add(getString(R.string.submit_your_recipe));
         sideMenuOptions.add(getString(R.string.my_reviews));
         sideMenuOptions.add(getString(R.string.my_saved_recipes));
-        sideMenuOptions.add(getString(R.string.logout));
+        sideMenuOptions.add(getString(R.string.log_out_en));
 
 
         sideMenuOptionsDrawable.add(R.drawable.icon_menu_home);
@@ -179,7 +179,7 @@ public class SideMenuFragment extends BaseFragment {
 
         if (preferenceHelper.getLoginStatus()) {
 
-            sideMenuOptions.add(getString(R.string.logout));
+            sideMenuOptions.add(getString(R.string.log_out_en));
         } else {
 
             sideMenuOptions.add(getString(R.string.login_en));

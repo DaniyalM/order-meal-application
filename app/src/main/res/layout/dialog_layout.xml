@@ -16,6 +16,7 @@
             android:background="@color/uvv_gray" />
 
         <LinearLayout
+            android:id="@+id/linearLayoutUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -80,7 +81,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorRed"
                 android:fontFamily="@font/proximaextrabold"
-                android:text="Log Out"
+                android:text="@string/log_out_en"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dp12" />
 

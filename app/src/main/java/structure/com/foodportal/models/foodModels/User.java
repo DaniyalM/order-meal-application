@@ -23,6 +23,15 @@ public  class User {
     String email;
     int acct_type;
     String name_en;
+    String name_ur;
+
+    public String getName_ur() {
+        return name_ur;
+    }
+
+    public void setName_ur(String name_ur) {
+        this.name_ur = name_ur;
+    }
 
     String profile_picture_path;
 

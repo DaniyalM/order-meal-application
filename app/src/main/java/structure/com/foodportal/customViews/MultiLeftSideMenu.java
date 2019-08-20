@@ -277,7 +277,7 @@ public class MultiLeftSideMenu extends BaseFragment {
         TextView footerTitle = (TextView) footerView.findViewById(R.id.logout);
         //set the text to Footer View
         if (preferenceHelper.getLoginStatus() && (!preferenceHelper.getUserFood().getId().equals("293"))) {
-            footerTitle.setText(getActivity().getResources().getString(R.string.logout));
+            footerTitle.setText(getActivity().getResources().getString(R.string.log_out_en));
         } else {
             footerView.getRootView().findViewById(R.id.savedrecipes).setVisibility(View.GONE);
             footerView.getRootView().findViewById(R.id.cookingGuides).setVisibility(View.GONE);

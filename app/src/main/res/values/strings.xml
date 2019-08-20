@@ -121,7 +121,6 @@
     <string name="rateApp">Rate the App</string>
     <string name="termCondition"><![CDATA[Terms & Conditions]]></string>
     <string name="privacyPolicy">Privacy Policy</string>
-    <string name="logout">Log out</string>
     <string name="searchHere">Search Here…</string>
     <string name="justForYou">JUST FOR YOU</string>
     <string name="thisJustIN">THIS JUST IN</string>
@@ -523,7 +522,6 @@
     <string name="login_with_google">Login with Google</string>
     <string name="login_with_email">Login with Email</string>
     <string name="your_recipe_are_waiting">Your sections are waiting</string>
-    <string name="unlock_cooking_food_recipes_and_your_personal_recipe_box_with_a_free_trial">Sign up or log in to unlock hundreds of sections, tips and tutorials; and save your favorites to revisit.</string>
     <string name="ingredients">Ingredients</string>
     <string name="cooking_food">Cooking Food</string>
     <string name="cleaning">Cleaning</string>
@@ -544,10 +542,7 @@
     <string name="server_client_id">964728012300-aq7aopoe0jdvc1v738f8l6g58sbic3u8.apps.googleusercontent.com</string>
 
 
-    <string name="legal_privacy_policy"><u>Legal-Privacy Policy</u></string>
-    <string name="about_us"><u>About Us</u></string>
-    <string name="user_agreements"><u>User Agreements</u></string>
-    <string name="account_log_in"><u>Account-Log In</u></string>
+
 
     <!-- Language strings -->
 
@@ -644,4 +639,26 @@
     <string name="email_support_ur">ای میل کی حمایت</string>
     <string name="email_support_desc_en">Receives and answers customer inquiries for via email.</string>
     <string name="email_support_desc_ur">ای میل کے ذریعہ صارفین کے استفسارات کو حاصل کرتا ہے اور اس کا جواب دیتا ہے۔</string>
+    <string name="legal_en">Legal</string>
+    <string name="legal_ur">قانونی</string>
+    <string name="legal_privacy_policy_en">Legal-Privacy Policy</string>
+    <string name="legal_privacy_policy_ur">قانونی رازداری کی پالیسی</string>
+    <string name="legal_desc_en">A Legal document that discloses and manages a customer or client\'s data.</string>
+    <string name="legal_desc_ur">ایک قانونی دستاویز جو کسی صارف یا مؤکل کے ڈیٹا کا انکشاف اور انتظام کرتی ہے۔</string>
+    <string name="about_us_en">About Us</string>
+    <string name="about_us_ur">ہمارے بارے میں</string>
+    <string name="about_us_desc_en">The Page that introduces yourself to your website.</string>
+    <string name="about_us_desc_ur">وہ صفحہ جو خود کو آپ کی ویب سائٹ سے متعارف کراتا ہے۔</string>
+    <string name="user_agreements_en">User Agreements</string>
+    <string name="user_agreements_ur">صارف کے معاہدے</string>
+    <string name="user_agreements_desc_en">An Agreement that\'s put in place between an owner, operator, or provider of a website, mobile app.</string>
+    <string name="user_agreements_desc_ur">ایک معاہدہ جو کسی مالک ، آپریٹر ، یا کسی ویب سائٹ کے فراہم کنندہ ، موبائل ایپ کے درمیان ہوتا ہے۔</string>
+    <string name="account_log_in_en">Account-Log In</string>
+    <string name="account_log_in_ur">اکاؤنٹ-لاگ ان</string>
+    <string name="app_version_en">App Version V</string>
+    <string name="app_version_ur">ایپ ورژن V</string>
+    <string name="log_out_en">Log out</string>
+    <string name="log_out_ur">لاگ آوٹ</string>
+    <string name="unlock_cooking_food_recipes_en">Sign up or log in to unlock hundreds of sections, tips and tutorials; and save your favorites to revisit.</string>
+    <string name="unlock_cooking_food_recipes_ur">سینکڑوں حصوں ، اشارے اور ٹیوٹوریل کو غیر مقفل کرنے کیلئے سائن اپ یا لاگ ان کریں اور اپنی پسند کی نظر ثانی کرنے کیلئے محفوظ کریں۔</string>
 </resources>
