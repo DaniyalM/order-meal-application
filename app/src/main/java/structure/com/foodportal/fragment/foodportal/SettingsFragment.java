@@ -432,13 +432,12 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                     // Here show restart app dialog
                     UIHelper.showSimpleDialog(
                             mainActivity,
-                            0,
+                            mainActivity.prefHelper,
                             mTitle,
                             mMessage,
                             mPositiveButtonText,
                             mNegativeButtonText,
                             true,
-                            false,
                             new SimpleDialogActionListener() {
                                 @Override
                                 public void onDialogActionListener(DialogInterface dialog, int which, boolean positive, boolean logout) {
@@ -448,8 +447,8 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                                         dialog.dismiss();
                                         ActivityCompat.finishAffinity(mainActivity);
                                         startActivity(new Intent(mainActivity, SplashActivity.class));
-                                    }
-                                    else {
+                                    } else {
+                                        mIsChangeApplied = false;
                                         dialog.dismiss();
                                     }
                                 }

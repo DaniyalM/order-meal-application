@@ -15,9 +15,11 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,9 @@ import static structure.com.foodportal.helper.AppConstant.Language.URDU;
  * Created by Addi.
  */
 public class UIHelper {
+
+    private static boolean sIsPositive = false;
+    private static int sWhich;
 
     public interface Utilinterface {
         public void dialogPositive_Click(DialogInterface dialog);
@@ -200,10 +205,54 @@ public class UIHelper {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
 
-        if (title.equals(context.getString(R.string.restart_required_en)) || title.equals(context.getString(R.string.restart_required_ur))) {
+    public static void showSimpleDialog(final Context context, BasePreferenceHelper preferenceHelper, String title,
+                                        String message, String positiveButton, String negativeButton, boolean cancelable,
+                                        final SimpleDialogActionListener simpleDialogActionListener) {
+
+        sIsPositive = false;
+        sWhich = 0;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setCancelable(cancelable)
+                .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        sIsPositive = true;
+                        sWhich = which;
+//                        simpleDialogActionListener.onDialogActionListener(dialog, which, true, false);
+                    }
+                })
+                .setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        sIsPositive = false;
+                        sWhich = which;
+//                        simpleDialogActionListener.onDialogActionListener(dialog, which, false, false);
+                    }
+                })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        simpleDialogActionListener.onDialogActionListener(dialog, sWhich, sIsPositive, false);
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        if (preferenceHelper.getSelectedLanguage() == URDU) {
             TextView textViewTitle = (TextView) dialog.findViewById(R.id.alertTitle);
-            textViewTitle.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+            textViewTitle.setGravity(Gravity.RIGHT);
+
+            LinearLayout parent = ((LinearLayout) textViewTitle.getParent());
+            LinearLayout.LayoutParams originalParams = (LinearLayout.LayoutParams) parent.getLayoutParams();
+            originalParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            originalParams.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
+            parent.setLayoutParams(originalParams);
         }
     }
 
