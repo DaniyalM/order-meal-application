@@ -174,7 +174,7 @@ public class BasePreferenceHelper extends PreferenceHelper {
     }
 
     public int getSelectedLanguage() {
-        return getIntegerPrefrence(KEY_LANGUAGE) == -1 ? 0 : getIntegerPrefrence(KEY_LANGUAGE);
+        return getIntegerPrefrence(KEY_LANGUAGE) == -1 ? AppConstant.Language.ENGLISH : getIntegerPrefrence(KEY_LANGUAGE);
     }
 
     public void putUserToken(String token) {

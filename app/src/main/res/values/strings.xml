@@ -464,7 +464,6 @@
     <string name="order_details_not_found">Order details not found</string>
 
     <!-- Notifications Fragment -->
-    <string name="notifications">Notifications</string>
     <string name="no_notifications_to_show">No notifications to show</string>
 
     <string name="pickup_date_time">Pickup Date/Time</string>
@@ -543,12 +542,8 @@
     <string name="foodtribune">Food Tribune</string>
     <string name="foodDescription">Food Tribune Description</string>
     <string name="server_client_id">964728012300-aq7aopoe0jdvc1v738f8l6g58sbic3u8.apps.googleusercontent.com</string>
-    <string name="auto_play">Auto Play</string>
-    <string name="email_support"><u>Email Support</u></string>
-    <string name="language">Language</string>
-    <string name="english_language">English</string>
-    <string name="urdu_language">اردو</string>
-    <string name="default_language">@string/english_language</string>
+
+
     <string name="legal_privacy_policy"><u>Legal-Privacy Policy</u></string>
     <string name="about_us"><u>About Us</u></string>
     <string name="user_agreements"><u>User Agreements</u></string>
@@ -624,4 +619,29 @@
     <string name="restart_required_ur">دوبارہ شروع کرنا ضروری ہے</string>
     <string name="restart_required_desc_en">This requires restarting the application. Are you sure you want to restart the app?</string>
     <string name="restart_required_desc_ur">اس کے لئے ایپ کو دوبارہ شروع کرنا ضروری ہے۔ کیا آپ واقعی میں ایپ کو دوبارہ شروع کرنا چاہتے ہیں؟</string>
+    <string name="settings_en">Settings</string>
+    <string name="settings_ur">ترتیبات</string>
+    <string name="general_en">General</string>
+    <string name="general_ur">جنرل</string>
+    <string name="auto_play_en">Auto Play</string>
+    <string name="auto_play_ur">آٹو پلے</string>
+    <string name="auto_play_desc_en">Tap switch to turn on or off auto play</string>
+    <string name="auto_play_desc_ur">آٹو پلے آن یا آف کرنے کیلئے سوئچ پر ٹیپ کریں</string>
+    <string name="language_en">Language</string>
+    <string name="language_ur">زبان</string>
+    <string name="english_language">English</string>
+    <string name="urdu_language">اردو</string>
+    <string name="default_language">@string/english_language</string>
+    <string name="notifications_en">Notifications</string>
+    <string name="notifications_ur">اطلاعات</string>
+    <string name="notifications_desc_en">Tap switch to turn on or off notifications</string>
+    <string name="notifications_desc_ur">اطلاعات آن یا آف کرنے کیلئے سوئچ پر ٹیپ کریں</string>
+    <string name="ok_en">OK</string>
+    <string name="ok_ur">ٹھیک ہے</string>
+    <string name="feedback_en">Feedback</string>
+    <string name="feedback_ur">تاثرات</string>
+    <string name="email_support_en">Email Support</string>
+    <string name="email_support_ur">ای میل کی حمایت</string>
+    <string name="email_support_desc_en">Receives and answers customer inquiries for via email.</string>
+    <string name="email_support_desc_ur">ای میل کے ذریعہ صارفین کے استفسارات کو حاصل کرتا ہے اور اس کا جواب دیتا ہے۔</string>
 </resources>

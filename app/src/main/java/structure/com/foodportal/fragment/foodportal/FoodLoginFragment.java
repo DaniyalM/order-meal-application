@@ -68,6 +68,7 @@ public class FoodLoginFragment extends BaseFragment implements View.OnClickListe
     private void setValuesByLanguage(int language) {
         switch (language) {
             case AppConstant.Language.ENGLISH:
+            default:
                 binding.tvEmail.setText(registrationActivity.getString(R.string.email_en));
                 binding.tvPassword.setText(registrationActivity.getString(R.string.password_en));
                 binding.btnLogin.setText(registrationActivity.getString(R.string.login_en));

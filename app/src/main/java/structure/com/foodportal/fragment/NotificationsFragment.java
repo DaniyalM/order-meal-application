@@ -54,7 +54,7 @@ public class NotificationsFragment extends BaseFragment {
         titlebar.resetView();
         titlebar.showTitlebar();
         titlebar.showMenuButton(mainActivity);
-        titlebar.setTitle(mainActivity.getResources().getString(R.string.notifications));
+        titlebar.setTitle(mainActivity.getResources().getString(R.string.notifications_en));
     }
 
     @Override

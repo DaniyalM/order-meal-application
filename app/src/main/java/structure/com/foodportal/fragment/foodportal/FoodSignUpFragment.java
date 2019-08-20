@@ -58,6 +58,7 @@ public class FoodSignUpFragment extends BaseFragment implements View.OnClickList
 
         switch (language) {
             case AppConstant.Language.ENGLISH:
+            default:
                 binding.tvCreateYourAccount.setText(registrationActivity.getString(R.string.create_your_account_en));
                 binding.tvFname.setText(registrationActivity.getString(R.string.fname_en));
                 binding.tvLname.setText(registrationActivity.getString(R.string.lname_en));

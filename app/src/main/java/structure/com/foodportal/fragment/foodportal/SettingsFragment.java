@@ -32,34 +32,62 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import structure.com.foodportal.R;
-import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.activity.SplashActivity;
 import structure.com.foodportal.fragment.BaseFragment;
-import structure.com.foodportal.fragment.GetStartedFragment;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
+import structure.com.foodportal.helper.Utils;
 import structure.com.foodportal.interfaces.SimpleDialogActionListener;
+
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
 
 public class SettingsFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
+    @BindView(R.id.tvSettings)
+    TextView tvSettings;
+
+    @BindView(R.id.tvGeneral)
+    TextView tvGeneral;
+
+    @BindView(R.id.linearLayoutAutoPlay)
+    LinearLayout linearLayoutAutoPlay;
+
+    @BindView(R.id.tvAutoPlay)
+    TextView tvAutoPlay;
+
     @BindView(R.id.swAutoPlay)
-    SwitchCompat autoplay;
+    SwitchCompat swAutoPlay;
 
-    @BindView(R.id.llLanguage)
-    LinearLayout linearLayoutLanguage;
+    @BindView(R.id.linearLayoutNotification)
+    LinearLayout linearLayoutNotification;
 
-    @BindView(R.id.tvSelectedLanguage)
-    TextView textViewSelectedLanguage;
+    @BindView(R.id.tvNotifications)
+    TextView tvNotifications;
 
     @BindView(R.id.swNotifications)
-    SwitchCompat notification;
+    SwitchCompat swNotifications;
 
-    @BindView(R.id.llEmailSupport)
+    @BindView(R.id.linearLayoutLanguage)
+    LinearLayout linearLayoutLanguage;
+
+    @BindView(R.id.tvLanguage)
+    TextView tvLanguage;
+
+    @BindView(R.id.tvSelectedLanguage)
+    TextView tvSelectedLanguage;
+
+    @BindView(R.id.tvFeedback)
+    TextView tvFeedback;
+
+    @BindView(R.id.linearLayoutEmailSupport)
     LinearLayout llEmailSupport;
 
-    @BindView(R.id.mainNotificationlayout)
-    LinearLayout mainNotificationlayout;
+    @BindView(R.id.tvEmailSupport)
+    TextView tvEmailSupport;
+
+    @BindView(R.id.tvEmailSupportDesc)
+    TextView tvEmailSupportDesc;
 
     @BindView(R.id.tvLegalPrivacyPolicy)
     TextView tvLegalPrivacyPolicy;
@@ -94,7 +122,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
     private boolean mIsChangeApplied = false;
 
     private String mTitle, mMessage;
-    private String mPositiveButtonText, mNegativeButtonText;
+    private String mPositiveButtonText, mNegativeButtonText, mOK;
 
 //    @BindView(R.id.bottom_sheet)
 //    LinearLayout layoutBottomSheet;
@@ -166,31 +194,31 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
 
 
         if (preferenceHelper.getAutoPlay()) {
-            autoplay.setChecked(true);
+            swAutoPlay.setChecked(true);
 
         } else {
 
-            autoplay.setChecked(false);
+            swAutoPlay.setChecked(false);
         }
 
 
         if (preferenceHelper.getUserFood().getId().equals("293")) {
-            mainNotificationlayout.setClickable(false);
-            notification.setEnabled(false);
-            mainNotificationlayout.setAlpha(0.5f);
+            linearLayoutNotification.setClickable(false);
+            swNotifications.setEnabled(false);
+            linearLayoutNotification.setAlpha(0.5f);
 
         } else {
-            notification.setEnabled(true);
-            mainNotificationlayout.setClickable(true);
-            mainNotificationlayout.setAlpha(1f);
+            swNotifications.setEnabled(true);
+            linearLayoutNotification.setClickable(true);
+            linearLayoutNotification.setAlpha(1f);
 
         }
 
         if (preferenceHelper.getNotification()) {
-            notification.setChecked(true);
+            swNotifications.setChecked(true);
 
         } else {
-            notification.setChecked(false);
+            swNotifications.setChecked(false);
 
         }
 
@@ -215,9 +243,9 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
 
     void setlistner() {
 
-        autoplay.setOnCheckedChangeListener(this);
+        swAutoPlay.setOnCheckedChangeListener(this);
         linearLayoutLanguage.setOnClickListener(this);
-        notification.setOnClickListener(this);
+        swNotifications.setOnClickListener(this);
         llEmailSupport.setOnClickListener(this);
         tvLegalPrivacyPolicy.setOnClickListener(this);
         tvAboutUs.setOnClickListener(this);
@@ -237,11 +265,11 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
 
                 if (b) {
 
-                    autoplay.setChecked(true);
+                    swAutoPlay.setChecked(true);
                     preferenceHelper.setAutoPlay(true);
                 } else {
 
-                    autoplay.setChecked(false);
+                    swAutoPlay.setChecked(false);
                     preferenceHelper.setAutoPlay(false);
                 }
 
@@ -326,10 +354,10 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                 mainActivity.finish();
                 mainActivity.showRegistrationActivity();
                 break;
-            case R.id.llLanguage:
+            case R.id.linearLayoutLanguage:
                 onClickLanguage();
                 break;
-            case R.id.llEmailSupport:
+            case R.id.linearLayoutEmailSupport:
                 sendEmail();
                 break;
             case R.id.tvLegalPrivacyPolicy:
@@ -346,13 +374,13 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                 toggleBottomSheet();
                 break;
             case R.id.swNotifications:
-                if (notification.isChecked()) {
+                if (swNotifications.isChecked()) {
                     notificationturnonoff(1);
-                    notification.setChecked(true);
+                    swNotifications.setChecked(true);
                     preferenceHelper.setNotification(true);
                 } else {
                     notificationturnonoff(0);
-                    notification.setChecked(false);
+                    swNotifications.setChecked(false);
                     preferenceHelper.setNotification(false);
                 }
                 break;
@@ -364,7 +392,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         mSelectedItemIndex = mPreferenceSelectedItemIndex;
         mLanguagePreviousSelectedItemIndex = mPreferenceSelectedItemIndex;
 
-        textViewSelectedLanguage.setText(mLanguages[mPreferenceSelectedItemIndex]);
+        tvSelectedLanguage.setText(mLanguages[mPreferenceSelectedItemIndex]);
 
         switch (mPreferenceSelectedItemIndex) {
             case AppConstant.Language.ENGLISH:
@@ -373,6 +401,20 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                 mMessage = getString(R.string.restart_required_desc_en);
                 mPositiveButtonText = getString(R.string.yes_en);
                 mNegativeButtonText = getString(R.string.cancel_en);
+                mOK = getString(R.string.ok_en);
+
+                tvSettings.setText(getString(R.string.settings_en));
+                tvGeneral.setText(getString(R.string.general_en));
+                linearLayoutAutoPlay.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                tvAutoPlay.setText(getString(R.string.auto_play_en));
+                swAutoPlay.setText(getString(R.string.auto_play_desc_en));
+                linearLayoutNotification.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                tvNotifications.setText(getString(R.string.notifications_en));
+                swNotifications.setText(getString(R.string.notifications_desc_en));
+                tvLanguage.setText(getString(R.string.language_en));
+                tvFeedback.setText(getString(R.string.feedback_en));
+                tvEmailSupport.setText(Utils.loadUnderlineHtmlText(getString(R.string.email_support_en)));
+                tvEmailSupportDesc.setText(getString(R.string.email_support_desc_en));
                 break;
 
             case AppConstant.Language.URDU:
@@ -380,14 +422,30 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                 mMessage = getString(R.string.restart_required_desc_ur);
                 mPositiveButtonText = getString(R.string.yes_ur);
                 mNegativeButtonText = getString(R.string.cancel_ur);
+                mOK = getString(R.string.ok_ur);
+
+                tvSettings.setText(getString(R.string.settings_ur));
+                tvGeneral.setText(getString(R.string.general_ur));
+                linearLayoutAutoPlay.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                tvAutoPlay.setText(getString(R.string.auto_play_ur));
+                swAutoPlay.setText(getString(R.string.auto_play_desc_ur));
+                linearLayoutNotification.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                tvNotifications.setText(getString(R.string.notifications_ur));
+                swNotifications.setText(getString(R.string.notifications_desc_ur));
+                tvLanguage.setText(getString(R.string.language_ur));
+                tvFeedback.setText(getString(R.string.feedback_ur));
+                tvEmailSupport.setText(Utils.loadUnderlineHtmlText(getString(R.string.email_support_ur)));
+                tvEmailSupportDesc.setText(getString(R.string.email_support_desc_ur));
                 break;
         }
     }
 
     private void onClickLanguage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setNegativeButton("Cancel", null);
-        builder.setPositiveButton("OK", null);
+        builder.setTitle(tvLanguage.getText().toString());
+        builder.setCancelable(true);
+        builder.setNegativeButton(mNegativeButtonText, null);
+        builder.setPositiveButton(mOK, null);
 
         initLanguageVariables();
 
@@ -399,29 +457,32 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
             }
         });
 
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.setTitle(mainActivity.getString(R.string.language));
-        alertDialog.setCancelable(true);
-        alertDialog.show();
+        final AlertDialog dialog = builder.create();
+        dialog.show();
 
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+        if (preferenceHelper.getSelectedLanguage() == URDU) {
+            TextView textViewTitle = (TextView) dialog.findViewById(getResources().getIdentifier("alertTitle", "id", "android"));
+            UIHelper.makeAlertDialogTitleRightAligned(textViewTitle);
+        }
+
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIsChangeApplied = false;
-                alertDialog.dismiss();
+                dialog.dismiss();
             }
         });
 
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIsChangeApplied = true;
                 mLanguagePreviousSelectedItemIndex = mSelectedItemIndex;
-                alertDialog.dismiss();
+                dialog.dismiss();
             }
         });
 
-        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 if (mIsChangeApplied == false) {
@@ -443,7 +504,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                                 public void onDialogActionListener(DialogInterface dialog, int which, boolean positive, boolean logout) {
                                     if (positive) {
                                         mainActivity.prefHelper.putSelectedLanguage(mSelectedItemIndex);
-                                        initLanguageVariables();
+//                                        initLanguageVariables();
                                         dialog.dismiss();
                                         ActivityCompat.finishAffinity(mainActivity);
                                         startActivity(new Intent(mainActivity, SplashActivity.class));
@@ -562,12 +623,12 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         switch (Tag) {
 
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_NOTIFICATION:
-                if (notification.isChecked()) {
-                    notification.setChecked(false);
+                if (swNotifications.isChecked()) {
+                    swNotifications.setChecked(false);
 
                 } else {
 
-                    notification.setChecked(true);
+                    swNotifications.setChecked(true);
                 }
 
                 break;

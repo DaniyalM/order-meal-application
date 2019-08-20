@@ -111,21 +111,21 @@ public class LeftSideMenuFragment extends BaseFragment {
 //                arrayNavOptions.add(R.string.home);
 //                arrayNavOptions.add(R.string.brands);
 //                arrayNavOptions.add(R.string.deals_in);
-//                arrayNavOptions.add(R.string.notification);
+//                arrayNavOptions.add(R.string.swNotifications);
 //                arrImages.add(R.drawable.home);
 //                arrImages.add(R.drawable.brands);
 //                arrImages.add(R.drawable.deals_in);
-//                arrImages.add(R.drawable.notification);
+//                arrImages.add(R.drawable.swNotifications);
 //                break;
 //            default:
 
 //                arrayNavOptions.add(R.string.home);
-//                arrayNavOptions.add(R.string.notification);
+//                arrayNavOptions.add(R.string.swNotifications);
 //                arrayNavOptions.add(R.string.message);
 //                arrayNavOptions.add(R.string.my_orders);
 //                arrayNavOptions.add(R.string.my_cars);
 //                arrImages.add(R.drawable.directory);
-//                arrImages.add(R.drawable.notification);
+//                arrImages.add(R.drawable.swNotifications);
 //                arrImages.add(R.drawable.message);
 //                arrImages.add(R.drawable.my_orders);
 //                arrImages.add(R.drawable.my_car);

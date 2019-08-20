@@ -7,7 +7,6 @@
     android:overScrollMode="always"
     android:scrollbars="none">
 
-
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,44 +17,47 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvSettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp15"
                 android:layout_marginTop="@dimen/dp20"
+                android:layout_marginEnd="@dimen/dp15"
                 android:fontFamily="@font/proximaextrabold"
-                android:text="Settings"
+                android:text="@string/settings_en"
                 android:textColor="@color/colorBlackButton"
                 android:textSize="@dimen/dp24" />
 
             <TextView
+                android:id="@+id/tvGeneral"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp15"
                 android:layout_marginTop="@dimen/dp25"
+                android:layout_marginEnd="@dimen/dp15"
                 android:fontFamily="@font/proximaextrabold"
-                android:text="General"
+                android:text="@string/general_en"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/dp18" />
 
             <LinearLayout
+                android:id="@+id/linearLayoutAutoPlay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp15"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp5"
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvAutoPlay"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/auto_play"
+                        android:text="@string/auto_play_en"
                         android:textSize="@dimen/dp14" />
-
-
                 </LinearLayout>
 
 
@@ -68,39 +70,14 @@
                     android:layout_marginBottom="@dimen/dp5"
                     android:checked="true"
                     android:gravity="start|center"
-                    android:text="Tap switch to turn on and turn off autoplay"
+                    android:text="@string/auto_play_desc_en"
                     android:textColor="@color/uvv_gray"
                     android:textSize="@dimen/dp12" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/llLanguage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp15"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/language"
-                    android:textSize="@dimen/dp14" />
-
-                <TextView
-                    android:id="@+id/tvSelectedLanguage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp4"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:text="@string/default_language"
-                    android:textColor="@color/uvv_gray"
-                    android:textSize="@dimen/dp12" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/mainNotificationlayout"
+                android:id="@+id/linearLayoutNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp15"
@@ -108,17 +85,17 @@
                 android:clickable="true"
                 android:orientation="vertical">
 
-
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dp5"
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvNotifications"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/notifications"
+                        android:text="@string/notifications_en"
                         android:textSize="@dimen/dp14" />
 
                 </LinearLayout>
@@ -132,45 +109,72 @@
                     android:layout_marginBottom="@dimen/dp5"
                     android:checked="true"
                     android:gravity="start|center"
-                    android:text="Tap switch to turn on and off notifications"
+                    android:text="@string/notifications_desc_en"
                     android:textColor="@color/uvv_gray"
                     android:textSize="@dimen/dp12" />
-<!--                android:layout_marginTop="@dimen/dp5"-->
+                <!--                android:layout_marginTop="@dimen/dp5"-->
 
             </LinearLayout>
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp15"
-                android:layout_marginTop="@dimen/dp15"
-                android:fontFamily="@font/proximaextrabold"
-                android:text="Feedback"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/dp18" />
-
-
             <LinearLayout
-                android:id="@+id/llEmailSupport"
+                android:id="@+id/linearLayoutLanguage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp15"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvLanguage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/email_support"
+                    android:text="@string/language_en"
                     android:textSize="@dimen/dp14" />
 
                 <TextView
+                    android:id="@+id/tvSelectedLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp4"
+                    android:layout_weight="1"
+                    android:text="@string/default_language"
+                    android:textColor="@color/uvv_gray"
+                    android:textSize="@dimen/dp12" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp15"
+                android:layout_marginEnd="@dimen/dp15"
+                android:fontFamily="@font/proximaextrabold"
+                android:text="@string/feedback_en"
+                android:id="@+id/tvFeedback"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/dp18" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutEmailSupport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp15"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvEmailSupport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_support_en"
+                    android:textSize="@dimen/dp14" />
+
+                <TextView
+                    android:id="@+id/tvEmailSupportDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp4"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:text="Receives and answers customer inquiries for via email."
+                    android:text="@string/email_support_desc_en"
                     android:textColor="@color/uvv_gray"
                     android:textSize="@dimen/dp12" />
             </LinearLayout>
@@ -181,6 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp15"
                 android:layout_marginTop="@dimen/dp25"
+                android:layout_marginEnd="@dimen/dp15"
                 android:fontFamily="@font/proximaextrabold"
                 android:text="Legal"
                 android:textColor="@color/colorAccent"

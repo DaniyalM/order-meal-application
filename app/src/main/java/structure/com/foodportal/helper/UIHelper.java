@@ -246,8 +246,13 @@ public class UIHelper {
 
         if (preferenceHelper.getSelectedLanguage() == URDU) {
             TextView textViewTitle = (TextView) dialog.findViewById(R.id.alertTitle);
-            textViewTitle.setGravity(Gravity.RIGHT);
+            makeAlertDialogTitleRightAligned(textViewTitle);
+        }
+    }
 
+    public static void makeAlertDialogTitleRightAligned(TextView textViewTitle) {
+        if (textViewTitle != null) {
+            textViewTitle.setGravity(Gravity.RIGHT);
             LinearLayout parent = ((LinearLayout) textViewTitle.getParent());
             LinearLayout.LayoutParams originalParams = (LinearLayout.LayoutParams) parent.getLayoutParams();
             originalParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
