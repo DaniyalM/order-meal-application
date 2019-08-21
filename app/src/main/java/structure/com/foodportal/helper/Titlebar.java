@@ -14,6 +14,8 @@ import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.activity.RegistrationActivity;
 import structure.com.foodportal.databinding.TitlebarBinding;
 
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+
 
 public class Titlebar extends RelativeLayout {
     private TitlebarBinding binding;
@@ -21,6 +23,7 @@ public class Titlebar extends RelativeLayout {
     private OnClickListener notificationOnclickListener;
     RelativeLayout rlSearch;
     ImageView ivSearch;
+
     public Titlebar(Context context) {
         super(context);
         initLayout(context);
@@ -101,6 +104,12 @@ public class Titlebar extends RelativeLayout {
     }
 
     public void showTitlebar() {
+        binding.rlTitlebarMainLayout.setVisibility(View.VISIBLE);
+
+    }
+
+    public void showTitlebar(BasePreferenceHelper preferenceHelper) {
+        binding.rlTitlebarMainLayout.setLayoutDirection(preferenceHelper.getSelectedLanguage() == ENGLISH ? LAYOUT_DIRECTION_LTR : LAYOUT_DIRECTION_RTL);
         binding.rlTitlebarMainLayout.setVisibility(View.VISIBLE);
 
     }

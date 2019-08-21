@@ -126,15 +126,15 @@ public class LeftSideMenuFragment extends BaseFragment {
               //  break;
 
 
-        arrayNavOptions.add(R.string.home);
-        arrayNavOptions.add(R.string.recipes);
-        arrayNavOptions.add(R.string.tutorials);
+        arrayNavOptions.add(R.string.home_en);
+        arrayNavOptions.add(R.string.recipes_en);
+        arrayNavOptions.add(R.string.tutorials_en);
         arrayNavOptions.add(R.string.cleaning);
-        arrayNavOptions.add(R.string.cooking_guides);
-        arrayNavOptions.add(R.string.recently_viewed);
+        arrayNavOptions.add(R.string.cooking_guides_en);
+        arrayNavOptions.add(R.string.recently_viewed_en);
         arrayNavOptions.add(R.string.submit_your_recipe);
-        arrayNavOptions.add(R.string.my_reviews);
-        arrayNavOptions.add(R.string.my_saved_recipes);
+        arrayNavOptions.add(R.string.my_reviews_en);
+        arrayNavOptions.add(R.string.my_saved_recipes_en);
         arrayNavOptions.add(R.string.log_out_en);
 
 

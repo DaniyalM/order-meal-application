@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -67,6 +68,10 @@ import structure.com.foodportal.models.foodModels.HeaderWrapper;
 import structure.com.foodportal.webservice.WebServiceFactory;
 import structure.com.foodportal.webservice.webservice;
 
+import static android.view.Gravity.LEFT;
+import static android.view.Gravity.RIGHT;
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+
 
 public class MainActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener, DataLoadedListener, webServiceResponseLisener {
     public RadioButton rbHome, rbSearch, rbNotification, rbAccount;
@@ -80,6 +85,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 
     RadioGroup rgTabStart, rgTabEnd;
     DrawerLayout drawerLayout;
+    NavigationView mNavigationView;
     private boolean isLoading;
     private String sideMenuType;
     private String sideMenuDirection;
@@ -153,14 +159,27 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         init();
 
         sideMenuType = SideMenuChooser.DRAWER.getValue();
-        sideMenuDirection = SideMenuDirection.LEFT.getValue();
+        sideMenuDirection = prefHelper.getSelectedLanguage() == ENGLISH ? SideMenuDirection.LEFT.getValue() : SideMenuDirection.RIGHT.getValue();
 
 
         serviceHelper.enqueueArrayCall(webService.getHeader(), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HEADER);
 
+        DisplayMetrics matrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(matrics);
+        Long longwidth = Math.round(matrics.widthPixels * 0.75);
+        int drawerwidth = longwidth.intValue();
+        DrawerLayout.LayoutParams params = new DrawerLayout.LayoutParams(drawerwidth, DrawerLayout.LayoutParams.MATCH_PARENT);
+
+        if (sideMenuDirection.equals(SideMenuDirection.LEFT.getValue())) {
+            params.gravity = LEFT;
+        } else {
+            params.gravity = RIGHT;
+        }
+        mNavigationView.setLayoutParams(params);
+
         titlebar.setMenuOnclickListener(view -> {
             if (sideMenuDirection.equals(SideMenuDirection.LEFT.getValue())) {
-                drawerLayout.openDrawer(Gravity.LEFT);
+                drawerLayout.openDrawer(LEFT);
             } else {
                 drawerLayout.openDrawer(Gravity.RIGHT);
             }
@@ -216,6 +235,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         rgTabStart = findViewById(R.id.rgTabsStart);
         rgTabEnd = findViewById(R.id.rgTabsEnd);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mNavigationView = (NavigationView) findViewById(R.id.navView);
         framelayout = (FrameLayout) findViewById(R.id.sideMneuFragmentContainer);
         // sideMneuFragmentContainer = findViewById(R.id.sideMneuFragmentContainer);
         contentView = findViewById(R.id.contentView);
@@ -421,7 +441,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
             public void onDrawerStateChanged(int newState) {
                 if (!isNavigationGravityRight) {
                     if (newState == DrawerLayout.STATE_SETTLING) {
-                        if (!drawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                        if (!drawerLayout.isDrawerOpen(LEFT)) {
                             /*Blurry.with(MainActivity.this)
                                     .radius(15)
                                     .sampling(3)

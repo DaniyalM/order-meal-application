@@ -45,7 +45,6 @@
     <string name="view_all">View More</string>
     <string name="nearby_resturants">Nearby Resturants</string>
     <string name="fast_food_fries_icecream">Fast Food \u2022 Fries \u2022Icecream</string>
-    <string name="home">Home</string>
     <string name="cart">Cart</string>
     <string name="my_orders">My Orders</string>
     <string name="my_account">My Account</string>
@@ -516,8 +515,6 @@
     <string name="entertitle">Enter title</string>
     <string name="operating_system_required">Enter Operating System</string>
     <string name="processor_required">Enter Processor</string>
-    <string name="recipes">Recipes</string>
-    <string name="tutorials">Tutorials</string>
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="login_with_google">Login with Google</string>
     <string name="login_with_email">Login with Email</string>
@@ -525,11 +522,7 @@
     <string name="ingredients">Ingredients</string>
     <string name="cooking_food">Cooking Food</string>
     <string name="cleaning">Cleaning</string>
-    <string name="cooking_guides">Cooking Guides</string>
-    <string name="recently_viewed">Recently viewed</string>
     <string name="submit_your_recipe">Submit your recipe</string>
-    <string name="my_reviews">My Reviews</string>
-    <string name="my_saved_recipes">My Saved Recipes</string>
     <string name="serving">Serving for</string>
     <string name="popular_recipe">Popular Recipe</string>
     <string name="featured_recipe">Featured Recipe</string>
@@ -661,4 +654,16 @@
     <string name="log_out_ur">لاگ آوٹ</string>
     <string name="unlock_cooking_food_recipes_en">Sign up or log in to unlock hundreds of sections, tips and tutorials; and save your favorites to revisit.</string>
     <string name="unlock_cooking_food_recipes_ur">سینکڑوں حصوں ، اشارے اور ٹیوٹوریل کو غیر مقفل کرنے کیلئے سائن اپ یا لاگ ان کریں اور اپنی پسند کی نظر ثانی کرنے کیلئے محفوظ کریں۔</string>
+    <string name="home_en">Home</string>
+    <string name="home_ur">ہوم</string>
+    <string name="recipes_en">Recipes</string>
+    <string name="recipes_ur">تراکیب</string>
+    <string name="my_saved_recipes_en">My Saved Recipes</string>
+    <string name="my_saved_recipes_ur">محفوظ کردا تراکیب</string>
+    <string name="cooking_guides_en">Cooking Guides</string>
+    <string name="cooking_guides_ur">کھانے پکانے کی ہدایات</string>
+    <string name="recently_viewed_en">Recently Viewed</string>
+    <string name="recently_viewed_ur">حال میں دیکھی ہوئی</string>
+    <string name="my_favorite_recipes_en">My Favorite Recipes</string>
+    <string name="my_favorite_recipes_ur">میری پسندیدہ تراکیب</string>
 </resources>

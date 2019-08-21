@@ -1,5 +1,6 @@
 package structure.com.foodportal.customViews;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -40,6 +41,13 @@ import structure.com.foodportal.models.foodModels.CategorySlider;
 import structure.com.foodportal.models.foodModels.DrawerItem;
 import structure.com.foodportal.models.foodModels.HeaderWrapper;
 
+import static structure.com.foodportal.helper.AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG;
+import static structure.com.foodportal.helper.AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING;
+import static structure.com.foodportal.helper.AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES;
+import static structure.com.foodportal.helper.AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS;
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
+
 
 public class MultiLeftSideMenu extends BaseFragment {
     private Context context;
@@ -54,6 +62,7 @@ public class MultiLeftSideMenu extends BaseFragment {
         return new MultiLeftSideMenu();
     }
 
+    @SuppressLint("ValidFragment")
     public MultiLeftSideMenu(ArrayList<HeaderWrapper> headerWrapper, String type) {
         this.headerWrapper = headerWrapper;
         this.type = type;
@@ -132,27 +141,46 @@ public class MultiLeftSideMenu extends BaseFragment {
                 expandableListView.scrollTo(parent.getPositionForView(v), parent.getPositionForView(v));
                 v.requestFocus();
                 parent.requestFocus();
-                switch (listDataHeader.get(groupPosition)) {
-                    case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
-                        mainActivity.clearBackStack();
-                        mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES), true, false);
-                        break;
-                    case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
-                        mainActivity.closeDrawer();
-                        mainActivity.clearBackStack();
-                        mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS), true, false);
-                        break;
-                    case AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING:
-                        mainActivity.closeDrawer();
-                        mainActivity.clearBackStack();
-                        mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING), true, false);
-                        break;
-                    case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
-                        mainActivity.closeDrawer();
-                        mainActivity.clearBackStack();
-                        mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG), true, false);
-                        break;
+
+                if (headerWrapper.get(groupPosition).getSlug().equalsIgnoreCase(RECIPES)) {
+                    mainActivity.clearBackStack();
+                    mainActivity.addFragment(new FoodHomeFragment(RECIPES), true, false);
+                } else if (headerWrapper.get(groupPosition).getSlug().equalsIgnoreCase("Tutorial")) {
+                    mainActivity.closeDrawer();
+                    mainActivity.clearBackStack();
+                    mainActivity.addFragment(new FoodHomeFragment(TUTORIALS), true, false);
+                } else if (headerWrapper.get(groupPosition).getSlug().equalsIgnoreCase(CLEANING)) {
+                    mainActivity.closeDrawer();
+                    mainActivity.clearBackStack();
+                    mainActivity.addFragment(new FoodHomeFragment(CLEANING), true, false);
+                } else if (headerWrapper.get(groupPosition).getSlug().equalsIgnoreCase(BLOG)) {
+                    mainActivity.closeDrawer();
+                    mainActivity.clearBackStack();
+                    mainActivity.addFragment(new FoodHomeFragment(BLOG), true, false);
                 }
+
+
+//                switch (listDataHeader.get(groupPosition)) {
+//                    case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
+//                        mainActivity.clearBackStack();
+//                        mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES), true, false);
+//                        break;
+//                    case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS), true, false);
+//                        break;
+//                    case AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING:
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING), true, false);
+//                        break;
+//                    case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG), true, false);
+//                        break;
+//                }
 
 
                 return true;
@@ -197,6 +225,7 @@ public class MultiLeftSideMenu extends BaseFragment {
 
             }
         });
+
         // Listview on child click listener
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
@@ -207,50 +236,89 @@ public class MultiLeftSideMenu extends BaseFragment {
 
                 // expandableListView.collapseGroup(groupPosition);
                 SubCategoryFragment subCategoryFragment;
-                switch (listDataHeader.get(groupPosition)) {
-                    case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
-                        mainActivity.closeDrawer();
-                        mainActivity.clearBackStack();
-                        subCategoryFragment = new SubCategoryFragment();
-                        subCategoryFragment.setModel(listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES);
-                        mainActivity.addFragment(subCategoryFragment, true, false);
-                        break;
-                    case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
-                        mainActivity.closeDrawer();
-                        mainActivity.clearBackStack();
-                        subCategoryFragment = new SubCategoryFragment();
-                        subCategoryFragment.setModel(listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS);
-                        mainActivity.addFragment(subCategoryFragment, true, false);
+
+                if (headerWrapper.get(groupPosition).getSlug().equalsIgnoreCase(RECIPES)) {
+                    mainActivity.closeDrawer();
+                    mainActivity.clearBackStack();
+                    subCategoryFragment = new SubCategoryFragment();
+                    subCategoryFragment.setModel(listDataChild.get(
+                            listDataHeader.get(groupPosition)).get(
+                            childPosition), RECIPES);
+                    mainActivity.addFragment(subCategoryFragment, true, false);
+                } else if (headerWrapper.get(groupPosition).getSlug().equalsIgnoreCase("Tutorial")) {
+                    mainActivity.closeDrawer();
+                    mainActivity.clearBackStack();
+                    subCategoryFragment = new SubCategoryFragment();
+                    subCategoryFragment.setModel(listDataChild.get(
+                            listDataHeader.get(groupPosition)).get(
+                            childPosition), TUTORIALS);
+                    mainActivity.addFragment(subCategoryFragment, true, false);
+
+                } else if (headerWrapper.get(groupPosition).getSlug().equalsIgnoreCase(CLEANING)) {
+                    mainActivity.closeDrawer();
+                    mainActivity.clearBackStack();
+                    subCategoryFragment = new SubCategoryFragment();
+                    subCategoryFragment.setModel(listDataChild.get(
+                            listDataHeader.get(groupPosition)).get(
+                            childPosition), CLEANING);
+                    mainActivity.addFragment(subCategoryFragment, true, false);
 
 
-                        break;
-                    case AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING:
-                        mainActivity.closeDrawer();
-                        mainActivity.clearBackStack();
-                        subCategoryFragment = new SubCategoryFragment();
-                        subCategoryFragment.setModel(listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING);
-                        mainActivity.addFragment(subCategoryFragment, true, false);
-
-
-                        break;
-                    case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
-                        mainActivity.closeDrawer();
-                        mainActivity.clearBackStack();
-                        subCategoryFragment = new SubCategoryFragment();
-                        subCategoryFragment.setModel(listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG);
-                        mainActivity.addFragment(subCategoryFragment, true, false);
-
-                        break;
+                } else if (headerWrapper.get(groupPosition).getSlug().equalsIgnoreCase(BLOG)) {
+                    mainActivity.closeDrawer();
+                    mainActivity.clearBackStack();
+                    subCategoryFragment = new SubCategoryFragment();
+                    subCategoryFragment.setModel(listDataChild.get(
+                            listDataHeader.get(groupPosition)).get(
+                            childPosition), BLOG);
+                    mainActivity.addFragment(subCategoryFragment, true, false);
 
                 }
+
+//                switch (listDataHeader.get(groupPosition)) {
+//                    case RECIPES:
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        subCategoryFragment = new SubCategoryFragment();
+//                        subCategoryFragment.setModel(listDataChild.get(
+//                                listDataHeader.get(groupPosition)).get(
+//                                childPosition), RECIPES);
+//                        mainActivity.addFragment(subCategoryFragment, true, false);
+//                        break;
+//                    case TUTORIALS:
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        subCategoryFragment = new SubCategoryFragment();
+//                        subCategoryFragment.setModel(listDataChild.get(
+//                                listDataHeader.get(groupPosition)).get(
+//                                childPosition), TUTORIALS);
+//                        mainActivity.addFragment(subCategoryFragment, true, false);
+//
+//
+//                        break;
+//                    case CLEANING:
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        subCategoryFragment = new SubCategoryFragment();
+//                        subCategoryFragment.setModel(listDataChild.get(
+//                                listDataHeader.get(groupPosition)).get(
+//                                childPosition), CLEANING);
+//                        mainActivity.addFragment(subCategoryFragment, true, false);
+//
+//
+//                        break;
+//                    case BLOG:
+//                        mainActivity.closeDrawer();
+//                        mainActivity.clearBackStack();
+//                        subCategoryFragment = new SubCategoryFragment();
+//                        subCategoryFragment.setModel(listDataChild.get(
+//                                listDataHeader.get(groupPosition)).get(
+//                                childPosition), BLOG);
+//                        mainActivity.addFragment(subCategoryFragment, true, false);
+//
+//                        break;
+//
+//                }
 
 
                 return false;
@@ -266,39 +334,82 @@ public class MultiLeftSideMenu extends BaseFragment {
     private void addHeaderFooterView() {
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        //Header View
+        // Header View
         View headerView = inflater.inflate(R.layout.nav_header_item_layout, null, false);
-        TextView headerTitle = (TextView) headerView.findViewById(R.id.home);
-        headerTitle.setText(getActivity().getResources().getString(R.string.home));//set the text to Header View
-        expandableListView.addHeaderView(headerView);//Add view to list view as header view
+        TextView tvHome = (TextView) headerView.findViewById(R.id.home);
 
-        //Footer View
+        // Footer View
         View footerView = inflater.inflate(R.layout.nav_footer_items_layout, null, false);
-        TextView footerTitle = (TextView) footerView.findViewById(R.id.logout);
-        //set the text to Footer View
+        TextView tvSavedRecipes = (TextView) footerView.findViewById(R.id.savedrecipes);
+        TextView tvCookingGuides = (TextView) footerView.findViewById(R.id.cookingGuides);
+        TextView tvRecentlyViewed = (TextView) footerView.findViewById(R.id.recentlyViewed);
+        TextView tvMyFavoriteRecipes = (TextView) footerView.findViewById(R.id.myFavoriteRecipes);
+        TextView tvMyReviews = (TextView) footerView.findViewById(R.id.myReviews);
+        TextView tvLogout = (TextView) footerView.findViewById(R.id.logout);
+
+        int lang = preferenceHelper.getSelectedLanguage();
+        switch (lang) {
+            case ENGLISH:
+            default:
+                tvHome.setText(getString(R.string.home_en));
+                tvSavedRecipes.setText(getString(R.string.my_saved_recipes_en));
+                tvCookingGuides.setText(getString(R.string.cooking_guides_en));
+                tvRecentlyViewed.setText(getString(R.string.recently_viewed_en));
+                tvMyFavoriteRecipes.setText(getString(R.string.my_favorite_recipes_en));
+                tvMyReviews.setText(getString(R.string.my_reviews_en));
+
+                tvHome.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                tvSavedRecipes.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                tvCookingGuides.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                tvRecentlyViewed.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                tvMyFavoriteRecipes.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                tvMyReviews.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                tvLogout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                break;
+
+            case URDU:
+                tvHome.setText(getString(R.string.home_ur));
+                tvSavedRecipes.setText(getString(R.string.my_saved_recipes_ur));
+                tvCookingGuides.setText(getString(R.string.cooking_guides_ur));
+                tvRecentlyViewed.setText(getString(R.string.recently_viewed_ur));
+                tvMyFavoriteRecipes.setText(getString(R.string.my_favorite_recipes_ur));
+                tvMyReviews.setText(getString(R.string.my_reviews_ur));
+
+                tvHome.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                tvSavedRecipes.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                tvCookingGuides.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                tvRecentlyViewed.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                tvMyFavoriteRecipes.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                tvMyReviews.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                tvLogout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                break;
+        }
+
+        expandableListView.addHeaderView(headerView); // Add view to list view as header view
+
         if (preferenceHelper.getLoginStatus() && (!preferenceHelper.getUserFood().getId().equals("293"))) {
-            footerTitle.setText(getActivity().getResources().getString(R.string.log_out_en));
+            tvLogout.setText(lang == ENGLISH ? getString(R.string.log_out_en) : getString(R.string.log_out_ur));
         } else {
             footerView.getRootView().findViewById(R.id.savedrecipes).setVisibility(View.GONE);
             footerView.getRootView().findViewById(R.id.cookingGuides).setVisibility(View.GONE);
             footerView.getRootView().findViewById(R.id.recentlyViewed).setVisibility(View.GONE);
             footerView.getRootView().findViewById(R.id.myFavoriteRecipes).setVisibility(View.GONE);
             footerView.getRootView().findViewById(R.id.myReviews).setVisibility(View.GONE);
-            footerTitle.setText(getActivity().getResources().getString(R.string.login_en));
+            tvLogout.setText(lang == ENGLISH ? getString(R.string.login_en) : getString(R.string.login_ur));
         }
-        expandableListView.addFooterView(footerView);//Add view to list view as footer view
+        expandableListView.addFooterView(footerView); // Add view to list view as footer view
 
-
-        headerTitle.setOnClickListener(view -> {
+        tvHome.setOnClickListener(view -> {
             mainActivity.clearBackStack();
-            mainActivity.addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES), true, false);
+            mainActivity.addFragment(new FoodHomeFragment(RECIPES), true, false);
 
             //updateLeftDrawer("home");
 
         });
-        footerTitle.setOnClickListener(view -> {
 
-//            if (footerTitle.getText().toString().equals(getActivity().getResources().getString(R.string.logout))) {
+        tvLogout.setOnClickListener(view -> {
+
+//            if (tvLogout.getText().toString().equals(getActivity().getResources().getString(R.string.logout))) {
 //                mainActivity.prefHelper.putSelectedLanguage(-1);
 //            }
             mainActivity.prefHelper.putUserToken(null);
@@ -311,7 +422,7 @@ public class MultiLeftSideMenu extends BaseFragment {
 
         });
 
-        footerView.getRootView().findViewById(R.id.savedrecipes).setOnClickListener(view -> {
+        tvSavedRecipes.setOnClickListener(view -> {
 
             if (preferenceHelper.getUserFood().getAcct_type() == 4) {
                 Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
@@ -327,7 +438,7 @@ public class MultiLeftSideMenu extends BaseFragment {
 
         });
 
-        footerView.getRootView().findViewById(R.id.cookingGuides).setOnClickListener(view -> {
+        tvCookingGuides.setOnClickListener(view -> {
 
             if (preferenceHelper.getUserFood().getAcct_type() == 4) {
                 Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
@@ -342,7 +453,7 @@ public class MultiLeftSideMenu extends BaseFragment {
         });
 
 
-        footerView.getRootView().findViewById(R.id.recentlyViewed).setOnClickListener(view -> {
+        tvRecentlyViewed.setOnClickListener(view -> {
 
             if (preferenceHelper.getUserFood().getAcct_type() == 4) {
                 Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
@@ -359,7 +470,7 @@ public class MultiLeftSideMenu extends BaseFragment {
 
         });
 
-        footerView.getRootView().findViewById(R.id.myFavoriteRecipes).setOnClickListener(view -> {
+        tvMyFavoriteRecipes.setOnClickListener(view -> {
 
             if (preferenceHelper.getUserFood().getAcct_type() == 4) {
                 Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
@@ -373,7 +484,7 @@ public class MultiLeftSideMenu extends BaseFragment {
 
         });
 
-        footerView.getRootView().findViewById(R.id.myReviews).setOnClickListener(view -> {
+        tvMyReviews.setOnClickListener(view -> {
 
             if (preferenceHelper.getUserFood().getAcct_type() == 4) {
                 Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
@@ -418,13 +529,14 @@ public class MultiLeftSideMenu extends BaseFragment {
 
         }
 
+        int lang = preferenceHelper.getSelectedLanguage();
+
         if (headerWrapper != null && headerWrapper.size() > 0) {
             String sourceString = "Home";
 
-
             if (headerWrapper.get(0).getCategories().size() > 0) {
                 recipes.addAll(headerWrapper.get(0).getCategories());
-                sourceString = headerWrapper.get(0).getTitle_en();
+                sourceString = lang == ENGLISH ? headerWrapper.get(0).getTitle_en() : headerWrapper.get(0).getTitle_ur();
                 listDataHeader.add(sourceString);
                 listDataChild.put(sourceString, recipes);
 
@@ -436,7 +548,7 @@ public class MultiLeftSideMenu extends BaseFragment {
                 if (headerWrapper.get(1).getSlug().equalsIgnoreCase("tutorial")) {
 
                     tutorials.addAll(headerWrapper.get(1).getCategories());
-                    sourceString = headerWrapper.get(1).getTitle_en();
+                    sourceString = lang == ENGLISH ? headerWrapper.get(1).getTitle_en() : headerWrapper.get(1).getTitle_ur();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, tutorials);
 
@@ -444,14 +556,14 @@ public class MultiLeftSideMenu extends BaseFragment {
 
                     cleaning.addAll(headerWrapper.get(1).getCategories());
 
-                    sourceString = headerWrapper.get(1).getTitle_en();
+                    sourceString = lang == ENGLISH ? headerWrapper.get(1).getTitle_en() : headerWrapper.get(1).getTitle_ur();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, cleaning);
                 } else if (headerWrapper.get(1).getSlug().equalsIgnoreCase("blog")) {
 
                     // blog.addAllToAdapter(headerWrapper.get(1).getCategories());
 
-                    sourceString = headerWrapper.get(1).getTitle_en();
+                    sourceString = lang == ENGLISH ? headerWrapper.get(1).getTitle_en() : headerWrapper.get(1).getTitle_ur();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, blog);
                 }
@@ -466,7 +578,7 @@ public class MultiLeftSideMenu extends BaseFragment {
                 if (headerWrapper.get(2).getSlug().equalsIgnoreCase("tutorial")) {
 
                     tutorials.addAll(headerWrapper.get(2).getCategories());
-                    sourceString = headerWrapper.get(2).getTitle_en();
+                    sourceString = lang == ENGLISH ? headerWrapper.get(2).getTitle_en() : headerWrapper.get(2).getTitle_ur();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, tutorials);
 
@@ -474,14 +586,14 @@ public class MultiLeftSideMenu extends BaseFragment {
 
                     cleaning.addAll(headerWrapper.get(2).getCategories());
 
-                    sourceString = headerWrapper.get(2).getTitle_en();
+                    sourceString = lang == ENGLISH ? headerWrapper.get(2).getTitle_en() : headerWrapper.get(2).getTitle_ur();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, cleaning);
                 } else if (headerWrapper.get(2).getSlug().equalsIgnoreCase("blog")) {
 
                     // blog.addAllToAdapter(headerWrapper.get(2).getCategories());
 
-                    sourceString = headerWrapper.get(2).getTitle_en();
+                    sourceString = lang == ENGLISH ? headerWrapper.get(2).getTitle_en() : headerWrapper.get(2).getTitle_ur();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, blog);
                 }
@@ -494,7 +606,7 @@ public class MultiLeftSideMenu extends BaseFragment {
                 if (headerWrapper.get(3).getSlug().equalsIgnoreCase("tutorial")) {
 
                     tutorials.addAll(headerWrapper.get(3).getCategories());
-                    sourceString = headerWrapper.get(3).getTitle_en();
+                    sourceString = lang == ENGLISH ? headerWrapper.get(3).getTitle_en() : headerWrapper.get(3).getTitle_ur();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, tutorials);
 
@@ -502,14 +614,14 @@ public class MultiLeftSideMenu extends BaseFragment {
 
                     cleaning.addAll(headerWrapper.get(3).getCategories());
 
-                    sourceString = headerWrapper.get(3).getTitle_en();
+                    sourceString = lang == ENGLISH ? headerWrapper.get(3).getTitle_en() : headerWrapper.get(3).getTitle_ur();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, cleaning);
                 } else if (headerWrapper.get(3).getSlug().equalsIgnoreCase("blog")) {
 
                     // blog.addAllToAdapter(headerWrapper.get(3).getCategories());
 
-                    sourceString = headerWrapper.get(3).getTitle_en();
+                    sourceString = lang == ENGLISH ? headerWrapper.get(3).getTitle_en() : headerWrapper.get(3).getTitle_ur();
                     listDataHeader.add(sourceString);
                     listDataChild.put(sourceString, blog);
                 }
@@ -520,7 +632,7 @@ public class MultiLeftSideMenu extends BaseFragment {
 
         }
 
-        listAdapter = new ExpandableListAdapter(mainActivity, listDataHeader, listDataChild, expandableListView);
+        listAdapter = new ExpandableListAdapter(mainActivity, preferenceHelper, headerWrapper, listDataHeader, listDataChild, expandableListView);
 
         // setting list adapter
         expandableListView.setAdapter(listAdapter);

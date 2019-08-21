@@ -1,9 +1,11 @@
 package structure.com.foodportal.adapter.foodPortalAdapters;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,21 +13,36 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import structure.com.foodportal.R;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.models.foodModels.CategorySlider;
+import structure.com.foodportal.models.foodModels.HeaderWrapper;
+
+import static structure.com.foodportal.helper.AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG;
+import static structure.com.foodportal.helper.AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES;
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
+    private BasePreferenceHelper preferenceHelper;
+    private ArrayList<HeaderWrapper> headerWrapper;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, List<CategorySlider>> _listDataChild;
     ExpandableListView expandableListView;
-    public ExpandableListAdapter(Context context, List<String> listDataHeader,
-                                 HashMap<String, List<CategorySlider>> listChildData, ExpandableListView expandableListView) {
+
+    public ExpandableListAdapter(Context context, BasePreferenceHelper preferenceHelper,
+                                 ArrayList<HeaderWrapper> headerWrapper, List<String> listDataHeader,
+                                 HashMap<String, List<CategorySlider>> listChildData,
+                                 ExpandableListView expandableListView) {
         this._context = context;
+        this.preferenceHelper = preferenceHelper;
+        this.headerWrapper = headerWrapper;
         this.expandableListView = expandableListView;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
@@ -57,7 +74,23 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.lblListItem);
 
-        txtListChild.setText(childText.getCategory_title_en());
+        int[] attrs = new int[]{android.R.attr.expandableListPreferredChildPaddingLeft};
+        TypedArray ta = _context.obtainStyledAttributes(attrs);
+        int leftPadding = (int) ta.getDimension(0, 0);
+        ta.recycle();
+
+        switch (preferenceHelper.getSelectedLanguage()) {
+            case ENGLISH:
+            default:
+                txtListChild.setText(childText.getCategory_title_en());
+                break;
+
+            case URDU:
+                txtListChild.setPadding(0, 5, leftPadding, 5);
+                txtListChild.setText(childText.getCategory_title_ur());
+                break;
+        }
+
         return convertView;
     }
 
@@ -88,41 +121,46 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         String headerTitle = (String) getGroup(groupPosition);
 
 
-
-
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_group, null);
         }
 
-        TextView lblListHeader = (TextView) convertView
-                .findViewById(R.id.lblListHeader);
-        ImageView etvexpand = (ImageView) convertView
-                .findViewById(R.id.etvexpand);
+        LinearLayout linearLayoutGroup = (LinearLayout) convertView.findViewById(R.id.linearLayoutGroup);
+        TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
+        ImageView etvexpand = (ImageView) convertView.findViewById(R.id.etvexpand);
 
+        linearLayoutGroup.setLayoutDirection(preferenceHelper.getSelectedLanguage() == ENGLISH ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL);
 
         lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(headerTitle);
-        if(headerTitle.equals("Recipes")){
+        lblListHeader.setText(headerTitle.replace("سبق", _context.getString(R.string.tutorials_ur)));
 
-            lblListHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_menu_recipe,0,0,0);
+        if (headerWrapper.get(groupPosition).getSlug().equalsIgnoreCase(RECIPES)) {
+            if (preferenceHelper.getSelectedLanguage() == ENGLISH)
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_menu_recipe, 0, 0, 0);
+            else if (preferenceHelper.getSelectedLanguage() == URDU)
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_menu_recipe, 0);
         }
-        if(headerTitle.equals("Tutorials")){
-
-            lblListHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_menu_tutorial,0,0,0);
-        }  if(headerTitle.equals("Blog")){
-
-            lblListHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_menu_cleaning,0,0,0);
+        if (headerWrapper.get(groupPosition).getSlug().equalsIgnoreCase("Tutorial")) {
+            if (preferenceHelper.getSelectedLanguage() == ENGLISH)
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_menu_tutorial, 0, 0, 0);
+            else if (preferenceHelper.getSelectedLanguage() == URDU)
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_menu_tutorial, 0);
+        }
+        if (headerWrapper.get(groupPosition).getSlug().equalsIgnoreCase(BLOG)) {
+            if (preferenceHelper.getSelectedLanguage() == ENGLISH)
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_menu_cleaning, 0, 0, 0);
+            else if (preferenceHelper.getSelectedLanguage() == URDU)
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_menu_cleaning, 0);
         }
 
-
-        if(_listDataChild.get(getGroup(groupPosition)).size()==0){
+        if (_listDataChild.get(getGroup(groupPosition)).size() == 0) {
 
 
             etvexpand.setVisibility(View.GONE);
 
-        }else{
+        } else {
 
             etvexpand.setVisibility(View.VISIBLE);
         }
@@ -131,13 +169,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
 
-                if (!isExpanded)
-                {
-                     expandableListView.expandGroup(groupPosition);
-                }
-                else
-                {
-                     expandableListView.collapseGroup(groupPosition);
+                if (!isExpanded) {
+                    expandableListView.expandGroup(groupPosition);
+                } else {
+                    expandableListView.collapseGroup(groupPosition);
                 }
 
             }

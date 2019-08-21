@@ -38,7 +38,7 @@ public class SideMenuFragment extends BaseFragment {
     private ArrayList<Integer> sideMenuOptionsDrawable;
     TermsAndConditon termsAndConditon;
     private RecyclerItemClickListener menuItemClickListener = ((ent, position, id) -> {
-        if ((ent).equals(getString(R.string.home))) {
+        if ((ent).equals(getString(R.string.home_en))) {
             // closeDrawer();
             //  popBackStackTillEntry(0);
             //  replaceFragment(new HomeFragment(), true, true);
@@ -153,15 +153,15 @@ public class SideMenuFragment extends BaseFragment {
         sideMenuOptions = new ArrayList<>();
         sideMenuOptionsDrawable = new ArrayList<>();
 
-        sideMenuOptions.add(getString(R.string.home));
-        sideMenuOptions.add(getString(R.string.recipes));
-        sideMenuOptions.add(getString(R.string.tutorials));
+        sideMenuOptions.add(getString(R.string.home_en));
+        sideMenuOptions.add(getString(R.string.recipes_en));
+        sideMenuOptions.add(getString(R.string.tutorials_en));
         sideMenuOptions.add(getString(R.string.cleaning));
-        sideMenuOptions.add(getString(R.string.cooking_guides));
-        sideMenuOptions.add(getString(R.string.recently_viewed));
+        sideMenuOptions.add(getString(R.string.cooking_guides_en));
+        sideMenuOptions.add(getString(R.string.recently_viewed_en));
         sideMenuOptions.add(getString(R.string.submit_your_recipe));
-        sideMenuOptions.add(getString(R.string.my_reviews));
-        sideMenuOptions.add(getString(R.string.my_saved_recipes));
+        sideMenuOptions.add(getString(R.string.my_reviews_en));
+        sideMenuOptions.add(getString(R.string.my_saved_recipes_en));
         sideMenuOptions.add(getString(R.string.log_out_en));
 
 

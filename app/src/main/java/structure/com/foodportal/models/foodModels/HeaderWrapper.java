@@ -8,6 +8,7 @@ public class HeaderWrapper {
 
     int id;
     String title_en;
+    String title_ur;
     String slug;
     String description_en;
     String banner_image_path;
@@ -26,6 +27,14 @@ public class HeaderWrapper {
 
     public void setTitle_en(String title_en) {
         this.title_en = title_en;
+    }
+
+    public String getTitle_ur() {
+        return title_ur;
+    }
+
+    public void setTitle_ur(String title_ur) {
+        this.title_ur = title_ur;
     }
 
     public String getSlug() {

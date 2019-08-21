@@ -16,7 +16,7 @@
         android:gravity="center"
         android:layout_marginStart="@dimen/dp15"
         android:drawablePadding="@dimen/dp15"
-        android:text="@string/home"
+        android:text="@string/home_en"
         android:textColor="@color/white"
         android:textSize="@dimen/sp15"
         android:textStyle="normal" />
