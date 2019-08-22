@@ -392,7 +392,7 @@
                                     android:fontFamily="@font/poppinsbold"
                                     android:padding="@dimen/dp5"
                                     android:textSize="@dimen/dp16"
-                                    android:text="Tip of the day..."
+                                    android:text="Tip of the Day"
                                     android:textColor="@color/colorBlack" />
 
                                 <TextView

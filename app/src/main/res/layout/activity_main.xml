@@ -183,7 +183,7 @@
                 android:tint="@color/colorAccent"
                 app:indicatorColor="@color/colorWhite"
                 app:indicatorName="BallClipRotateMultipleIndicator" />
--->
+
         </FrameLayout>
 
     </RelativeLayout>

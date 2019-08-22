@@ -32,13 +32,15 @@ import structure.com.foodportal.helper.GooglePlaceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.OnActivityResultInterface;
 
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+
 public class BaseActivity extends AppCompatActivity {
 
     private BaseFragment baseFragment;
     public int mainFrame;
     public BasePreferenceHelper prefHelper;
     OnActivityResultInterface onActivityResultInterface;
-     boolean cardFlipAnimationBool=false;
+    boolean cardFlipAnimationBool = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,12 @@ public class BaseActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (animate) {
-            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+//            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+            if (prefHelper.getSelectedLanguage() == ENGLISH) {
+                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+            } else {
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left);
+            }
         }
         transaction.replace(mainFrame, frag, frag.getClass().getSimpleName());
 
@@ -82,7 +89,6 @@ public class BaseActivity extends AppCompatActivity {
             transaction.commit();
         }
     }
-
 
     protected void setFrame(int mainFrame) {
         this.mainFrame = mainFrame;
@@ -95,6 +101,7 @@ public class BaseActivity extends AppCompatActivity {
 
         if (animate) {
             transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+
         }
         transaction.add(mainFrame, frag, tag);
 
@@ -104,6 +111,7 @@ public class BaseActivity extends AppCompatActivity {
             transaction.commit();
         }
     }
+
     public void popBackStackTillEntry(int entryIndex) {
         if (getSupportFragmentManager() == null)
             return;
@@ -116,30 +124,38 @@ public class BaseActivity extends AppCompatActivity {
                     FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
+
     protected void willbeimplementedinfuture() {
         UIHelper.showToast(this, "Will be implemented in Next Module");
     }
+
     public void popFragment() {
         if (getSupportFragmentManager() == null)
             return;
         getSupportFragmentManager().popBackStack();
     }
 
-    public void setCardFlipAnimationBool(boolean cardFlipAnimationBool){
+    public void setCardFlipAnimationBool(boolean cardFlipAnimationBool) {
 
-        this.cardFlipAnimationBool=cardFlipAnimationBool;
+        this.cardFlipAnimationBool = cardFlipAnimationBool;
 
     }
+
     public void replaceFragment(BaseFragment frag, boolean isAddToBackStack, boolean animate) {
         baseFragment = frag;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (animate) {
 
-            if(cardFlipAnimationBool){
-                transaction.setCustomAnimations(R.anim.animation_item,0,0,0);
-            }else {
-                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+            if (cardFlipAnimationBool) {
+                transaction.setCustomAnimations(R.anim.animation_item, 0, 0, 0);
+            } else {
+//                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+                if (prefHelper.getSelectedLanguage() == ENGLISH) {
+                    transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+                } else {
+                    transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left);
+                }
             }
 
         }
@@ -151,16 +167,17 @@ public class BaseActivity extends AppCompatActivity {
             transaction.commit();
         }
     }
-    public void replaceFragment(BaseFragment frag, boolean isAddToBackStack, boolean animate,boolean isBottom) {
+
+    public void replaceFragment(BaseFragment frag, boolean isAddToBackStack, boolean animate, boolean isBottom) {
         baseFragment = frag;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (animate) {
 
-            if(cardFlipAnimationBool){
-                transaction.setCustomAnimations(R.anim.animation_item,0,0,0);
-            }else {
-                transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, 0,0);
+            if (cardFlipAnimationBool) {
+                transaction.setCustomAnimations(R.anim.animation_item, 0, 0, 0);
+            } else {
+                transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, 0, 0);
             }
 
         }
@@ -176,7 +193,7 @@ public class BaseActivity extends AppCompatActivity {
     public void addFragmentwithsharedelement(BaseFragment frag, boolean isAddToBackStack, boolean animate, View id, String transitioname) {
         baseFragment = frag;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.addSharedElement(id,transitioname);
+        transaction.addSharedElement(id, transitioname);
         if (animate) {
 
             transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
@@ -189,6 +206,7 @@ public class BaseActivity extends AppCompatActivity {
             transaction.commit();
         }
     }
+
     public class DetailsTransition extends TransitionSet {
         public DetailsTransition() {
             setOrdering(ORDERING_TOGETHER);
@@ -197,14 +215,21 @@ public class BaseActivity extends AppCompatActivity {
                     addTransition(new ChangeImageTransform());
         }
     }
+
     public void addFragment(BaseFragment frag, boolean isAddToBackStack, boolean animate) {
         baseFragment = frag;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (animate) {
 
-            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
-           // transaction.setCustomAnimations(R.anim.fadein,R.anim.fadein);
+//            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+
+            if (prefHelper.getSelectedLanguage() == ENGLISH) {
+                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+            } else {
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+            // transaction.setCustomAnimations(R.anim.fadein,R.anim.fadein);
         }
         transaction.add(mainFrame, frag, frag.getClass().getSimpleName());
 
@@ -214,12 +239,13 @@ public class BaseActivity extends AppCompatActivity {
             transaction.commit();
         }
     }
-   public void addFragment(BaseFragment frag, boolean isAddToBackStack, boolean animate,boolean state) {
+
+    public void addFragment(BaseFragment frag, boolean isAddToBackStack, boolean animate, boolean state) {
         baseFragment = frag;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (animate) {
-            transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, 0,0);
+            transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, 0, 0);
             //transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
         }
         transaction.add(mainFrame, frag, frag.getClass().getSimpleName());
@@ -258,9 +284,9 @@ public class BaseActivity extends AppCompatActivity {
                 break;
             case FilePickerConst.REQUEST_CODE_PHOTO:
                 if (resultCode == Activity.RESULT_OK && data != null) {
-                 //   photoPaths = new ArrayList<>();
-                 //   photoPaths.addAllToAdapter(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
-                  //  new BaseActivity().AsyncTaskRunner().execute(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
+                    //   photoPaths = new ArrayList<>();
+                    //   photoPaths.addAllToAdapter(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
+                    //  new BaseActivity().AsyncTaskRunner().execute(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
 
                 }
                 break;
@@ -268,7 +294,7 @@ public class BaseActivity extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK && data != null) {
 
 
-                //    mediaPickerListener.onDocClicked(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                    //    mediaPickerListener.onDocClicked(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
 
                 }
                 break;
@@ -277,11 +303,11 @@ public class BaseActivity extends AppCompatActivity {
 
                     ArrayList<String> cameraPic = new ArrayList<>();
                     // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
-                  //  Uri tempUri = getImageUri(this, (Bitmap) data.getExtras().get("data"));
+                    //  Uri tempUri = getImageUri(this, (Bitmap) data.getExtras().get("data"));
                     // CALL THIS METHOD TO GET THE ACTUAL PATH
 ////
 
-                 //  new BaseActivity().AsyncTaskRunner().execute(cameraPic);
+                    //  new BaseActivity().AsyncTaskRunner().execute(cameraPic);
 
                 }
                 break;
@@ -293,7 +319,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    private  class AsyncTaskRunner extends AsyncTask<ArrayList<String>, ArrayList<File>, ArrayList<File>> {
+    private class AsyncTaskRunner extends AsyncTask<ArrayList<String>, ArrayList<File>, ArrayList<File>> {
 
         ProgressDialog progressDialog;
 
@@ -330,7 +356,7 @@ public class BaseActivity extends AppCompatActivity {
             // execution of result of Long time consuming operation
             progressDialog.dismiss();
 
-         //   mediaPickerListener.onPhotoClicked(result);
+            //   mediaPickerListener.onPhotoClicked(result);
 
 
         }

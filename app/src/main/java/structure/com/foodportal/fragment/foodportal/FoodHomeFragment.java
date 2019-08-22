@@ -275,7 +275,8 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     protected void setTitle(Titlebar titlebar) {
-        titlebar.showTitlebar();
+//        titlebar.showTitlebar();
+        titlebar.showTitlebar(preferenceHelper);
         //titlebar.setTitle(getString(R.string.cooking_food));
         titlebar.showMenuButton(mainActivity);
         titlebar.showsearch(mainActivity).setOnClickListener(new View.OnClickListener() {
@@ -565,6 +566,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                         tvf.setText(foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getTitle_en());
                         binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
                         binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_en().replaceAll("_", " "));
+                        binding.lltipoftheday.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
                         binding.tvTipTitle.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getTitle_en());
                         binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_en());
                         binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_en().replaceAll("_", " "));
@@ -576,6 +578,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                         tvf.setText(foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getTitle_ur());
                         binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_ur().replaceAll("_", " "));
                         binding.tvFeaturedRecipes.setText(foodHomeModelWrapper.getSection().get(1).getSection_name_ur().replaceAll("_", " "));
+                        binding.lltipoftheday.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
                         binding.tvTipTitle.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getTitle_ur());
                         binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_ur());
                         binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_ur().replaceAll("_", " "));

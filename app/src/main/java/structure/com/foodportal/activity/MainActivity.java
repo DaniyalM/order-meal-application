@@ -68,8 +68,10 @@ import structure.com.foodportal.models.foodModels.HeaderWrapper;
 import structure.com.foodportal.webservice.WebServiceFactory;
 import structure.com.foodportal.webservice.webservice;
 
+import static android.view.Gravity.END;
 import static android.view.Gravity.LEFT;
 import static android.view.Gravity.RIGHT;
+import static android.view.Gravity.START;
 import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 
 
@@ -128,8 +130,8 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 
             bundle = new Bundle();
             bundle = getIntent().getExtras();
-          FCMPayload fcmPayload= (FCMPayload) bundle.getSerializable(AppConstant.FcmHelper.FCM_DATA_PAYLOAD);
-          if (bundle != null) {
+            FCMPayload fcmPayload = (FCMPayload) bundle.getSerializable(AppConstant.FcmHelper.FCM_DATA_PAYLOAD);
+            if (bundle != null) {
                 if (fcmPayload != null) {
 
                     action_type = fcmPayload.getAction_type();
@@ -138,20 +140,17 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
                 } else {
 
 
-                    if(bundle.get("action_type")!=null){
+                    if (bundle.get("action_type") != null) {
                         action_type = bundle.get("action_type").toString();
                         ref_id = Integer.valueOf(bundle.get("ref_id").toString());
                         slug = bundle.get("slug").toString();
                     }
 
 
-
                 }
 
 
-
             }
-
 
 
         }
@@ -171,17 +170,19 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         DrawerLayout.LayoutParams params = new DrawerLayout.LayoutParams(drawerwidth, DrawerLayout.LayoutParams.MATCH_PARENT);
 
         if (sideMenuDirection.equals(SideMenuDirection.LEFT.getValue())) {
-            params.gravity = LEFT;
+            params.gravity = START;
         } else {
-            params.gravity = RIGHT;
+            params.gravity = END;
         }
         mNavigationView.setLayoutParams(params);
 
         titlebar.setMenuOnclickListener(view -> {
             if (sideMenuDirection.equals(SideMenuDirection.LEFT.getValue())) {
-                drawerLayout.openDrawer(LEFT);
+                isNavigationGravityRight = false;
+                drawerLayout.openDrawer(START);
             } else {
-                drawerLayout.openDrawer(Gravity.RIGHT);
+                isNavigationGravityRight = true;
+                drawerLayout.openDrawer(END);
             }
         });
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -277,9 +278,9 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
             FCMPayload fcmPayload = (FCMPayload) bundle.getSerializable(AppConstant.FcmHelper.FCM_DATA_PAYLOAD);
             if (fcmPayload != null) {
                 if (fcmPayload.getAction_type().equals(AppConstant.FcmHelper.ACTION_TYPE_JOB) || fcmPayload.getAction_type().equals(AppConstant.FcmHelper.COMPLETED)) {
-                 //   CartFragment cartFragment = new CartFragment();
-                  //  cartFragment.setFromNotification(true);
-                 //   replaceFragment(cartFragment, true, true);
+                    //   CartFragment cartFragment = new CartFragment();
+                    //  cartFragment.setFromNotification(true);
+                    //   replaceFragment(cartFragment, true, true);
                     bundle = null;
                 } else if (fcmPayload.getAction_type().equals(AppConstant.FcmHelper.ACCEPTED) || fcmPayload.getAction_type().equals(AppConstant.FcmHelper.CANCELLED)) {
                     OrdersHistoryFragment ordersHistoryFragment = new OrdersHistoryFragment();
@@ -329,8 +330,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 //            sideMneuFragmentContainer.MultiLeftSideMenu(headerWrapper);
 
 
-
-            if (action_type != null){
+            if (action_type != null) {
 
                 switch (action_type) {
 
@@ -338,16 +338,16 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 
                         clearBackStack();
                         closeDrawer();
-                        FoodHomeFragment foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES);
-                        foodHomeFragment.setTypeandSlug(action_type,slug);
+                        FoodHomeFragment foodHomeFragment = new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES);
+                        foodHomeFragment.setTypeandSlug(action_type, slug);
                         addFragment(foodHomeFragment, true, false);
 
                         break;
                     case "cleaning":
                         clearBackStack();
                         closeDrawer();
-                        foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING);
-                        foodHomeFragment.setTypeandSlug(action_type,slug);
+                        foodHomeFragment = new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING);
+                        foodHomeFragment.setTypeandSlug(action_type, slug);
                         addFragment(foodHomeFragment, true, false);
 
                         //   addFragment(new FoodHomeFragment(action_type,slug), true, true);
@@ -355,8 +355,8 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
                     case "tutorial":
                         clearBackStack();
                         closeDrawer();
-                        foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS);
-                        foodHomeFragment.setTypeandSlug(action_type,slug);
+                        foodHomeFragment = new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS);
+                        foodHomeFragment.setTypeandSlug(action_type, slug);
                         addFragment(foodHomeFragment, true, false);
 
                         ///  addFragment(new FoodHomeFragment(action_type,slug), true, true);
@@ -364,24 +364,23 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
                     case "blog":
                         clearBackStack();
                         closeDrawer();
-                        foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG);
-                        foodHomeFragment.setTypeandSlug(action_type,slug);
+                        foodHomeFragment = new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG);
+                        foodHomeFragment.setTypeandSlug(action_type, slug);
                         addFragment(foodHomeFragment, true, false);
                         break;
                     case "special_recipe":
                         clearBackStack();
                         closeDrawer();
-                        foodHomeFragment =new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES);
-                        foodHomeFragment.setTypeandSlug(action_type,slug);
+                        foodHomeFragment = new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES);
+                        foodHomeFragment.setTypeandSlug(action_type, slug);
                         addFragment(foodHomeFragment, true, false);
                         break;
-
 
 
                 }
 
 
-            }else{
+            } else {
                 closeDrawer();
                 addFragment(new FoodHomeFragment(AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES), true, true);
 
@@ -390,17 +389,9 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 
             FragmentTransaction transaction = getSupportFragmentManager()
                     .beginTransaction();
-            transaction.replace(framelayout.getId(), new MultiLeftSideMenu(headerWrapper,action_type)).commit();
+            transaction.replace(framelayout.getId(), new MultiLeftSideMenu(headerWrapper, action_type)).commit();
             setDrawerListeners();
             // drawerLayout.closeDrawers();
-
-
-
-
-
-
-
-
 
 
         }
@@ -419,11 +410,16 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
+                float translationX = slideOffset * drawerView.getWidth();
+                float negativeTranslationX = -translationX;
+
                 if (!isNavigationGravityRight) {
-                    contentView.setTranslationX(slideOffset * drawerView.getWidth());
-                    drawerLayout.bringChildToFront(drawerView);
-                    drawerLayout.requestLayout();
+                    contentView.setTranslationX(translationX);
+                } else {
+                    contentView.setTranslationX(negativeTranslationX);
                 }
+                drawerLayout.bringChildToFront(drawerView);
+                drawerLayout.requestLayout();
             }
 
             @Override
@@ -433,7 +429,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                isNavigationGravityRight = false;
+//                isNavigationGravityRight = false;
                 drawerLayout.setScrimColor(getResources().getColor(android.R.color.transparent));
             }
 
@@ -488,13 +484,13 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
             case R.id.rbHome:
                 rgTabEnd.clearCheck();
                 if (rbHome.isChecked())
-                  //  replaceFragmentWithClearBackStack(new HomeFragment(), true, false);
-                break;
+                    //  replaceFragmentWithClearBackStack(new HomeFragment(), true, false);
+                    break;
             case R.id.rbSearch:
                 rgTabEnd.clearCheck();
                 if (rbSearch.isChecked()) {
 //                    willbeimplementedinfuture();
-                   // replaceFragmentWithClearBackStack(new FragmentCategory(true), true, false);
+                    // replaceFragmentWithClearBackStack(new FragmentCategory(true), true, false);
                 }
                 break;
             case R.id.rbNotification:
