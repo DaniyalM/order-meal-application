@@ -74,6 +74,7 @@
 
     <dimen name="dp6">6dp</dimen>
     <dimen name="sp36">36sp</dimen>
+    <dimen name="dp90">90dp</dimen>
 
 
 </resources>

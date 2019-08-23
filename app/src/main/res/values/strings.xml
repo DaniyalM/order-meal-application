@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Food Tribune</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--    <string name="fb_login_protocol_scheme">fb393557137872869</string>-->
@@ -519,7 +519,6 @@
     <string name="login_with_google">Login with Google</string>
     <string name="login_with_email">Login with Email</string>
     <string name="your_recipe_are_waiting">Your sections are waiting</string>
-    <string name="ingredients">Ingredients</string>
     <string name="cooking_food">Cooking Food</string>
     <string name="cleaning">Cleaning</string>
     <string name="submit_your_recipe">Submit your recipe</string>
@@ -666,4 +665,23 @@
     <string name="recently_viewed_ur">حال میں دیکھی ہوئی</string>
     <string name="my_favorite_recipes_en">My Favorite Recipes</string>
     <string name="my_favorite_recipes_ur">میری پسندیدہ تراکیب</string>
+    <string name="ingredients_en">Ingredients</string>
+    <string name="ingredients_ur">اجزاء</string>
+    <string name="related_recipes_en">Related Recipes</string>
+    <string name="related_recipes_ur">متعلقہ ترکیبیں</string>
+    <string name="for_servings_ur">افراد کے لئے</string>
+    <string name="preparations_en">Preparations</string>
+    <string name="preparations_ur">ترکیب</string>
+    <string name="how_it_turn_out_en">how\'d it turn out?</string>
+    <string name="how_it_turn_out_ur">آپکو کیسا لگا؟</string>
+    <string name="show_all_en">Show All</string>
+    <string name="show_all_ur">سب دیکھیں</string>
+    <string name="write_comments_en">Write comments...</string>
+    <string name="write_comments_ur">رائے لکھیں...</string>
+    <string name="step_by_step_mode_en">Step-By-Step Mode</string>
+    <string name="step_by_step_mode_ur">قدم بہ قدم موڈ</string>
+    <string name="save_en">Save</string>
+    <string name="save_ur">محفوظ کریں</string>
+    <string name="saved_en">Saved</string>
+    <string name="saved_ur">محفوظ</string>
 </resources>

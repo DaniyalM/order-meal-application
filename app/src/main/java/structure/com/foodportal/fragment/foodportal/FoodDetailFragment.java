@@ -26,6 +26,7 @@ import android.transition.ChangeImageTransform;
 import android.transition.ChangeTransform;
 import android.transition.Fade;
 import android.transition.TransitionSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -114,6 +115,7 @@ import structure.com.foodportal.models.foodModels.Step;
 import structure.com.foodportal.singleton.CarelessSingleton;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
 public class FoodDetailFragment extends BaseFragment implements
@@ -153,7 +155,8 @@ public class FoodDetailFragment extends BaseFragment implements
     MediaSource mediaSource;
     SimpleExoPlayerView videoView;
     TextView servings;
-    private boolean b=false;
+    private boolean b = false;
+    private int mLang;
 
     public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel) {
 
@@ -224,6 +227,35 @@ public class FoodDetailFragment extends BaseFragment implements
         player.stop(true);
     }
 
+    private void setValuesByLanguage() {
+        switch (mLang) {
+            case ENGLISH:
+            default:
+                binding.linearLayoutMain.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                binding.tvIngredients.setText(getString(R.string.ingredients_en));
+                binding.tvRelatedRecipes.setText(getString(R.string.related_recipes_en));
+                binding.tvPreparations.setText(getString(R.string.preparations_en));
+                binding.tvHowItTurnOut.setText(getString(R.string.how_it_turn_out_en));
+                binding.tvShowall.setText(getString(R.string.show_all_en));
+                binding.etComments.setTextDirection(View.TEXT_DIRECTION_LTR);
+                binding.textInputComments.setHint(getString(R.string.write_comments_en));
+                binding.btnStepByStep.setText(getString(R.string.step_by_step_mode_en));
+                break;
+
+            case AppConstant.Language.URDU:
+                binding.linearLayoutMain.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                binding.tvIngredients.setText(getString(R.string.ingredients_ur));
+                binding.tvRelatedRecipes.setText(getString(R.string.related_recipes_ur));
+                binding.tvPreparations.setText(getString(R.string.preparations_ur));
+                binding.tvHowItTurnOut.setText(getString(R.string.how_it_turn_out_ur));
+                binding.tvShowall.setText(getString(R.string.show_all_ur));
+                binding.etComments.setTextDirection(View.TEXT_DIRECTION_RTL);
+                binding.textInputComments.setHint(getString(R.string.write_comments_ur));
+                binding.btnStepByStep.setText(getString(R.string.step_by_step_mode_ur));
+                break;
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -238,7 +270,8 @@ public class FoodDetailFragment extends BaseFragment implements
 
     ImageView btnMute;
     LikeButton likebtn;
-    Button savebtn;
+    //    Button savebtn;
+    TextView savebtn;
     TextView tvShowall;
     LinearLayout sharing;
 
@@ -250,7 +283,7 @@ public class FoodDetailFragment extends BaseFragment implements
         int width = size.x;
         int height = size.x;
         videoView.setLayoutParams(new FrameLayout.LayoutParams(width, height));
-       // binding.videoView.setLayoutParams(new FrameLayout.LayoutParams(width, height));
+        // binding.videoView.setLayoutParams(new FrameLayout.LayoutParams(width, height));
     }
 
     @Nullable
@@ -261,7 +294,8 @@ public class FoodDetailFragment extends BaseFragment implements
         mMediaController = (UniversalMediaController) binding.getRoot().findViewById(R.id.media_controller);
         videoView = (SimpleExoPlayerView) binding.getRoot().findViewById(R.id.videoView);
         btnMute = (ImageView) binding.getRoot().findViewById(R.id.mutebtn);
-        savebtn = (Button) binding.getRoot().findViewById(R.id.savebtn);
+//        savebtn = (Button) binding.getRoot().findViewById(R.id.savebtn);
+        savebtn = (TextView) binding.getRoot().findViewById(R.id.savebtn);
         tvShowall = (TextView) binding.getRoot().findViewById(R.id.tvShowall);
         likebtn = (LikeButton) binding.getRoot().findViewById(R.id.lkFav);
         sharing = (LinearLayout) binding.getRoot().findViewById(R.id.sharing);
@@ -272,6 +306,10 @@ public class FoodDetailFragment extends BaseFragment implements
         btnMute.setOnClickListener(this);
         savebtn.setOnClickListener(this);
         likebtn.setOnClickListener(this);
+
+        mLang = preferenceHelper.getSelectedLanguage();
+        setValuesByLanguage();
+
         setListners();
         return binding.getRoot();
     }
@@ -291,6 +329,8 @@ public class FoodDetailFragment extends BaseFragment implements
                 related.addAll(foodDetailModel.getRelated());
 
                 foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this);
+                foodRelatedAdapter.setPreferenceHelper(preferenceHelper);
+
                 binding.rvRelatedRecipes.setAdapter(foodRelatedAdapter);
                 foodRelatedAdapter.notifyDataSetChanged();
                 binding.llRelated.setVisibility(View.VISIBLE);
@@ -450,7 +490,7 @@ public class FoodDetailFragment extends BaseFragment implements
     }
 
     public void showback(boolean b) {
-    this.b=b;
+        this.b = b;
     }
 
     public class DetailsTransition extends TransitionSet {
@@ -594,6 +634,8 @@ public class FoodDetailFragment extends BaseFragment implements
                     related.clear();
                     related.addAll(foodDetailModel.getRelated());
                     foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this);
+                    foodRelatedAdapter.setPreferenceHelper(preferenceHelper);
+
                     binding.rvRelatedRecipes.setAdapter(foodRelatedAdapter);
                     foodRelatedAdapter.notifyDataSetChanged();
                     binding.llRelated.setVisibility(View.VISIBLE);
@@ -644,13 +686,16 @@ public class FoodDetailFragment extends BaseFragment implements
 
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY:
 
-                if (savebtn.getText().equals("Saved")) {
+                if (savebtn.getText().equals(getString(R.string.saved_en)) || savebtn.getText().equals(getString(R.string.saved_ur))) {
                     savebtn.setTextColor(Color.WHITE);
-                    savebtn.setText("Save");
+//                    savebtn.setText("Save");
+//                    savebtn.setWidth(mLang == ENGLISH ? dpToPx(60) : dpToPx(90));
+                    savebtn.setText(mLang == ENGLISH ? getString(R.string.save_en) : getString(R.string.save_ur));
                 } else {
 
                     savebtn.setTextColor(Color.RED);
-                    savebtn.setText("Saved");
+//                    savebtn.setText("Saved");
+                    savebtn.setText(mLang == ENGLISH ? getString(R.string.saved_en) : getString(R.string.saved_ur));
                 }
 
 
@@ -665,11 +710,16 @@ public class FoodDetailFragment extends BaseFragment implements
                 createMediaSource(uri);
     }
 
+    private int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
     private void setData(FoodDetailModel foodDetailModel) {
         binding.nestedScroll.fullScroll(ScrollView.FOCUS_UP);
         binding.nestedScroll.smoothScrollTo(0, 0);
         binding.tvfoodName.requestFocus();
-        servings.setText("for " + foodDetailModel.getServing_for() + " servings");
+        servings.setText(mLang == ENGLISH ? "for " + foodDetailModel.getServing_for() + " servings" : foodDetailModel.getServing_for() + " " + getString(R.string.for_servings_ur));
         if (foodDetailModel.getIs_favorite() == 1) {
             likebtn.setLiked(true);
         } else {
@@ -680,12 +730,13 @@ public class FoodDetailFragment extends BaseFragment implements
         if (foodDetailModel.getIs_save() == 1) {
 
             savebtn.setTextColor(Color.RED);
-            savebtn.setText("Saved");
+            savebtn.setText(mLang == ENGLISH ? getString(R.string.saved_en) : getString(R.string.saved_ur));
         } else {
 
 
             savebtn.setTextColor(Color.WHITE);
-            savebtn.setText("Save");
+//            savebtn.setWidth(mLang == ENGLISH ? dpToPx(60) : dpToPx(90));
+            savebtn.setText(mLang == ENGLISH ? getString(R.string.save_en) : getString(R.string.save_ur));
         }
 
         if (foodDetailModel.getVideo_url() != null) {
@@ -696,13 +747,13 @@ public class FoodDetailFragment extends BaseFragment implements
                     new DefaultTrackSelector(), new DefaultLoadControl());
 
             videoView.setPlayer(player);
-            if(preferenceHelper.getAutoPlay()){
+            if (preferenceHelper.getAutoPlay()) {
                 player.setPlayWhenReady(true);
-            }else{
+            } else {
                 player.setPlayWhenReady(false);
 
             }
-          //  player.setPlayWhenReady(true);
+            //  player.setPlayWhenReady(true);
             player.getPlaybackLooper();
             player.addListener(this);
             player.setRepeatMode(SimpleExoPlayer.DISCONTINUITY_REASON_SEEK);
@@ -729,12 +780,12 @@ public class FoodDetailFragment extends BaseFragment implements
         }
 
         UIHelper.setImageWithGlide(mainActivity, binding.ivDishImage, foodDetailModel.getGallery().getPhotos().get(0).getImage_path());
-        binding.tvfoodName.setText("" + foodDetailModel.getTitle_en());
+        binding.tvfoodName.setText(mLang == ENGLISH ? foodDetailModel.getTitle_en() : foodDetailModel.getTitle_ur());
 
-        binding.tvServingDetails.setText("" + foodDetailModel.getCountFavorites() + " likes");
-        binding.tvServingTime.setText("" + foodDetailModel.getTotalViews() + " views");
-        binding.tvPreparationTime.setText("" + foodDetailModel.getCook_time());
-        binding.tvfoodDiscount.setText("" + foodDetailModel.getGallery().getDescription_en());
+        binding.tvServingDetails.setText(foodDetailModel.getCountFavorites() + " likes");
+        binding.tvServingTime.setText(foodDetailModel.getTotalViews() + " views");
+        binding.tvPreparationTime.setText(foodDetailModel.getCook_time());
+        binding.tvfoodDiscount.setText(mLang == ENGLISH ? foodDetailModel.getGallery().getDescription_en() : foodDetailModel.getGallery().getDescription_ur());
 
 
         steps.addAll(foodDetailModel.getSteps());

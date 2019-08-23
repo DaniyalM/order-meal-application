@@ -1,7 +1,7 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/linearLayoutMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -24,8 +24,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp15"
                     android:layout_marginStart="@dimen/dp15"
+                    android:layout_marginEnd="@dimen/dp15"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -41,73 +41,118 @@
                             android:src="@drawable/image_placeholder" />
 
                         <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:paddingStart="@dimen/dp4"
-                            android:layout_height="wrap_content">
+                            android:paddingStart="@dimen/dp4">
 
                             <LinearLayout
-                                android:orientation="horizontal"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-
-                            <TextView
-                                android:id="@+id/tvfoodName"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_gravity="center"
                                 android:layout_height="wrap_content"
-                                android:gravity="start"
-                                android:fontFamily="@font/proximaextrabold"
-                                android:text="Berbere Spice"
-                                android:textColor="@color/colorBlack"
-                                android:textSize="@dimen/sp18"
-                                android:textStyle="bold" />
+                                android:orientation="horizontal">
 
-                                <Button
-                                    android:layout_marginStart="@dimen/dp5"
+
+                                <TextView
+                                    android:id="@+id/tvfoodName"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:textColor="@color/white"
-                                    android:backgroundTint="@color/colorTextGray"
-                                    android:background="@drawable/rounded_drawable"
-                                    android:padding="@dimen/dp5"
-                                    android:textAlignment="center"
-                                    android:text="Save"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/proximaextrabold"
+                                    android:gravity="start"
+                                    android:text="Berbere Spice"
+                                    android:textColor="@color/colorBlack"
+                                    android:textSize="@dimen/sp18"
+                                    android:textStyle="bold" />
+
+                                <TextView
                                     android:id="@+id/savebtn"
-                                    android:layout_width="@dimen/dp60"
-                                    android:layout_height="30dp"
-                                    />
-
-                                <android.support.v7.widget.CardView
-                                    android:layout_marginStart="@dimen/dp5"
-                                    app:cardCornerRadius="@dimen/dp20"
-                                    android:layout_gravity="center"
                                     android:layout_width="wrap_content"
-                                    app:cardBackgroundColor="@color/colorTextGray"
-                                    android:layout_height="wrap_content">
-                                <com.like.LikeButton
-                                    android:id="@+id/lkFav"
-                                    android:padding="@dimen/dp5"
-                                    android:layout_width="35dp"
-                                    android:layout_height="35dp"
+                                    android:layout_height="30dp"
                                     android:layout_gravity="center"
-                                    app:anim_scale_factor="1"
-                                    app:circle_end_color="@color/colorRed"
-                                    app:circle_start_color="@color/white"
-                                    app:dots_primary_color="@color/colorRed"
-                                    app:dots_secondary_color="@color/colorAccentPink"
-                                    app:icon_size="@dimen/dp12"
-                                    app:icon_type="heart"
-                                    app:is_enabled="true"
-                                    app:like_drawable="@drawable/liked"
-                                    app:liked="false"
-                                    app:unlike_drawable="@drawable/unliked" />
+                                    android:layout_marginStart="@dimen/dp5"
+                                    android:background="@drawable/rounded_drawable"
+                                    android:backgroundTint="@color/colorTextGray"
+                                    android:paddingTop="@dimen/dp5"
+                                    android:paddingBottom="@dimen/dp5"
+                                    android:paddingStart="@dimen/dp10"
+                                    android:paddingEnd="@dimen/dp10"
+                                    android:textAllCaps="true"
+                                    android:text="@string/save_en"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white" />
 
-                                </android.support.v7.widget.CardView>
+<!--                                <Button-->
+<!--                                    android:id="@+id/savebtn"-->
+<!--                                    android:layout_width="@dimen/dp60"-->
+<!--                                    android:layout_height="30dp"-->
+<!--                                    android:layout_gravity="center"-->
+<!--                                    android:layout_marginStart="@dimen/dp5"-->
+<!--                                    android:background="@drawable/rounded_drawable"-->
+<!--                                    android:backgroundTint="@color/colorTextGray"-->
+<!--                                    android:padding="@dimen/dp5"-->
+<!--                                    android:text="@string/save_en"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="@color/white" />-->
+
+                                <FrameLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp5"
+                                    android:background="@drawable/rounded_drawable"
+                                    android:backgroundTint="@color/colorTextGray">
+
+                                    <com.like.LikeButton
+                                        android:id="@+id/lkFav"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_gravity="center"
+                                        android:padding="@dimen/dp5"
+                                        app:anim_scale_factor="1"
+                                        app:circle_end_color="@color/colorRed"
+                                        app:circle_start_color="@color/white"
+                                        app:dots_primary_color="@color/colorRed"
+                                        app:dots_secondary_color="@color/colorAccentPink"
+                                        app:icon_size="@dimen/dp12"
+                                        app:icon_type="heart"
+                                        app:is_enabled="true"
+                                        app:like_drawable="@drawable/liked"
+                                        app:liked="false"
+                                        app:unlike_drawable="@drawable/unliked" />
+
+                                </FrameLayout>
+
+<!--                                <android.support.v7.widget.CardView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_gravity="center"-->
+<!--                                    android:layout_marginStart="@dimen/dp5"-->
+<!--                                    app:cardBackgroundColor="@color/colorTextGray"-->
+<!--                                    app:cardCornerRadius="@dimen/dp20">-->
+
+<!--                                    <com.like.LikeButton-->
+<!--                                        android:id="@+id/lkFav"-->
+<!--                                        android:layout_width="35dp"-->
+<!--                                        android:layout_height="35dp"-->
+<!--                                        android:layout_gravity="center"-->
+<!--                                        android:padding="@dimen/dp5"-->
+<!--                                        app:anim_scale_factor="1"-->
+<!--                                        app:circle_end_color="@color/colorRed"-->
+<!--                                        app:circle_start_color="@color/white"-->
+<!--                                        app:dots_primary_color="@color/colorRed"-->
+<!--                                        app:dots_secondary_color="@color/colorAccentPink"-->
+<!--                                        app:icon_size="@dimen/dp12"-->
+<!--                                        app:icon_type="heart"-->
+<!--                                        app:is_enabled="true"-->
+<!--                                        app:like_drawable="@drawable/liked"-->
+<!--                                        app:liked="false"-->
+<!--                                        app:unlike_drawable="@drawable/unliked" />-->
+
+<!--                                </android.support.v7.widget.CardView>-->
 
                             </LinearLayout>
 
@@ -133,7 +178,7 @@
 
                                     <TextView
                                         android:id="@+id/tvPreparationTime"
-                                        android:layout_width="match_parent"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:gravity="center|start"
@@ -153,16 +198,16 @@
                                     android:orientation="horizontal">
 
                                     <ImageView
-                                        android:tint="@color/colorTextGray"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:background="@android:drawable/ic_menu_view"
-                                        android:padding="@dimen/dp5" />
+                                        android:padding="@dimen/dp5"
+                                        android:tint="@color/colorTextGray" />
 
                                     <TextView
                                         android:id="@+id/tvServingTime"
-                                        android:layout_width="match_parent"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:gravity="center|start"
@@ -191,7 +236,7 @@
 
                                     <TextView
                                         android:id="@+id/tvServingDetails"
-                                        android:layout_width="match_parent"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:gravity="center|start"
@@ -229,20 +274,18 @@
                     </LinearLayout>
 
 
-
-
                     <com.borjabravo.readmoretextview.ReadMoreTextView
                         android:id="@+id/tvfoodDiscount"
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp5"
                         android:fontFamily="@font/poppinssemibold"
                         android:text="88 % would make again"
                         android:textAllCaps="true"
+                        android:textColor="@color/colorAccent"
+                        android:visibility="gone"
                         app:trimLines="2"
-                        app:trimMode="trimModeLine"
-                        android:textColor="@color/colorAccent" />
+                        app:trimMode="trimModeLine" />
 
                 </LinearLayout>
                 <!--
@@ -254,10 +297,10 @@
 
 
                 <FrameLayout
-                    android:layout_marginTop="@dimen/dp10"
                     android:id="@+id/video_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp10"
                     android:background="@android:color/black">
 
 
@@ -266,9 +309,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        app:uvv_autoRotation="false"
-                        app:use_controller="true"
                         app:resize_mode="fill"
+                        app:use_controller="true"
+                        app:uvv_autoRotation="false"
                         app:uvv_fitXY="true" />
 
                     <structure.com.foodportal.helper.UniversalMediaController
@@ -287,12 +330,12 @@
                         app:uvv_scalable="false" />-->
                     <ImageView
                         android:id="@+id/mutebtn"
-                        android:padding="@dimen/dp5"
-                        android:layout_gravity="end"
-                        android:tint="@color/colorAccent"
-                        android:src="@drawable/uvv_volume_btn"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:padding="@dimen/dp5"
+                        android:src="@drawable/uvv_volume_btn"
+                        android:tint="@color/colorAccent" />
                 </FrameLayout>
                 <!--
                    <VideoView
@@ -316,34 +359,36 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingEnd="@dimen/dp10"
                         android:paddingStart="@dimen/dp10"
-                        android:paddingTop="@dimen/dp10">
+                        android:paddingTop="@dimen/dp10"
+                        android:paddingEnd="@dimen/dp10">
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/proximaextrabold"
-                            android:text="@string/ingredients"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/sp18"
-                            android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/tvIngredients"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/proximaextrabold"
+                                android:text="@string/ingredients_en"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/sp18"
+                                android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/servings"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinslight"
-                            android:text="for 6 servings"
-                            android:layout_alignParentRight="true"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="@dimen/sp13"
-                            android:textStyle="bold" />
-                        </RelativeLayout>
+                            <TextView
+                                android:id="@+id/servings"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinslight"
+                                android:gravity="end"
+                                android:text="for 3 servings"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="@dimen/sp13"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"
@@ -361,8 +406,8 @@
                             android:id="@+id/rvIngredients"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginBottom="@dimen/dp5"
                             android:layout_marginTop="@dimen/dp5"
+                            android:layout_marginBottom="@dimen/dp5"
                             android:layout_weight="1"
                             android:nestedScrollingEnabled="true"
                             android:scrollbars="none"
@@ -372,28 +417,28 @@
 
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp10"
+                            android:layout_marginBottom="@dimen/dp10"
                             android:background="@drawable/roundedshape"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:drawablePadding="@dimen/dp10"
                                 android:drawableStart="@drawable/nav"
+                                android:drawablePadding="@dimen/dp10"
                                 android:drawableTint="@color/colorAccent"
                                 android:gravity="center"
-                                android:paddingBottom="@dimen/dp10"
-                                android:paddingEnd="@dimen/dp5"
                                 android:paddingStart="@dimen/dp5"
                                 android:paddingTop="@dimen/dp10"
+                                android:paddingEnd="@dimen/dp5"
+                                android:paddingBottom="@dimen/dp10"
                                 android:text="Add to shopping list"
                                 android:textColor="@color/colorAccent" />
 
@@ -408,10 +453,11 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvRelatedRecipes"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/proximaextrabold"
-                                android:text="Related Recipes"
+                                android:text="@string/related_recipes_en"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="@dimen/dp18" />
@@ -421,8 +467,8 @@
                                 android:id="@+id/rvRelatedRecipes"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp10"
+                                android:layout_marginBottom="@dimen/dp5"
                                 android:layout_weight="1"
                                 android:nestedScrollingEnabled="true" />
                         </LinearLayout>
@@ -441,16 +487,17 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingEnd="@dimen/dp10"
                         android:paddingStart="@dimen/dp10"
-                        android:paddingTop="@dimen/dp10">
+                        android:paddingTop="@dimen/dp10"
+                        android:paddingEnd="@dimen/dp10">
 
 
                         <TextView
+                            android:id="@+id/tvPreparations"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/proximaextrabold"
-                            android:text="Preparations"
+                            android:text="@string/preparations_en"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/sp18"
                             android:textStyle="bold" />
@@ -460,8 +507,8 @@
                             android:id="@+id/rvPreparations"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginBottom="@dimen/dp5"
                             android:layout_marginTop="@dimen/dp10"
+                            android:layout_marginBottom="@dimen/dp5"
                             android:layout_weight="1"
                             android:nestedScrollingEnabled="true" />
 
@@ -470,89 +517,96 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     app:cardElevation="@dimen/dp10"
-                    app:cardUseCompatPadding="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:paddingEnd="@dimen/dp10"
-                        android:paddingStart="@dimen/dp10">
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/proximaextrabold"
-                            android:text="how'd it turn out"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorNav"
-                            android:textSize="@dimen/dp18" />
-
-                        <TextView
-                            android:id="@+id/tvShowall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:gravity="end"
-                            android:text="show all"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="@dimen/dp15" />
-
-                    </LinearLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10"
-                        android:layout_marginBottom="@dimen/dp10"
-                        android:background="@drawable/roundedshape">
-
-                        <EditText
-                            android:id="@+id/etComments"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/dp10"
+                            android:background="@color/white"
+                            android:paddingStart="@dimen/dp10"
+                            android:paddingTop="@dimen/dp10"
+                            android:paddingEnd="@dimen/dp10">
+
+                            <TextView
+                                android:id="@+id/tvHowItTurnOut"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/proximaextrabold"
+                                android:text="@string/how_it_turn_out_en"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorNav"
+                                android:textSize="@dimen/dp18" />
+
+                            <TextView
+                                android:id="@+id/tvShowall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:gravity="end"
+                                android:text="@string/show_all_en"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="@dimen/dp15" />
+
+                        </LinearLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/textInputComments"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp10"
+                            android:layout_marginBottom="@dimen/dp10"
+                            android:hint="@string/write_comments_en"
+                            app:hintEnabled="true"
+                            app:hintAnimationEnabled="true"
+                            android:background="@drawable/roundedshape">
+
+                            <EditText
+                                android:id="@+id/etComments"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp10"
+                                android:fontFamily="@font/poppinslight"
+                                android:gravity="top"
+                                android:maxLines="1000"
+                                android:minLines="3"
+                                android:padding="@dimen/dp5"
+                                android:textSize="@dimen/dp14"
+                                android:visibility="visible" />
+
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <RatingBar
+                            android:id="@+id/ratingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:numStars="5"
+                            android:progressTint="@color/colorYellow"
+                            android:rating="1.0"
+                            android:stepSize="1.0" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rvCommentsSection"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp10"
-                            android:fontFamily="@font/poppinslight"
-                            android:gravity="top"
-                            android:hint="Write comments..."
-                            android:maxLines="1000"
-                            android:minLines="3"
-                            android:padding="@dimen/dp5"
-                            android:textSize="@dimen/dp14"
-                            android:visibility="visible" />
+                            android:layout_marginEnd="@dimen/dp10" />
 
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <RatingBar
-                        android:id="@+id/ratingBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|center"
-                        android:numStars="5"
-                        android:progressTint="@color/colorYellow"
-                        android:rating="1.0"
-                        android:stepSize="1.0" />
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rvCommentsSection"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/dp10"
-                        android:layout_marginStart="@dimen/dp10"
-                        android:layout_marginEnd="@dimen/dp10"/>
-
-                </LinearLayout>
+                    </LinearLayout>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
@@ -565,7 +619,7 @@
             android:background="@drawable/ripple_effect"
             android:fontFamily="@font/poppinsmedium"
             android:gravity="center"
-            android:text="Step-By-Step Mode"
+            android:text="@string/step_by_step_mode_en"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:visibility="visible" />
