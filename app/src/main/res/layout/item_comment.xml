@@ -138,7 +138,7 @@
                     android:drawableStart="@android:drawable/ic_menu_revert"
                     android:drawableTint="@color/colorAccent"
                     android:gravity="center"
-                    android:text="reply"
+                    android:text="@string/reply_en"
                     android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>

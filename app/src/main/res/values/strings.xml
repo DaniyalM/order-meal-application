@@ -684,4 +684,8 @@
     <string name="save_ur">محفوظ کریں</string>
     <string name="saved_en">Saved</string>
     <string name="saved_ur">محفوظ</string>
+    <string name="reply_en">Reply</string>
+    <string name="reply_ur">جواب</string>
+    <string name="write_reply_en">Write reply</string>
+    <string name="write_reply_ur">جواب لکھیں</string>
 </resources>

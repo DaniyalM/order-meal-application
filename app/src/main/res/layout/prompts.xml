@@ -15,49 +15,48 @@
         android:padding="10dp">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/replyingimage"
-            android:src="@drawable/image_placeholder"
                 android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="top"
-                android:layout_height="40dp" />
+                android:src="@drawable/image_placeholder" />
+
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/replyingname"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppinsbold"
                     android:paddingStart="@dimen/dp5"
                     android:text="Mick Jones"
-                    android:fontFamily="@font/poppinsbold"
                     android:textColor="@color/white" />
 
-            <TextView
-                android:id="@+id/replyingetxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/poppinsmedium"
-                android:paddingStart="@dimen/dp5"
-                android:text="the magic is here and if you want to reply then let me know"
-                android:textColor="@color/white" />
+                <TextView
+                    android:id="@+id/replyingetxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:paddingStart="@dimen/dp5"
+                    android:text="the magic is here and if you want to reply then let me know"
+                    android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>
 
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/tvReplyLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reply: "
+            android:text="@string/reply_en"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white" />
 
@@ -66,11 +65,11 @@
             android:id="@+id/editTextDialogUserInput"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:hint="write reply"
+            android:background="@color/white"
+            android:gravity="top|start"
+            android:hint="@string/write_reply_en"
             android:padding="@dimen/dp5"
             android:textAlignment="gravity"
-            android:gravity="top|start"
-            android:background="@color/white"
             android:textColor="@color/colorBlack"
             android:textColorHint="@color/colorTextGray">
 

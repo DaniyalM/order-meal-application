@@ -14,15 +14,19 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import structure.com.foodportal.R;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.Spanny;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodDetailListner;
 import structure.com.foodportal.models.foodModels.Step;
+
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 
 public class FoodPreparationAdapter extends RecyclerView.Adapter<FoodPreparationAdapter.FoodPreparationViewHolder> {
 
     ArrayList<Step> steps;
     FoodDetailListner foodDetailListner;
     Context context;
+    BasePreferenceHelper mPreferenceHelper;
 
     public FoodPreparationAdapter(ArrayList<Step> steps, Context context, FoodDetailListner foodDetailListner) {
         this.steps = steps;
@@ -40,12 +44,12 @@ public class FoodPreparationAdapter extends RecyclerView.Adapter<FoodPreparation
     @Override
     public void onBindViewHolder(FoodPreparationAdapter.FoodPreparationViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
-        Drawable drawable = context.getDrawable(R.drawable.icon_play);
+        Drawable drawable = context.getDrawable(mPreferenceHelper.getSelectedLanguage() == ENGLISH ? R.drawable.icon_play : R.drawable.icon_play_flip);
         Spanny spanny;
         drawable.setTint(context.getResources().getColor(R.color.colorAccent));
         int lineHeight = holder.text.getLineHeight();
         drawable.setBounds(0, 0, lineHeight, lineHeight);
-         spanny = new Spanny().append(steps.get(position).getSteps_en()).append(" ", new ImageSpan(drawable));
+         spanny = new Spanny().append(mPreferenceHelper.getSelectedLanguage() == ENGLISH ? steps.get(position).getSteps_en() : steps.get(position).getSteps_ur()).append(" ", new ImageSpan(drawable));
         holder.text.setText(spanny);
         holder.textnum.setText("" + (position + 1));
 
@@ -60,6 +64,10 @@ public class FoodPreparationAdapter extends RecyclerView.Adapter<FoodPreparation
     @Override
     public int getItemCount() {
         return steps.size();
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        mPreferenceHelper = preferenceHelper;
     }
 
     public static class FoodPreparationViewHolder extends RecyclerView.ViewHolder {

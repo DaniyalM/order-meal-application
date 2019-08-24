@@ -6,8 +6,6 @@ import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.AudioAttributes;
-import android.media.Image;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -27,12 +25,9 @@ import android.transition.ChangeImageTransform;
 import android.transition.ChangeTransform;
 import android.transition.Fade;
 import android.transition.TransitionSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,46 +36,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.danikula.videocache.CacheListener;
-import com.danikula.videocache.HttpProxyCacheServer;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
-import com.google.android.exoplayer2.audio.AudioRendererEventListener;
-import com.google.android.exoplayer2.decoder.DecoderCounters;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.gson.Gson;
-import com.google.gson.annotations.SerializedName;
 import com.like.LikeButton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.xml.parsers.SAXParser;
-
-import structure.com.foodportal.MyApplication;
-
 import structure.com.foodportal.R;
-import structure.com.foodportal.adapter.foodPortalAdapters.ExpandableListAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodCommentsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodIngredientsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPopularRecipeAdapter;
@@ -89,7 +69,6 @@ import structure.com.foodportal.adapter.foodPortalAdapters.FoodSpecialIngredient
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodSpecialStepsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.StepbyStepAdapter;
 import structure.com.foodportal.databinding.FragmentFoodSpecialDetailBinding;
-import structure.com.foodportal.databinding.FragmentProductDetailFoodportalBinding;
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.DataSyncEvent;
@@ -115,8 +94,6 @@ import structure.com.foodportal.models.foodModels.SpecialIngedient;
 import structure.com.foodportal.models.foodModels.SpecialIngredientSteps;
 import structure.com.foodportal.models.foodModels.Step;
 import structure.com.foodportal.singleton.CarelessSingleton;
-
-import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
 public class FoodSpecialDetailFragment extends BaseFragment implements
         View.OnClickListener, FoodDetailListner, SimpleExoPlayer.EventListener, UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener, CommentClickListner, SpecialStepListner {
@@ -770,8 +747,8 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
             }else{
 
-                ingredients.add(new CustomIngredient(" ",0, foodDetailModel.getIngredient().get(i).getIngredient_en(),foodDetailModel.getIngredient().get(i).getQuantity()+" "+(
-                        foodDetailModel.getIngredient().get(i).getQuantity_type()!=null ? foodDetailModel.getIngredient().get(i).getQuantity_type(): " ")));
+                ingredients.add(new CustomIngredient(" ",0, foodDetailModel.getIngredient().get(i).getIngredient_en(),foodDetailModel.getIngredient().get(i).getQuantity_en()+" "+(
+                        foodDetailModel.getIngredient().get(i).getQuantity_type_en()!=null ? foodDetailModel.getIngredient().get(i).getQuantity_type_en(): " ")));
             }
 
             for (int k = 0; k < foodDetailModel.getIngredient().get(i).getSub_ingredients().size(); k++) {
@@ -782,8 +759,8 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
                 ingredients.add(new CustomIngredient(" ",
                         0,
                         foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en(),
-                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity()+" "+(
-                                foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type()!=null ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type(): " ")));
+                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_en()+" "+(
+                                foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_en()!=null ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_en(): " ")));
 
 
             }

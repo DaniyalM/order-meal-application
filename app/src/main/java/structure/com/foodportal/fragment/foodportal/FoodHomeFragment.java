@@ -161,6 +161,15 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
             dataLoadedListener.onDataLoaded();
         }
 
+        switch (preferenceHelper.getSelectedLanguage()) {
+            case ENGLISH:
+            default:
+                binding.linearLayoutMain.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                break;
+
+            case AppConstant.Language.URDU:
+                binding.linearLayoutMain.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }
 
         gethomeDetails();
 

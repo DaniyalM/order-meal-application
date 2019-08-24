@@ -6,14 +6,11 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.media.AudioAttributes;
-import android.media.Image;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -46,45 +43,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.danikula.videocache.CacheListener;
-import com.danikula.videocache.HttpProxyCacheServer;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
-import com.google.android.exoplayer2.audio.AudioRendererEventListener;
-import com.google.android.exoplayer2.decoder.DecoderCounters;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.gson.Gson;
-import com.google.gson.annotations.SerializedName;
 import com.like.LikeButton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.xml.parsers.SAXParser;
-
-import structure.com.foodportal.MyApplication;
 import structure.com.foodportal.R;
-import structure.com.foodportal.adapter.foodPortalAdapters.ExpandableListAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodCommentsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodIngredientsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPopularRecipeAdapter;
@@ -116,7 +99,6 @@ import structure.com.foodportal.singleton.CarelessSingleton;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
-import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
 public class FoodDetailFragment extends BaseFragment implements
         View.OnClickListener, FoodDetailListner, SimpleExoPlayer.EventListener, UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener, CommentClickListner {
@@ -345,6 +327,8 @@ public class FoodDetailFragment extends BaseFragment implements
 
                 comments.addAll(foodDetailModel.getAllReviews());
                 foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true, false);
+                foodCommentsAdapter.setPreferenceHelper(preferenceHelper);
+
                 binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
                 foodCommentsAdapter.notifyDataSetChanged();
 
@@ -427,6 +411,8 @@ public class FoodDetailFragment extends BaseFragment implements
 
 
         foodPreparationAdapter = new FoodPreparationAdapter(steps, mainActivity, this);
+        foodPreparationAdapter.setPreferenceHelper(preferenceHelper);
+
         binding.rvPreparations.setAdapter(foodPreparationAdapter);
         Log.d("Token", preferenceHelper.getDeviceToken());
         setscreensize();
@@ -793,10 +779,10 @@ public class FoodDetailFragment extends BaseFragment implements
 
     /*    for (int i = 0; i < foodDetailModel.getIngredient().size(); i++) {
             //For Header
-            ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en() == null ? (foodDetailModel.getIngredient().get(i).getIngredient_en() != null ? foodDetailModel.getIngredient().get(i).getIngredient_en() : " ") + " " + (foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() : " ") :
+            ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en() == null ? (foodDetailModel.getIngredient().get(i).getIngredient_en() != null ? foodDetailModel.getIngredient().get(i).getIngredient_en() : " ") + " " + (foodDetailModel.getIngredient().get(i).getQuantity_en() != null ? foodDetailModel.getIngredient().get(i).getQuantity_en() : " ") :
                     foodDetailModel.getIngredient().get(i).getTag_en() != null ? foodDetailModel.getIngredient().get(i).getTag_en() : " ", 1,
-                    foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() : "",
-                    foodDetailModel.getIngredient().get(i).getQuantity() == null ? " " : " " + (foodDetailModel.getIngredient().get(i).getQuantity_type() != null ? foodDetailModel.getIngredient().get(i).getQuantity_type() : " ")
+                    foodDetailModel.getIngredient().get(i).getQuantity_en() != null ? foodDetailModel.getIngredient().get(i).getQuantity_en() : "",
+                    foodDetailModel.getIngredient().get(i).getQuantity_en() == null ? " " : " " + (foodDetailModel.getIngredient().get(i).getQuantity_type_en() != null ? foodDetailModel.getIngredient().get(i).getQuantity_type_en() : " ")
 
             ));
 
@@ -806,11 +792,11 @@ public class FoodDetailFragment extends BaseFragment implements
                 //For SubList
 
                 ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en() + " " +
-                        (foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity() : " ") +
-                        (foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type() != null ?
-                                foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type() : " "), 0,
-                        foodDetailModel.getIngredient().get(i).getQuantity() == null ? " " : foodDetailModel.getIngredient().get(i).getQuantity(),
-                        foodDetailModel.getIngredient().get(i).getQuantity() != null ? foodDetailModel.getIngredient().get(i).getQuantity() + "" + foodDetailModel.getIngredient().get(i).getQuantity_type() : " "));
+                        (foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_en() != null ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_en() : " ") +
+                        (foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_en() != null ?
+                                foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_en() : " "), 0,
+                        foodDetailModel.getIngredient().get(i).getQuantity_en() == null ? " " : foodDetailModel.getIngredient().get(i).getQuantity_en(),
+                        foodDetailModel.getIngredient().get(i).getQuantity_en() != null ? foodDetailModel.getIngredient().get(i).getQuantity_en() + "" + foodDetailModel.getIngredient().get(i).getQuantity_type_en() : " "));
 
 
             }
@@ -821,27 +807,30 @@ public class FoodDetailFragment extends BaseFragment implements
 
         for (int i = 0; i < foodDetailModel.getIngredient().size(); i++) {
             //For Header
+            String tag = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getTag_en() : foodDetailModel.getIngredient().get(i).getTag_ur();
+            String ingredient = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getIngredient_en() : foodDetailModel.getIngredient().get(i).getIngredient_ur();
+            String quantity = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getQuantity_en() : foodDetailModel.getIngredient().get(i).getQuantity_ur();
+            String quantityType = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getQuantity_type_en() : foodDetailModel.getIngredient().get(i).getQuantity_type_ur();
 
-            if (foodDetailModel.getIngredient().get(i).getTag_en() != null) {
+            if (tag != null) {
 
-                ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en(), 1, " ", " "));
+                ingredients.add(new CustomIngredient(tag, 1, " ", " "));
 
             } else {
 
-                ingredients.add(new CustomIngredient(" ", 0, foodDetailModel.getIngredient().get(i).getIngredient_en(), foodDetailModel.getIngredient().get(i).getQuantity() + " " + (
-                        foodDetailModel.getIngredient().get(i).getQuantity_type() != null ? foodDetailModel.getIngredient().get(i).getQuantity_type() : " ")));
+                ingredients.add(new CustomIngredient(" ", 0, ingredient,
+                        (quantity != null ? quantity : " ") + " " + (quantityType != null ? quantityType : " ")));
             }
 
             for (int k = 0; k < foodDetailModel.getIngredient().get(i).getSub_ingredients().size(); k++) {
 
-
                 //For SubList
+                ingredient = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en() : foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_ur();
+                quantity = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_en() : foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_ur();
+                quantityType = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_en() : foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_ur();
 
-                ingredients.add(new CustomIngredient(" ",
-                        0,
-                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en(),
-                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity() + " " + (
-                                foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type() != null ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type() : " ")));
+                ingredients.add(new CustomIngredient(" ", 0,ingredient,
+                        (quantity != null ? quantity : " ") + " " + (quantityType != null ? quantityType : " ")));
 
 
             }

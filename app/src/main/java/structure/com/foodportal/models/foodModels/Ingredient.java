@@ -6,6 +6,8 @@ public class Ingredient {
 
     private String quantity_en;
 
+    private String quantity_ur;
+
     private int is_active;
 
     private int story_id;
@@ -24,18 +26,28 @@ public class Ingredient {
 
     private String quantity_type_en;
 
+    private String quantity_type_ur;
+
     private int id;
 
     private String tag_ur;
 
     private String ingredient_en;
 
-    public String getQuantity() {
+    public String getQuantity_en() {
         return quantity_en;
     }
 
-    public void setQuantity(String quantity_en) {
+    public void setQuantity_en(String quantity_en) {
         this.quantity_en = quantity_en;
+    }
+
+    public String getQuantity_ur() {
+        return quantity_ur;
+    }
+
+    public void setQuantity_ur(String quantity_ur) {
+        this.quantity_ur = quantity_ur;
     }
 
     public int getIs_active() {
@@ -102,12 +114,20 @@ public class Ingredient {
         this.tag_en = tag_en;
     }
 
-    public String getQuantity_type() {
+    public String getQuantity_type_en() {
         return quantity_type_en;
     }
 
-    public void setQuantity_type(String quantity_type_en) {
+    public void setQuantity_type_en(String quantity_type_en) {
         this.quantity_type_en = quantity_type_en;
+    }
+
+    public String getQuantity_type_ur() {
+        return quantity_type_ur;
+    }
+
+    public void setQuantity_type_ur(String quantity_type_ur) {
+        this.quantity_type_ur = quantity_type_ur;
     }
 
     public int getId() {

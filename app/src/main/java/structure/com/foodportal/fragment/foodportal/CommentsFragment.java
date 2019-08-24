@@ -21,6 +21,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,11 @@ import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.RecipeWrapper;
 import structure.com.foodportal.models.foodModels.SavedRecipe;
 
+import static android.view.Gravity.END;
+import static android.view.Gravity.START;
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
+
 public class CommentsFragment extends BaseFragment implements CommentClickListner, View.OnClickListener {
 
 
@@ -70,9 +76,10 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
     ArrayList<Comments> comments;
     FragmenCommentsBinding binding;
     FoodCommentsAdapter foodCommentsAdapter;
-   public boolean sepcial;
-    public void setArrayComments(FoodDetailModelWrapper foodDetailModel,Boolean sepcial)
-    {      this.sepcial=sepcial;
+    public boolean sepcial;
+
+    public void setArrayComments(FoodDetailModelWrapper foodDetailModel, Boolean sepcial) {
+        this.sepcial = sepcial;
         this.foodDetailModel = foodDetailModel;
 
 
@@ -86,6 +93,24 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragmen_comments, container, false);
         mainActivity.hideBottombar();
+
+        switch (preferenceHelper.getSelectedLanguage()) {
+            case ENGLISH:
+            default:
+                binding.linearLayoutMain.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                binding.etCommentsm.setTextDirection(View.TEXT_DIRECTION_LTR);
+                binding.etCommentsm.setHint(getString(R.string.write_comments_en));
+                binding.send.setImageResource(R.drawable.icon_send);
+                break;
+
+            case URDU:
+                binding.linearLayoutMain.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                binding.etCommentsm.setTextDirection(View.TEXT_DIRECTION_RTL);
+                binding.etCommentsm.setHint(getString(R.string.write_comments_ur));
+                binding.send.setImageResource(R.drawable.icon_send_flip);
+                break;
+        }
+
         setListners();
 
 
@@ -110,6 +135,8 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
 
 
         foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, false, true);
+        foodCommentsAdapter.setPreferenceHelper(preferenceHelper);
+
         binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
       /*  ItemTouchHelper.Callback callback =
                 new SimpleItemTouchHelperCallback(foodCommentsAdapter);
@@ -118,7 +145,7 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
         int resId = R.anim.layout_bottom_animation;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(mainActivity, resId);
         binding.rvCommentsSection.setLayoutAnimation(animation);
-        if (foodDetailModel.getAllReviews()!=null&& foodDetailModel.getAllReviews().size() > 0) {
+        if (foodDetailModel.getAllReviews() != null && foodDetailModel.getAllReviews().size() > 0) {
             foodCommentsAdapter.addAll(foodDetailModel.getAllReviews());
 
         } else {
@@ -174,6 +201,7 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
     }
 
     CommentsWrapper foodDetailModelWrapper;
+
     @Override
     public void ResponseSuccess(Object result, String Tag) {
         switch (Tag) {
@@ -190,13 +218,13 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
                 break;
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW:
 
-                foodCommentsAdapter=null;
+                foodCommentsAdapter = null;
                 comments.clear();
                 foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, false, true);
                 binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
-                 foodDetailModelWrapper = (CommentsWrapper) result;
+                foodDetailModelWrapper = (CommentsWrapper) result;
                 foodDetailModel.setAllReviews(null);
-                 foodDetailModel.setAllReviews(foodDetailModelWrapper.getData());
+                foodDetailModel.setAllReviews(foodDetailModelWrapper.getData());
                 foodCommentsAdapter.addAll(foodDetailModelWrapper.getData());
 
 
@@ -241,22 +269,21 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
     public void sendreview(FoodDetailModel foodDetailModel) {
 
 
-        if(sepcial){
-        serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
-                "special_recipe",
-                foodDetailModel.getFeature_type_id(),
-                foodDetailModel.getId(), binding.etCommentsm.getText().toString(),
-                0), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
+        if (sepcial) {
+            serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
+                    "special_recipe",
+                    foodDetailModel.getFeature_type_id(),
+                    foodDetailModel.getId(), binding.etCommentsm.getText().toString(),
+                    0), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
 
-    }   else{
+        } else {
 
-        serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
-                "story",
-                foodDetailModel.getFeature_type_id(),
-                foodDetailModel.getId(), binding.etCommentsm.getText().toString(),
-                0), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
-    }
-
+            serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
+                    "story",
+                    foodDetailModel.getFeature_type_id(),
+                    foodDetailModel.getId(), binding.etCommentsm.getText().toString(),
+                    0), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
+        }
 
 
         binding.etCommentsm.setText("");
@@ -264,16 +291,16 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
 
     int replyposition = 0;
 
-    public void sendreply(FoodDetailModelWrapper foodDetailModel, int position,String editText) {
+    public void sendreply(FoodDetailModelWrapper foodDetailModel, int position, String editText) {
         replyposition = position;
-        if(sepcial){
+        if (sepcial) {
             serviceHelper.enqueueCall(webService.sendreply(preferenceHelper.getUser().getId(),
                     "special_recipe",
                     foodDetailModel.getData().getFeature_type_id(),
                     foodDetailModel.getAllReviews().get(position).getStory_id(), editText,
                     foodDetailModel.getAllReviews().get(position).getId()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
 
-        }else {
+        } else {
             serviceHelper.enqueueCall(webService.sendreply(preferenceHelper.getUser().getId(),
                     "story",
                     foodDetailModel.getData().getFeature_type_id(),
@@ -284,10 +311,10 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
     }
 
     public void allreview(FoodDetailModel foodDetailModel) {
-        if(sepcial){
-        serviceHelper.enqueueCall(webService.getAlReviews(String.valueOf(foodDetailModel.getId()),"special_recipe"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW);
-    }else{
-            serviceHelper.enqueueCall(webService.getAlReviews(String.valueOf(foodDetailModel.getId()),"story"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW);
+        if (sepcial) {
+            serviceHelper.enqueueCall(webService.getAlReviews(String.valueOf(foodDetailModel.getId()), "special_recipe"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW);
+        } else {
+            serviceHelper.enqueueCall(webService.getAlReviews(String.valueOf(foodDetailModel.getId()), "story"), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_ALL_REVIEW);
 
         }
     }
@@ -299,28 +326,53 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
         View promptsView = li.inflate(R.layout.prompts, null);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                mainActivity,R.style.PauseDialog);
+                mainActivity, R.style.PauseDialog);
         promptsView.setBackgroundColor(mainActivity.getResources().getColor(R.color.colorAccent));
 
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
 
-        final EditText userInput = (EditText) promptsView
-                .findViewById(R.id.editTextDialogUserInput);
-        final ImageView personimage = (ImageView) promptsView
-                .findViewById(R.id.replyingimage);
-        final TextView personname = (TextView) promptsView
-                .findViewById(R.id.replyingname);
-        final TextView persontext = (TextView) promptsView
-                .findViewById(R.id.replyingetxt);
+        String cancel, ok;
+
+        final LinearLayout rootLayout = (LinearLayout) promptsView.findViewById(R.id.layout_root);
+        final EditText userInput = (EditText) promptsView.findViewById(R.id.editTextDialogUserInput);
+        final ImageView personimage = (ImageView) promptsView.findViewById(R.id.replyingimage);
+        final TextView personname = (TextView) promptsView.findViewById(R.id.replyingname);
+        final TextView persontext = (TextView) promptsView.findViewById(R.id.replyingetxt);
+        final TextView replyLabel = (TextView) promptsView.findViewById(R.id.tvReplyLabel);
+
+        switch (preferenceHelper.getSelectedLanguage()) {
+            case ENGLISH:
+            default:
+                rootLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                personname.setGravity(START);
+                persontext.setGravity(START);
+                userInput.setTextDirection(View.TEXT_DIRECTION_LTR);
+                replyLabel.setText(getString(R.string.reply_en));
+                userInput.setHint(getString(R.string.write_reply_en));
+                cancel = getString(R.string.cancel_en);
+                ok = getString(R.string.ok_en);
+                break;
+
+            case URDU:
+                rootLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                personname.setGravity(END);
+                persontext.setGravity(END);
+                userInput.setTextDirection(View.TEXT_DIRECTION_RTL);
+                replyLabel.setText(getString(R.string.reply_ur));
+                userInput.setHint(getString(R.string.write_reply_ur));
+                cancel = getString(R.string.cancel_ur);
+                ok = getString(R.string.ok_ur);
+                break;
+        }
 
         switch (foodDetailModelWrapper.getAllReviews().get(pos).getUser().getAcct_type()) {
 
             case 1:
-                UIHelper.setImageWithGlide(mainActivity, personimage, AppConstant.BASE_URL_IMAGE +foodDetailModelWrapper.getAllReviews().get(pos).getUser().getProfile_picture());
+                UIHelper.setImageWithGlide(mainActivity, personimage, AppConstant.BASE_URL_IMAGE + foodDetailModelWrapper.getAllReviews().get(pos).getUser().getProfile_picture());
                 break;
             case 2://gmail
-                UIHelper.setImageWithGlide(mainActivity,personimage, AppConstant.BASE_URL_IMAGE + foodDetailModelWrapper.getAllReviews().get(pos).getUser().getProfile_picture());
+                UIHelper.setImageWithGlide(mainActivity, personimage, AppConstant.BASE_URL_IMAGE + foodDetailModelWrapper.getAllReviews().get(pos).getUser().getProfile_picture());
                 break;
             case 3://facebook
                 UIHelper.setImageWithGlide(mainActivity, personimage, "https://graph.facebook.com/" + foodDetailModelWrapper.getAllReviews().get(pos).getUser().getProfile_picture() + "/picture?type=large");
@@ -335,7 +387,7 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
 
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("OK",
+                .setPositiveButton(ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // get user input and set it to result
@@ -346,12 +398,12 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
 
                                 } else {
                                     dialog.dismiss();
-                                    sendreply(foodDetailModelWrapper, pos,userInput.getText().toString());
+                                    sendreply(foodDetailModelWrapper, pos, userInput.getText().toString());
                                 }
 
                             }
                         })
-                .setNegativeButton("Cancel",
+                .setNegativeButton(cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.dismiss();

@@ -42,36 +42,37 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
         PlanetViewHolder viewHolder = new PlanetViewHolder(v);
         return viewHolder;
     }
-    int k=0;
+
+    int k = 0;
+
     @Override
     public void onBindViewHolder(FoodIngredientsAdapter.PlanetViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
 
 
-
-        if(ingredientList.get(position).getIsHeader()==1){
-            k=0;
-            String sourceString =  ingredientList.get(position).getName();
+        if (ingredientList.get(position).getIsHeader() == 1) {
+            k = 0;
+            String sourceString = ingredientList.get(position).getName().trim();
             holder.text.setText(Html.fromHtml(sourceString));
             Typeface face = Typeface.createFromAsset(context.getResources().getAssets(),
                     "font/proximaextrabold.ttf");
             holder.text.setTypeface(face);
             holder.text.setTextColor(Color.BLACK);
-           // holder.text.setBackgroundColor(context.getResources().getColor(R.color.white));
+            // holder.text.setBackgroundColor(context.getResources().getColor(R.color.white));
 
 
-           // holder.tvQuantity.setText("  "/*categories.get(position).getMainquantity()!=null ?categories.get(position).getMainquantity(): " "*/);
+            // holder.tvQuantity.setText("  "/*categories.get(position).getMainquantity()!=null ?categories.get(position).getMainquantity(): " "*/);
 
-        }else{
+        } else {
             k++;
             Typeface face = Typeface.createFromAsset(context.getResources().getAssets(),
-            "font/poppinsmedium.ttf");
+                    "font/poppinsmedium.ttf");
             holder.text.setTypeface(face);
-            Spanny spanny=new Spanny();
-            spanny.append("",new ForegroundColorSpan(context.getResources().getColor(R.color.colorAccent)),new StyleSpan(Typeface.BOLD)
+            Spanny spanny = new Spanny();
+            spanny.append("", new ForegroundColorSpan(context.getResources().getColor(R.color.colorAccent)), new StyleSpan(Typeface.BOLD)
             ).append(ingredientList.get(position).getMainquantity());
-            holder.text.setText( spanny);
-            holder.tvQuantity.setText(ingredientList.get(position).getSubquantity() );
+            holder.text.setText(spanny.toString().trim());
+            holder.tvQuantity.setText(ingredientList.get(position).getSubquantity().trim());
         }
 /*
 
@@ -85,7 +86,7 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
 
 
             holder.tvQuantity.setText("  "*/
-/*categories.get(position).getMainquantity()!=null ?categories.get(position).getMainquantity(): " "*//*
+        /*categories.get(position).getMainquantity()!=null ?categories.get(position).getMainquantity(): " "*//*
 );
 
         }else{
@@ -109,7 +110,7 @@ public class FoodIngredientsAdapter extends RecyclerView.Adapter<FoodIngredients
 
     public static class PlanetViewHolder extends RecyclerView.ViewHolder {
 
-        protected TextView text,tvQuantity;
+        protected TextView text, tvQuantity;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);

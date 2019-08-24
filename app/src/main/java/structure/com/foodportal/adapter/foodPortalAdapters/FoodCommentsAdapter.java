@@ -22,11 +22,16 @@ import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.customViews.CustomRatingBar;
 import structure.com.foodportal.helper.AppConstant;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.ItemTouchHelperAdapter;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.helper.Utils;
 import structure.com.foodportal.interfaces.foodInterfaces.CommentClickListner;
 import structure.com.foodportal.models.foodModels.Comments;
+
+import static android.view.Gravity.END;
+import static android.view.Gravity.START;
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 
 public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapter.PlanetViewHolder> implements ItemTouchHelperAdapter {
 
@@ -35,6 +40,7 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
     private int lastPosition = -1;
     CommentClickListner commentClickListner;
     boolean showTwo, main;
+    BasePreferenceHelper mPreferenceHelper;
 
     public FoodCommentsAdapter(ArrayList<Comments> sections, MainActivity context, CommentClickListner commentClickListner, boolean showTwo, boolean main) {
         this.showTwo = showTwo;
@@ -75,6 +81,9 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
         }
 
         holder.username.setText(sections.get(position).getUser().getName_en());
+        holder.reply.setText(mPreferenceHelper.getSelectedLanguage() == ENGLISH ? context.getString(R.string.reply_en) : context.getString(R.string.reply_ur));
+        holder.reply.setLayoutDirection(mPreferenceHelper.getSelectedLanguage() == ENGLISH ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL);
+        holder.comment.setGravity(mPreferenceHelper.getSelectedLanguage() == ENGLISH ? START : END);
         holder.comment.setText(sections.get(position).getReviews());
             try {
                 holder.time.setText( Utils.convertTime(sections.get(position).getCreated_at()));
@@ -252,6 +261,10 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
         //setAnimation(holder.itemView, position);
 
 
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        mPreferenceHelper = preferenceHelper;
     }
 
     private void setAnimation(View viewToAnimate, int position) {
