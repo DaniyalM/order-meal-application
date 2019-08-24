@@ -60,6 +60,7 @@ import structure.com.foodportal.models.foodModels.CustomIngredient;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.singleton.CarelessSingleton;
 
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
 public class StepFragment extends BaseFragment implements View.OnClickListener, SimpleExoPlayer.EventListener {
@@ -156,6 +157,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
     View vingredients;
     RecyclerView rvIngredients;
     TextView tvingredients;
+    private int mLang;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -234,7 +236,10 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
         playvideo();
 
 
-
+        mLang = preferenceHelper.getSelectedLanguage();
+        tvingredients.setText(mLang == ENGLISH ? getString(R.string.ingredients_en) : getString(R.string.ingredients_ur));
+        binding.layoutRoot.setLayoutDirection(mLang == ENGLISH ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL);
+        binding.llmainingredients.setLayoutDirection(mLang == ENGLISH ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL);
 
         //timerCounter(positon);
 
@@ -244,7 +249,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
         UIHelper.setImageWithGlide(mainActivity, binding.imageforrecplace, foodDetailModel.getGallery().getPhotos().get(0).getImage_path());
 
         //  playvideo(value);
-        binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
+        binding.tvStepDetail.setText(mLang == ENGLISH ? foodDetailModel.getSteps().get(value).getSteps_en() : foodDetailModel.getSteps().get(value).getSteps_ur());
         binding.tvSteps.setText((value + 1) +" of "+ foodDetailModel.getSteps().size());
 
         binding.videoLayout.setOnTouchListener(new OnSwipeTouchListner(mainActivity) {
@@ -269,7 +274,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
 
                     //value = value-1;
                     playvideo();
-                    binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
+                    binding.tvStepDetail.setText(mLang == ENGLISH ? foodDetailModel.getSteps().get(value).getSteps_en() : foodDetailModel.getSteps().get(value).getSteps_ur());
                     binding.tvSteps.setText((value + 1) +" of "+ foodDetailModel.getSteps().size());
                 }
                 //  Toast.makeText(mainActivity, "right", Toast.LENGTH_SHORT).show();
@@ -286,7 +291,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
                     ProgressBarAnimation anim = new ProgressBarAnimation(storiesProgressView, storiesProgressView.getProgress(), (int) (onestep * (1 + value)));
                     anim.setDuration(1200);
                     storiesProgressView.startAnimation(anim);
-                    binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
+                    binding.tvStepDetail.setText(mLang == ENGLISH ? foodDetailModel.getSteps().get(value).getSteps_en() : foodDetailModel.getSteps().get(value).getSteps_ur());
                     binding.tvSteps.setText((value + 1) +" of "+ foodDetailModel.getSteps().size());
                     //  storiesProgressView.setProgress((int) (onestep * (1 + value)));
                     playvideo();
@@ -306,7 +311,7 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
                     // storiesProgressView.setProgress((int) (onestep * (1 + value)));
 
                     playvideo();
-                    binding.tvStepDetail.setText(foodDetailModel.getSteps().get(value).getSteps_en());
+                    binding.tvStepDetail.setText(mLang == ENGLISH ? foodDetailModel.getSteps().get(value).getSteps_en() : foodDetailModel.getSteps().get(value).getSteps_ur());
                     binding.tvSteps.setText((value + 1) +" of "+ foodDetailModel.getSteps().size());
                 }
                 // Toast.makeText(mainActivity, "left", Toast.LENGTH_SHORT).show();
@@ -468,29 +473,62 @@ public class StepFragment extends BaseFragment implements View.OnClickListener, 
     public  void setingrdient(FoodDetailModel foodDetailModel){
         linearLayoutManagerIngredients = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
         ingredients =new ArrayList<>();
+//        for (int i = 0; i < foodDetailModel.getIngredient().size(); i++) {
+//            //For Header
+//
+//            if(foodDetailModel.getIngredient().get(i).getTag_en()!=null){
+//
+//                ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en(),1, " "," "));
+//
+//            }else{
+//
+//                ingredients.add(new CustomIngredient(" ",0, foodDetailModel.getIngredient().get(i).getIngredient_en(),foodDetailModel.getIngredient().get(i).getQuantity_en()+" "+(
+//                        foodDetailModel.getIngredient().get(i).getQuantity_type_en()!=null ? foodDetailModel.getIngredient().get(i).getQuantity_type_en(): " ")));
+//            }
+//
+//            for (int k = 0; k < foodDetailModel.getIngredient().get(i).getSub_ingredients().size(); k++) {
+//
+//
+//                //For SubList
+//
+//                ingredients.add(new CustomIngredient(" ",
+//                        0,
+//                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en(),
+//                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_en()+" "+(
+//                                foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_en()!=null ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_en(): " ")));
+//
+//
+//            }
+//
+//
+//        }
+
         for (int i = 0; i < foodDetailModel.getIngredient().size(); i++) {
             //For Header
+            String tag = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getTag_en() : foodDetailModel.getIngredient().get(i).getTag_ur();
+            String ingredient = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getIngredient_en() : foodDetailModel.getIngredient().get(i).getIngredient_ur();
+            String quantity = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getQuantity_en() : foodDetailModel.getIngredient().get(i).getQuantity_ur();
+            String quantityType = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getQuantity_type_en() : foodDetailModel.getIngredient().get(i).getQuantity_type_ur();
 
-            if(foodDetailModel.getIngredient().get(i).getTag_en()!=null){
+            if (tag != null) {
 
-                ingredients.add(new CustomIngredient(foodDetailModel.getIngredient().get(i).getTag_en(),1, " "," "));
+                ingredients.add(new CustomIngredient(tag, 1, " ", " "));
 
-            }else{
+            } else {
 
-                ingredients.add(new CustomIngredient(" ",0, foodDetailModel.getIngredient().get(i).getIngredient_en(),foodDetailModel.getIngredient().get(i).getQuantity_en()+" "+(
-                        foodDetailModel.getIngredient().get(i).getQuantity_type_en()!=null ? foodDetailModel.getIngredient().get(i).getQuantity_type_en(): " ")));
+                ingredients.add(new CustomIngredient(" ", 0, ingredient,
+                        (quantity != null ? quantity : " ") + " " + (quantityType != null ? quantityType : " ")));
             }
 
             for (int k = 0; k < foodDetailModel.getIngredient().get(i).getSub_ingredients().size(); k++) {
 
-
                 //For SubList
+                ingredient = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en() : foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_ur();
+                quantity = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_en() : foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_ur();
+                quantityType = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_en() : foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_ur();
 
-                ingredients.add(new CustomIngredient(" ",
-                        0,
-                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getIngredient_en(),
-                        foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_en()+" "+(
-                                foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_en()!=null ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_en(): " ")));
+                ingredients.add(new CustomIngredient(" ", 0,ingredient,
+                        (quantity != null ? quantity : " ") + " " + (quantityType != null ? quantityType : " ")));
 
 
             }

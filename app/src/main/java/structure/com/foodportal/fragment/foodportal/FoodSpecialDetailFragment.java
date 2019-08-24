@@ -365,6 +365,8 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
 
         foodPreparationAdapter = new FoodPreparationAdapter(steps, mainActivity, this);
+        foodPreparationAdapter.setPreferenceHelper(preferenceHelper);
+
         binding.rvPreparations.setAdapter(foodPreparationAdapter);
 
 
