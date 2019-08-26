@@ -23,11 +23,20 @@ public class FoodDetailModel implements Serializable {
     @SerializedName("before_start_en")
     private String before_start_en;
 
+    @SerializedName("before_start_ur")
+    private String before_start_ur;
+
     @SerializedName("before_start_content_en")
     private String before_start_content_en;
 
+    @SerializedName("before_start_content_ur")
+    private String before_start_content_ur;
+
     @SerializedName("masalas_aromatics_en")
     private String masalas_aromatics_en;
+
+    @SerializedName("masalas_aromatics_ur")
+    private String masalas_aromatics_ur;
 
     public String getBefore_start_en() {
         return before_start_en;
@@ -43,6 +52,38 @@ public class FoodDetailModel implements Serializable {
 
     public void setBefore_start_content_en(String before_start_content_en) {
         this.before_start_content_en = before_start_content_en;
+    }
+
+    public String getBefore_start_ur() {
+        return before_start_ur;
+    }
+
+    public void setBefore_start_ur(String before_start_ur) {
+        this.before_start_ur = before_start_ur;
+    }
+
+    public String getBefore_start_content_ur() {
+        return before_start_content_ur;
+    }
+
+    public void setBefore_start_content_ur(String before_start_content_ur) {
+        this.before_start_content_ur = before_start_content_ur;
+    }
+
+    public String getMasalas_aromatics_ur() {
+        return masalas_aromatics_ur;
+    }
+
+    public void setMasalas_aromatics_ur(String masalas_aromatics_ur) {
+        this.masalas_aromatics_ur = masalas_aromatics_ur;
+    }
+
+    public String getMasalas_aromatics_content_ur() {
+        return masalas_aromatics_content_ur;
+    }
+
+    public void setMasalas_aromatics_content_ur(String masalas_aromatics_content_ur) {
+        this.masalas_aromatics_content_ur = masalas_aromatics_content_ur;
     }
 
     public String getMasalas_aromatics_en() {
@@ -64,6 +105,8 @@ public class FoodDetailModel implements Serializable {
     @SerializedName("masalas_aromatics_content_en")
     private String masalas_aromatics_content_en;
 
+    @SerializedName("masalas_aromatics_content_ur")
+    private String masalas_aromatics_content_ur;
 
     public String getVideo_url_path() {
         return video_url_path;

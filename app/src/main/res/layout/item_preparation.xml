@@ -41,6 +41,7 @@
             android:layout_gravity="start|top"
             android:gravity="start|top"
             android:layout_weight="1"
+            android:paddingEnd="@dimen/dp8"
             android:drawablePadding="@dimen/dp8"
             android:drawableTint="@color/colorAccent"
             android:text="Strain Sp aniach "

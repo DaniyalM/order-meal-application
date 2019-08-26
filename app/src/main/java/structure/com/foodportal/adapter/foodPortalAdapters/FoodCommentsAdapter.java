@@ -107,6 +107,8 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
                     TextView sub_comment = view.findViewById(R.id.tvSubCommment);
                     ImageView sub_user_image = view.findViewById(R.id.ivUserSub);
 
+                    sub_comment.setGravity(mPreferenceHelper.getSelectedLanguage() == ENGLISH ? START : END);
+
                     if (main) {
                         sub_user_name.setText(sections.get(position).getChild_reviews().get(i).getUser().getName_en());
                         sub_comment.setText(sections.get(position).getChild_reviews().get(i).getReviews());
@@ -174,6 +176,8 @@ public class FoodCommentsAdapter extends RecyclerView.Adapter<FoodCommentsAdapte
                 TextView sub_user_time = view.findViewById(R.id.tvUserTimeSub);
                 TextView sub_comment = view.findViewById(R.id.tvSubCommment);
                 ImageView sub_user_image = view.findViewById(R.id.ivUserSub);
+
+                sub_comment.setGravity(mPreferenceHelper.getSelectedLanguage() == ENGLISH ? START : END);
 
                 sub_user_name.setText(sections.get(position).getChild_reviews().get(0).getUser().getName_en());
                 sub_comment.setText(sections.get(position).getChild_reviews().get(0).getReviews());

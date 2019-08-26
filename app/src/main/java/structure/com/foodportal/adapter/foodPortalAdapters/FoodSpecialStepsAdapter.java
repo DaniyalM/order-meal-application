@@ -14,11 +14,14 @@ import java.util.ArrayList;
 
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.models.foodModels.CustomIngredient;
 import structure.com.foodportal.models.foodModels.Ingredient;
 import structure.com.foodportal.models.foodModels.SpecialIngedient;
 import structure.com.foodportal.models.foodModels.SpecialIngredientSteps;
+
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 
 public class FoodSpecialStepsAdapter extends RecyclerView.Adapter<FoodSpecialStepsAdapter.PlanetViewHolder> {
 
@@ -26,6 +29,8 @@ public class FoodSpecialStepsAdapter extends RecyclerView.Adapter<FoodSpecialSte
     ArrayList<String> title;
     String mytitle;
     MainActivity context;
+    BasePreferenceHelper mPreferenceHelper;
+
     public FoodSpecialStepsAdapter(ArrayList<SpecialIngredientSteps> ingredientList,MainActivity context) {
         this.ingredientList = ingredientList;
         this.context = context;
@@ -43,11 +48,15 @@ public class FoodSpecialStepsAdapter extends RecyclerView.Adapter<FoodSpecialSte
         //  holder.image.setImageResource(R.drawable.planetimage);
 
 
-        holder.maincontent.setText(ingredientList.get(position).getSteps_en());
-        holder.mainheading.setText(ingredientList.get(position).getTitle_en());
+        holder.maincontent.setText(mPreferenceHelper.getSelectedLanguage() == ENGLISH ? ingredientList.get(position).getSteps_en() : ingredientList.get(position).getSteps_ur());
+        holder.mainheading.setText(mPreferenceHelper.getSelectedLanguage() == ENGLISH ? ingredientList.get(position).getTitle_en() : ingredientList.get(position).getTitle_ur());
         UIHelper.setImagewithGlide(context,holder.imagemain,ingredientList.get(position).getImage_path());
 
 
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        mPreferenceHelper = preferenceHelper;
     }
 
     @Override

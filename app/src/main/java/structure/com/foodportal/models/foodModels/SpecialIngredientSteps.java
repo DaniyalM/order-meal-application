@@ -6,6 +6,24 @@ public class SpecialIngredientSteps {
     int special_recipe_id;
     String title_en;
     String steps_en;
+    String title_ur;
+    String steps_ur;
+
+    public String getTitle_ur() {
+        return title_ur;
+    }
+
+    public String getSteps_ur() {
+        return steps_ur;
+    }
+
+    public void setTitle_ur(String title_ur) {
+        this.title_ur = title_ur;
+    }
+
+    public void setSteps_ur(String steps_ur) {
+        this.steps_ur = steps_ur;
+    }
 
     public int getId() {
         return id;

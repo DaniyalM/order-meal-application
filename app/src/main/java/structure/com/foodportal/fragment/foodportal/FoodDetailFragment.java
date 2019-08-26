@@ -98,6 +98,9 @@ import structure.com.foodportal.models.foodModels.Step;
 import structure.com.foodportal.singleton.CarelessSingleton;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static android.graphics.Paint.Align.CENTER;
+import static android.view.Gravity.END;
+import static android.view.Gravity.START;
 import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 
 public class FoodDetailFragment extends BaseFragment implements
@@ -644,6 +647,8 @@ public class FoodDetailFragment extends BaseFragment implements
 
                     comments.addAll(foodDetailModel.getAllReviews());
                     foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true, false);
+                    foodCommentsAdapter.setPreferenceHelper(preferenceHelper);
+
                     binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
                     foodCommentsAdapter.notifyDataSetChanged();
 
@@ -767,6 +772,10 @@ public class FoodDetailFragment extends BaseFragment implements
 
         UIHelper.setImageWithGlide(mainActivity, binding.ivDishImage, foodDetailModel.getGallery().getPhotos().get(0).getImage_path());
         binding.tvfoodName.setText(mLang == ENGLISH ? foodDetailModel.getTitle_en() : foodDetailModel.getTitle_ur());
+
+        binding.tvPreparationTime.setGravity(mLang == ENGLISH ? Gravity.CENTER | START : Gravity.CENTER | END);
+        binding.tvServingTime.setGravity(mLang == ENGLISH ? Gravity.CENTER | START : Gravity.CENTER | END);
+        binding.tvServingDetails.setGravity(mLang == ENGLISH ? Gravity.CENTER | START : Gravity.CENTER | END);
 
         binding.tvServingDetails.setText(foodDetailModel.getCountFavorites() + " likes");
         binding.tvServingTime.setText(foodDetailModel.getTotalViews() + " views");

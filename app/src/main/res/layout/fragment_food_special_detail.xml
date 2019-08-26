@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
+        android:id="@+id/linearLayoutMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -25,8 +26,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp15"
                     android:layout_marginStart="@dimen/dp15"
+                    android:layout_marginEnd="@dimen/dp15"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -69,26 +70,43 @@
                                     android:textSize="@dimen/sp18"
                                     android:textStyle="bold" />
 
-                                <Button
+                                <TextView
                                     android:id="@+id/savebtn"
-                                    android:layout_width="@dimen/dp60"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="30dp"
                                     android:layout_gravity="center"
                                     android:layout_marginStart="@dimen/dp5"
                                     android:background="@drawable/rounded_drawable"
                                     android:backgroundTint="@color/colorTextGray"
-                                    android:padding="@dimen/dp5"
-                                    android:text="Save"
+                                    android:paddingStart="@dimen/dp10"
+                                    android:paddingTop="@dimen/dp5"
+                                    android:paddingEnd="@dimen/dp10"
+                                    android:paddingBottom="@dimen/dp5"
+                                    android:text="@string/save_en"
                                     android:textAlignment="center"
+                                    android:textAllCaps="true"
                                     android:textColor="@color/white" />
 
-                                <android.support.v7.widget.CardView
+                                <!--                                <Button-->
+                                <!--                                    android:id="@+id/savebtn"-->
+                                <!--                                    android:layout_width="@dimen/dp60"-->
+                                <!--                                    android:layout_height="30dp"-->
+                                <!--                                    android:layout_gravity="center"-->
+                                <!--                                    android:layout_marginStart="@dimen/dp5"-->
+                                <!--                                    android:background="@drawable/rounded_drawable"-->
+                                <!--                                    android:backgroundTint="@color/colorTextGray"-->
+                                <!--                                    android:padding="@dimen/dp5"-->
+                                <!--                                    android:text="Save"-->
+                                <!--                                    android:textAlignment="center"-->
+                                <!--                                    android:textColor="@color/white" />-->
+
+                                <FrameLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginStart="@dimen/dp5"
-                                    app:cardBackgroundColor="@color/colorTextGray"
-                                    app:cardCornerRadius="@dimen/dp20">
+                                    android:background="@drawable/rounded_drawable"
+                                    android:backgroundTint="@color/colorTextGray">
 
                                     <com.like.LikeButton
                                         android:id="@+id/lkFav"
@@ -108,7 +126,35 @@
                                         app:liked="false"
                                         app:unlike_drawable="@drawable/unliked" />
 
-                                </android.support.v7.widget.CardView>
+                                </FrameLayout>
+
+                                <!--                                <android.support.v7.widget.CardView-->
+                                <!--                                    android:layout_width="wrap_content"-->
+                                <!--                                    android:layout_height="wrap_content"-->
+                                <!--                                    android:layout_gravity="center"-->
+                                <!--                                    android:layout_marginStart="@dimen/dp5"-->
+                                <!--                                    app:cardBackgroundColor="@color/colorTextGray"-->
+                                <!--                                    app:cardCornerRadius="@dimen/dp20">-->
+
+                                <!--                                    <com.like.LikeButton-->
+                                <!--                                        android:id="@+id/lkFav"-->
+                                <!--                                        android:layout_width="35dp"-->
+                                <!--                                        android:layout_height="35dp"-->
+                                <!--                                        android:layout_gravity="center"-->
+                                <!--                                        android:padding="@dimen/dp5"-->
+                                <!--                                        app:anim_scale_factor="1"-->
+                                <!--                                        app:circle_end_color="@color/colorRed"-->
+                                <!--                                        app:circle_start_color="@color/white"-->
+                                <!--                                        app:dots_primary_color="@color/colorRed"-->
+                                <!--                                        app:dots_secondary_color="@color/colorAccentPink"-->
+                                <!--                                        app:icon_size="@dimen/dp12"-->
+                                <!--                                        app:icon_type="heart"-->
+                                <!--                                        app:is_enabled="true"-->
+                                <!--                                        app:like_drawable="@drawable/liked"-->
+                                <!--                                        app:liked="false"-->
+                                <!--                                        app:unlike_drawable="@drawable/unliked" />-->
+
+                                <!--                                </android.support.v7.widget.CardView>-->
 
                             </LinearLayout>
 
@@ -134,7 +180,7 @@
 
                                     <TextView
                                         android:id="@+id/tvPreparationTime"
-                                        android:layout_width="match_parent"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:gravity="center|start"
@@ -163,7 +209,7 @@
 
                                     <TextView
                                         android:id="@+id/tvServingTime"
-                                        android:layout_width="match_parent"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:gravity="center|start"
@@ -192,7 +238,7 @@
 
                                     <TextView
                                         android:id="@+id/tvServingDetails"
-                                        android:layout_width="match_parent"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:gravity="center|start"
@@ -324,10 +370,10 @@
                                 android:textSize="@dimen/sp16" />
 
                             <TextView
-                                android:lineSpacingExtra="@dimen/dp2"
                                 android:id="@+id/beforeStartContentEn"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:lineSpacingExtra="@dimen/dp2"
                                 android:text="Before You Begin"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="@dimen/sp15" />
@@ -359,19 +405,39 @@
                                 android:textSize="@dimen/sp16" />
 
                             <TextView
-                                android:textSize="@dimen/sp15"
-                                android:lineSpacingExtra="@dimen/dp2"
-                                android:textColor="@color/colorBlack"
                                 android:id="@+id/masalas_aromatics_content_en"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="so lets start now" />
+                                android:lineSpacingExtra="@dimen/dp2"
+                                android:text="so lets start now"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/sp15" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:layout_marginTop="@dimen/dp10"
+                                android:id="@+id/rvSpecialIngredients"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center" />
+                            <!--                            tools:listitem="@layout/item_checkbox"-->
+
+                            <TextView
+                                android:id="@+id/specialingrdient"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp5"
+                                android:fontFamily="@font/semiboldfont"
+                                android:gravity="start"
+                                android:text="lorum ispum"
+                                android:textColor="@color/colorTextGray" />
                         </LinearLayout>
 
                     </android.support.v7.widget.CardView>
 
 
                     <android.support.v7.widget.CardView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardElevation="@dimen/dp5"
@@ -385,31 +451,31 @@
 
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsbold"
                                 android:text="Masala and Aromatics"
                                 android:textColor="@color/colorAccent" />
 
 
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/rvSpecialIngredients"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                tools:listitem="@layout/item_checkbox" />
+<!--                            <android.support.v7.widget.RecyclerView-->
+<!--                                android:id="@+id/rvSpecialIngredients"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center" />-->
+<!--&lt;!&ndash;                            tools:listitem="@layout/item_checkbox"&ndash;&gt;-->
 
-                            <TextView
-                                android:id="@+id/specialingrdient"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/dp5"
-                                android:gravity="start"
-                                android:fontFamily="@font/semiboldfont"
-                                android:textColor="@color/colorTextGray"
-                                android:text="lorum ispum"
-                                 />
+<!--                            <TextView-->
+<!--                                android:id="@+id/specialingrdient"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginTop="@dimen/dp5"-->
+<!--                                android:fontFamily="@font/semiboldfont"-->
+<!--                                android:gravity="start"-->
+<!--                                android:text="lorum ispum"-->
+<!--                                android:textColor="@color/colorTextGray" />-->
 
                         </LinearLayout>
 
@@ -447,12 +513,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingEnd="@dimen/dp10"
                         android:paddingStart="@dimen/dp10"
-                        android:paddingTop="@dimen/dp10">
+                        android:paddingTop="@dimen/dp10"
+                        android:paddingEnd="@dimen/dp10">
 
                         <TextView
-
+                            android:id="@+id/tvIngredients"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinsbold"
@@ -465,10 +531,10 @@
                             android:id="@+id/rvIngredients"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginBottom="@dimen/dp5"
-                            android:layout_marginTop="@dimen/dp10"
-                            android:layout_weight="1"
                             android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:layout_marginBottom="@dimen/dp5"
+                            android:layout_weight="1"
                             android:nestedScrollingEnabled="true"
                             android:scrollbars="none"
                             android:transitionGroup="true"
@@ -480,8 +546,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginBottom="@dimen/dp10"
                             android:layout_marginTop="@dimen/dp10"
+                            android:layout_marginBottom="@dimen/dp10"
                             android:background="@drawable/roundedshape"
                             android:gravity="center"
                             android:orientation="vertical"
@@ -491,14 +557,14 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:drawablePadding="@dimen/dp10"
                                 android:drawableStart="@drawable/nav"
+                                android:drawablePadding="@dimen/dp10"
                                 android:drawableTint="@color/colorAccent"
                                 android:gravity="center"
-                                android:paddingBottom="@dimen/dp10"
-                                android:paddingEnd="@dimen/dp5"
                                 android:paddingStart="@dimen/dp5"
                                 android:paddingTop="@dimen/dp10"
+                                android:paddingEnd="@dimen/dp5"
+                                android:paddingBottom="@dimen/dp10"
                                 android:text="Add to shopping list"
                                 android:textColor="@color/colorAccent" />
 
@@ -513,10 +579,11 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvRelatedRecipes"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/poppinsbold"
-                                android:text="Related Recipes"
+                                android:text="@string/related_recipes_en"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="@dimen/dp20" />
@@ -526,8 +593,8 @@
                                 android:id="@+id/rvRelatedRecipes"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp10"
+                                android:layout_marginBottom="@dimen/dp5"
                                 android:layout_weight="1"
                                 android:nestedScrollingEnabled="true" />
                         </LinearLayout>
@@ -546,16 +613,17 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingEnd="@dimen/dp10"
                         android:paddingStart="@dimen/dp10"
-                        android:paddingTop="@dimen/dp10">
+                        android:paddingTop="@dimen/dp10"
+                        android:paddingEnd="@dimen/dp10">
 
 
                         <TextView
+                            android:id="@+id/tvPreparations"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinsbold"
-                            android:text="Preparations"
+                            android:text="@string/preparations_en"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/sp18"
                             android:textStyle="bold" />
@@ -565,8 +633,8 @@
                             android:id="@+id/rvPreparations"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginBottom="@dimen/dp5"
                             android:layout_marginTop="@dimen/dp10"
+                            android:layout_marginBottom="@dimen/dp5"
                             android:layout_weight="1"
                             android:nestedScrollingEnabled="true" />
 
@@ -589,15 +657,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
-                            android:paddingEnd="@dimen/dp10"
-                            android:paddingStart="@dimen/dp10">
+                            android:paddingStart="@dimen/dp10"
+                            android:paddingTop="@dimen/dp10"
+                            android:paddingEnd="@dimen/dp10">
 
                             <TextView
+                                android:id="@+id/tvHowItTurnOut"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/poppinsbold"
-                                android:text="how'd it turn out"
+                                android:text="@string/how_it_turn_out_en"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorNav"
                                 android:textSize="@dimen/dp18" />
@@ -608,7 +678,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:gravity="end"
-                                android:text="show all"
+                                android:text="@string/show_all_en"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorRed"
                                 android:textSize="@dimen/dp15" />
@@ -616,22 +686,25 @@
                         </LinearLayout>
 
                         <android.support.design.widget.TextInputLayout
+                            android:id="@+id/textInputComments"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dp10"
                             android:layout_marginBottom="@dimen/dp10"
-                            android:background="@drawable/roundedshape">
+                            android:background="@drawable/roundedshape"
+                            android:hint="@string/write_comments_en"
+                            app:hintAnimationEnabled="true"
+                            app:hintEnabled="true">
 
                             <EditText
                                 android:id="@+id/etComments"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:fontFamily="@font/poppinslight"
                                 android:gravity="top"
-                                android:hint="Write comments..."
                                 android:maxLines="1000"
                                 android:minLines="3"
                                 android:padding="@dimen/dp5"
@@ -655,9 +728,9 @@
                             android:id="@+id/rvCommentsSection"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginEnd="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
-                            android:layout_marginTop="@dimen/dp10" />
+                            android:layout_marginTop="@dimen/dp10"
+                            android:layout_marginEnd="@dimen/dp10" />
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -672,7 +745,7 @@
             android:background="@drawable/ripple_effect"
             android:fontFamily="@font/poppinsmedium"
             android:gravity="center"
-            android:text="Step-By-Step Mode"
+            android:text="@string/step_by_step_mode_en"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:visibility="visible" />
