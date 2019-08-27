@@ -688,4 +688,10 @@
     <string name="reply_ur">جواب</string>
     <string name="write_reply_en">Write reply</string>
     <string name="write_reply_ur">جواب لکھیں</string>
+    <string name="related_tutorials_en">Related Tutorials</string>
+    <string name="related_tutorials_ur">متعلقہ ٹیوٹوریل</string>
+    <string name="you_have_to_en">You have to..</string>
+    <string name="you_have_to_ur">آپ کو کرنا پڑے..</string>
+    <string name="related_blogs_en">Related Blogs</string>
+    <string name="related_blogs_ur">متعلقہ بلاگ</string>
 </resources>

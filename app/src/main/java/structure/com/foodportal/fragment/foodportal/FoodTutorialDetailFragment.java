@@ -72,9 +72,10 @@ import structure.com.foodportal.models.foodModels.Sections;
 import structure.com.foodportal.models.foodModels.Step;
 import structure.com.foodportal.singleton.CarelessSingleton;
 
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
-public class FoodTutorialDetailFragment extends BaseFragment implements  UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener,View.OnClickListener {
+public class FoodTutorialDetailFragment extends BaseFragment implements UniversalVideoView.VideoViewCallback, FoodHomeListner, CacheListener, View.OnClickListener {
 
 
     FoodPopularRecipeAdapter foodRelatedAdapter;
@@ -84,12 +85,31 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
     UniversalVideoView mVideoView;
     UniversalMediaController mMediaController;
     FoodDetailModelWrapper foodDetailModel;
-
+    private int mLang;
 
     public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel) {
         this.foodDetailModel = foodDetailModel;
-        }
+    }
+
     ImageView sharing;
+
+    private void setValuesByLanguage() {
+        switch (mLang) {
+            case ENGLISH:
+            default:
+                binding.linearLayoutMain.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                binding.todisplay.setText(getString(R.string.you_have_to_en));
+                binding.tvRelatedTutorials.setText(getString(R.string.related_tutorials_en));
+                break;
+
+            case AppConstant.Language.URDU:
+                binding.linearLayoutMain.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                binding.todisplay.setText(getString(R.string.you_have_to_ur));
+                binding.tvRelatedTutorials.setText(getString(R.string.related_tutorials_ur));
+                break;
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -97,6 +117,8 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
         mVideoView = (UniversalVideoView) binding.getRoot().findViewById(R.id.videoView);
         mMediaController = (UniversalMediaController) binding.getRoot().findViewById(R.id.media_controller);
 
+        mLang = preferenceHelper.getSelectedLanguage();
+        setValuesByLanguage();
 
         setListners();
         return binding.getRoot();
@@ -118,6 +140,8 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
                 related.addAll(foodDetailModel.getRelated());
 
                 foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this);
+                foodRelatedAdapter.setPreferenceHelper(preferenceHelper);
+
                 binding.rvRelatedRecipes.setAdapter(foodRelatedAdapter);
                 foodRelatedAdapter.notifyDataSetChanged();
                 binding.llRelated.setVisibility(View.VISIBLE);
@@ -126,9 +150,14 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
                 binding.llRelated.setVisibility(View.GONE);
 
             }
-            if(foodDetailModel.getData().getContent_en()!= null){
 
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            String content = mLang == ENGLISH ? foodDetailModel.getData().getContent_en() : foodDetailModel.getData().getContent_ur();
+
+            if (content != null) {
+
+                Log.d("ContentTest", "setListners:\n" + content);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
 
                     WebSettings settings = binding.myWebView.getSettings();
@@ -138,12 +167,11 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
                     settings.setBuiltInZoomControls(false);
                     settings.setDisplayZoomControls(false);
                     binding.myWebView.setWebChromeClient(new WebChromeClient());
-                    String changeFontHtml = changedHeaderHtml(foodDetailModel.getData().getContent_en());
+                    String changeFontHtml = changedHeaderHtml(content);
                     binding.myWebView.loadDataWithBaseURL(null, changeFontHtml,
                             "text/html", "UTF-8", null);
                     binding.myWebView.getSettings().setSupportMultipleWindows(true);
                     //  binding.myWebView.loadDataWithBaseURL("", foodDetailModel.getData().getContent_en(), "text/html", "UTF-8", "");
-
 
 
                 } else {
@@ -154,7 +182,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
                     settings.setBuiltInZoomControls(false);
                     settings.setDisplayZoomControls(false);
                     binding.myWebView.setWebChromeClient(new WebChromeClient());
-                    String changeFontHtml = changedHeaderHtml(foodDetailModel.getData().getContent_en());
+                    String changeFontHtml = changedHeaderHtml(content);
                     binding.myWebView.loadDataWithBaseURL(null, changeFontHtml,
                             "text/html", "UTF-8", null);
                     //  binding.myWebView.loadDataWithBaseURL("", foodDetailModel.getData().getContent_en(), "text/html", "UTF-8", "");
@@ -168,14 +196,23 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
         }
         //  getDetails();
     }
-    public static String changedHeaderHtml(String htmlText) {
-        String jsTag = "<style> p img { width:100%; height:auto;} </style>";
-        // String head = "<head><meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" /></head>";
-        String head = "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">" + jsTag + "</head>";
 
-        String closedTag = "</body></html>";
-        String changeFontHtml = head + htmlText + closedTag;
-        return changeFontHtml;
+//    public static String changedHeaderHtml(String htmlText) {
+//        String jsTag = "<style> p img { width:100%; height:auto;} </style>";
+//        // String head = "<head><meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" /></head>";
+//        String head = "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">" + jsTag + "</head>";
+//
+//        String closedTag = "</body></html>";
+//        String changeFontHtml = head + htmlText + closedTag;
+//        return changeFontHtml;
+//    }
+
+    public static String changedHeaderHtml(String htmlText) {
+        String styleTag = "<style> p img { width:100%; height:auto;} h2 img { width:100%; height:auto;} </style>";
+        String htmlStart = "<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">" + styleTag + "</head><body> ";
+        String htmlEnd = "</body></html>";
+        String transformedHtml = htmlStart + htmlText + htmlEnd;
+        return transformedHtml;
     }
 
 
@@ -188,18 +225,18 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 
     @Override
     public void onClick(View view) {
-      switch (view.getId()){
-        case R.id.sharing:
-        String shareBody = "https://recipesofpakistan.com/en/recipe/" + foodDetailModel.getData().getSlug();
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+        switch (view.getId()) {
+            case R.id.sharing:
+                String shareBody = "https://recipesofpakistan.com/en/recipe/" + foodDetailModel.getData().getSlug();
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
 
 
-        //showMenuPopup(sharing);
-        //onButtonShowPopupWindowClick(sharing);
+                //showMenuPopup(sharing);
+                //onButtonShowPopupWindowClick(sharing);
 //                Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
 //                whatsappIntent.setType("text/plain");
 //                whatsappIntent.setPackage("com.whatsapp");
@@ -227,9 +264,9 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 //                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
 
-        break;
+                break;
 
-      }
+        }
 
 
     }
@@ -242,7 +279,6 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
                     addTransition(new ChangeImageTransform());
         }
     }
-
 
 
     @Override
@@ -273,6 +309,8 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
                     related.clear();
                     related.addAll(foodDetailModel.getRelated());
                     foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this);
+                    foodRelatedAdapter.setPreferenceHelper(preferenceHelper);
+
                     binding.rvRelatedRecipes.setAdapter(foodRelatedAdapter);
                     foodRelatedAdapter.notifyDataSetChanged();
                     binding.llRelated.setVisibility(View.VISIBLE);
@@ -282,11 +320,13 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 
                 }
 
+                String content = mLang == ENGLISH ? foodDetailModel.getData().getContent_en() : foodDetailModel.getData().getContent_ur();
 
-                if(foodDetailModel.getData().getContent_en()!= null){
+                if (content != null) {
 
-                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Log.d("ContentTest", "ResponseSuccess:\n" + content);
 
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
                         WebSettings settings = binding.myWebView.getSettings();
                         settings.setMinimumFontSize(18);
@@ -295,12 +335,11 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
                         settings.setBuiltInZoomControls(false);
                         settings.setDisplayZoomControls(false);
                         binding.myWebView.setWebChromeClient(new WebChromeClient());
-                        String changeFontHtml = changedHeaderHtml(foodDetailModel.getData().getContent_en());
+                        String changeFontHtml = changedHeaderHtml(content);
                         binding.myWebView.loadDataWithBaseURL(null, changeFontHtml,
                                 "text/html", "UTF-8", null);
                         //  binding.myWebView.loadDataWithBaseURL("", foodDetailModel.getData().getContent_en(), "text/html", "UTF-8", "");
                         binding.myWebView.getSettings().setSupportMultipleWindows(true);
-
 
 
                     } else {
@@ -311,7 +350,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
                         settings.setBuiltInZoomControls(false);
                         settings.setDisplayZoomControls(false);
                         binding.myWebView.setWebChromeClient(new WebChromeClient());
-                        String changeFontHtml = changedHeaderHtml(foodDetailModel.getData().getContent_en());
+                        String changeFontHtml = changedHeaderHtml(content);
                         binding.myWebView.loadDataWithBaseURL(null, changeFontHtml,
                                 "text/html", "UTF-8", null);
                         //  binding.myWebView.loadDataWithBaseURL("", foodDetailModel.getData().getContent_en(), "text/html", "UTF-8", "");
@@ -322,12 +361,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
                 }
 
 
-
-
                 break;
-
-
-
 
 
         }
@@ -366,9 +400,9 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 
                 }
             });
-            if(preferenceHelper.getAutoPlay()){
+            if (preferenceHelper.getAutoPlay()) {
                 binding.videoView.start();
-            }else{
+            } else {
 
 
             }
@@ -376,14 +410,12 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 
         }
 
-        UIHelper.setImageWithGlide(mainActivity, binding.ivDishImage,foodDetailModel.getBlog_thumb_image_path());
-        binding.tvfoodName.setText("" + foodDetailModel.getTitle_en());
+        UIHelper.setImageWithGlide(mainActivity, binding.ivDishImage, foodDetailModel.getBlog_thumb_image_path());
+        binding.tvfoodName.setText(mLang == ENGLISH ? foodDetailModel.getTitle_en() : foodDetailModel.getTitle_ur());
         binding.tvServingDetails.setText("" + foodDetailModel.getCountFavorites() + " likes");
         binding.tvServingTime.setText("" + foodDetailModel.getTotalViews() + " views");
         binding.tvPreparationTime.setText("" + foodDetailModel.getCook_time());
-        binding.tvfoodDiscount.setText("" + foodDetailModel.getExcerpt_en());
-
-
+        binding.tvfoodDiscount.setText(mLang == ENGLISH ? foodDetailModel.getExcerpt_en() : foodDetailModel.getExcerpt_ur());
 
 
     }
@@ -434,10 +466,6 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
     }
 
     int stopPosition;
-
-
-
-
 
 
     @Override
@@ -538,7 +566,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getfooddetail(slug,String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+            serviceHelper.enqueueCall(webService.getfooddetail(slug, String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
         else if (LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase("")) {
 
             Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();

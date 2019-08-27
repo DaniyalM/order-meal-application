@@ -2,9 +2,10 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/linearLayoutMain"
         android:layout_width="match_parent"
-        android:animateLayoutChanges="true"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -23,35 +24,35 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:animateLayoutChanges="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp15"
                     android:layout_marginStart="@dimen/dp15"
+                    android:layout_marginEnd="@dimen/dp15"
+                    android:animateLayoutChanges="true"
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:orientation="horizontal">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/ivDishImage"
-                            android:src="@drawable/image_placeholder"
                             android:layout_width="@dimen/dp60"
+                            android:layout_height="@dimen/dp60"
                             android:layout_gravity="center"
-                            android:layout_height="@dimen/dp60" />
+                            android:src="@drawable/image_placeholder" />
 
                         <TextView
-                            android:gravity="center|start"
-                            android:paddingStart="@dimen/dp6"
                             android:id="@+id/tvfoodName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinsbold"
+                            android:gravity="center|start"
                             android:lineSpacingExtra="2dp"
+                            android:paddingStart="@dimen/dp6"
                             android:text="Berbere Spice Chicken Wings"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/sp25"
@@ -59,26 +60,26 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="@dimen/dp6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp6"
                         android:orientation="horizontal">
+
                         <LinearLayout
-                            android:visibility="gone"
-                            android:layout_gravity="center"
-                            android:gravity="center"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:orientation="horizontal">
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                             <ImageView
-                                android:padding="@dimen/dp5"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
                                 android:background="@drawable/icon_time"
-                                />
+                                android:padding="@dimen/dp5" />
 
                             <TextView
                                 android:id="@+id/tvPreparationTime"
@@ -92,25 +93,24 @@
                                 android:textSize="@dimen/sp10"
                                 android:textStyle="bold" />
                         </LinearLayout>
+
                         <LinearLayout
-                            android:layout_gravity="center"
-                            android:gravity="center"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:padding="@dimen/dp5"
-                                android:layout_width="23dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
                                 android:background="@drawable/icon_view"
-                                />
+                                android:padding="@dimen/dp5" />
 
                             <TextView
                                 android:id="@+id/tvServingTime"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center|start"
@@ -120,25 +120,25 @@
                                 android:textSize="@dimen/sp10"
                                 android:textStyle="bold" />
                         </LinearLayout>
+
                         <LinearLayout
-                            android:layout_gravity="center"
-                            android:gravity="center"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:padding="@dimen/dp5"
                                 android:layout_gravity="top"
                                 android:background="@drawable/heart_on"
-                                android:backgroundTint="@color/colorRed" />
+                                android:backgroundTint="@color/colorRed"
+                                android:padding="@dimen/dp5" />
 
                             <TextView
                                 android:id="@+id/tvServingDetails"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center|start"
@@ -150,22 +150,21 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_gravity="center"
-                            android:gravity="end"
                             android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:layout_height="wrap_content">
-
+                            android:gravity="end">
 
 
                             <ImageView
                                 android:id="@+id/sharing"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
                                 android:layout_gravity="center"
                                 android:padding="@dimen/dp5"
-                                android:tint="@color/colorNav"
                                 android:src="@drawable/share"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp" />
+                                android:tint="@color/colorNav" />
 
 
                         </LinearLayout>
@@ -175,7 +174,7 @@
 
                     <TextView
                         android:id="@+id/tvfoodDiscount"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp8"
                         android:fontFamily="@font/poppinssemibold"
@@ -210,32 +209,34 @@
                 </FrameLayout>
 
                 <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/dp10"
                     app:cardElevation="@dimen/dp8"
-                    app:cardUseCompatPadding="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
-                        android:animateLayoutChanges="true"
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical">
 
                         <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                        <TextView
-                            android:background="@color/colorAccent"
-                            android:paddingStart="@dimen/dp6"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/dp24"
-                            android:id="@+id/todisplay"
-                            android:text="You have to.."
-                            android:fontFamily="@font/poppinsbold"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/todisplay"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorAccent"
+                                android:fontFamily="@font/poppinsbold"
+                                android:paddingStart="@dimen/dp6"
+                                android:text="@string/you_have_to_en"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/dp24" />
                         </FrameLayout>
+
                         <im.delight.android.webview.AdvancedWebView
                             android:id="@+id/myWebView"
                             android:layout_width="match_parent"
@@ -251,44 +252,45 @@
                     app:cardUseCompatPadding="true">
 
                     <LinearLayout
-                        android:animateLayoutChanges="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:animateLayoutChanges="true"
                         android:orientation="vertical"
-                        android:paddingEnd="@dimen/dp10"
                         android:paddingStart="@dimen/dp10"
-                        android:paddingTop="@dimen/dp10">
-                        <LinearLayout
-                            android:layout_marginTop="@dimen/dp10"
-                            android:id="@+id/llRelated"
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:fontFamily="@font/poppinsbold"
-                                android:text="Related Tutorials"
-                                android:textAllCaps="true"
-                                android:textSize="@dimen/dp20"
-                                android:textColor="@color/colorAccent"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
+                        android:paddingTop="@dimen/dp10"
+                        android:paddingEnd="@dimen/dp10">
 
+                        <LinearLayout
+                            android:id="@+id/llRelated"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvRelatedTutorials"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/poppinsbold"
+                                android:text="@string/related_tutorials_en"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="@dimen/dp20" />
 
 
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/rvRelatedRecipes"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_marginBottom="@dimen/dp5"
                                 android:layout_marginTop="@dimen/dp10"
+                                android:layout_marginBottom="@dimen/dp5"
                                 android:layout_weight="1"
                                 android:nestedScrollingEnabled="true" />
                         </LinearLayout>
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
-
 
 
             </LinearLayout>

@@ -77,6 +77,7 @@ import structure.com.foodportal.models.foodModels.Sections;
 import structure.com.foodportal.models.foodModels.Step;
 import structure.com.foodportal.singleton.CarelessSingleton;
 
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
 public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeListner, CommentClickListner, View.OnClickListener {
@@ -88,9 +89,33 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     FoodDetailModelWrapper foodDetailModel;
     ArrayList<Comments> comments;
     FoodCommentsAdapter foodCommentsAdapter;
+    private int mLang;
 
     public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel) {
         this.foodDetailModel = foodDetailModel;
+    }
+
+    private void setValuesByLanguage() {
+        switch (mLang) {
+            case ENGLISH:
+            default:
+                binding.linearLayoutMain.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                binding.tvRelatedBlogs.setText(getString(R.string.related_blogs_en));
+                binding.tvHowItTurnOut.setText(getString(R.string.how_it_turn_out_en));
+                binding.tvShowall.setText(getString(R.string.show_all_en));
+                binding.etComments.setTextDirection(View.TEXT_DIRECTION_LTR);
+                binding.textInputComments.setHint(getString(R.string.write_comments_en));
+                break;
+
+            case AppConstant.Language.URDU:
+                binding.linearLayoutMain.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                binding.tvRelatedBlogs.setText(getString(R.string.related_blogs_ur));
+                binding.tvHowItTurnOut.setText(getString(R.string.how_it_turn_out_ur));
+                binding.tvShowall.setText(getString(R.string.show_all_ur));
+                binding.etComments.setTextDirection(View.TEXT_DIRECTION_RTL);
+                binding.textInputComments.setHint(getString(R.string.write_comments_ur));
+                break;
+        }
     }
 
     @Nullable
@@ -98,6 +123,8 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_blog, container, false);
 
+        mLang = preferenceHelper.getSelectedLanguage();
+        setValuesByLanguage();
 
         setListners();
         return binding.getRoot();
@@ -124,6 +151,8 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
                 related.addAll(foodDetailModel.getRelated());
 
                 foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this);
+                foodRelatedAdapter.setPreferenceHelper(preferenceHelper);
+
                 binding.rvRelatedRecipes.setAdapter(foodRelatedAdapter);
                 foodRelatedAdapter.notifyDataSetChanged();
                 binding.llRelated.setVisibility(View.VISIBLE);
@@ -133,19 +162,26 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
             }
 
-            WebSettings settings = binding.myWebView.getSettings();
-            settings.setMinimumFontSize(18);
-            settings.setLoadWithOverviewMode(true);
-            settings.setUseWideViewPort(true);
-            settings.setBuiltInZoomControls(false);
-            settings.setDisplayZoomControls(false);
-            settings.setSupportMultipleWindows(true);
+            String data = mLang == ENGLISH ? foodDetailModel.getData().getContent_en() : foodDetailModel.getData().getContent_ur();
 
-            binding.myWebView.setHorizontalScrollBarEnabled(false);
-            binding.myWebView.setWebChromeClient(new WebChromeClient());
+            if (data != null) {
 
-            String content = getTransformedBlogContent(foodDetailModel.getData().getContent_en());
-            binding.myWebView.loadDataWithBaseURL(null, content, "text/html", "UTF-8", null);
+                Log.d("BlogContentTest", "setListners:\n" + data);
+
+                WebSettings settings = binding.myWebView.getSettings();
+                settings.setMinimumFontSize(18);
+                settings.setLoadWithOverviewMode(true);
+                settings.setUseWideViewPort(true);
+                settings.setBuiltInZoomControls(false);
+                settings.setDisplayZoomControls(false);
+                settings.setSupportMultipleWindows(true);
+
+                binding.myWebView.setHorizontalScrollBarEnabled(false);
+                binding.myWebView.setWebChromeClient(new WebChromeClient());
+
+                String content = getTransformedBlogContent(data);
+                binding.myWebView.loadDataWithBaseURL(null, content, "text/html", "UTF-8", null);
+            }
         }
 
     }
@@ -187,7 +223,7 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
 
         UIHelper.setImageWithGlide(mainActivity, binding.ivDishImage, foodDetailModel.getData().getBlog_thumb_image_path());
-        binding.tvfoodName.setText("" + foodDetailModel.getData().getTitle_en());
+        binding.tvfoodName.setText(mLang == ENGLISH ? foodDetailModel.getData().getTitle_en() : foodDetailModel.getData().getTitle_ur());
         binding.tvServingDetails.setText("" + foodDetailModel.getData().getCountFavorites() + " likes");
         binding.tvServingTime.setText("" + foodDetailModel.getData().getTotalViews() + " views");
         //binding.tvfoodDiscount.setText("" + foodDetailModel.getGallery().getDescription_en());
@@ -200,6 +236,8 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
             comments.addAll(this.foodDetailModel.getAllReviews());
             foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true, false);
+            foodCommentsAdapter.setPreferenceHelper(preferenceHelper);
+
             binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
             foodCommentsAdapter.notifyDataSetChanged();
 
