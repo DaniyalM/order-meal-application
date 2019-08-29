@@ -14,11 +14,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import structure.com.foodportal.R;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.SubCategoryListner;
 import structure.com.foodportal.models.foodModels.SavedRecipe;
 import structure.com.foodportal.models.foodModels.Section;
 import structure.com.foodportal.models.foodModels.Sections;
+
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 
 public class SeeAllRecipesAdapter  extends RecyclerView.Adapter<SeeAllRecipesAdapter.PlanetViewHolder> {
 
@@ -26,6 +29,8 @@ public class SeeAllRecipesAdapter  extends RecyclerView.Adapter<SeeAllRecipesAda
     Context context;
     SubCategoryListner subCategoryListner;
     private int lastPosition = -1;
+    BasePreferenceHelper mPreferenceHelper;
+
     public SeeAllRecipesAdapter(ArrayList<Sections> sections, Context context, SubCategoryListner subCategoryListner) {
         this.sections = sections;
         this.context = context;
@@ -47,7 +52,7 @@ public class SeeAllRecipesAdapter  extends RecyclerView.Adapter<SeeAllRecipesAda
         //  holder.image.setImageResource(R.drawable.planetimage);
 
 
-        holder.text.setText(sections.get(position).getTitle_en());
+        holder.text.setText(mPreferenceHelper.getSelectedLanguage() == ENGLISH ? sections.get(position).getTitle_en() : sections.get(position).getTitle_ur());
         UIHelper.setImageWithGlide(context,holder.circleImageView,sections.get(position).getFeatured_image_path());
         // setAnimation(holder.itemView, position);
 
@@ -63,8 +68,11 @@ public class SeeAllRecipesAdapter  extends RecyclerView.Adapter<SeeAllRecipesAda
      //   setAnimation(holder.itemView,position);
     }
 
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        mPreferenceHelper = preferenceHelper;
+    }
 
-    private void setScaleAnimation(View view,int position) {
+    private void setScaleAnimation(View view, int position) {
         if (position > 0) {
             ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             anim.setDuration(FADE_DURATION);
