@@ -25,10 +25,13 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pchmn.materialchips.ChipsInput;
 import com.pchmn.materialchips.model.ChipInterface;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,7 @@ import structure.com.foodportal.adapter.foodPortalAdapters.FoodMealTypeAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPreparationAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodSearchAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodSuggestionAdapter;
+import structure.com.foodportal.databinding.FragmentFoodSearchBinding;
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.JsonHelpers;
@@ -52,6 +56,8 @@ import structure.com.foodportal.models.foodModels.ChipsList;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.HeaderWrapper;
+
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 
 public class FoodSearchFragment extends BaseFragment implements View.OnClickListener, FoodSearchListner, FoodChipsListner {
 
@@ -67,12 +73,42 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
     ArrayList<String> suggestionList;
     ArrayList<String> mealTypeList;
 
+    LinearLayout linearLayoutMain;
+    TextView tvSuggestions, tvMealTypes;
+
+    private int mLang;
+
+    private void setValuesByLanguage() {
+        switch (mLang) {
+            case ENGLISH:
+            default:
+                linearLayoutMain.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                tvSuggestions.setText(getString(R.string.suggestions_en));
+                tvMealTypes.setText(getString(R.string.meal_types_en));
+                searchAutoComplete.setTextDirection(View.TEXT_DIRECTION_LTR);
+                searchAutoComplete.setHint(getString(R.string.search_en));
+                break;
+
+            case AppConstant.Language.URDU:
+                linearLayoutMain.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                tvSuggestions.setText(getString(R.string.suggestions_ur));
+                tvMealTypes.setText(getString(R.string.meal_types_ur));
+                searchAutoComplete.setTextDirection(View.TEXT_DIRECTION_RTL);
+                searchAutoComplete.setHint(getString(R.string.search_ur));
+                break;
+        }
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_food_search, container, false);
 
         setData();
         initviews(rootView);
+
+        mLang = preferenceHelper.getSelectedLanguage();
+        setValuesByLanguage();
+
         setListners();
         return rootView;
     }
@@ -91,7 +127,7 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
         suggestionList.add("Sagudana Kheer");
 
         mealTypeList.add("Dinner");
-        mealTypeList.add("Lucnh");
+        mealTypeList.add("Lunch");
         mealTypeList.add("Breakfast");
         mealTypeList.add("Brunch");
         mealTypeList.add("Tea");
@@ -101,6 +137,9 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
     }
 
     void initviews(View view) {
+        linearLayoutMain = (LinearLayout) view.findViewById(R.id.linearLayoutMain);
+        tvSuggestions = (TextView) view.findViewById(R.id.tvSuggestions);
+        tvMealTypes = (TextView) view.findViewById(R.id.tvMealTypes);
         rvSuggestion = (RecyclerView) view.findViewById(R.id.rvSuggestions);
         rvMealType = (RecyclerView) view.findViewById(R.id.rvMealType);
         searchAutoComplete = (EditText) view.findViewById(R.id.etSearch);
@@ -111,7 +150,7 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
         linearLayoutManagerSearch = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
         steps = new ArrayList<>();
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, LinearLayoutManager.HORIZONTAL);
-        StaggeredGridLayoutManager staggeredGridLayoutManagernext = new StaggeredGridLayoutManager(3, LinearLayoutManager.HORIZONTAL);
+        StaggeredGridLayoutManager staggeredGridLayoutManagernext = new StaggeredGridLayoutManager(2, LinearLayoutManager.HORIZONTAL);
         rvSuggestion.setLayoutManager(staggeredGridLayoutManager);
         rvMealType.setLayoutManager(staggeredGridLayoutManagernext);
         foodSuggestionAdapter = new FoodSuggestionAdapter(suggestionList, mainActivity, this);
@@ -122,6 +161,8 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
         foodMealTypeAdapter.notifyDataSetChanged();
 
         foodSearchAdapter = new FoodSearchAdapter(steps, mainActivity, this);
+        foodSearchAdapter.setPreferenceHelper(preferenceHelper);
+
         rvsearch.setLayoutManager(linearLayoutManagerSearch);
         rvsearch.setAdapter(foodSearchAdapter);
         searchAutoComplete.addTextChangedListener(new TextWatcher() {

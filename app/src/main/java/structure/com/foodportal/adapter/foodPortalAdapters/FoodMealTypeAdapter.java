@@ -50,7 +50,7 @@ public class FoodMealTypeAdapter extends RecyclerView.Adapter<FoodMealTypeAdapte
 
     @Override
     public FoodMealTypeAdapter.FoodSearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chip, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chip_new, parent, false);
         FoodSearchViewHolder viewHolder = new FoodSearchViewHolder(v);
         return viewHolder;
     }
@@ -62,6 +62,8 @@ public class FoodMealTypeAdapter extends RecyclerView.Adapter<FoodMealTypeAdapte
 //
 //        int R = r.nextInt(maxColor-minColor) + minColor;
 //        holder.chip.setTextColor(colors[R]);
+
+//        holder.chip.setTextSize(12); // For english 12, for urdu 14
         holder.chip.setText(steps.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

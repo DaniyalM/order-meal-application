@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.Spanny;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodDetailListner;
@@ -22,11 +23,14 @@ import structure.com.foodportal.interfaces.foodInterfaces.FoodSearchListner;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.Step;
 
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+
 public class FoodSearchAdapter extends RecyclerView.Adapter<FoodSearchAdapter.FoodSearchViewHolder> {
 
     ArrayList<FoodDetailModel> steps;
     FoodSearchListner foodDetailListner;
     Context context;
+    BasePreferenceHelper mPreferenceHelper;
 
     public FoodSearchAdapter(ArrayList<FoodDetailModel> steps, Context context, FoodSearchListner foodDetailListner) {
         this.steps = steps;
@@ -45,7 +49,7 @@ public class FoodSearchAdapter extends RecyclerView.Adapter<FoodSearchAdapter.Fo
     public void onBindViewHolder(FoodSearchAdapter.FoodSearchViewHolder holder, int position) {
         //  holder.image.setImageResource(R.drawable.planetimage);
         Spanny spanny ;
-        spanny = new Spanny().append(steps.get(position).getTitle_en());
+        spanny = new Spanny().append(mPreferenceHelper.getSelectedLanguage() == ENGLISH ? steps.get(position).getTitle_en() : steps.get(position).getTitle_ur());
         holder.text.setText(spanny);
         holder.textnum.setText("" + (position + 1));
         UIHelper.setImageWithGlide(context,holder.imageView,steps.get(position).getGallery().getPhotos().get(0).getThumb_path());
@@ -66,6 +70,10 @@ public class FoodSearchAdapter extends RecyclerView.Adapter<FoodSearchAdapter.Fo
         notifyDataSetChanged();
 
 
+    }
+
+    public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {
+        mPreferenceHelper = preferenceHelper;
     }
 
     @Override

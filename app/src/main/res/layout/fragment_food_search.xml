@@ -1,82 +1,86 @@
-<LinearLayout
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorFbWhiteBg"
-    android:orientation="vertical">
+<layout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorFbWhiteBg">
 
-        <EditText
-            android:id="@+id/etSearch"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/linearLayoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorFbWhiteBg"
+        android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:background="@drawable/border_item_rounded"
-            android:drawablePadding="@dimen/dp15"
-            android:singleLine="true"
-            android:drawableStart="@drawable/search"
-            android:hint="Search"
-            android:imeActionLabel="Search"
-            android:imeOptions="actionGo"
-            android:paddingStart="@dimen/dp15" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:background="@color/colorFbWhiteBg">
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@drawable/border_item_rounded"
+                android:drawableStart="@drawable/search"
+                android:drawablePadding="@dimen/dp15"
+                android:hint="@string/search_en"
+                android:imeActionLabel="Search"
+                android:imeOptions="actionGo"
+                android:paddingStart="@dimen/dp15"
+                android:singleLine="true" />
+        </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp2"
-        android:layout_marginTop="@dimen/dp2"
-        android:background="@color/lightGray" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvSearch"
-        android:nestedScrollingEnabled="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-    />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsmedium"
-        android:padding="@dimen/dp5"
-        android:text="Suggestions"
-        android:textColor="@color/colorBlack" />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvSuggestions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-
-
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsmedium"
-        android:padding="@dimen/dp5"
-        android:text="Meal Types"
-        android:textColor="@color/colorBlack" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvMealType"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp2"
+                    android:layout_marginTop="@dimen/dp2"
+                    android:background="@color/lightGray" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+
+                <TextView
+                    android:id="@+id/tvSuggestions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:padding="@dimen/dp5"
+                    android:text="@string/suggestions_en"
+                    android:textColor="@color/colorBlack" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvSuggestions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <TextView
+                    android:id="@+id/tvMealTypes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:padding="@dimen/dp5"
+                    android:text="@string/meal_types_en"
+                    android:textColor="@color/colorBlack" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvMealType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+</layout>

@@ -18,6 +18,7 @@ import java.util.Random;
 
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
+import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.Spanny;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodChipsListner;
@@ -25,6 +26,9 @@ import structure.com.foodportal.interfaces.foodInterfaces.FoodDetailListner;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodSearchListner;
 import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.Step;
+
+import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
+import static structure.com.foodportal.helper.AppConstant.Language.URDU;
 
 public class FoodSuggestionAdapter extends RecyclerView.Adapter<FoodSuggestionAdapter.FoodSearchViewHolder> {
 
@@ -48,7 +52,7 @@ public class FoodSuggestionAdapter extends RecyclerView.Adapter<FoodSuggestionAd
 
     @Override
     public FoodSuggestionAdapter.FoodSearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chip, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chip_new, parent, false);
         FoodSearchViewHolder viewHolder = new FoodSearchViewHolder(v);
         return viewHolder;
     }
@@ -61,6 +65,8 @@ public class FoodSuggestionAdapter extends RecyclerView.Adapter<FoodSuggestionAd
 //
 //        int R = r.nextInt(maxColor-minColor) + minColor;
 //        holder.chip.setTextColor(colors[R]);
+
+//        holder.chip.setTextSize(12); // For english 12, for urdu 14
         holder.chip.setText(steps.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -581,7 +581,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                         binding.tvFeaturedRecipes.setText(getString(R.string.featured_recipes_en));
 
                         binding.lltipoftheday.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
-                        binding.tvTipTitle.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getTitle_en());
+                        binding.tvTipTitle.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getTitle_en() + "...");
                         binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_en());
 
 //                        binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_en().replaceAll("_", " "));
@@ -604,7 +604,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                         binding.tvFeaturedRecipes.setText(getString(R.string.featured_recipes_ur));
 
                         binding.lltipoftheday.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-                        binding.tvTipTitle.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getTitle_ur());
+                        binding.tvTipTitle.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getTitle_ur() + "...");
                         binding.tvtipDay.setText(foodHomeModelWrapper.getSection().get(2).getSection_list().get(0).getContent_ur());
 
 //                        binding.tvBetterforBites.setText(foodHomeModelWrapper.getSection().get(3).getSection_name_ur().replaceAll("_", " "));

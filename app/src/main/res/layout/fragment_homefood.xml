@@ -393,8 +393,9 @@
                                     android:fontFamily="@font/poppinsbold"
                                     android:padding="@dimen/dp5"
                                     android:textSize="@dimen/dp16"
-                                    android:text="Tip of the Day"
+                                    android:text=""
                                     android:textColor="@color/colorBlack" />
+<!--                                android:text="Tip of the Day"-->
 
                                 <TextView
                                     android:id="@+id/tvtipDay"
@@ -468,9 +469,10 @@
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
                                 android:textSize="@dimen/sp14"
-                                android:text="Tutorials"
+                                android:text=""
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccentTextColor" />
+<!--                            android:text="Tutorials"-->
 
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/rvtechniques"

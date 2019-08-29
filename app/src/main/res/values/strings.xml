@@ -706,4 +706,10 @@
     <string name="you_have_to_ur">آپ کو کرنا پڑے..</string>
     <string name="related_blogs_en">Related Blogs</string>
     <string name="related_blogs_ur">متعلقہ بلاگ</string>
+    <string name="suggestions_en">Suggestions</string>
+    <string name="suggestions_ur">تجاویز</string>
+    <string name="meal_types_en">Meal Types</string>
+    <string name="meal_types_ur">کھانے کی اقسام</string>
+    <string name="search_en">Search</string>
+    <string name="search_ur">تلاش کریں</string>
 </resources>
