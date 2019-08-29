@@ -56,7 +56,19 @@ public class FoodSubCategory extends RecyclerView.Adapter<FoodSubCategory.Planet
             UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getSlider_path());
         }
         else {
-            UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getGallery().getPhotos().get(0).getImage_path());
+            if (sections.get(position).getGallery() != null) {
+                UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getGallery().getPhotos().get(0).getImage_path());
+            }
+            else {
+                UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getFeatured_image_path());
+            }
+
+//            if (sections.get(position).getFeatured_image_path() != null) {
+//                UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getFeatured_image_path());
+//            }
+//            else if (sections.get(position).getGallery() != null) {
+//                UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getGallery().getPhotos().get(0).getImage_path());
+//            }
         }
 
 //        UIHelper.setImageWithGlide(context, holder.circleImageView, sections.get(position).getSlider_path() != null ? sections.get(position).getSlider_image() : sections.get(position).getGallery().getPhotos().get(0).getImage_path());

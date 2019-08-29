@@ -81,6 +81,8 @@ public class CategorySlider
 
     private String is_slider;
 
+    private String featured_image_path;
+
     public String getLayout_id ()
     {
         return layout_id;
@@ -332,6 +334,13 @@ public class CategorySlider
 
     Gallery gallery;
 
+    public String getFeatured_image_path() {
+        return featured_image_path;
+    }
+
+    public void setFeatured_image_path(String featured_image_path) {
+        this.featured_image_path = featured_image_path;
+    }
 
     public ArrayList<CategorySlider> getCategories() {
         return categories;

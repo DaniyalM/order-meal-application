@@ -290,7 +290,7 @@ public interface webservice {
     Call<Api_Response<CategorySliderWrapper>> getSubCategory(@Query("category_slug") String category_slug);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY_RECIPE)
-    Call<Api_Response<RecipeWrapper>> getRecipeCategory(@Query("category_slug") String category_slug);
+    Call<Api_Response<RecipeWrapper>> getRecipeCategory(@Query("category_slug") String category_slug, @Query("slug") String slug);
 
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MY_REVIEWS)
     Call<Api_Array_Response<Recipe>> getMyReviews(@Query("id") int id);
