@@ -554,7 +554,9 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
     }
 
     private void openPrivacyPolicy() {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://food.tribune.com.pk/en/static/privacy-policy"));
+        int lang = mainActivity.prefHelper.getSelectedLanguage();
+        String locale = lang == ENGLISH ? "en" : "ur";
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://food.tribune.com.pk/" + locale + "/static/privacy-policy"));
         startActivity(browserIntent);
     }
 

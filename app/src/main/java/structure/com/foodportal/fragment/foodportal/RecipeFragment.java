@@ -56,11 +56,11 @@ public class RecipeFragment extends BaseFragment implements SubCategoryListner {
         if (categorySlider != null) {
 
 
-            getCategories(categorySlider.getCategory_slug());
+            getCategories(categorySlider.getCategory_slug(), categorySlider.getSlug());
 
         } else if (savedRecipe != null) {
 
-            getCategories(savedRecipe.getSlug());
+            getCategories(savedRecipe.getSlug(), "");
 
 
         }
@@ -119,10 +119,10 @@ public class RecipeFragment extends BaseFragment implements SubCategoryListner {
 
     }
 
-    public void getCategories(String slug) {
+    public void getCategories(String categorySlug, String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getRecipeCategory(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY_RECIPE);
+            serviceHelper.enqueueCall(webService.getRecipeCategory(categorySlug, slug), AppConstant.FOODPORTAL_FOOD_DETAILS.SUB_CATEGORY_RECIPE);
         else if (LocalDataHelper.readFromFile(mainActivity, "RecipeCategory").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "RecipeCategory").equalsIgnoreCase("")) {
 
             Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
