@@ -252,6 +252,9 @@ public class AppConstant {
         public static final String CLEANING = "Cleaning";
         public static final String BLOG = "Blog";
 
+        public static final String SLUG_RECIPES = "recipes";
+        public static final String SLUG_TUTORIAL = "tutorial";
+
 
     }
 

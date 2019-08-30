@@ -33,6 +33,9 @@ import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
 import structure.com.foodportal.models.foodModels.RecipeWrapper;
 import structure.com.foodportal.models.foodModels.SavedRecipe;
 
+import static structure.com.foodportal.helper.AppConstant.FOODPORTAL_FOOD_DETAILS.SLUG_RECIPES;
+import static structure.com.foodportal.helper.AppConstant.FOODPORTAL_FOOD_DETAILS.SLUG_TUTORIAL;
+
 public class RecipeFragment extends BaseFragment implements SubCategoryListner {
 
 
@@ -43,6 +46,7 @@ public class RecipeFragment extends BaseFragment implements SubCategoryListner {
     ArrayList<CategorySlider> categorySliders;
 
     FragmentRecipeBinding binding;
+    private String mSlug = "";
 
     @Nullable
     @Override
@@ -54,9 +58,14 @@ public class RecipeFragment extends BaseFragment implements SubCategoryListner {
         mainActivity.hideBottombar();
 
         if (categorySlider != null) {
+            if (categorySlider.getFeature_type_id().equals("1")) {
+                mSlug = SLUG_RECIPES;
+            }
+            else if (categorySlider.getFeature_type_id().equals("2")) {
+                mSlug = SLUG_TUTORIAL;
+            }
 
-
-            getCategories(categorySlider.getCategory_slug(), categorySlider.getSlug());
+            getCategories(categorySlider.getCategory_slug(), mSlug);
 
         } else if (savedRecipe != null) {
 
@@ -214,6 +223,19 @@ public class RecipeFragment extends BaseFragment implements SubCategoryListner {
 
                 break;
 
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS:
+                FoodDetailModelWrapper foodDetailModeltwo = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
+                if (foodDetailModeltwo != null) {
+
+                    //     LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
+                    FoodTutorialDetailFragment detailFragment = new FoodTutorialDetailFragment();
+                    detailFragment.setFoodDetailModel(foodDetailModeltwo);
+                    mainActivity.addFragment(detailFragment, true, true);
+                    //    setData(foodDetailModel.getData());
+
+                }
+                break;
+
 
         }
 
@@ -224,8 +246,14 @@ public class RecipeFragment extends BaseFragment implements SubCategoryListner {
     public void onSubCategoryClick(int position) {
 
 
-        if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getfooddetail(categorySliders.get(position).getSlug(),String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+        if (NetworkUtils.isNetworkAvailable(mainActivity)) {
+            if (mSlug.equalsIgnoreCase(SLUG_TUTORIAL)) {
+                serviceHelper.enqueueCall(webService.getfoodtutorialdetail(categorySliders.get(position).getSlug()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
+            }
+            else if (mSlug.equalsIgnoreCase(SLUG_RECIPES)) {
+                serviceHelper.enqueueCall(webService.getfooddetail(categorySliders.get(position).getSlug(), String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+            }
+        }
         else if (LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase("")) {
 
             Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
