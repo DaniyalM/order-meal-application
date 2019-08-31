@@ -60,9 +60,18 @@ public class RecipeFragment extends BaseFragment implements SubCategoryListner {
         if (categorySlider != null) {
             if (categorySlider.getFeature_type_id().equals("1")) {
                 mSlug = SLUG_RECIPES;
+                foodCategoryAdapter.setRecipe(true);
             }
             else if (categorySlider.getFeature_type_id().equals("2")) {
                 mSlug = SLUG_TUTORIAL;
+                foodCategoryAdapter.setRecipe(false);
+            }
+
+            if (mSlug.equalsIgnoreCase(SLUG_TUTORIAL)) {
+                binding.rvSubCategoryRecipe.setDemoLayoutReference(R.layout.layout_demo_grid_cooking_guide);
+            }
+            else {
+                binding.rvSubCategoryRecipe.setDemoLayoutReference(R.layout.layout_demo_grid);
             }
 
             getCategories(categorySlider.getCategory_slug(), mSlug);

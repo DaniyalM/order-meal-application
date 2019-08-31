@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -84,7 +85,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
     UniversalVideoView mVideoView;
     UniversalMediaController mMediaController;
     FoodDetailModelWrapper foodDetailModel;
-
+    Titlebar mTitlebar;
 
     public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel) {
         this.foodDetailModel = foodDetailModel;
@@ -96,7 +97,6 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tutorial_detail, container, false);
         mVideoView = (UniversalVideoView) binding.getRoot().findViewById(R.id.videoView);
         mMediaController = (UniversalMediaController) binding.getRoot().findViewById(R.id.media_controller);
-
 
         setListners();
         return binding.getRoot();
@@ -190,12 +190,12 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
     public void onClick(View view) {
       switch (view.getId()){
         case R.id.sharing:
-        String shareBody = "https://recipesofpakistan.com/en/recipe/" + foodDetailModel.getData().getSlug();
+        String shareBody = "https://food.tribune.com.pk/en/tutorial/" + foodDetailModel.getData().getSlug();
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+//        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
 
         //showMenuPopup(sharing);
@@ -217,7 +217,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 //                sharingIntent.setType("text/plain");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-//                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+//                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
 
 //                String shareBody = "Here is the share content body";
@@ -225,7 +225,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 //                sharingIntent.setType("text/plain");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-//                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+//                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
         break;
 
@@ -247,6 +247,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
 
     @Override
     protected void setTitle(Titlebar titlebar) {
+        mTitlebar = titlebar;
         titlebar.showTitlebar();
         // titlebar.setTitle(foodDetailModel.getData().getTitle_en());
         titlebar.showBackButton(mainActivity);
@@ -260,7 +261,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
     @Override
     public void ResponseSuccess(Object result, String Tag) {
         switch (Tag) {
-            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS:
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS:
                 FoodDetailModelWrapper foodDetailModel = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
 
 
@@ -338,7 +339,6 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
         binding.nestedScroll.smoothScrollTo(0, 0);
         binding.tvfoodName.requestFocus();
 
-
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         Bitmap bmp = null;
         int videoHeight, videoWidth;
@@ -382,10 +382,6 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
         binding.tvServingTime.setText("" + foodDetailModel.getTotalViews() + " views");
         binding.tvPreparationTime.setText("" + foodDetailModel.getCook_time());
         binding.tvfoodDiscount.setText("" + foodDetailModel.getExcerpt_en());
-
-
-
-
     }
 
 
@@ -538,7 +534,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements  Univers
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getfooddetail(slug,String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+            serviceHelper.enqueueCall(webService.getfoodtutorialdetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
         else if (LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase("")) {
 
             Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();

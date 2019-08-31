@@ -485,12 +485,12 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sharing:
-                String shareBody = "Here is the share content body";
+                String shareBody = "https://food.tribune.com.pk/en/special-recipe/" + foodDetailModelSpecial.getSlug();
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
                 break;
             case R.id.mutebtn:
@@ -717,7 +717,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
         }
 
         if (foodDetailModel.getVideo_url() != null) {
-            videoView.requestFocus();
+//            videoView.requestFocus();
             videoView.hideController();
             player = ExoPlayerFactory.newSimpleInstance(
                     new DefaultRenderersFactory(mainActivity),

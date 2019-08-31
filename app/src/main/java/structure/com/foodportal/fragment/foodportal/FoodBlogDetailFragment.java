@@ -2,6 +2,7 @@ package structure.com.foodportal.fragment.foodportal;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -30,6 +31,7 @@ import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -88,6 +90,7 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     FoodDetailModelWrapper foodDetailModel;
     ArrayList<Comments> comments;
     FoodCommentsAdapter foodCommentsAdapter;
+    LinearLayout sharing;
 
     public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel) {
         this.foodDetailModel = foodDetailModel;
@@ -98,6 +101,8 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_blog, container, false);
 
+        sharing = (LinearLayout) binding.getRoot().findViewById(R.id.sharing);
+        sharing.setOnClickListener(this);
 
         setListners();
         return binding.getRoot();
@@ -332,7 +337,15 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.sharing:
+                String shareBody = "https://food.tribune.com.pk/en/blog/" + foodDetailModel.getData().getSlug();
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
+                break;
             case R.id.tvShowall:
                 //   player.stop();
                 //player.stop(true);

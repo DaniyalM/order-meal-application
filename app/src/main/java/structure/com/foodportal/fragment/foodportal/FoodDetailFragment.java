@@ -468,12 +468,12 @@ public class FoodDetailFragment extends BaseFragment implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sharing:
-                String shareBody = "https://recipesofpakistan.com/en/recipe/" + foodDetailModel.getData().getSlug();
+                String shareBody = "https://food.tribune.com.pk/en/recipe/" + foodDetailModel.getData().getSlug();
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
                 break;
 
@@ -689,7 +689,7 @@ public class FoodDetailFragment extends BaseFragment implements
         }
 
         if (foodDetailModel.getVideo_url() != null) {
-            videoView.requestFocus();
+//            videoView.requestFocus();
             videoView.hideController();
             player = ExoPlayerFactory.newSimpleInstance(
                     new DefaultRenderersFactory(mainActivity),
@@ -1086,7 +1086,7 @@ public class FoodDetailFragment extends BaseFragment implements
                         sharingIntent.setType("text/plain");
                         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+                        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
 
                         break;
@@ -1097,7 +1097,7 @@ public class FoodDetailFragment extends BaseFragment implements
                         sharingInten.setType("text/plain");
                         sharingInten.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
                         sharingInten.putExtra(android.content.Intent.EXTRA_TEXT, shareBod);
-                        startActivity(Intent.createChooser(sharingInten, getResources().getString(R.string.login_with_facebook)));
+                        startActivity(Intent.createChooser(sharingInten, getResources().getString(R.string.share_via)));
 
 
                         break;
