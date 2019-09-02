@@ -156,7 +156,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
     View mVideoLayout;
     // UniversalVideoView mVideoView;
     UniversalMediaController mMediaController;
-    FoodDetailModelWrapper foodDetailModel;
+    FoodDetailModelWrapper foodDetailModel, foodDetailModelSpecialWrapper;
     FoodDetailModel foodDetailModelSpecial;
     FoodDetailModel foodDetailModelSaved;
     SimpleExoPlayer player;
@@ -180,8 +180,8 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
     }
 
-    public void setFoodDetailModelSpecial(FoodDetailModel foodDetailModel, ArrayList<Comments> allReviews) {
-
+    public void setFoodDetailModelSpecial(FoodDetailModelWrapper wrapper, FoodDetailModel foodDetailModel, ArrayList<Comments> allReviews) {
+        this.foodDetailModelSpecialWrapper = wrapper;
         this.foodDetailModelSpecial = foodDetailModel;
         this.allReviews = allReviews;
         startTime = new ArrayList<>();
@@ -243,6 +243,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
     LikeButton likebtn;
     Button savebtn;
     TextView tvShowall;
+    Button btnSubmit;
     LinearLayout sharing;
     @Nullable
     @Override
@@ -254,11 +255,13 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
         btnMute = (ImageView) binding.getRoot().findViewById(R.id.mutebtn);
         savebtn = (Button) binding.getRoot().findViewById(R.id.savebtn);
         tvShowall = (TextView) binding.getRoot().findViewById(R.id.tvShowall);
+        btnSubmit = (Button) binding.getRoot().findViewById(R.id.btnSubmit);
         likebtn = (LikeButton) binding.getRoot().findViewById(R.id.lkFav);
         sharing = (LinearLayout) binding.getRoot().findViewById(R.id.sharing);
 
         sharing.setOnClickListener(this);
         tvShowall.setOnClickListener(this);
+        btnSubmit.setOnClickListener(this);
         btnMute.setOnClickListener(this);
         savebtn.setOnClickListener(this);
         savebtn.setVisibility(View.VISIBLE);
@@ -329,18 +332,17 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 //
 //            }
 
-//
-//            if (foodDetailModel.getAllReviews().size() > 0) {
-//
-//                comments.addAllToAdapter(foodDetailModel.getAllReviews());
-//                foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true,false);
-//                binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
-//                foodCommentsAdapter.notifyDataSetChanged();
-//
-//            } else {
-//
-//
-//            }
+            if (foodDetailModelSpecialWrapper.getAllReviews().size() > 0) {
+
+                comments.addAll(foodDetailModelSpecialWrapper.getAllReviews());
+                foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true,false);
+                binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
+                foodCommentsAdapter.notifyDataSetChanged();
+
+            } else {
+
+
+            }
 
 
         }
@@ -576,6 +578,16 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
                 mainActivity.addFragment(commentsFragment, true, true);}
                 break;
 
+            case R.id.btnSubmit:
+                if (binding.etComments.getText().toString().trim().equalsIgnoreCase("")) {
+
+                    Toast.makeText(mainActivity, "Please write your review to submit", Toast.LENGTH_SHORT).show();
+                } else {
+                    Utils.hideKeyboard(getView(), mainActivity);
+                    sendreview(foodDetailModelSpecial);
+
+                }
+                break;
 
         }
     }
@@ -607,6 +619,8 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
                     comments.clear();
                     setData(foodDetailModel.getData());
 
+                    this.foodDetailModelSpecial = foodDetailModel.getStory();
+                    this.allReviews = foodDetailModel.getAllReviews();
                 }
                 if (foodDetailModel.getRelated().size() > 0) {
                     related.clear();
@@ -674,6 +688,12 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
                 break;
 
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW:
+                binding.etComments.setText("");
+                String slug = this.foodDetailModelSpecial.getSlug();
+                next(slug);
+
+                break;
         }
     }
 
@@ -1002,11 +1022,10 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
     public void sendreview(FoodDetailModel foodDetailModel) {
         serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
-                "story",
+                "special_recipe",
                 foodDetailModel.getFeature_type_id(),
-                foodDetailModel.getId(),
-                "wonderful",
-                1), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
+                foodDetailModel.getId(), binding.etComments.getText().toString(),
+                0), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
     }
 
 

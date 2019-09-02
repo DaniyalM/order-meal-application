@@ -68,6 +68,14 @@ public class FoodSearchAdapter extends RecyclerView.Adapter<FoodSearchAdapter.Fo
 
     }
 
+    public void clearData(){
+
+        this.steps.clear();
+        notifyDataSetChanged();
+
+
+    }
+
     @Override
     public int getItemCount() {
         return steps.size();

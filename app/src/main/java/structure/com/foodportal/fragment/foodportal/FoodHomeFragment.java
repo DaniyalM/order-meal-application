@@ -483,7 +483,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
                     // LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
                     FoodSpecialDetailFragment detailFragment = new FoodSpecialDetailFragment();
-                    detailFragment.setFoodDetailModelSpecial(foodDetailModel2.getStory(), foodDetailModel2.getAllReviews());
+                    detailFragment.setFoodDetailModelSpecial(foodDetailModel2, foodDetailModel2.getStory(), foodDetailModel2.getAllReviews());
                     mainActivity.addFragment(detailFragment, true, true);
                     //    setData(foodDetailModel.getData());
 
