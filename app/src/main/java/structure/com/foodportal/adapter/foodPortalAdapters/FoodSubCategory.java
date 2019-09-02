@@ -29,6 +29,7 @@ public class FoodSubCategory extends RecyclerView.Adapter<FoodSubCategory.Planet
     ArrayList<CategorySlider> sections;
     Context context;
     SubCategoryListner subCategoryListner;
+    private boolean isRecipe = true;
     private int lastPosition = -1;
 
     public FoodSubCategory(ArrayList<CategorySlider> sections, Context context, SubCategoryListner subCategoryListner) {
@@ -39,7 +40,11 @@ public class FoodSubCategory extends RecyclerView.Adapter<FoodSubCategory.Planet
 
     @Override
     public FoodSubCategory.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sub_category, parent, false);
+        int resId = R.layout.item_sub_category;
+        if (!isRecipe()) {
+            resId = R.layout.item_cooking_guides;
+        }
+        View v = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
         FoodSubCategory.PlanetViewHolder viewHolder = new FoodSubCategory.PlanetViewHolder(v);
         return viewHolder;
     }
@@ -100,6 +105,14 @@ public class FoodSubCategory extends RecyclerView.Adapter<FoodSubCategory.Planet
             }
         }
         return title;
+    }
+
+    public void setRecipe(boolean recipe) {
+        isRecipe = recipe;
+    }
+
+    public boolean isRecipe() {
+        return isRecipe;
     }
 
     public void setPreferenceHelper(BasePreferenceHelper preferenceHelper) {

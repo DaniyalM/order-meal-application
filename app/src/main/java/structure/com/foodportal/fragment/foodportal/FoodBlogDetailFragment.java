@@ -2,6 +2,7 @@ package structure.com.foodportal.fragment.foodportal;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -30,6 +31,7 @@ import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -140,6 +142,7 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
         mainActivity.hideBottombar();
         initAdapters();
         binding.tvShowall.setOnClickListener(this);
+        binding.btnSubmit.setOnClickListener(this);
 
 
         if (foodDetailModel != null) {
@@ -208,8 +211,45 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_BLOG_DETAILS:
                 FoodDetailModelWrapper foodDetailModel = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
                 if (foodDetailModel != null) {
+                    this.foodDetailModel = foodDetailModel;
+                    related.clear();
                     setData(foodDetailModel);
+
+                    if (foodDetailModel.getRelated().size() > 0) {
+                        related.clear();
+                        related.addAll(foodDetailModel.getRelated());
+
+                        foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this);
+                        binding.rvRelatedRecipes.setAdapter(foodRelatedAdapter);
+                        foodRelatedAdapter.notifyDataSetChanged();
+                        binding.llRelated.setVisibility(View.VISIBLE);
+
+                    } else {
+                        binding.llRelated.setVisibility(View.GONE);
+
+                    }
+
+                    WebSettings settings = binding.myWebView.getSettings();
+                    settings.setMinimumFontSize(18);
+                    settings.setLoadWithOverviewMode(true);
+                    settings.setUseWideViewPort(true);
+                    settings.setBuiltInZoomControls(false);
+                    settings.setDisplayZoomControls(false);
+                    settings.setSupportMultipleWindows(true);
+
+                    binding.myWebView.setHorizontalScrollBarEnabled(false);
+                    binding.myWebView.setWebChromeClient(new WebChromeClient());
+
+                    String content = getTransformedBlogContent(foodDetailModel.getData().getContent_en());
+                    binding.myWebView.loadDataWithBaseURL(null, content, "text/html", "UTF-8", null);
                 }
+                break;
+
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW:
+                binding.etComments.setText("");
+                String slug = this.foodDetailModel.getData().getSlug();
+                next(slug);
+
                 break;
 
         }
@@ -233,7 +273,6 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
         binding.rvCommentsSection.setLayoutManager(linearLayoutManagerComment);
 
         if (this.foodDetailModel.getAllReviews().size() > 0) {
-
             comments.addAll(this.foodDetailModel.getAllReviews());
             foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true, false);
             foodCommentsAdapter.setPreferenceHelper(preferenceHelper);
@@ -370,7 +409,15 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.sharing:
+                String shareBody = "https://food.tribune.com.pk/en/blog/" + foodDetailModel.getData().getSlug();
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
+                break;
             case R.id.tvShowall:
                 //   player.stop();
                 //player.stop(true);
@@ -387,7 +434,26 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
                 }
                 break;
 
+            case R.id.btnSubmit:
+                if (binding.etComments.getText().toString().trim().equalsIgnoreCase("")) {
+
+                    Toast.makeText(mainActivity, "Please write your review to submit", Toast.LENGTH_SHORT).show();
+                } else {
+                    Utils.hideKeyboard(getView(), mainActivity);
+                    sendreview(foodDetailModel.getData());
+
+                }
+                break;
+
         }
 
+    }
+
+    public void sendreview(FoodDetailModel foodDetailModel) {
+        serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
+                "story",
+                foodDetailModel.getFeature_type_id(),
+                foodDetailModel.getId(), binding.etComments.getText().toString(),
+                0), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
     }
 }

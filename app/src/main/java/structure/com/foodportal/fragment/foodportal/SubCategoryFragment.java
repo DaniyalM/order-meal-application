@@ -230,14 +230,15 @@ public class SubCategoryFragment extends BaseFragment implements View.OnClickLis
         if (NetworkUtils.isNetworkAvailable(mainActivity))
             switch (mode){
 
+                case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.RECIPES:
                     RecipeFragment recipeFragment = new RecipeFragment();
                     recipeFragment.setModel(categorySliders.get(position));
                     mainActivity.addFragment(recipeFragment, true, true);
                     break;
-                case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
-                    serviceHelper.enqueueCall(webService.getfoodtutorialdetail(categorySliders.get(position).getCategory_slug()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
-                    break;
+//                case AppConstant.FOODPORTAL_FOOD_DETAILS.TUTORIALS:
+//                    serviceHelper.enqueueCall(webService.getfoodtutorialdetail(categorySliders.get(position).getCategory_slug()), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
+//                    break;
 
 
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.CLEANING:

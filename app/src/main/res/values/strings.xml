@@ -534,7 +534,11 @@
     <string name="server_client_id">964728012300-aq7aopoe0jdvc1v738f8l6g58sbic3u8.apps.googleusercontent.com</string>
 
 
-
+    <string name="legal_privacy_policy"><u>Legal-Privacy Policy</u></string>
+    <string name="about_us"><u>About Us</u></string>
+    <string name="user_agreements"><u>User Agreements</u></string>
+    <string name="account_log_in"><u>Account-Log In</u></string>
+    <string name="share_via">Share via</string>
 
     <!-- Language strings -->
 

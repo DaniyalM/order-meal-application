@@ -67,6 +67,7 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
     EditText searchAutoComplete;
     RecyclerView rvsearch;
     ArrayList<FoodDetailModel> steps;
+    LinearLayout searchContainerLayout;
     LinearLayoutManager linearLayoutManagerSearch;
     RecyclerView rvSuggestion, rvMealType;
 
@@ -144,6 +145,7 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
         rvMealType = (RecyclerView) view.findViewById(R.id.rvMealType);
         searchAutoComplete = (EditText) view.findViewById(R.id.etSearch);
         rvsearch = (RecyclerView) view.findViewById(R.id.rvSearch);
+        searchContainerLayout = (LinearLayout) view.findViewById(R.id.searchContainerLayout);
     }
 
     private void setListners() {
@@ -177,7 +179,14 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
 //
 //                }
 
+                if(searchAutoComplete.getText().toString().equals("") || searchAutoComplete.getText().toString().isEmpty()) {
+                    UIHelper.hideSoftKeyboards(mainActivity);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    searchContainerLayout.setLayoutParams(params);
 
+                    foodSearchAdapter.clearData();
+
+                }
             }
 
             @Override
@@ -235,7 +244,14 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
 
             case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_HOME_SEARCH:
                 UIHelper.hideSoftKeyboards(mainActivity);
+
                 foodSearchAdapter.addAll((ArrayList<FoodDetailModel>) result);
+
+                if (foodSearchAdapter.getItemCount() > 0) {
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    params.weight = 1;
+                    searchContainerLayout.setLayoutParams(params);
+                }
 
                 break;
 

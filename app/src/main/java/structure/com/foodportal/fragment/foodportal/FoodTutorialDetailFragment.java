@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -254,7 +255,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements Universa
 //                sharingIntent.setType("text/plain");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-//                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+//                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
 
 //                String shareBody = "Here is the share content body";
@@ -262,7 +263,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements Universa
 //                sharingIntent.setType("text/plain");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-//                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+//                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
                 break;
 
@@ -283,6 +284,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements Universa
 
     @Override
     protected void setTitle(Titlebar titlebar) {
+        mTitlebar = titlebar;
         titlebar.showTitlebar();
         // titlebar.setTitle(foodDetailModel.getData().getTitle_en());
         titlebar.showBackButton(mainActivity);
@@ -296,7 +298,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements Universa
     @Override
     public void ResponseSuccess(Object result, String Tag) {
         switch (Tag) {
-            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS:
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS:
                 FoodDetailModelWrapper foodDetailModel = (FoodDetailModelWrapper) JsonHelpers.convertToModelClass(result, FoodDetailModelWrapper.class);
 
 
@@ -371,7 +373,6 @@ public class FoodTutorialDetailFragment extends BaseFragment implements Universa
         binding.nestedScroll.fullScroll(ScrollView.FOCUS_UP);
         binding.nestedScroll.smoothScrollTo(0, 0);
         binding.tvfoodName.requestFocus();
-
 
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         Bitmap bmp = null;

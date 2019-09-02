@@ -258,6 +258,7 @@ public class FoodDetailFragment extends BaseFragment implements
     //    Button savebtn;
     TextView savebtn;
     TextView tvShowall;
+    Button btnSubmit;
     LinearLayout sharing;
 
     public void setscreensize() {
@@ -282,12 +283,14 @@ public class FoodDetailFragment extends BaseFragment implements
 //        savebtn = (Button) binding.getRoot().findViewById(R.id.savebtn);
         savebtn = (TextView) binding.getRoot().findViewById(R.id.savebtn);
         tvShowall = (TextView) binding.getRoot().findViewById(R.id.tvShowall);
+        btnSubmit = (Button) binding.getRoot().findViewById(R.id.btnSubmit);
         likebtn = (LikeButton) binding.getRoot().findViewById(R.id.lkFav);
         sharing = (LinearLayout) binding.getRoot().findViewById(R.id.sharing);
         servings = (TextView) binding.getRoot().findViewById(R.id.servings);
 
         sharing.setOnClickListener(this);
         tvShowall.setOnClickListener(this);
+        btnSubmit.setOnClickListener(this);
         btnMute.setOnClickListener(this);
         savebtn.setOnClickListener(this);
         likebtn.setOnClickListener(this);
@@ -497,12 +500,12 @@ public class FoodDetailFragment extends BaseFragment implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sharing:
-                String shareBody = "https://recipesofpakistan.com/en/recipe/" + foodDetailModel.getData().getSlug();
+                String shareBody = "https://food.tribune.com.pk/en/recipe/" + foodDetailModel.getData().getSlug();
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
                 break;
 
@@ -583,6 +586,17 @@ public class FoodDetailFragment extends BaseFragment implements
                 }
                 break;
 
+            case R.id.btnSubmit:
+                if (binding.etComments.getText().toString().trim().equalsIgnoreCase("")) {
+
+                    Toast.makeText(mainActivity, "Please write your review to submit", Toast.LENGTH_SHORT).show();
+                } else {
+                    Utils.hideKeyboard(getView(), mainActivity);
+                    sendreview(foodDetailModel.getData());
+
+                }
+                break;
+
 
         }
     }
@@ -656,6 +670,10 @@ public class FoodDetailFragment extends BaseFragment implements
 
 
                 }
+
+                binding.nestedScroll.fullScroll(ScrollView.FOCUS_UP);
+                binding.nestedScroll.smoothScrollTo(0, 0);
+                binding.tvfoodName.requestFocus();
 //
 //                    LocalDataHelper.writeToFile(result.toString(), mainActivity, "Detail");
 //                    FoodDetailFragment detailFragment = new FoodDetailFragment();
@@ -689,6 +707,10 @@ public class FoodDetailFragment extends BaseFragment implements
                     savebtn.setText(mLang == ENGLISH ? getString(R.string.saved_en) : getString(R.string.saved_ur));
                 }
 
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW:
+                binding.etComments.setText("");
+                String slug = this.foodDetailModel.getData().getSlug();
+                next(slug);
 
                 break;
 
@@ -731,7 +753,7 @@ public class FoodDetailFragment extends BaseFragment implements
         }
 
         if (foodDetailModel.getVideo_url() != null) {
-            videoView.requestFocus();
+//            videoView.requestFocus();
             videoView.hideController();
             player = ExoPlayerFactory.newSimpleInstance(
                     new DefaultRenderersFactory(mainActivity),
@@ -1067,9 +1089,8 @@ public class FoodDetailFragment extends BaseFragment implements
         serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
                 "story",
                 foodDetailModel.getFeature_type_id(),
-                foodDetailModel.getId(),
-                "wonderful",
-                1), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
+                foodDetailModel.getId(), binding.etComments.getText().toString(),
+                0), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
     }
 
 
@@ -1135,7 +1156,7 @@ public class FoodDetailFragment extends BaseFragment implements
                         sharingIntent.setType("text/plain");
                         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+                        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
 
                         break;
@@ -1146,7 +1167,7 @@ public class FoodDetailFragment extends BaseFragment implements
                         sharingInten.setType("text/plain");
                         sharingInten.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
                         sharingInten.putExtra(android.content.Intent.EXTRA_TEXT, shareBod);
-                        startActivity(Intent.createChooser(sharingInten, getResources().getString(R.string.login_with_facebook)));
+                        startActivity(Intent.createChooser(sharingInten, getResources().getString(R.string.share_via)));
 
 
                         break;
