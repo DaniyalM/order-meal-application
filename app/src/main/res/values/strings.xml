@@ -543,7 +543,7 @@
     <!-- Language strings -->
 
     <string name="main_screen_slogan_en">Log in or create an account to save your favorite recipes</string>
-    <string name="main_screen_slogan_ur">اگ ان کریں یا اپنی پسندیدہ ترکیبیں محفوظ کرنے کیلئے ایک اکاؤنٹ بنائیں</string>
+    <string name="main_screen_slogan_ur">لاگ ان کریں یا اپنی پسندیدہ ترکیبیں محفوظ کرنے کیلئے ایک اکاؤنٹ بنائیں</string>
     <string name="email_en">Email</string>
     <string name="email_ur">ای میل</string>
     <string name="facebook_en">Facebook</string>
