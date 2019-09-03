@@ -221,6 +221,8 @@ public class CommentsFragment extends BaseFragment implements CommentClickListne
                 foodCommentsAdapter = null;
                 comments.clear();
                 foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, false, true);
+                foodCommentsAdapter.setPreferenceHelper(preferenceHelper);
+
                 binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
                 foodDetailModelWrapper = (CommentsWrapper) result;
                 foodDetailModel.setAllReviews(null);

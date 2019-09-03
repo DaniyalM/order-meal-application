@@ -43,7 +43,6 @@ import structure.com.foodportal.adapter.foodPortalAdapters.FoodMealTypeAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPreparationAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodSearchAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodSuggestionAdapter;
-import structure.com.foodportal.databinding.FragmentFoodSearchBinding;
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.JsonHelpers;
@@ -67,7 +66,6 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
     EditText searchAutoComplete;
     RecyclerView rvsearch;
     ArrayList<FoodDetailModel> steps;
-    LinearLayout searchContainerLayout;
     LinearLayoutManager linearLayoutManagerSearch;
     RecyclerView rvSuggestion, rvMealType;
 
@@ -104,11 +102,12 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_food_search, container, false);
 
-        setData();
         initviews(rootView);
 
         mLang = preferenceHelper.getSelectedLanguage();
         setValuesByLanguage();
+
+        setData();
 
         setListners();
         return rootView;
@@ -118,21 +117,28 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
         suggestionList = new ArrayList<>();
         mealTypeList = new ArrayList<>();
 
-        suggestionList.add("Biryani");
-        suggestionList.add("Qeema");
-        suggestionList.add("Sheer");
-        suggestionList.add("Hara masala");
-        suggestionList.add("Chicken");
-        suggestionList.add("Paye");
-        suggestionList.add("Pulao");
-        suggestionList.add("Sagudana Kheer");
+//        suggestionList.add("Biryani");
+//        suggestionList.add("Qeema");
+//        suggestionList.add("Sheer");
+//        suggestionList.add("Hara masala");
+        suggestionList.add(mLang == ENGLISH ? getString(R.string.chicken_en) : getString(R.string.chicken_ur));
+//        suggestionList.add("Paye");
+//        suggestionList.add("Pulao");
+//        suggestionList.add("Sagudana Kheer");
 
-        mealTypeList.add("Dinner");
-        mealTypeList.add("Lunch");
-        mealTypeList.add("Breakfast");
-        mealTypeList.add("Brunch");
-        mealTypeList.add("Tea");
-        mealTypeList.add("Event");
+//        mealTypeList.add("Dinner");
+//        mealTypeList.add("Lunch");
+//        mealTypeList.add("Breakfast");
+//        mealTypeList.add("Brunch");
+//        mealTypeList.add("Tea");
+//        mealTypeList.add("Event");
+
+        mealTypeList.add(mLang == ENGLISH ? getString(R.string.dinner_en) : getString(R.string.dinner_ur));
+        mealTypeList.add(mLang == ENGLISH ? getString(R.string.lunch_en) : getString(R.string.lunch_ur));
+        mealTypeList.add(mLang == ENGLISH ? getString(R.string.breakfast_en) : getString(R.string.breakfast_ur));
+        mealTypeList.add(mLang == ENGLISH ? getString(R.string.brunch_en) : getString(R.string.brunch_ur));
+        mealTypeList.add(mLang == ENGLISH ? getString(R.string.tea_en) : getString(R.string.tea_ur));
+        mealTypeList.add(mLang == ENGLISH ? getString(R.string.event_en) : getString(R.string.event_ur));
 
 
     }
@@ -145,7 +151,6 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
         rvMealType = (RecyclerView) view.findViewById(R.id.rvMealType);
         searchAutoComplete = (EditText) view.findViewById(R.id.etSearch);
         rvsearch = (RecyclerView) view.findViewById(R.id.rvSearch);
-        searchContainerLayout = (LinearLayout) view.findViewById(R.id.searchContainerLayout);
     }
 
     private void setListners() {
@@ -179,14 +184,6 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
 //
 //                }
 
-                if(searchAutoComplete.getText().toString().equals("") || searchAutoComplete.getText().toString().isEmpty()) {
-                    UIHelper.hideSoftKeyboards(mainActivity);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    searchContainerLayout.setLayoutParams(params);
-
-                    foodSearchAdapter.clearData();
-
-                }
             }
 
             @Override
@@ -247,11 +244,6 @@ public class FoodSearchFragment extends BaseFragment implements View.OnClickList
 
                 foodSearchAdapter.addAll((ArrayList<FoodDetailModel>) result);
 
-                if (foodSearchAdapter.getItemCount() > 0) {
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
-                    params.weight = 1;
-                    searchContainerLayout.setLayoutParams(params);
-                }
 
                 break;
 

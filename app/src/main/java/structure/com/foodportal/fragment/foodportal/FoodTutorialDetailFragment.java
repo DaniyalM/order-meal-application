@@ -228,12 +228,13 @@ public class FoodTutorialDetailFragment extends BaseFragment implements Universa
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sharing:
-                String shareBody = "https://recipesofpakistan.com/en/recipe/" + foodDetailModel.getData().getSlug();
+                String locale = mLang == ENGLISH ? "en" : "ur";
+                String shareBody = "https://food.tribune.com.pk/" + locale + "/tutorial/" + foodDetailModel.getData().getSlug();
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.login_with_facebook)));
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
 
 
                 //showMenuPopup(sharing);
@@ -284,7 +285,6 @@ public class FoodTutorialDetailFragment extends BaseFragment implements Universa
 
     @Override
     protected void setTitle(Titlebar titlebar) {
-        mTitlebar = titlebar;
         titlebar.showTitlebar();
         // titlebar.setTitle(foodDetailModel.getData().getTitle_en());
         titlebar.showBackButton(mainActivity);
@@ -361,6 +361,8 @@ public class FoodTutorialDetailFragment extends BaseFragment implements Universa
                     }
 
                 }
+
+                this.foodDetailModel = foodDetailModel;
 
 
                 break;
@@ -567,7 +569,7 @@ public class FoodTutorialDetailFragment extends BaseFragment implements Universa
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getfooddetail(slug, String.valueOf(preferenceHelper.getUserFood().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_DETAILS);
+            serviceHelper.enqueueCall(webService.getfoodtutorialdetail(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS);
         else if (LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase("")) {
 
             Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();

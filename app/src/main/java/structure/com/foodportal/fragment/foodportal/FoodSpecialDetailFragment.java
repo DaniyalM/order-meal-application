@@ -256,8 +256,8 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
     //    Button savebtn;
     TextView savebtn;
     TextView tvShowall;
-    Button btnSubmit;
     LinearLayout sharing;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -269,13 +269,11 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 //        savebtn = (Button) binding.getRoot().findViewById(R.id.savebtn);
         savebtn = (TextView) binding.getRoot().findViewById(R.id.savebtn);
         tvShowall = (TextView) binding.getRoot().findViewById(R.id.tvShowall);
-        btnSubmit = (Button) binding.getRoot().findViewById(R.id.btnSubmit);
         likebtn = (LikeButton) binding.getRoot().findViewById(R.id.lkFav);
         sharing = (LinearLayout) binding.getRoot().findViewById(R.id.sharing);
 
         sharing.setOnClickListener(this);
         tvShowall.setOnClickListener(this);
-        btnSubmit.setOnClickListener(this);
         btnMute.setOnClickListener(this);
         savebtn.setOnClickListener(this);
         savebtn.setVisibility(View.VISIBLE);
@@ -359,7 +357,9 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
             if (foodDetailModelSpecialWrapper.getAllReviews().size() > 0) {
 
                 comments.addAll(foodDetailModelSpecialWrapper.getAllReviews());
-                foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true,false);
+                foodCommentsAdapter = new FoodCommentsAdapter(comments, mainActivity, this, true, false);
+                foodCommentsAdapter.setPreferenceHelper(preferenceHelper);
+
                 binding.rvCommentsSection.setAdapter(foodCommentsAdapter);
                 foodCommentsAdapter.notifyDataSetChanged();
 
@@ -517,7 +517,8 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sharing:
-                String shareBody = "https://food.tribune.com.pk/en/special-recipe/" + foodDetailModelSpecial.getSlug();
+                String locale = mLang == ENGLISH ? "en" : "ur";
+                String shareBody = "https://food.tribune.com.pk/" + locale + "/special-recipe/" + foodDetailModelSpecial.getSlug();
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
@@ -563,59 +564,49 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
                 break;
 
             case R.id.savebtn:
-                if(preferenceHelper.getUserFood().getAcct_type()==4){
+                if (preferenceHelper.getUserFood().getAcct_type() == 4) {
                     Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
 
-                }else {
+                } else {
                     serviceHelper.enqueueCall(webService.sacvestory(String.valueOf(preferenceHelper.getUserFood().getId()), "special_story", String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getFeature_type_id()), String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SAVE_STORY);
                 }
                 break;
 
             case R.id.lkFav:
-                if(preferenceHelper.getUserFood().getAcct_type()==4){
-                Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
+                if (preferenceHelper.getUserFood().getAcct_type() == 4) {
+                    Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
 
-            }else {
-                serviceHelper.enqueueCall(webService.markfavorite(preferenceHelper.getUserFood().getFacebook_id(), "special_recipe", String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getFeature_type_id()), String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE);
-            }
+                } else {
+                    serviceHelper.enqueueCall(webService.markfavorite(preferenceHelper.getUserFood().getFacebook_id(), "special_recipe", String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getFeature_type_id()), String.valueOf(foodDetailModelSpecial.getSpecial_recipe_story().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE);
+                }
                 break;
 
 
             case R.id.tvShowall:
-                if(preferenceHelper.getUserFood().getAcct_type()==4){
+                if (preferenceHelper.getUserFood().getAcct_type() == 4) {
                     Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
 
-                }else{
-
-                player.stop();
-                player.stop(true);
-                //  stopPosition = binding.videoView.getCurrentPosition();
-                EventBus.getDefault().register(this);
-                CommentsFragment commentsFragment = new CommentsFragment();
-                if (foodDetailModelSpecial != null) {
-
-
-                    FoodDetailModelWrapper foodDetailModelWrapper = new FoodDetailModelWrapper();
-                    foodDetailModelWrapper.setAllReviews(allReviews);
-                    foodDetailModelWrapper.setData(foodDetailModelSpecial);
-                    commentsFragment.setArrayComments(foodDetailModelWrapper, true);
-
                 } else {
 
+                    player.stop();
+                    player.stop(true);
+                    //  stopPosition = binding.videoView.getCurrentPosition();
+                    EventBus.getDefault().register(this);
+                    CommentsFragment commentsFragment = new CommentsFragment();
+                    if (foodDetailModelSpecial != null) {
 
-                    commentsFragment.setArrayComments(foodDetailModel, false);
-                }
-                mainActivity.addFragment(commentsFragment, true, true);}
-                break;
 
-            case R.id.btnSubmit:
-                if (binding.etComments.getText().toString().trim().equalsIgnoreCase("")) {
+                        FoodDetailModelWrapper foodDetailModelWrapper = new FoodDetailModelWrapper();
+                        foodDetailModelWrapper.setAllReviews(allReviews);
+                        foodDetailModelWrapper.setData(foodDetailModelSpecial);
+                        commentsFragment.setArrayComments(foodDetailModelWrapper, true);
 
-                    Toast.makeText(mainActivity, "Please write your review to submit", Toast.LENGTH_SHORT).show();
-                } else {
-                    Utils.hideKeyboard(getView(), mainActivity);
-                    sendreview(foodDetailModelSpecial);
+                    } else {
 
+
+                        commentsFragment.setArrayComments(foodDetailModel, false);
+                    }
+                    mainActivity.addFragment(commentsFragment, true, true);
                 }
                 break;
 
@@ -823,7 +814,6 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
         binding.tvfoodDiscount.setText(mLang == ENGLISH ? foodDetailModel.getGallery().getDescription_en() : foodDetailModel.getGallery().getDescription_ur());
 
 
-
         steps.addAll(foodDetailModel.getSteps());
         for (int i = 0; i < foodDetailModel.getIngredient().size(); i++) {
             //For Header
@@ -832,11 +822,11 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
             String quantity = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getQuantity_en() : foodDetailModel.getIngredient().get(i).getQuantity_ur();
             String quantityType = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getQuantity_type_en() : foodDetailModel.getIngredient().get(i).getQuantity_type_ur();
 
-            if(tag !=null){
+            if (tag != null) {
 
-                ingredients.add(new CustomIngredient(tag,1, " "," "));
+                ingredients.add(new CustomIngredient(tag, 1, " ", " "));
 
-            }else{
+            } else {
 
                 ingredients.add(new CustomIngredient(" ", 0, ingredient,
                         (quantity != null ? quantity : " ") + " " + (quantityType != null ? quantityType : " ")));
@@ -849,7 +839,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
                 quantity = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_en() : foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_ur();
                 quantityType = mLang == ENGLISH ? foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_en() : foodDetailModel.getIngredient().get(i).getSub_ingredients().get(k).getQuantity_type_ur();
 
-                ingredients.add(new CustomIngredient(" ", 0,ingredient,
+                ingredients.add(new CustomIngredient(" ", 0, ingredient,
                         (quantity != null ? quantity : " ") + " " + (quantityType != null ? quantityType : " ")));
 
             }
@@ -1065,15 +1055,6 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
 
     }
-
-    public void sendreview(FoodDetailModel foodDetailModel) {
-        serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
-                "special_recipe",
-                foodDetailModel.getFeature_type_id(),
-                foodDetailModel.getId(), binding.etComments.getText().toString(),
-                0), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
-    }
-
 
     @Override
     public void onCacheAvailable(File cacheFile, String url, int percentsAvailable) {

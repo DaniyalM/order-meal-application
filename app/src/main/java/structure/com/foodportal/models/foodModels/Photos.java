@@ -12,6 +12,8 @@ public class Photos {
 
     private String image_path;
 
+    private ImagePathSize image_path_size;
+
     private String description;
 
     public String getImage() {
@@ -47,7 +49,8 @@ public class Photos {
     }
 
     public String getImage_path() {
-        return image_path;
+//        return image_path;
+        return image_path_size.getVar_320();
     }
 
     public void setImage_path(String image_path) {

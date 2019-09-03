@@ -716,4 +716,19 @@
     <string name="meal_types_ur">کھانے کی اقسام</string>
     <string name="search_en">Search</string>
     <string name="search_ur">تلاش کریں</string>
+    <string name="chicken_en">Chicken</string>
+    <string name="chicken_ur">چکن</string>
+    <string name="dinner_en">Dinner</string>
+    <string name="dinner_ur">رات کا کھانا</string>
+    <string name="lunch_en">Lunch</string>
+    <string name="lunch_ur">دوپہر کا کھانا</string>
+    <string name="breakfast_en">Breakfast</string>
+    <string name="breakfast_ur">ناشتہ</string>
+    <string name="brunch_en">Brunch</string>
+    <string name="brunch_ur">برنچ</string>
+    <string name="tea_en">Tea</string>
+    <string name="tea_ur">چائے</string>
+    <string name="event_en">Event</string>
+    <string name="event_ur">تقریب</string>
+
 </resources>

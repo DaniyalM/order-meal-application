@@ -141,8 +141,8 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     private void setListners() {
         mainActivity.hideBottombar();
         initAdapters();
+        binding.sharing.setOnClickListener(this);
         binding.tvShowall.setOnClickListener(this);
-        binding.btnSubmit.setOnClickListener(this);
 
 
         if (foodDetailModel != null) {
@@ -220,6 +220,8 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
                         related.addAll(foodDetailModel.getRelated());
 
                         foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this);
+                        foodRelatedAdapter.setPreferenceHelper(preferenceHelper);
+
                         binding.rvRelatedRecipes.setAdapter(foodRelatedAdapter);
                         foodRelatedAdapter.notifyDataSetChanged();
                         binding.llRelated.setVisibility(View.VISIBLE);
@@ -229,19 +231,26 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
                     }
 
-                    WebSettings settings = binding.myWebView.getSettings();
-                    settings.setMinimumFontSize(18);
-                    settings.setLoadWithOverviewMode(true);
-                    settings.setUseWideViewPort(true);
-                    settings.setBuiltInZoomControls(false);
-                    settings.setDisplayZoomControls(false);
-                    settings.setSupportMultipleWindows(true);
+                    String data = mLang == ENGLISH ? foodDetailModel.getData().getContent_en() : foodDetailModel.getData().getContent_ur();
 
-                    binding.myWebView.setHorizontalScrollBarEnabled(false);
-                    binding.myWebView.setWebChromeClient(new WebChromeClient());
+                    if (data != null) {
 
-                    String content = getTransformedBlogContent(foodDetailModel.getData().getContent_en());
-                    binding.myWebView.loadDataWithBaseURL(null, content, "text/html", "UTF-8", null);
+                        Log.d("BlogContentTest", "ResponseSuccess:\n" + data);
+
+                        WebSettings settings = binding.myWebView.getSettings();
+                        settings.setMinimumFontSize(18);
+                        settings.setLoadWithOverviewMode(true);
+                        settings.setUseWideViewPort(true);
+                        settings.setBuiltInZoomControls(false);
+                        settings.setDisplayZoomControls(false);
+                        settings.setSupportMultipleWindows(true);
+
+                        binding.myWebView.setHorizontalScrollBarEnabled(false);
+                        binding.myWebView.setWebChromeClient(new WebChromeClient());
+
+                        String content = getTransformedBlogContent(data);
+                        binding.myWebView.loadDataWithBaseURL(null, content, "text/html", "UTF-8", null);
+                    }
                 }
                 break;
 
@@ -410,7 +419,8 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sharing:
-                String shareBody = "https://food.tribune.com.pk/en/blog/" + foodDetailModel.getData().getSlug();
+                String locale = mLang == ENGLISH ? "en" : "ur";
+                String shareBody = "https://food.tribune.com.pk/" + locale + "/blog/" + foodDetailModel.getData().getSlug();
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "www.SubjectHere.com");
@@ -434,26 +444,7 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
                 }
                 break;
 
-            case R.id.btnSubmit:
-                if (binding.etComments.getText().toString().trim().equalsIgnoreCase("")) {
-
-                    Toast.makeText(mainActivity, "Please write your review to submit", Toast.LENGTH_SHORT).show();
-                } else {
-                    Utils.hideKeyboard(getView(), mainActivity);
-                    sendreview(foodDetailModel.getData());
-
-                }
-                break;
-
         }
 
-    }
-
-    public void sendreview(FoodDetailModel foodDetailModel) {
-        serviceHelper.enqueueCall(webService.sendreview(preferenceHelper.getUser().getId(),
-                "story",
-                foodDetailModel.getFeature_type_id(),
-                foodDetailModel.getId(), binding.etComments.getText().toString(),
-                0), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SEND_REVIEW);
     }
 }
