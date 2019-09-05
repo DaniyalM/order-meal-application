@@ -730,5 +730,6 @@
     <string name="tea_ur">چائے</string>
     <string name="event_en">Event</string>
     <string name="event_ur">تقریب</string>
-
+    <string name="tip_title_en">Tip of the Day</string>
+    <string name="tip_title_ur">آج کا ٹوٹکا</string>
 </resources>
