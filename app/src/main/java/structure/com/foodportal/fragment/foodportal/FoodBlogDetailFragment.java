@@ -388,6 +388,11 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
     }
 
+    @Override
+    public void onLatestVideoClick(int pos) {
+
+    }
+
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))

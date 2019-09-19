@@ -166,19 +166,19 @@ public class StepbyStepAdapter extends RecyclerView.Adapter<StepbyStepAdapter.Fo
                     @Override
                     public void run() {
                         Log.d("Time", "Seconds: " + player.getCurrentPosition() / 1000);
-                        //if (player.getCurrentPosition() > (((endtime.get(value) * 1000)))) {
+                        //if (mExoPlayer.getCurrentPosition() > (((endtime.get(value) * 1000)))) {
 
                             //  SeekParameters seekParameters =new SeekParameters(startTime.get(value)*1000,endTime.get(value)*1000);
 
 
-                            //player.setSeekParameters(seekParameters);
+                            //mExoPlayer.setSeekParameters(seekParameters);
 
-                          ///  player.seekTo(endtime.get(value) * 1000);
-                            // player.stop();
+                          ///  mExoPlayer.seekTo(endtime.get(value) * 1000);
+                            // mExoPlayer.stop();
                             // timer.cancel();
                             //  timer.purge();
                             // task.cancel();
-                            //  player.stop(true);
+                            //  mExoPlayer.stop(true);
                             playvideo();
                        // }
 

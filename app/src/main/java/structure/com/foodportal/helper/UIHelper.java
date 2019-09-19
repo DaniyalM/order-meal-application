@@ -11,8 +11,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
@@ -24,7 +26,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.gun0912.tedpermission.PermissionListener;
@@ -38,7 +44,9 @@ import java.util.Date;
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.BaseActivity;
 import structure.com.foodportal.activity.MainActivity;
+import structure.com.foodportal.customViews.BaseSliderView;
 import structure.com.foodportal.interfaces.SimpleDialogActionListener;
+import structure.com.foodportal.interfaces.foodInterfaces.FoodImageLoadListener;
 
 import static android.view.Gravity.END;
 import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
@@ -81,22 +89,50 @@ public class UIHelper {
 
     }
 
-    @SuppressLint("CheckResult")
-    public static void setImageWithGlide(Context context, ImageView view, String url) {
-        Glide.with(context).clear(view);
+    private static CircularProgressDrawable getCircularProgressDrawable(Context context) {
         CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(context);
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(30f);
         circularProgressDrawable.setColorSchemeColors(context.getResources().getColor(R.color.colorAccentPink));
         circularProgressDrawable.setColorFilter(context.getResources().getColor(R.color.colorAccentPink), android.graphics.PorterDuff.Mode.MULTIPLY);
         circularProgressDrawable.start();
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions.dontAnimate().placeholder(circularProgressDrawable);
+        return circularProgressDrawable;
+    }
 
+    @SuppressLint("CheckResult")
+    public static void setImageWithGlide(Context context, ImageView view, String url) {
+        Glide.with(context).clear(view);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.dontAnimate().placeholder(getCircularProgressDrawable(context));
 
         Glide.with(context)
                 .load(url)
                 .apply(requestOptions)
+                .into(view);
+    }
+
+    @SuppressLint("CheckResult")
+    public static void setImageWithGlideWithCallback(Context context, ImageView view, String url, FoodImageLoadListener listener) {
+        Glide.with(context).clear(view);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.dontAnimate().placeholder(getCircularProgressDrawable(context));
+
+        Glide.with(context)
+                .load(url)
+                .apply(requestOptions)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        listener.onFailure(e);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        listener.onSuccess();
+                        return false;
+                    }
+                })
                 .into(view);
     }
 

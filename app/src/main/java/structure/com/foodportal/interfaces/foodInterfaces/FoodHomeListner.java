@@ -13,4 +13,5 @@ public interface FoodHomeListner {
     void masterTechniquesClick(int position);
     void onSaveRecipe(int slug);
     void onFavoriteRecipe(int slug);
+    void onLatestVideoClick(int pos);
 }

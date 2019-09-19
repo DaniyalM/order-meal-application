@@ -378,4 +378,9 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
     public void onFavoriteRecipe(int slug) {
 
     }
+
+    @Override
+    public void onLatestVideoClick(int pos) {
+
+    }
 }

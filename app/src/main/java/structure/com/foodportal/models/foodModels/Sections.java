@@ -184,5 +184,49 @@ public class Sections {
     int  serving_for;
     String  cook_time;
 
+    String description_en;
+    String description_ur;
+    String thumbnailUrl;
+    String contentUrl;
+    String iframeUrl;
 
+    public String getDescription_en() {
+        return description_en;
+    }
+
+    public void setDescription_en(String description_en) {
+        this.description_en = description_en;
+    }
+
+    public String getDescription_ur() {
+        return description_ur;
+    }
+
+    public void setDescription_ur(String description_ur) {
+        this.description_ur = description_ur;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public String getContentUrl() {
+        return contentUrl;
+    }
+
+    public void setContentUrl(String contentUrl) {
+        this.contentUrl = contentUrl;
+    }
+
+    public String getIframeUrl() {
+        return iframeUrl;
+    }
+
+    public void setIframeUrl(String iframeUrl) {
+        this.iframeUrl = iframeUrl;
+    }
 }

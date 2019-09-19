@@ -566,6 +566,11 @@ public class FoodTutorialDetailFragment extends BaseFragment implements Universa
 
     }
 
+    @Override
+    public void onLatestVideoClick(int pos) {
+
+    }
+
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))

@@ -207,7 +207,7 @@ public class AppConstant {
         public static final int OTHER = 129;
     }
 
-    public static final String BASE_URL = "https://food.tribune.com.pk/api/";
+    public static final String BASE_URL = "https://food-osd.tribune.com.pk/api/";
     // public static final String BASE_URL = "https://staging-food.tribune.com.pk/api/";
     public static final String BASE_URL_IMAGE = "https://cdn.recipesofpakistan.com/";
     // public static final String VIDEO_URL = "https://cdn.recipesofpakistan.com/";

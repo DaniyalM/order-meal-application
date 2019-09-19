@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <LinearLayout
+        android:id="@+id/linearLayoutMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        android:id="@+id/linearLayoutMain"
         android:background="@color/colorWhiteBack">
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nestedScroll"
-            android:overScrollMode="never"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-        >
+            android:overScrollMode="never">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,9 +26,9 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp10"
                     android:layout_marginStart="@dimen/dp10"
                     android:layout_marginTop="@dimen/dp10"
+                    android:layout_marginEnd="@dimen/dp10"
                     app:cardCornerRadius="@dimen/dp10"
                     app:cardUseCompatPadding="true">
 
@@ -53,15 +53,15 @@
 
                 <com.facebook.shimmer.ShimmerFrameLayout
                     android:id="@+id/viewShimmerbanner"
-                    android:visibility="visible"
                     android:layout_width="match_parent"
-                    android:layout_height="360dp">
+                    android:layout_height="360dp"
+                    android:visibility="visible">
 
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="360dp"
-                        android:layout_marginEnd="@dimen/dp20"
                         android:layout_marginStart="@dimen/dp20"
+                        android:layout_marginEnd="@dimen/dp20"
                         android:background="@color/lightGray">
 
                         <LinearLayout
@@ -80,8 +80,8 @@
                 <com.facebook.shimmer.ShimmerFrameLayout
                     android:id="@+id/viewShimmerCategorySlider"
                     android:layout_width="match_parent"
-                    android:visibility="visible"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -92,8 +92,8 @@
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="0dp"
                             android:layout_height="60dp"
-                            android:layout_marginEnd="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginEnd="@dimen/dp10"
                             android:layout_weight="1"
                             android:padding="@dimen/dp2"
                             android:src="@color/lightGray" />
@@ -101,8 +101,8 @@
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="0dp"
                             android:layout_height="60dp"
-                            android:layout_marginEnd="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginEnd="@dimen/dp10"
 
                             android:layout_weight="1"
                             android:padding="@dimen/dp2"
@@ -111,8 +111,8 @@
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="0dp"
                             android:layout_height="60dp"
-                            android:layout_marginEnd="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginEnd="@dimen/dp10"
                             android:layout_weight="1"
                             android:padding="@dimen/dp2"
                             android:src="@color/lightGray" />
@@ -120,8 +120,8 @@
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="0dp"
                             android:layout_height="60dp"
-                            android:layout_marginEnd="@dimen/dp10"
                             android:layout_marginStart="@dimen/dp10"
+                            android:layout_marginEnd="@dimen/dp10"
                             android:layout_weight="1"
                             android:padding="@dimen/dp2"
                             android:src="@color/lightGray" />
@@ -135,8 +135,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="true"
-                    android:paddingBottom="@dimen/dp3"
                     android:paddingTop="@dimen/dp3"
+                    android:paddingBottom="@dimen/dp3"
                     android:visibility="gone" />
 
 
@@ -146,11 +146,11 @@
                     android:orientation="vertical">
 
                     <android.support.v7.widget.CardView
-                        android:layout_marginTop="@dimen/dp10"
                         android:id="@+id/cvSectionOne"
-                        app:cardBackgroundColor="@color/colorWhite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
+                        app:cardBackgroundColor="@color/colorWhite"
                         app:cardUseCompatPadding="true">
 
                         <LinearLayout
@@ -165,24 +165,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
                                 android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:fontFamily="@font/poppinsbold"
                                 android:gravity="start"
                                 android:padding="@dimen/dp5"
                                 android:text=""
-                                android:textSize="@dimen/sp14"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccentTextColor"
-                                 />
+                                android:textSize="@dimen/sp14" />
 
                             <android.support.v7.widget.CardView
                                 android:id="@+id/popularCardView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:clickable="true"
                                 android:visibility="gone"
                                 app:cardCornerRadius="@dimen/dp10"
@@ -215,12 +214,40 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/cvRecommendedImageCard"
-                        android:visibility="gone"
-                        android:layout_marginTop="@dimen/dp15"
-                        app:cardUseCompatPadding="true"
+                        android:id="@+id/cvSectionLatestVideos"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:background="@color/colorAccent"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rvLatestVideos"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:itemCount="1"
+                                tools:listitem="@layout/item_latest_video" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp10" />
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvRecommendedImageCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:visibility="gone"
+                        app:cardUseCompatPadding="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -228,21 +255,20 @@
                             android:orientation="vertical">
 
 
-
                             <ImageView
-                                android:layout_marginTop="@dimen/dp30"
-                                android:visibility="visible"
-                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/img_recommaned_for_you" />
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp30"
+                                android:src="@drawable/img_recommaned_for_you"
+                                android:visibility="visible" />
 
 
                             <TextView
-                                android:layout_marginTop="@dimen/dp30"
                                 android:layout_width="200dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp30"
                                 android:gravity="center"
                                 android:minLines="2"
                                 android:text="Save More. get more. Inspiration just for you."
@@ -251,20 +277,19 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:layout_marginTop="@dimen/dp10"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:gravity="center"
-                                android:textSize="@dimen/sp12"
-                                android:minLines="2"
+                                android:layout_marginTop="@dimen/dp10"
                                 android:layout_marginBottom="30dp"
-                                android:maxEms="15"
                                 android:fontFamily="@font/poppinslight"
+                                android:gravity="center"
+                                android:maxEms="15"
+                                android:minLines="2"
                                 android:text="For every recipe you will save, we'll suggest similar sections we think you'll enjoy."
                                 android:textColor="@color/colorTextGray"
+                                android:textSize="@dimen/sp12"
                                 android:textStyle="bold" />
-
 
 
                         </LinearLayout>
@@ -272,11 +297,11 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:layout_marginTop="@dimen/dp15"
-                        app:cardBackgroundColor="@color/colorWhite"
                         android:id="@+id/cvSectionTwo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        app:cardBackgroundColor="@color/colorWhite"
                         app:cardUseCompatPadding="true">
 
                         <LinearLayout
@@ -290,23 +315,22 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
                                 android:text=""
-                                android:textSize="@dimen/sp14"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccentTextColor"
-                              />
+                                android:textSize="@dimen/sp14" />
 
                             <android.support.v7.widget.CardView
                                 android:id="@+id/featureCardView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp5"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:clickable="true"
                                 android:visibility="gone"
                                 app:cardCornerRadius="@dimen/dp10"
@@ -330,16 +354,15 @@
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/rvFeaturedRecipes"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                />
+                                android:layout_height="wrap_content" />
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:layout_marginTop="@dimen/dp10"
                         android:id="@+id/cvSectionThree"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
                         android:visibility="visible"
                         app:cardUseCompatPadding="true">
 
@@ -374,17 +397,17 @@
                                 android:layout_height="65dp"
                                 android:layout_centerInParent="true"
                                 android:layout_gravity="start|top"
+                                android:layout_marginStart="@dimen/dp10"
                                 android:layout_marginTop="@dimen/dp10"
                                 android:layout_marginEnd="@dimen/dp10"
-                                android:layout_marginStart="@dimen/dp10"
                                 android:src="@drawable/chefimage" />
                             <!-- </com.skyfishjy.library.RippleBackground>-->
 
                             <LinearLayout
-                                android:padding="@dimen/dp5"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:padding="@dimen/dp5">
 
                                 <TextView
                                     android:id="@+id/tvTipTitle"
@@ -392,10 +415,10 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/poppinsbold"
                                     android:padding="@dimen/dp5"
-                                    android:textSize="@dimen/dp16"
                                     android:text=""
-                                    android:textColor="@color/colorBlack" />
-<!--                                android:text="Tip of the Day"-->
+                                    android:textColor="@color/colorBlack"
+                                    android:textSize="@dimen/dp16" />
+                                <!--                                android:text="Tip of the Day"-->
 
                                 <TextView
                                     android:id="@+id/tvtipDay"
@@ -405,22 +428,21 @@
                                     android:minLines="2"
                                     android:padding="@dimen/dp5"
                                     android:textColor="@color/white"
-                                    android:textSize="@dimen/sp12"
-                                     />
+                                    android:textSize="@dimen/sp12" />
                             </LinearLayout>
 
-<!--                            <android.support.v7.widget.RecyclerView-->
-<!--                                android:id="@+id/rvtipDay"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content" />-->
+                            <!--                            <android.support.v7.widget.RecyclerView-->
+                            <!--                                android:id="@+id/rvtipDay"-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content" />-->
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:layout_marginTop="@dimen/dp10"
                         android:id="@+id/cvSectionFour"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
                         app:cardUseCompatPadding="true">
 
                         <LinearLayout
@@ -432,14 +454,14 @@
                                 android:id="@+id/tvBetterforBites"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
                                 android:text=""
-                                android:textSize="@dimen/sp14"
                                 android:textAllCaps="true"
-                                android:textColor="@color/colorAccentTextColor" />
+                                android:textColor="@color/colorAccentTextColor"
+                                android:textSize="@dimen/sp14" />
 
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/rvBetterforBites"
@@ -450,9 +472,9 @@
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/cvSectionFive"
-                        android:layout_marginTop="@dimen/dp10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
                         app:cardUseCompatPadding="true">
 
                         <LinearLayout
@@ -464,15 +486,15 @@
                                 android:id="@+id/tvtechniques"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/dp10"
                                 android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp10"
                                 android:fontFamily="@font/poppinsbold"
                                 android:padding="@dimen/dp5"
-                                android:textSize="@dimen/sp14"
                                 android:text=""
                                 android:textAllCaps="true"
-                                android:textColor="@color/colorAccentTextColor" />
-<!--                            android:text="Tutorials"-->
+                                android:textColor="@color/colorAccentTextColor"
+                                android:textSize="@dimen/sp14" />
+                            <!--                            android:text="Tutorials"-->
 
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/rvtechniques"
@@ -482,13 +504,13 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:visibility="gone"
-                        android:background="@color/colorFbWhiteBg"
-                        android:layout_marginTop="@dimen/dp15"
                         android:id="@+id/cvRecommendedSection"
-                        app:cardUseCompatPadding="true"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:background="@color/colorFbWhiteBg"
+                        android:visibility="gone"
+                        app:cardUseCompatPadding="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -497,27 +519,24 @@
 
                             <TextView
                                 android:id="@+id/tvRecommended"
-                                android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginEnd="@dimen/dp10"
-                                android:layout_marginTop="@dimen/dp10"
-                                android:fontFamily="@font/poppinsbold"
-                                android:textAllCaps="true"
-                                android:textColor="@color/colorAccentTextColor"
-                                android:text=""
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp10"
+                                android:fontFamily="@font/poppinsbold"
+                                android:text=""
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccentTextColor" />
 
 
                             <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                                 android:id="@+id/rvRecommendedRecipe"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:nestedScrollingEnabled="false"
                                 android:layout_marginTop="@dimen/dp5"
-                               />
-
+                                android:layout_weight="1"
+                                android:nestedScrollingEnabled="false" />
 
 
                         </LinearLayout>
@@ -525,13 +544,13 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:visibility="gone"
-                        android:background="@color/colorFbWhiteBg"
-                        android:layout_marginTop="@dimen/dp15"
                         android:id="@+id/cvLatestSection"
-                        app:cardUseCompatPadding="true"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:background="@color/colorFbWhiteBg"
+                        android:visibility="gone"
+                        app:cardUseCompatPadding="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -540,27 +559,24 @@
 
                             <TextView
                                 android:id="@+id/tvLatest"
-                                android:layout_marginStart="@dimen/dp10"
-                                android:layout_marginEnd="@dimen/dp10"
-                                android:layout_marginTop="@dimen/dp10"
-                                android:fontFamily="@font/poppinsbold"
-                                android:textAllCaps="true"
-                                android:textColor="@color/colorAccentTextColor"
-                                android:text="Latest"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp10"
+                                android:layout_marginEnd="@dimen/dp10"
+                                android:fontFamily="@font/poppinsbold"
+                                android:text="Latest"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccentTextColor" />
 
 
                             <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                                 android:id="@+id/rvBlogs"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:nestedScrollingEnabled="false"
                                 android:layout_marginTop="@dimen/dp5"
-                                />
-
+                                android:layout_weight="1"
+                                android:nestedScrollingEnabled="false" />
 
 
                         </LinearLayout>

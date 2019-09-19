@@ -1035,6 +1035,11 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
     }
 
+    @Override
+    public void onLatestVideoClick(int pos) {
+
+    }
+
     public void next(String slug) {
 
         if (NetworkUtils.isNetworkAvailable(mainActivity))
