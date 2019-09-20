@@ -12,9 +12,10 @@
     android:paddingBottom="@dimen/dp10">
 
     <FrameLayout
+        android:id="@+id/rootFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="188dp"
-        android:background="@color/colorBlack">
+        android:background="@color/colorWhite">
 
         <FrameLayout
             android:id="@+id/video_layout"

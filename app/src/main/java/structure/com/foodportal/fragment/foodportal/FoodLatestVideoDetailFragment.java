@@ -36,7 +36,7 @@ import structure.com.foodportal.models.foodModels.Sections;
 
 import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
 
-public class FoodFullScreenVideoFragment extends BaseFragment {
+public class FoodLatestVideoDetailFragment extends BaseFragment {
 
     private FragmentFoodFullScreenVideoBinding mBinding;
 
@@ -149,7 +149,7 @@ public class FoodFullScreenVideoFragment extends BaseFragment {
                 }
             }
         });
-        setVideoSize();
+//        setVideoSize();
         setData();
     }
 

@@ -22,9 +22,7 @@ import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import structure.com.foodportal.R;
@@ -914,9 +912,9 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onLatestVideoClick(int pos) {
         Sections obj = sectionsLatestVideos.get(pos);
-        FoodFullScreenVideoFragment fullScreenVideoFragment = new FoodFullScreenVideoFragment();
-        fullScreenVideoFragment.setVideoObject(obj);
-        mainActivity.addFragment(fullScreenVideoFragment, true, true);
+        FoodLatestVideoDetailFragment detailFragment = new FoodLatestVideoDetailFragment();
+        detailFragment.setVideoObject(obj);
+        mainActivity.addFragment(detailFragment, true, true);
     }
 
     public void next(String slug) {

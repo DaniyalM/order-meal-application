@@ -21,7 +21,7 @@
             <com.google.android.exoplayer2.ui.SimpleExoPlayerView
                 android:id="@+id/videoView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="256dp"
                 android:layout_gravity="center"
                 app:resize_mode="fill"
                 app:use_controller="true"

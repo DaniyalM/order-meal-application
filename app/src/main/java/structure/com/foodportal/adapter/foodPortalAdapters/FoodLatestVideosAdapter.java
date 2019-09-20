@@ -4,6 +4,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -115,7 +116,9 @@ public class FoodLatestVideosAdapter extends RecyclerView.Adapter<FoodLatestVide
 
                         @Override
                         public void onSuccess() {
+                            holder.mRootFrameLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBlack));
                             holder.mImageViewPlay.setVisibility(View.VISIBLE);
+                            
                             holder.mThumbnailLayout.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -182,7 +185,7 @@ public class FoodLatestVideosAdapter extends RecyclerView.Adapter<FoodLatestVide
         SimpleExoPlayerView mVideoView;
         TextView mTextViewTitle, mTextViewDesc;
         ImageView mImageViewPlay, mImageViewMute, mImageViewThumbnail;
-        FrameLayout mVideoLayout, mThumbnailLayout;
+        FrameLayout mRootFrameLayout, mVideoLayout, mThumbnailLayout;
 
         public PlanetViewHolder(View itemView) {
             super(itemView);
@@ -192,6 +195,7 @@ public class FoodLatestVideosAdapter extends RecyclerView.Adapter<FoodLatestVide
             mImageViewPlay = (ImageView) itemView.findViewById(R.id.ivPlay);
             mImageViewMute = (ImageView) itemView.findViewById(R.id.ivMute);
             mImageViewThumbnail = (ImageView) itemView.findViewById(R.id.ivThumbnail);
+            mRootFrameLayout = (FrameLayout) itemView.findViewById(R.id.rootFrameLayout);
             mVideoLayout = (FrameLayout) itemView.findViewById(R.id.video_layout);
             mThumbnailLayout = (FrameLayout) itemView.findViewById(R.id.thumbnail_layout);
         }
