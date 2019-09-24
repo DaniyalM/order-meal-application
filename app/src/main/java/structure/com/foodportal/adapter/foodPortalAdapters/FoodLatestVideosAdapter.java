@@ -118,7 +118,7 @@ public class FoodLatestVideosAdapter extends RecyclerView.Adapter<FoodLatestVide
                         public void onSuccess() {
                             holder.mRootFrameLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBlack));
                             holder.mImageViewPlay.setVisibility(View.VISIBLE);
-                            
+
                             holder.mThumbnailLayout.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {

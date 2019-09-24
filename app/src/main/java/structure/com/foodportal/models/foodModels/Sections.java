@@ -1,5 +1,7 @@
 package structure.com.foodportal.models.foodModels;
 
+import structure.com.foodportal.helper.JsonHelpers;
+
 public class Sections {
 
     int id;
@@ -21,8 +23,16 @@ public class Sections {
 
     String blog_thumb_image_path;
 
+    Object blog_thumb_image_path_web;
+
     public String getBlog_thumb_image_path() {
-        return blog_thumb_image_path;
+//        return blog_thumb_image_path;
+        if (blog_thumb_image_path_web.toString().startsWith("{")) {
+            ImagePathSize var = (ImagePathSize) JsonHelpers.convertToModelClass(blog_thumb_image_path_web, ImagePathSize.class);
+            return var.getVar_320();
+        } else {
+            return blog_thumb_image_path;
+        }
     }
 
     public void setBlog_thumb_image_path(String blog_thumb_image_path) {
@@ -163,7 +173,7 @@ public class Sections {
         this.feature_type_id = feature_type_id;
     }
 
-    int  feature_type_id;
+    int feature_type_id;
 
     public int getServing_for() {
         return serving_for;
@@ -181,8 +191,8 @@ public class Sections {
         this.cook_time = cook_time;
     }
 
-    int  serving_for;
-    String  cook_time;
+    int serving_for;
+    String cook_time;
 
     String description_en;
     String description_ur;
