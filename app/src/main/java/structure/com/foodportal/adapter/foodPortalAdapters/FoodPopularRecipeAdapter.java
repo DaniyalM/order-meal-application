@@ -1,6 +1,5 @@
 package structure.com.foodportal.adapter.foodPortalAdapters;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -16,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.like.LikeButton;
 
 import java.util.ArrayList;
 
@@ -39,11 +36,13 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
     MainActivity context;
     private int lastPosition = -1;
     FoodHomeListner foodHomeListner;
+    String screen;
 
-    public FoodPopularRecipeAdapter(ArrayList<Sections> sections, MainActivity context, FoodHomeListner foodHomeListner) {
+    public FoodPopularRecipeAdapter(ArrayList<Sections> sections, MainActivity context, FoodHomeListner foodHomeListner , String screen) {
         this.sections = sections;
         this.context = context;
         this.foodHomeListner = foodHomeListner;
+        this.screen = screen;
     }
 
     @Override
@@ -124,7 +123,7 @@ public class FoodPopularRecipeAdapter extends RecyclerView.Adapter<FoodPopularRe
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                foodHomeListner.popularrecipe(position);
+                foodHomeListner.popularrecipe(position , screen);
             }
         });
         if (sections.get(position).getIs_save() == 1) {

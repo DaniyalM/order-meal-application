@@ -1,47 +1,29 @@
 package structure.com.foodportal.adapter.foodPortalAdapters;
 
-import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
-import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.GlideException;
-import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 
 import java.util.ArrayList;
 
-import info.androidhive.fontawesome.FontTextView;
 import structure.com.foodportal.R;
 import structure.com.foodportal.activity.MainActivity;
-import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.BasePreferenceHelper;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodImageLoadListener;
-import structure.com.foodportal.models.foodModels.Section;
 import structure.com.foodportal.models.foodModels.Sections;
 
 import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
@@ -136,11 +118,11 @@ public class FoodLatestVideosAdapter extends RecyclerView.Adapter<FoodLatestVide
                 case ENGLISH:
                 default:
                     holder.mTextViewTitle.setText(sections.get(position).getTitle());
-                    holder.mTextViewDesc.setText(sections.get(position).getDescription_en());
+              //      holder.mTextViewDesc.setText(sections.get(position).getDescription_en());
                     break;
                 case URDU:
                     holder.mTextViewTitle.setText(sections.get(position).getTitle_ur());
-                    holder.mTextViewDesc.setText(sections.get(position).getDescription_ur());
+               //     holder.mTextViewDesc.setText(sections.get(position).getDescription_ur());
                     break;
             }
 
@@ -191,7 +173,7 @@ public class FoodLatestVideosAdapter extends RecyclerView.Adapter<FoodLatestVide
             super(itemView);
             mVideoView = (SimpleExoPlayerView) itemView.findViewById(R.id.videoView);
             mTextViewTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-            mTextViewDesc = (TextView) itemView.findViewById(R.id.tvDescription);
+          //  mTextViewDesc = (TextView) itemView.findViewById(R.id.tvDescription);
             mImageViewPlay = (ImageView) itemView.findViewById(R.id.ivPlay);
             mImageViewMute = (ImageView) itemView.findViewById(R.id.ivMute);
             mImageViewThumbnail = (ImageView) itemView.findViewById(R.id.ivThumbnail);

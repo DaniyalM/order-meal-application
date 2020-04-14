@@ -334,7 +334,7 @@ public class SavedRecipesFragment extends BaseFragment implements View.OnClickLi
     }
 
     @Override
-    public void popularrecipe(int pos) {
+    public void popularrecipe(int pos , String screen) {
 
     }
 

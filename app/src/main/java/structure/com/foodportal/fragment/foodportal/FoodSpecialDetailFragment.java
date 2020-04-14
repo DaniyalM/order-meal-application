@@ -300,7 +300,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
                 related.addAll(foodDetailModel.getRelated());
 
-                foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this);
+                foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this, "");
                 foodRelatedAdapter.setPreferenceHelper(preferenceHelper);
 
                 binding.rvRelatedRecipes.setAdapter(foodRelatedAdapter);
@@ -646,7 +646,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
                 if (foodDetailModel.getRelated().size() > 0) {
                     related.clear();
                     related.addAll(foodDetailModel.getRelated());
-                    foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this);
+                    foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this , "");
                     foodRelatedAdapter.setPreferenceHelper(preferenceHelper);
 
                     binding.rvRelatedRecipes.setAdapter(foodRelatedAdapter);
@@ -989,7 +989,7 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
     }
 
     @Override
-    public void popularrecipe(int pos) {
+    public void popularrecipe(int pos , String screen) {
 
         next(related.get(pos).getSlug());
 

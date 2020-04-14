@@ -1,86 +1,43 @@
 package structure.com.foodportal.fragment.foodportal;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.media.MediaMetadataRetriever;
-import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
-import android.text.Html;
-import android.transition.ChangeBounds;
-import android.transition.ChangeImageTransform;
-import android.transition.ChangeTransform;
-import android.transition.Fade;
-import android.transition.TransitionSet;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.danikula.videocache.CacheListener;
-import com.danikula.videocache.HttpProxyCacheServer;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import structure.com.foodportal.MyApplication;
 import structure.com.foodportal.R;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodCommentsAdapter;
-import structure.com.foodportal.adapter.foodPortalAdapters.FoodIngredientsAdapter;
 import structure.com.foodportal.adapter.foodPortalAdapters.FoodPopularRecipeAdapter;
-import structure.com.foodportal.adapter.foodPortalAdapters.FoodPreparationAdapter;
-import structure.com.foodportal.adapter.foodPortalAdapters.StepbyStepAdapter;
 import structure.com.foodportal.databinding.FragmentBlogBinding;
-import structure.com.foodportal.databinding.FragmentProductDetailFoodportalBinding;
-import structure.com.foodportal.databinding.FragmentTutorialDetailBinding;
 import structure.com.foodportal.fragment.BaseFragment;
 import structure.com.foodportal.helper.AppConstant;
-import structure.com.foodportal.helper.DataSyncEvent;
 import structure.com.foodportal.helper.JsonHelpers;
 import structure.com.foodportal.helper.LocalDataHelper;
 import structure.com.foodportal.helper.NetworkUtils;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
-import structure.com.foodportal.helper.UniversalMediaController;
-import structure.com.foodportal.helper.UniversalVideoView;
-import structure.com.foodportal.helper.Utils;
 import structure.com.foodportal.interfaces.foodInterfaces.CommentClickListner;
-import structure.com.foodportal.interfaces.foodInterfaces.FoodDetailListner;
 import structure.com.foodportal.interfaces.foodInterfaces.FoodHomeListner;
 import structure.com.foodportal.models.foodModels.Comments;
-import structure.com.foodportal.models.foodModels.CustomIngredient;
-import structure.com.foodportal.models.foodModels.FoodDetailModel;
 import structure.com.foodportal.models.foodModels.FoodDetailModelWrapper;
-import structure.com.foodportal.models.foodModels.Ingredient;
 import structure.com.foodportal.models.foodModels.Sections;
-import structure.com.foodportal.models.foodModels.Step;
-import structure.com.foodportal.singleton.CarelessSingleton;
 
 import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
-import static structure.com.foodportal.helper.AppConstant.VIDEO_URL;
 
 public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeListner, CommentClickListner, View.OnClickListener {
 
@@ -153,7 +110,7 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
                 related.addAll(foodDetailModel.getRelated());
 
-                foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this);
+                foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this , "");
                 foodRelatedAdapter.setPreferenceHelper(preferenceHelper);
 
                 binding.rvRelatedRecipes.setAdapter(foodRelatedAdapter);
@@ -219,7 +176,7 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
                         related.clear();
                         related.addAll(foodDetailModel.getRelated());
 
-                        foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this);
+                        foodRelatedAdapter = new FoodPopularRecipeAdapter(related, mainActivity, this , "");
                         foodRelatedAdapter.setPreferenceHelper(preferenceHelper);
 
                         binding.rvRelatedRecipes.setAdapter(foodRelatedAdapter);
@@ -342,7 +299,7 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     }
 
     @Override
-    public void popularrecipe(int pos) {
+    public void popularrecipe(int pos , String screen) {
 
         next(related.get(pos).getSlug());
 

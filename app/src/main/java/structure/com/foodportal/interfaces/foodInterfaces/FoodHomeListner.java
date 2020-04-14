@@ -4,7 +4,7 @@ public interface FoodHomeListner {
 
 
     void onBlogClick(int pos);
-    void popularrecipe(int pos);
+    void popularrecipe(int pos , String screen);
     void recommendedrecipe(int pos);
     void featuredrecipe(int pos);
     void betterforurbites(int pos);

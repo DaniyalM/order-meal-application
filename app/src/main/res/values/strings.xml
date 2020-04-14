@@ -592,6 +592,10 @@
     <string name="create_account_ur">اکاؤنٹ  بنائیں</string>
     <string name="popular_recipes_en">Popular Recipes</string>
     <string name="popular_recipes_ur">مقبول تراکیب</string>
+    <string name="latest_recipes_en">Latest Recipes</string>
+    <string name="latest_recipes_ur">تازہ ترین تراکیب</string>
+
+
     <string name="featured_recipes_en">Featured Recipes</string>
     <string name="featured_recipes_ur">نمایاں تراکیب</string>
     <string name="latest_en">Latest</string>

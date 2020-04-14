@@ -145,6 +145,49 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvSectionZero"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
+                        app:cardBackgroundColor="@color/colorWhite"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvLatestRecipe"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginStart="@dimen/dp10"
+                                android:layout_marginTop="@dimen/dp5"
+                                android:layout_marginEnd="@dimen/dp10"
+                                android:fontFamily="@font/poppinsbold"
+                                android:gravity="start"
+                                android:padding="@dimen/dp5"
+                                android:text=""
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccentTextColor"
+                                android:textSize="@dimen/sp14" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rvLatestRecipe"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:nestedScrollingEnabled="true">
+
+                            </android.support.v7.widget.RecyclerView>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+
+
                     <android.support.v7.widget.CardView
                         android:id="@+id/cvSectionOne"
                         android:layout_width="match_parent"
