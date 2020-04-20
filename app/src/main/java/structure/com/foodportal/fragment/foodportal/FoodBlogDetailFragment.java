@@ -280,14 +280,14 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
         if (foodDetailModel.getData().getIs_favorite() == 1) {
 
             likebtn.setLiked(true);
-            Toast.makeText(mainActivity, "True!", Toast.LENGTH_SHORT).show();
+     //       Toast.makeText(mainActivity, "True!", Toast.LENGTH_SHORT).show();
 
         } else {
 
 
             likebtn.setLiked(false);
 
-            Toast.makeText(mainActivity, "False", Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(mainActivity, "False", Toast.LENGTH_SHORT).show();
 
         }
 
