@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.widget.Toast;
 
 import structure.com.foodportal.activity.MainActivity;
 import structure.com.foodportal.activity.RegistrationActivity;
@@ -59,7 +61,20 @@ abstract public class BaseFragment extends Fragment implements webServiceRespons
             preferenceHelper = new BasePreferenceHelper(registrationActivity);
         } else if (preferenceHelper == null && mainActivity != null) {
             preferenceHelper = new BasePreferenceHelper(mainActivity);
+
+            Toast.makeText(mainActivity,"MainActivity",Toast.LENGTH_SHORT).show();
         }
+        if (preferenceHelper!=null){
+            preferenceHelper.setNotification();
+
+        }
+
+
+
+
+
+
+
     }
 
     @Override

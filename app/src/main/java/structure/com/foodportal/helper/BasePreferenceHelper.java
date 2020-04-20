@@ -158,6 +158,11 @@ public class BasePreferenceHelper extends PreferenceHelper {
     public boolean getNotification() {
         return getBooleanPreference(context, FILENAME, KEY_NOTIFICATION);
     }
+ public void setNotification() {
+
+     putBooleanPreference(context, FILENAME, KEY_NOTIFICATION, true );
+
+ }
 
 
     public void putDeviceToken(String token) {

@@ -17,6 +17,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -227,8 +228,9 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
             linearLayoutNotification.setAlpha(1f);
 
         }
-
+        Log.e("Preference",""+preferenceHelper.getNotification());
         if (preferenceHelper.getNotification()) {
+
             swNotifications.setChecked(true);
 
         } else {

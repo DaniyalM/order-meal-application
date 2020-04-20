@@ -43,8 +43,7 @@ public class PreferenceHelper {
 
 		SharedPreferences preferences = context.getSharedPreferences(prefsName,
 				Activity.MODE_PRIVATE);
-		boolean value = preferences.getBoolean(key, false);
-		return value;
+		return preferences.getBoolean(key, false);
 	}
 
 	protected void putIntegerPreference(Context context, String prefsName,
