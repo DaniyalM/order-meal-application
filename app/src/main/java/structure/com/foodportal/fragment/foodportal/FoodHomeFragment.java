@@ -66,6 +66,8 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     FoodCategoryAdapter foodCategoryAdapter;
     FoodPopularRecipeAdapter foodPopularRecipeAdapter;
     FoodPopularRecipeAdapter foodLatestRecipeAdapter;
+    FoodPopularRecipeAdapter foodRamdanRecipeAdapter;
+
     FoodLatestVideosAdapter mFoodLatestVideosAdapter;
     FoodRecommendedRecipeAdapter foodRecommendedRecipeAdapter;
     FoodFeaturedAdapter foodFeaturedAdapter;
@@ -79,6 +81,8 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     ArrayList<Sections> sectionsPopular;
 
     ArrayList<Sections> sectionsLatestReceipe;
+    ArrayList<Sections> sectionsRamdanReceipe;
+
 
     ArrayList<Sections> sectionsLatestVideos;
     ArrayList<Sections> sectionsRecommended;
@@ -127,7 +131,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     TextView tvp;
     TextView tvf;
 
-    CardView featurecv, latestReceipecv, popularcv, cvRecommendedSection, cvLatestSection, cvRecommendedImageCard, cvSectionLatestVideos;
+    CardView featurecv, latestReceipecv, popularcv, cvRecommendedSection, cvLatestSection, cvRecommendedImageCard, cvSectionLatestVideos, cvRamdanSection;
     FrameLayout pframe, fframe;
     View vp;
     View vf;
@@ -154,6 +158,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         cvLatestSection = binding.getRoot().findViewById(R.id.cvLatestSection);
         cvSectionLatestVideos = binding.getRoot().findViewById(R.id.cvSectionLatestVideos);
         cvRecommendedImageCard = binding.getRoot().findViewById(R.id.cvRecommendedImageCard);
+        cvRamdanSection = binding.getRoot().findViewById(R.id.cvRecommendedImageCard);
 
 
         ksp = vp.findViewById(R.id.ivBanner);
@@ -201,6 +206,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         categorySliders = new ArrayList<>();
         sectionsPopular = new ArrayList<>();
         sectionsLatestReceipe = new ArrayList<>();
+        sectionsRamdanReceipe = new ArrayList<>();
 
         sectionsLatestVideos = new ArrayList<>();
         sectionsRecommended = new ArrayList<>();
@@ -215,6 +221,10 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         foodBannerAdapter = new FoodBannerAdapter(banners, mainActivity, this);
         foodLatestRecipeAdapter = new FoodPopularRecipeAdapter(sectionsLatestReceipe, mainActivity, this, "latest_receipe");
 
+        //ramdan section adapter
+        foodRamdanRecipeAdapter = new FoodPopularRecipeAdapter(sectionsRamdanReceipe, mainActivity, this, "ramdan_receipe");
+
+
         foodPopularRecipeAdapter = new FoodPopularRecipeAdapter(sectionsPopular, mainActivity, this,"popular_receipe" );
         mFoodLatestVideosAdapter = new FoodLatestVideosAdapter(sectionsLatestVideos, mainActivity, this);
         foodRecommendedRecipeAdapter = new FoodRecommendedRecipeAdapter(sectionsRecommended, mainActivity, this);
@@ -225,7 +235,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
         foodBannerAdapter.setPreferenceHelper(preferenceHelper);
         foodLatestRecipeAdapter.setPreferenceHelper(preferenceHelper);
-
+        foodRamdanRecipeAdapter.setPreferenceHelper(preferenceHelper);
         foodPopularRecipeAdapter.setPreferenceHelper(preferenceHelper);
         mFoodLatestVideosAdapter.setPreferenceHelper(preferenceHelper);
         foodFeaturedAdapter.setPreferenceHelper(preferenceHelper);
@@ -248,6 +258,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         binding.rvCategoryslider.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
         binding.rvLatestVideos.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
 
+        binding.rvRamdanRecipe.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
 
         binding.rvLatestRecipe.setLayoutManager(new GridLayoutManager(mainActivity, 1, GridLayoutManager.HORIZONTAL, false));
 
@@ -261,7 +272,7 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
         binding.rvCategoryslider.setAdapter(foodCategoryAdapter);
         binding.rvPopularRecipe.setAdapter(foodPopularRecipeAdapter);
         binding.rvLatestRecipe.setAdapter(foodLatestRecipeAdapter);
-
+        binding.rvRamdanRecipe.setAdapter(foodRamdanRecipeAdapter);
         binding.rvLatestVideos.setAdapter(mFoodLatestVideosAdapter);
         binding.rvFeaturedRecipes.setAdapter(foodFeaturedAdapter);
         binding.slider.setAdapter(foodBannerAdapter);
@@ -571,10 +582,11 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 // cvRecommendedSection.setVisibility(View.VISIBLE);
                 popularcv.setVisibility(View.VISIBLE);
           //      latestReceipecv.setVisibility(View.VISIBLE);
-                cvSectionLatestVideos.setVisibility(View.VISIBLE);
+                cvSectionLatestVideos.setVisibility(View.GONE);
                 featurecv.setVisibility(View.VISIBLE);
                 cvRecommendedSection.setVisibility(View.VISIBLE);
                 cvLatestSection.setVisibility(View.GONE);
+                cvRamdanSection.setVisibility(View.VISIBLE);
                 // cvRecommendedImageCard.setVisibility(View.VISIBLE);
                 popularslug = foodHomeModelWrapper.getSection().get(0).getSection_list().get(0).getSlug();
                 featuredslug = foodHomeModelWrapper.getSection().get(1).getSection_list().get(0).getSlug();
@@ -669,8 +681,10 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 // sectionsRecommended.addAllToAdapter(foodHomeModelWrapper.getSection().get(5).getSection_list());
                 categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
                 banners.addAll(foodHomeModelWrapper.getBanner());
-                sectionsLatestVideos.addAll(foodHomeModelWrapper.getSection().get(7).getSection_list());
+                sectionsLatestVideos.addAll(foodHomeModelWrapper.getSection().get(8).getSection_list());
                 sectionsLatestReceipe.addAll(foodHomeModelWrapper.getSection().get(6).getSection_list());
+                sectionsRamdanReceipe.addAll(foodHomeModelWrapper.getSection().get(7).getSection_list());
+
                 getRecommendedRecipes(0);
 
 //                printList("ListPopularAfter", sectionsPopular);
@@ -716,13 +730,14 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
                 sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
                 sectionsLatestReceipe.addAll(foodHomeModelWrapper.getSection().get(6).getSection_list());
-
+                sectionsRamdanReceipe.addAll(foodHomeModelWrapper.getSection().get(7).getSection_list());
 
                 sectionsBetterForBites.addAll(foodHomeModelWrapper.getSection().get(2).getSection_list());
                 categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
                 banners.add(foodHomeModelWrapper.getFeature_type());
                 foodPopularRecipeAdapter.setWidth(291);
                 foodLatestRecipeAdapter.setWidth(291);
+                foodRamdanRecipeAdapter.setWidth(291);
                 foodBetterForBitesAdapter.setWidth(291);
 
                 break;
@@ -735,17 +750,18 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                 binding.cvSectionThree.setVisibility(View.GONE);
                 binding.cvSectionFour.setVisibility(View.GONE);
                 binding.cvSectionFive.setVisibility(View.GONE);
-
+                cvRamdanSection.setVisibility(View.GONE);
 
                 binding.tvPopularRecipe.setText(foodHomeModelWrapper.getSection().get(0).getSection_name_en().replaceAll("_", " "));
                 sectionsPopular.addAll(foodHomeModelWrapper.getSection().get(0).getSection_list());
                 sectionsLatestReceipe.addAll(foodHomeModelWrapper.getSection().get(6).getSection_list());
+                sectionsRamdanReceipe.addAll(foodHomeModelWrapper.getSection().get(7).getSection_list());
 
                 categorySliders.addAll(foodHomeModelWrapper.getCategory_slider());
                 banners.addAll(foodHomeModelWrapper.getBanner());
                 foodPopularRecipeAdapter.setWidth(291);
                 foodLatestRecipeAdapter.setWidth(291);
-
+                foodRamdanRecipeAdapter.setWidth(291);
 
                 break;
 
@@ -764,16 +780,20 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
                 setBlogPagination(mLayoutManagerLatest, foodBlogAdapter.getItemCount() - 1);
 
-                cvSectionLatestVideos.setVisibility(View.GONE);
+                binding.cvSectionLatestVideos.setVisibility(View.GONE);
                 binding.lltipoftheday.setVisibility(View.GONE);
+                binding.cvSectionZero.setVisibility(View.GONE);
+
                 binding.cvSectionOne.setVisibility(View.GONE);
                 binding.cvSectionTwo.setVisibility(View.GONE);
                 binding.cvSectionThree.setVisibility(View.GONE);
                 binding.cvSectionFour.setVisibility(View.GONE);
                 binding.cvSectionFive.setVisibility(View.GONE);
                 binding.rvCategoryslider.setVisibility(View.GONE);
-                cvRecommendedSection.setVisibility(View.GONE);
-                cvLatestSection.setVisibility(View.VISIBLE);
+                binding.cvRamdanSection.setVisibility(View.GONE);
+                binding.cvRecommendedSection.setVisibility(View.GONE);
+                binding.cvLatestSection.setVisibility(View.VISIBLE);
+                binding.cvRecommendedImageCard.setVisibility(View.GONE);
 
                 switch (preferenceHelper.getSelectedLanguage()) {
                     case ENGLISH:
@@ -798,10 +818,12 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
 
 
         }
+        foodRamdanRecipeAdapter.notifyDataSetChanged();
         foodBannerAdapter.notifyDataSetChanged();
         foodCategoryAdapter.notifyDataSetChanged();
         foodPopularRecipeAdapter.notifyDataSetChanged();
         foodLatestRecipeAdapter.notifyDataSetChanged();
+        foodRamdanRecipeAdapter.notifyDataSetChanged();
         mFoodLatestVideosAdapter.notifyDataSetChanged();
         foodFeaturedAdapter.notifyDataSetChanged();
         foodBetterForBitesAdapter.notifyDataSetChanged();
@@ -880,6 +902,9 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
     {
         if(screen == "latest_receipe")
             next(sectionsLatestReceipe.get(pos).getSlug());
+        else if(screen == "ramdan_receipe"){
+            next(sectionsRamdanReceipe.get(pos).getSlug());
+        }
         else
             next(sectionsPopular.get(pos).getSlug());
     }
@@ -967,7 +992,10 @@ public class FoodHomeFragment extends BaseFragment implements View.OnClickListen
                     break;
 
                 case AppConstant.FOODPORTAL_FOOD_DETAILS.BLOG:
-                    serviceHelper.enqueueCall(webService.getfoodblog(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_BLOG_DETAILS);
+
+                    Integer uId = mainActivity.prefHelper.getUser().getId();
+
+                    serviceHelper.enqueueCall(webService.getfoodblogUid(uId , slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_BLOG_DETAILS);
                     break;
             }
 

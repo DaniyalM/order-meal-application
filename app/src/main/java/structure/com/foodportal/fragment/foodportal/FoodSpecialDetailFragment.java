@@ -18,7 +18,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.OrientationHelper;
-
 import android.text.Html;
 import android.transition.ChangeBounds;
 import android.transition.ChangeImageTransform;
@@ -29,7 +28,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -691,10 +689,26 @@ public class FoodSpecialDetailFragment extends BaseFragment implements
 
                 if (likebtn.isLiked()) {
                     likebtn.setLiked(false);
+                    String strCount =  binding.tvServingDetails.getText().toString();
+
+                    String[] separated = strCount.split(" ");
+                    Integer count = Integer.parseInt(separated[0]);
+
+                    count = count - 1;
+                    binding.tvServingDetails.setText(String.valueOf(count) + " likes");
+
+
                 } else {
-
-
                     likebtn.setLiked(true);
+
+                    String strCount =  binding.tvServingDetails.getText().toString();
+
+                    String[] separated = strCount.split(" ");
+                    Integer count = Integer.parseInt(separated[0]);
+
+                    count = count + 1;
+                    binding.tvServingDetails.setText(String.valueOf(count) + " likes");
+
                 }
 
                 break;

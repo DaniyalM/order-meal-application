@@ -270,6 +270,10 @@ public interface webservice {
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS)
     Call<Api_Response<JsonObject>> getfoodblog(@Query("story_slug") String story_slug);
 
+    @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_TUTORIAL_DETAILS)
+    Call<Api_Response<JsonObject>> getfoodblogUid(@Query("user_id") Integer user_id, @Query("story_slug") String story_slug);
+
+
     @GET(AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_SPECIAL_RECIPE)
     Call<Api_Response<FoodDetailModelWrapper>> getfoodSpecialblog(@Query("story_slug") String story_slug, @Query("user_id") String user_id);
 

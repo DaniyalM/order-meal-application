@@ -34,7 +34,6 @@ import structure.com.foodportal.fragment.foodportal.FoodMyReviewsFragment;
 import structure.com.foodportal.fragment.foodportal.SavedRecipesFragment;
 import structure.com.foodportal.fragment.foodportal.SettingsFragment;
 import structure.com.foodportal.fragment.foodportal.SubCategoryFragment;
-import structure.com.foodportal.helper.AppConstant;
 import structure.com.foodportal.helper.Titlebar;
 import structure.com.foodportal.helper.UIHelper;
 import structure.com.foodportal.models.foodModels.CategorySlider;
@@ -86,7 +85,7 @@ public class MultiLeftSideMenu extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_sidemenu, container, false);
         // if(headerWrapper!=null && headerWrapper.size()>0){
-        binder.content.startRippleAnimation();
+      //  binder.content.startRippleAnimation();
 
         confMenu();
 

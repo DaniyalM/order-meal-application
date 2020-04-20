@@ -18,6 +18,8 @@ import android.webkit.WebSettings;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.like.LikeButton;
+
 import java.util.ArrayList;
 
 import structure.com.foodportal.R;
@@ -48,6 +50,9 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     FoodDetailModelWrapper foodDetailModel;
     ArrayList<Comments> comments;
     FoodCommentsAdapter foodCommentsAdapter;
+
+    LikeButton likebtn;
+
     private int mLang;
 
     public void setFoodDetailModel(FoodDetailModelWrapper foodDetailModel) {
@@ -81,6 +86,11 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_blog, container, false);
+
+
+        likebtn = (LikeButton) binding.getRoot().findViewById(R.id.lkFav);
+        likebtn.setVisibility(View.VISIBLE);
+        likebtn.setOnClickListener(this);
 
         mLang = preferenceHelper.getSelectedLanguage();
         setValuesByLanguage();
@@ -218,6 +228,32 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
                 break;
 
+            case AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE:
+
+                if (likebtn.isLiked()) {
+                    likebtn.setLiked(false);
+                    String strCount =  binding.tvServingDetails.getText().toString();
+
+                    String[] separated = strCount.split(" ");
+                    Integer count = Integer.parseInt(separated[0]);
+
+                    count = count - 1;
+                    binding.tvServingDetails.setText(String.valueOf(count) + " likes");
+
+
+                } else {
+                    likebtn.setLiked(true);
+
+                    String strCount =  binding.tvServingDetails.getText().toString();
+
+                    String[] separated = strCount.split(" ");
+                    Integer count = Integer.parseInt(separated[0]);
+
+                    count = count + 1;
+                    binding.tvServingDetails.setText(String.valueOf(count) + " likes");
+
+                }
+
         }
     }
 
@@ -237,6 +273,23 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
         LinearLayoutManager linearLayoutManagerComment;
         linearLayoutManagerComment = new LinearLayoutManager(mainActivity, OrientationHelper.VERTICAL, false);
         binding.rvCommentsSection.setLayoutManager(linearLayoutManagerComment);
+
+
+      //  System.out.println("OOO Mudassir" + foodDetailModel.getData().getIs_favorite());
+
+        if (foodDetailModel.getData().getIs_favorite() == 1) {
+
+            likebtn.setLiked(true);
+            Toast.makeText(mainActivity, "True!", Toast.LENGTH_SHORT).show();
+
+        } else {
+
+
+            likebtn.setLiked(false);
+
+            Toast.makeText(mainActivity, "False", Toast.LENGTH_SHORT).show();
+
+        }
 
         if (this.foodDetailModel.getAllReviews().size() > 0) {
             comments.addAll(this.foodDetailModel.getAllReviews());
@@ -352,8 +405,11 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
 
     public void next(String slug) {
 
-        if (NetworkUtils.isNetworkAvailable(mainActivity))
-            serviceHelper.enqueueCall(webService.getfoodblog(slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_BLOG_DETAILS);
+        if (NetworkUtils.isNetworkAvailable(mainActivity)) {
+            Integer uId = mainActivity.prefHelper.getUser().getId();
+
+            serviceHelper.enqueueCall(webService.getfoodblogUid(uId , slug), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_BLOG_DETAILS);
+        }
         else if (LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase(null) || LocalDataHelper.readFromFile(mainActivity, "Detail").equalsIgnoreCase("")) {
 
             Toast.makeText(mainActivity, "No Data Found!", Toast.LENGTH_SHORT).show();
@@ -405,6 +461,16 @@ public class FoodBlogDetailFragment extends BaseFragment implements FoodHomeList
                     mainActivity.addFragment(commentsFragment, true, true);
                 }
                 break;
+
+            case R.id.lkFav:
+                if (preferenceHelper.getUserFood().getAcct_type() == 4) {
+                    Toast.makeText(mainActivity, "Please login to proceed", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    serviceHelper.enqueueCall(webService.markfavorite(preferenceHelper.getUserFood().getFacebook_id(), "story", String.valueOf(foodDetailModel.getData().getFeature_type_id()), String.valueOf(foodDetailModel.getData().getId())), AppConstant.FOODPORTAL_FOOD_DETAILS.FOOD_MARK_FAVORITE);
+                }
+
 
         }
 

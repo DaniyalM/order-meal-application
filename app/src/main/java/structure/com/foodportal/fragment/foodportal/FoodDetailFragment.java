@@ -1,5 +1,6 @@
 package structure.com.foodportal.fragment.foodportal;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
@@ -17,7 +18,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
-
 import android.transition.ChangeBounds;
 import android.transition.ChangeImageTransform;
 import android.transition.ChangeTransform;
@@ -98,7 +98,6 @@ import structure.com.foodportal.models.foodModels.Step;
 import structure.com.foodportal.singleton.CarelessSingleton;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-import static android.graphics.Paint.Align.CENTER;
 import static android.view.Gravity.END;
 import static android.view.Gravity.START;
 import static structure.com.foodportal.helper.AppConstant.Language.ENGLISH;
@@ -671,10 +670,26 @@ public class FoodDetailFragment extends BaseFragment implements
 
                 if (likebtn.isLiked()) {
                     likebtn.setLiked(false);
+                   String strCount =  binding.tvServingDetails.getText().toString();
+
+                    String[] separated = strCount.split(" ");
+                   Integer count = Integer.parseInt(separated[0]);
+
+                    count = count - 1;
+                    binding.tvServingDetails.setText(String.valueOf(count) + " likes");
+
+
                 } else {
-
-
                     likebtn.setLiked(true);
+
+                    String strCount =  binding.tvServingDetails.getText().toString();
+
+                    String[] separated = strCount.split(" ");
+                    Integer count = Integer.parseInt(separated[0]);
+
+                    count = count + 1;
+                    binding.tvServingDetails.setText(String.valueOf(count) + " likes");
+
                 }
 
                 break;
@@ -714,6 +729,7 @@ public class FoodDetailFragment extends BaseFragment implements
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
+    @SuppressLint("WrongConstant")
     private void setData(FoodDetailModel foodDetailModel) {
         binding.nestedScroll.fullScroll(ScrollView.FOCUS_UP);
         binding.nestedScroll.smoothScrollTo(0, 0);

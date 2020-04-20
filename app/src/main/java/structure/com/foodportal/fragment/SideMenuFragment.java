@@ -157,7 +157,7 @@ public class SideMenuFragment extends BaseFragment {
         sideMenuOptions.add(getString(R.string.recipes_en));
         sideMenuOptions.add(getString(R.string.tutorials_en));
         sideMenuOptions.add(getString(R.string.cleaning));
-        sideMenuOptions.add(getString(R.string.cooking_guides_en));
+    //    sideMenuOptions.add(getString(R.string.cooking_guides_en));
         sideMenuOptions.add(getString(R.string.recently_viewed_en));
         sideMenuOptions.add(getString(R.string.submit_your_recipe));
         sideMenuOptions.add(getString(R.string.my_reviews_en));
