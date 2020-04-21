@@ -217,27 +217,33 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void addFragment(BaseFragment frag, boolean isAddToBackStack, boolean animate) {
-        baseFragment = frag;
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (animate) {
+        try{
+            baseFragment = frag;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            if (animate) {
 
 //            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
 
-            if (prefHelper.getSelectedLanguage() == ENGLISH) {
-                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
-            } else {
-                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left);
+                if (prefHelper.getSelectedLanguage() == ENGLISH) {
+                    transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+                } else {
+                    transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+                // transaction.setCustomAnimations(R.anim.fadein,R.anim.fadein);
             }
-            // transaction.setCustomAnimations(R.anim.fadein,R.anim.fadein);
-        }
-        transaction.add(mainFrame, frag, frag.getClass().getSimpleName());
+            transaction.add(mainFrame, frag, frag.getClass().getSimpleName());
 
-        if (isAddToBackStack) {
-            transaction.addToBackStack(null).commit();
-        } else {
-            transaction.commit();
+            if (isAddToBackStack) {
+                transaction.addToBackStack(null).commit();
+            } else {
+                transaction.commit();
+            }
+        }catch (IllegalStateException e){
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public void addFragment(BaseFragment frag, boolean isAddToBackStack, boolean animate, boolean state) {
